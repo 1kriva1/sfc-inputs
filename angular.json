@@ -120,6 +120,41 @@
           }
         }
       }
+    },
+    "SfcInputs": {
+      "projectType": "library",
+      "root": "projects/sfc-inputs",
+      "sourceRoot": "projects/sfc-inputs/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/sfc-inputs/tsconfig.lib.json",
+            "project": "projects/sfc-inputs/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sfc-inputs/src/test.ts",
+            "tsConfig": "projects/sfc-inputs/tsconfig.spec.json",
+            "karmaConfig": "projects/sfc-inputs/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sfc-inputs/tsconfig.lib.json",
+              "projects/sfc-inputs/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "sfc-inputs"
 }

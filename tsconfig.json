@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "sfc-inputs": [
+        "dist/sfc-inputs"
+      ],
+      "sfc-inputs/*": [
+        "dist/sfc-inputs/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

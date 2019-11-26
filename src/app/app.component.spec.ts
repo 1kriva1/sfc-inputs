@@ -1,31 +1,44 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { TestBed, async, ComponentFixture } from "@angular/core/testing";
+import { AppComponent } from "./app.component";
+import { CommonModule } from '@angular/common';
+import { TextInputComponent } from "../../projects/sfc-inputs/src/lib/sfc-text-input/sfc-text-input.component";
+import { DebugElement } from "@angular/core";
+import { InputRefDirective } from "../../projects/sfc-inputs/src/lib/common/input-ref.directive";
+import {By} from "@angular/platform-browser";
 
-describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+describe("Component: AppComponent", () => {
+    let fixture: ComponentFixture<AppComponent>;
+    let component: AppComponent;
+    let el: DebugElement;
+    let emailField: DebugElement;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AppComponent, TextInputComponent, InputRefDirective],
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(AppComponent);
+            el = fixture.debugElement;
+            component = el.componentInstance;
+            emailField = el.query(By.css('#email-input'));
 
-  it(`should have as title 'sfc-inputs'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('sfc-inputs');
-  });
+            fixture.detectChanges();
+        });
+    }));
+    
+    it("should be defined ", async(() => {
+        expect(component).toBeTruthy();
+    }));
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('sfc-inputs app is running!');
-  });
+    it("should create a sfc text input", async(() => {
+        expect(emailField).toBeTruthy();
+    }))
+
+    it("should create an icon inside sfc text input", async(() => {
+        //console.log(emailField.nativeElement);
+        expect(emailField.query(By.css('i.icon.fa.fa-envelope'))).toBeTruthy();
+    }))
+
+    it("should create an input text in sfc text input", async(() => {
+        expect(emailField.query(By.css('input.test-class'))).toBeTruthy();
+    }))
 });
