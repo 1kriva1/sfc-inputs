@@ -19,7 +19,6 @@ describe("Component: AppComponent", () => {
             fixture = TestBed.createComponent(AppComponent);
             el = fixture.debugElement;
             component = el.componentInstance;
-            emailField = el.query(By.css('#email-input'));
 
             fixture.detectChanges();
         });
@@ -28,17 +27,4 @@ describe("Component: AppComponent", () => {
     it("should be defined ", async(() => {
         expect(component).toBeTruthy();
     }));
-
-    it("should create a sfc text input", async(() => {
-        expect(emailField).toBeTruthy();
-    }))
-
-    it("should create an icon inside sfc text input", async(() => {
-        //console.log(emailField.nativeElement);
-        expect(emailField.query(By.css('i.icon.fa.fa-envelope'))).toBeTruthy();
-    }))
-
-    it("should create an input text in sfc text input", async(() => {
-        expect(emailField.query(By.css('input.test-class'))).toBeTruthy();
-    }))
 });
