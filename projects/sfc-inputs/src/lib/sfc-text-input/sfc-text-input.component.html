@@ -1,0 +1,5 @@
+<div class="input-text-container">
+    <input #textInput id="sfc-{{id}}" type="text" class="input-text-input" [ngClass]="{'valid': isValid}"
+        [placeholder]="placeholder" [value]="value" [disabled]="disabled" (input)="onChange($event.target.value)">
+    <label for="sfc-{{id}}" class="active">{{label}}</label>
+</div>

@@ -1,0 +1,9 @@
+<div class="demo-container">
+    
+    <form [formGroup]="customInputForm">
+        <sfc-text-input id="demo-text-input" label="First Name" placeholder="Placeholder" formControlName="firstName"></sfc-text-input>
+      </form>
+      <pre><code>{{ customInputForm.value | json }}</code></pre>
+
+      <h1>Valid: {{customInputForm.valid}}</h1>
+</div>
