@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+export class PersonalData {
+    firstName: string;
+    lastName: string;
+    password: string
+}
+
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
@@ -16,23 +22,25 @@ export class AppComponent {
     ngOnInit() {
         this.customInputForm = this.formBuilder.group(
             {
-                // email: [''],
-                // fullname: ['Bill Gates'],
-                // phone: [{
-                //     value: '0497 88 88 88',
-                //     disabled: true
-                // }],
-                firstName: [{
-                    value: 'asd',
+                firstName: ["", { validators: [Validators.required, Validators.minLength(2)] }], // , updateOn: "blur"
+                lastName: [{
+                    value: '',
                     disabled: false
-                }, [Validators.required, Validators.minLength(2)]]
+                }, [Validators.required, Validators.minLength(2)]],
+                password: [{
+                    value: '',
+                    disabled: false
+                }, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/)]],
+                helper: ['ASD'],
+                disabledInput: [
+                    {
+                        value: 'I am disabled value',
+                        disabled: true
+                    }
+                ]
             },
             // Uncomment to test `registerOnTouched`
-            // { validator: { updateOn: 'blur' } }
+            //{ validator: { updateOn: 'blur' } }
         );
-    }
-
-    onChange(value: any){
-        console.log(value);
     }
 }

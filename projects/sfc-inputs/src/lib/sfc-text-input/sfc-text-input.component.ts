@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, AfterContentInit, HostBinding, ViewChild, AfterViewInit, ElementRef, Self, Optional, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl } from '@angular/forms';
+import IValidation from '../common/interfaces/IValidation';
+import { InputRefDirective } from '../common/directives/input-ref.directive';
 
 @Component({
     selector: 'sfc-text-input',
     templateUrl: './sfc-text-input.component.html',
     styleUrls: ['./sfc-text-input.component.css']
 })
-export class TextInputComponent implements OnInit, AfterContentInit, AfterViewInit, ControlValueAccessor {
+export class TextInputComponent implements ControlValueAccessor {
 
     // INPUTS
 
@@ -14,49 +16,70 @@ export class TextInputComponent implements OnInit, AfterContentInit, AfterViewIn
     id: string;
 
     @Input()
-    label: string;
-
-    @Input()
-    placeholder: string;
+    label: string;    
 
     @Input()
     disabled: boolean;
 
+    @Input()
+    type: string = 'text';
+
+    @Input('placeholder')
+    _placeholder: string;
+
+    @Input('helper-text')
+    _helperText: string;
+    
+    @Input()
+    validations: IValidation = {};
+
     // END INPUTS
 
-    @ViewChild('textInput', { static: false })
-    input: ElementRef;
+    @ViewChild(InputRefDirective, { static: false })
+    input: InputRefDirective;
 
-    private value: string;
+    private readonly invalidClass =  'invalid';
 
-    constructor(
-        // Retrieve the dependency only from the local injector,
-        // not from parent or ancestors.
-        @Self()
-        // We want to be able to use the component without a form,
-        // so we mark the dependency as optional.
-        @Optional()
-        private ngControl: NgControl) {
+    private readonly validClass =  'valid';
 
+    private readonly activeClass =  'active';
+
+    private value: string = '';
+
+    constructor(@Self() @Optional() private ngControl: NgControl) {
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }
     }
 
-    ngOnInit(): void {
-
+    private get isFocus(){
+        return this.input ? this.input.isOnFocus : false;
     }
 
-    ngAfterContentInit(): void {
+    private get validationClass() {
+        if (this.input) {
+            return this.input.isTouched
+                ? this.input.hasError ? this.invalidClass : this.validClass
+                : '';
+        }
 
+        return '';
     }
 
-    ngAfterViewInit(): void {
-        console.log(this.input);
+    private get labelClass() {
+        return this._placeholder || this.isFocus || this.value ? this.activeClass : '';
     }
 
-    get isValid() {
-        return this.ngControl ? this.ngControl.valid : false;
+    private get placeholder() {
+        return this._placeholder && !this.isFocus ? this._placeholder : '';
+    }    
+
+    private get helperText() {
+        return this.input && this.input.hasError ? this.errorMessage : this._helperText;
+    }
+
+    private get errorMessage() {
+        return this.input ? this.input.errorMessages[0] : '';
     }
 
     /**
@@ -86,16 +109,19 @@ export class TextInputComponent implements OnInit, AfterContentInit, AfterViewIn
      */
     registerOnTouched(fn: any): void {
         // Store the provided function as an internal method.
-        //this.onTouched = fn;
+        this.propagateBlur = fn;
     }
 
-
     private onChange(news: any) {
-        console.log(news);
         this.value = news;
-        // update the form
         this.propagateChange(this.value);
     }
 
+    private onBlur() {
+        this.propagateBlur();
+    }
+
     private propagateChange = (_: any) => { };
+
+    private propagateBlur = () => { };
 }

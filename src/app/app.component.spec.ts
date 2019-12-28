@@ -12,7 +12,7 @@ describe("Component: AppComponent", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [AppComponent, TextInputComponent, InputRefDirective],
+            declarations: [AppComponent, TextInputComponent],
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(AppComponent);
             el = fixture.debugElement;

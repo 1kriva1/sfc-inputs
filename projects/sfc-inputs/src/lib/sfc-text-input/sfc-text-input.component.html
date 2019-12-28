@@ -1,5 +1,7 @@
 <div class="input-text-container">
-    <input #textInput id="sfc-{{id}}" type="text" class="input-text-input" [ngClass]="isValid ? 'valid' : 'invalid'"
-        [placeholder]="placeholder" [value]="value" [disabled]="disabled" (input)="onChange($event.target.value)">
-    <label for="sfc-{{id}}" class="active">{{label}}</label>
+    <input #textInput id="sfc-{{id}}" [type]="type" class="input-text-input" [ngClass]="validationClass"
+        [placeholder]="placeholder" [value]="value" [disabled]="disabled" [validations]="validations"
+        (input)="onChange($event.target.value)" (blur)="onBlur()">
+    <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+    <span class="helper-text">{{helperText}}</span>
 </div>

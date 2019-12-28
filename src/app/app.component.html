@@ -1,9 +1,25 @@
 <div class="demo-container">
-    
-    <form [formGroup]="customInputForm">
-        <sfc-text-input id="demo-text-input" label="First Name" placeholder="Placeholder" formControlName="firstName"></sfc-text-input>
-      </form>
-      <pre><code>{{ customInputForm.value | json }}</code></pre>
 
-      <h1>Valid: {{customInputForm.valid}}</h1>
+  <form [formGroup]="customInputForm">
+
+    <sfc-text-input id="demo-text-input-first" label="First Name" placeholder="Placeholder" formControlName="firstName"
+      [validations]="{required: 'First name is required', minlength: 'Min length is not valid'}"
+      helper-text="Helper text is it"></sfc-text-input>
+
+    <sfc-text-input id="demo-text-input-last" label="Last Name" formControlName="lastName"></sfc-text-input>
+
+    <sfc-text-input id="demo-text-input-not-valid" label="Not validatable"></sfc-text-input>
+
+    <sfc-text-input id="demo-text-input-disabled" label="Disabled" placeholder="I am disabled" formControlName="disabledInput"></sfc-text-input>
+
+    <sfc-text-input id="demo-text-input-password" type=password label="Password" placeholder="Password" formControlName="password"></sfc-text-input>
+
+    <sfc-text-input id="demo-text-input-helper" label="Helper" helper-text="Helper text is it" placeholder="Helper" formControlName="helper"></sfc-text-input>
+
+  </form>
+
+  <pre><code>{{ customInputForm.value | json }}</code></pre>
+
+  <h1>Valid: {{customInputForm.valid}}</h1>
+
 </div>

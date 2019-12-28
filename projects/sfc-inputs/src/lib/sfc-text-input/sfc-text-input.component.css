@@ -5,7 +5,22 @@
     padding: 0 .75rem;
 }
 
-input[type=text].input-text-input {
+.input-text-container .helper-text {
+    position: relative;
+    min-height: 18px;
+    display: block;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.input-text-container .helper-text::after {
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+input[type=text].input-text-input, input[type=password].input-text-input {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid #9e9e9e;
@@ -28,7 +43,7 @@ input[type=text].input-text-input {
 
 /* DISABLED */
 
-input[type=text]:disabled {
+input[type=text]:disabled, input[type=password]:disabled {
     color: rgba(0, 0, 0, 0.42);
     border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
 }
@@ -37,12 +52,16 @@ input[type=text]:disabled {
 
 /* VALID */
 
-input[type=text].valid:not([readonly]), input[type=text].valid:not([readonly]):focus {
+input[type=text].valid:not([readonly]), input[type=text].valid:not([readonly]):focus, input[type=password].valid:not([readonly]), input[type=password].valid:not([readonly]):focus {
     border-bottom: 1px solid #4CAF50;
     box-shadow: 0 1px 0 0 #4CAF50;
 }
 
-input[type=text].valid:focus:not([readonly])+label {
+input[type=text].valid:focus:not([readonly])+label, input[type=password].valid:focus:not([readonly])+label {
+    color: #4CAF50;
+}
+
+input[type=text].valid~.helper-text {
     color: #4CAF50;
 }
 
@@ -50,20 +69,26 @@ input[type=text].valid:focus:not([readonly])+label {
 
 /* INVALID */
 
-input[type=text].invalid:not([readonly]), input[type=text].invalid:not([readonly]):focus {
-    border-bottom: 1px solid #F44336;;
-    box-shadow: 0 1px 0 0 #F44336;;
+input[type=text].invalid:not([readonly]), input[type=text].invalid:not([readonly]):focus, input[type=password].invalid:not([readonly]), input[type=password].invalid:not([readonly]):focus {
+    border-bottom: 1px solid #F44336;
+    ;
+    box-shadow: 0 1px 0 0 #F44336;
+    ;
 }
 
-input[type=text].invalid:focus:not([readonly])+label {
-    color: #F44336;;
+input[type=text].invalid:focus:not([readonly])+label, input[type=password].invalid:focus:not([readonly])+label {
+    color: #F44336;
+}
+
+input[type=text].invalid~.helper-text {
+    color: #F44336;
 }
 
 /* INVALID END */
 
 /* LABEL */
 
-input[type=text].input-text-input+label {
+input[type=text].input-text-input+label, input[type=password].input-text-input+label {
     color: #9e9e9e;
     position: absolute;
     top: 0;
@@ -82,7 +107,18 @@ input[type=text].input-text-input+label {
     left: .75rem;
 }
 
-input[type=text].input-text-input+label.active {
+input[type=text]+label:after, input[type=password]+label:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    opacity: 0;
+    -webkit-transition: .2s opacity ease-out, .2s color ease-out;
+    transition: .2s opacity ease-out, .2s color ease-out;
+}
+
+input[type=text].input-text-input+label.active, input[type=password].input-text-input+label.active {
     -webkit-transform: translateY(-14px) scale(0.8);
     transform: translateY(-14px) scale(0.8);
     -webkit-transform-origin: 0 0;
@@ -93,13 +129,13 @@ input[type=text].input-text-input+label.active {
 
 /* FOCUS */
 
-input[type=text]:focus:not([readonly]) {
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]) {
     border-bottom: 1px solid #26a69a;
     -webkit-box-shadow: 0 1px 0 0 #26a69a;
     box-shadow: 0 1px 0 0 #26a69a;
 }
 
-input[type=text]:focus:not([readonly])+label {
+input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
     color: #26a69a;
 }
 
