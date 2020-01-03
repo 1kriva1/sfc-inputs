@@ -32,6 +32,7 @@ export class AppComponent {
                     disabled: false
                 }, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/)]],
                 helper: ['ASD'],
+                icon: ["", { validators: [Validators.required, Validators.minLength(2)] }],
                 disabledInput: [
                     {
                         value: 'I am disabled value',

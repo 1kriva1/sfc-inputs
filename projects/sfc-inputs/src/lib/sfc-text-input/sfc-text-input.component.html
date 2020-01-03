@@ -1,4 +1,5 @@
 <div class="input-text-container">
+    <i *ngIf="icon" class="icon fa" [ngClass]="iconClass"></i>
     <input #textInput id="sfc-{{id}}" [type]="type" class="input-text-input" [ngClass]="validationClass"
         [placeholder]="placeholder" [value]="value" [disabled]="disabled" [validations]="validations"
         (input)="onChange($event.target.value)" (blur)="onBlur()">
