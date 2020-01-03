@@ -24,7 +24,7 @@ export class AppComponent {
             {
                 firstName: ["", { validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)] }], // , updateOn: "blur"
                 lastName: [{
-                    value: '',
+                    value: 'a',
                     disabled: false
                 }, [Validators.required, Validators.minLength(2)]],
                 password: [{
