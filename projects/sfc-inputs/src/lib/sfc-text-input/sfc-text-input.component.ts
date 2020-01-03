@@ -7,7 +7,7 @@ import { CommonConstants, StyleClass } from '../common/constants/common-constant
 @Component({
     selector: 'sfc-text-input',
     templateUrl: './sfc-text-input.component.html',
-    styleUrls: ['./sfc-text-input.component.css']
+    styleUrls: ['./sfc-text-input.component.css', './sfc-text-input-red-theme.css']
 })
 export class TextInputComponent implements ControlValueAccessor {
 
@@ -86,13 +86,15 @@ export class TextInputComponent implements ControlValueAccessor {
             iconParts.forEach(part => classes[part] = true)
         }
 
-        if (this.isFocus) {
-            classes[StyleClass.Active] = true;
-        }
+
 
         const validation = this.validationClass;
         if (validation) {
             classes[validation] = true;
+        } else {
+            if (this.isFocus) {
+                classes[StyleClass.Active] = true;
+            }
         }
 
         return classes;

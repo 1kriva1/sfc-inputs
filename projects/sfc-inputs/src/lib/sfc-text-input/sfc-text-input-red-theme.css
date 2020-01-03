@@ -1,0 +1,113 @@
+:host-context(.sfc-text-input-red-theme) input.input-text-input {
+    /* border-bottom: 1px solid red;
+    background-color: red; */
+}
+
+/* VALID */
+
+:host-context(.sfc-text-input-red-theme) input.valid:not([readonly]), :host-context(.sfc-text-input-red-theme) input.valid:not([readonly]):focus {
+    /* border-bottom: 1px solid rgb(195, 75, 206);
+    box-shadow: 0 1px 0 0 rgb(195, 75, 206); */
+}
+
+:host-context(.sfc-text-input-red-theme) input.valid:focus:not([readonly])+label {
+    /* color: rgb(195, 75, 206); */
+}
+
+:host-context(.sfc-text-input-red-theme) input.valid~.helper-text {
+    /* color: rgb(195, 75, 206); */
+}
+
+:host-context(.sfc-text-input-red-theme) .input-text-container i.icon.valid {
+    /* color: rgb(195, 75, 206); */
+}
+
+/* VALID END */
+
+/* INVALID */
+
+:host-context(.sfc-text-input-red-theme) input.invalid:not([readonly]), :host-context(.sfc-text-input-red-theme) input.invalid:not([readonly]):focus {
+    /* border-bottom: 1px solid rgb(14, 10, 201);
+    box-shadow: 0 1px 0 0 rgb(14, 10, 201); */
+}
+
+:host-context(.sfc-text-input-red-theme) input.invalid:focus:not([readonly])+label {
+    /* color: rgb(14, 10, 201); */
+}
+
+:host-context(.sfc-text-input-red-theme) input.invalid~.helper-text {
+    /* color: rgb(14, 10, 201); */
+}
+
+:host-context(.sfc-text-input-red-theme) .input-text-container i.icon.invalid {
+    /* color: rgb(14, 10, 201); */
+}
+
+/* INVALID END */
+
+/* HELPER TEXT */
+
+:host-context(.sfc-text-input-red-theme) .input-text-container .helper-text {
+    /* color:red */
+}
+
+/* HELPER TEXT END */
+
+/* LABEL */
+
+:host-context(.sfc-text-input-red-theme) input.input-text-input+label{
+    /* color:red; */
+}
+
+/* LABEL END */
+
+/* ICON */
+
+:host-context(.sfc-text-input-red-theme) .input-text-container i.icon.active {
+    /* color: red; */
+}
+
+/* ICON END */
+
+/* DISABLED */
+
+:host-context(.sfc-text-input-red-theme) input.input-text-input:disabled {
+    /* color: red;
+    border-bottom: 1px dotted red; */
+}
+
+/* DISABLED END */
+
+/* FOCUS */
+
+:host-context(.sfc-text-input-red-theme) input:focus:not([readonly]) {
+    /* border-bottom: 1px solid red;
+    -webkit-box-shadow: 0 1px 0 0 red;
+    box-shadow: 0 1px 0 0 red;*/
+} 
+
+:host-context(.sfc-text-input-red-theme) input:focus:not([readonly])+label {
+    /* color: red; */
+}
+
+/* FOCUS END */
+
+/* PLACEHOLDER */
+
+:host-context(.sfc-text-input-red-theme) ::-webkit-input-placeholder {
+    /* color: red */
+}
+
+:host-context(.sfc-text-input-red-theme) ::-moz-placeholder {
+    /* color: red */
+}
+
+:host-context(.sfc-text-input-red-theme) :-ms-input-placeholder {
+    /* color: red */
+}
+
+:host-context(.sfc-text-input-red-theme) ::placeholder {
+    /* color: red */
+}
+
+/* PLACEHOLDER  END*/

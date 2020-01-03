@@ -2,17 +2,17 @@
 
   <form [formGroup]="customInputForm">
 
-    <sfc-text-input id="demo-text-input-first" label="First Name" placeholder="Placeholder" formControlName="firstName"
+    <sfc-text-input id="demo-text-input-first" class="sfc-text-input-red-theme" label="First Name" placeholder="Placeholder" formControlName="firstName"
       [validations]="{required: 'First name is required', minlength: 'Min length is not valid'}"
-      helper-text="Helper text is it"></sfc-text-input>
+      helper-text="Helper text is it" icon="fa fa-user"></sfc-text-input>
 
-    <!-- <sfc-text-input id="demo-text-input-last" label="Last Name" formControlName="lastName"></sfc-text-input>
+    <sfc-text-input id="demo-text-input-last" label="Last Name" placeholder="Placeholder" helper-text="Helper text is it" formControlName="lastName"></sfc-text-input>
 
-    <sfc-text-input id="demo-text-input-not-valid" label="Not validatable"></sfc-text-input>
+    <!-- <sfc-text-input id="demo-text-input-not-valid" label="Not validatable"></sfc-text-input> -->
 
-    <sfc-text-input id="demo-text-input-disabled" label="Disabled" placeholder="I am disabled" formControlName="disabledInput"></sfc-text-input>
+    <!-- <sfc-text-input id="demo-text-input-disabled" label="Disabled" placeholder="I am disabled" formControlName="disabledInput"></sfc-text-input> -->
 
-    <sfc-text-input id="demo-text-input-password" type=password label="Password" placeholder="Password" formControlName="password"></sfc-text-input>
+    <!-- <sfc-text-input id="demo-text-input-password" type=password label="Password" placeholder="Password" formControlName="password"></sfc-text-input>
 
     <sfc-text-input id="demo-text-input-helper" label="Helper" helper-text="Helper text is it" placeholder="Helper" formControlName="helper"></sfc-text-input>
 

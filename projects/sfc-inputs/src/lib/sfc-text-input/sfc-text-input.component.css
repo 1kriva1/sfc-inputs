@@ -5,25 +5,6 @@
     padding: 0 .75rem;
 }
 
-.input-text-container .helper-text {
-    position: relative;
-    display: inline-block;
-    min-height: 18px;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.54);
-}
-
-.input-text-container .helper-text:empty {
-    display: none;
- }
-
-.input-text-container .helper-text::after {
-    opacity: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 input.input-text-input {
     background-color: transparent;
     border: none;
@@ -45,25 +26,6 @@ input.input-text-input {
     transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
 }
 
-/* CHARACTERS COUNT */
-
-.character-counter {
-    float: right;
-    font-size: 12px;
-    min-height: 18px;
-}
-
-/* CHARACTERS COUNT END */
-
-/* DISABLED */
-
-input:disabled {
-    color: rgba(0, 0, 0, 0.42);
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
-}
-
-/* DISABLED END */
-
 /* VALID */
 
 input.valid:not([readonly]), input.valid:not([readonly]):focus {
@@ -79,15 +41,17 @@ input.valid~.helper-text {
     color: #4CAF50;
 }
 
+.input-text-container i.icon.valid {
+    color: #4CAF50;
+}
+
 /* VALID END */
 
 /* INVALID */
 
 input.invalid:not([readonly]), input.invalid:not([readonly]):focus {
     border-bottom: 1px solid #F44336;
-    ;
     box-shadow: 0 1px 0 0 #F44336;
-    ;
 }
 
 input.invalid:focus:not([readonly])+label {
@@ -98,7 +62,44 @@ input.invalid~.helper-text {
     color: #F44336;
 }
 
+.input-text-container i.icon.invalid {
+    color: #F44336;
+}
+
 /* INVALID END */
+
+/* HELPER TEXT */
+
+.input-text-container .helper-text {
+    position: relative;
+    display: inline-block;
+    min-height: 18px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.input-text-container .helper-text:empty {
+    display: none;
+}
+
+.input-text-container .helper-text::after {
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* HELPER TEXT END */
+
+/* CHARACTERS COUNT */
+
+.character-counter {
+    float: right;
+    font-size: 12px;
+    min-height: 18px;
+}
+
+/* CHARACTERS COUNT END */
 
 /* LABEL */
 
@@ -168,7 +169,7 @@ input.input-text-input+label.active {
     width: calc(100% - 3rem);
 }
 
-.input-text-container i.icon~label, .input-text-container i.icon~.validate~label {
+.input-text-container i.icon~label {
     width: calc(100% - 3rem - 1.5rem);
 }
 
@@ -180,15 +181,16 @@ input.input-text-input+label.active {
     color: #26a69a;
 }
 
-.input-text-container i.icon.valid {
-    color: #4CAF50;
-}
-
-.input-text-container i.icon.invalid {
-    color: #F44336;
-}
-
 /* ICON END */
+
+/* DISABLED */
+
+input.input-text-input:disabled {
+    color: rgba(0, 0, 0, 0.42);
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
+}
+
+/* DISABLED END */
 
 /* FOCUS */
 
