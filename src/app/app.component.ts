@@ -22,7 +22,7 @@ export class AppComponent {
     ngOnInit() {
         this.customInputForm = this.formBuilder.group(
             {
-                firstName: ["", { validators: [Validators.required, Validators.minLength(2)] }], // , updateOn: "blur"
+                firstName: ["", { validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)] }], // , updateOn: "blur"
                 lastName: [{
                     value: '',
                     disabled: false

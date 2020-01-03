@@ -1,6 +1,7 @@
-import { Directive, HostListener, Self, Optional, Input } from "@angular/core";
-import { NgControl } from '@angular/forms';
+import { Directive, HostListener, Self, Optional, Input, Inject } from "@angular/core";
+import { NgControl, NG_VALIDATORS } from '@angular/forms';
 import IValidation from '../interfaces/IValidation';
+import { CommonConstants } from '../constants/common-constants';
 
 @Directive({
     selector: 'sfc-text-input input'
@@ -35,6 +36,22 @@ export class InputRefDirective {
             }
         });
         return messages;
+    }
+
+    get minLengthError() {
+        return this.errors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY];
+    }
+
+    get maxLengthError() {
+        return this.errors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
+    }
+
+    get requiredLength() {
+        if (this.minLengthError) {
+            return this.minLengthError.requiredLength;
+        }
+
+        return this.maxLengthError ? this.maxLengthError.requiredLength : null;
     }
 
     private get errors() {

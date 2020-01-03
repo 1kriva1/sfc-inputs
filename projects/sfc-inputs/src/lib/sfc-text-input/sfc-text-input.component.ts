@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, Self, Optional } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import IValidation from '../common/interfaces/IValidation';
 import { InputRefDirective } from '../common/directives/input-ref.directive';
-import { CommonConstants, StyleClass } from '../common/constants/common-constants'
+import { CommonConstants, StyleClass } from '../common/constants/common-constants';
 
 @Component({
     selector: 'sfc-text-input',
@@ -119,6 +119,10 @@ export class TextInputComponent implements ControlValueAccessor {
         return this.input ? this.input.errorMessages[0] || CommonConstants.DEFAULT_ERROR_MESSAGE : '';
     }
 
+    get requiredLengthValue() {
+        return this.input ? this.input.requiredLength : null;
+    }
+
     /**
     * Write form value to the DOM element (model => view)
     */
@@ -149,8 +153,8 @@ export class TextInputComponent implements ControlValueAccessor {
         this.propagateBlur = fn;
     }
 
-    private onChange(news: any) {
-        this.value = news;
+    private onChange(newValue: any) {
+        this.value = newValue;
         this.propagateChange(this.value);
     }
 

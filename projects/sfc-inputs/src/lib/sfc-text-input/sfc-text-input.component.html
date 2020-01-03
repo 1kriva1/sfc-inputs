@@ -5,4 +5,5 @@
         (input)="onChange($event.target.value)" (blur)="onBlur()">
     <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
     <span class="helper-text">{{helperText}}</span>
+    <span [hidden]="!requiredLengthValue" class="character-counter">{{value.length}}/{{requiredLengthValue}}</span>
 </div>
