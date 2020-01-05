@@ -18,7 +18,7 @@ export class InputRefDirective {
     }
 
     get isTouched(){
-        return this.ngControl && (this.ngControl.dirty); // || this.ngControl.touched
+        return this.ngControl && (this.ngControl.dirty || (this.ngControl.value && this.ngControl.invalid)); // || this.ngControl.touched
     }
 
     get hasError() {

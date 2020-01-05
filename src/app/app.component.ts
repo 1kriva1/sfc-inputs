@@ -22,23 +22,30 @@ export class AppComponent {
     ngOnInit() {
         this.customInputForm = this.formBuilder.group(
             {
-                firstName: ["", { validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)] }], // , updateOn: "blur"
+                firstName: [""], // , updateOn: "blur"
                 lastName: [{
-                    value: 'a',
+                    value: '',
                     disabled: false
-                }, [Validators.required, Validators.minLength(2)]],
+                }, []],
                 password: [{
                     value: '',
                     disabled: false
                 }, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/)]],
-                helper: ['ASD'],
-                icon: ["", { validators: [Validators.required, Validators.minLength(2)] }],
+                helper: [''],
+                icon: [""],
                 disabledInput: [
                     {
                         value: 'I am disabled value',
                         disabled: true
                     }
-                ]
+                ],
+                defined: ['defined value'],
+                definedValidation: ["defined val", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                undefinedValidation: ["", {
+                    validators: [Validators.required]
+                }]
             },
             // Uncomment to test `registerOnTouched`
             //{ validator: { updateOn: 'blur' } }

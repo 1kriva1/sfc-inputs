@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, Self, Optional } from '@angular/core';
+import { Component, Input, ViewChild, Self, Optional, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import IValidation from '../common/interfaces/IValidation';
 import { InputRefDirective } from '../common/directives/input-ref.directive';
@@ -7,9 +7,10 @@ import { CommonConstants, StyleClass } from '../common/constants/common-constant
 @Component({
     selector: 'sfc-text-input',
     templateUrl: './sfc-text-input.component.html',
-    styleUrls: ['./sfc-text-input.component.css', './sfc-text-input-red-theme.css']
+    styleUrls: ['./sfc-text-input.component.css', './sfc-text-input-dark-theme.css']
 })
-export class TextInputComponent implements ControlValueAccessor {
+export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
+    
 
     // INPUTS
 
@@ -57,10 +58,14 @@ export class TextInputComponent implements ControlValueAccessor {
 
     // END FIELDS
 
-    constructor(@Self() @Optional() private ngControl: NgControl) {
+    constructor(@Self() @Optional() private ngControl: NgControl, private changeDetector : ChangeDetectorRef) {
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }
+    }
+
+    ngAfterViewInit(): void {
+        this.changeDetector.detectChanges();
     }
 
     // STYLE CLASSES
@@ -85,8 +90,6 @@ export class TextInputComponent implements ControlValueAccessor {
             const iconParts = this.icon.split(' ');
             iconParts.forEach(part => classes[part] = true)
         }
-
-
 
         const validation = this.validationClass;
         if (validation) {
@@ -121,7 +124,7 @@ export class TextInputComponent implements ControlValueAccessor {
         return this.input ? this.input.errorMessages[0] || CommonConstants.DEFAULT_ERROR_MESSAGE : '';
     }
 
-    get requiredLengthValue() {
+    private get requiredLengthValue() {
         return this.input ? this.input.requiredLength : null;
     }
 

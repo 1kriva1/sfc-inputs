@@ -1,6 +1,7 @@
-:host-context(.sfc-text-input-red-theme) input.input-text-input {
-    /* border-bottom: 1px solid red;
-    background-color: red; */
+:host-context(.sfc-text-input-dark-theme) input.input-text-input {
+    border-bottom: 1px solid #283033;
+    color: #959A9E;
+    /* background-color: red; */
 }
 
 /* VALID */

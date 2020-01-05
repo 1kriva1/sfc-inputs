@@ -1,0 +1,25 @@
+.input-container{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0px auto;
+}
+
+.input-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.input-row > div{
+    flex-basis: 50%;
+}
+
+.background{
+    margin: 40px 0;
+    padding: 50px;
+}
+
+.dark-background{
+    background: #1A2225;
+}
