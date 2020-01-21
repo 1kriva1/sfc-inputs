@@ -1,15 +1,15 @@
-import { Component, Input, ViewChild, Self, Optional, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ViewChild, Self, Optional, AfterViewInit, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import IValidation from '../common/interfaces/IValidation';
 import { InputRefDirective } from '../common/directives/input-ref.directive';
 import { CommonConstants, StyleClass } from '../common/constants/common-constants';
 
 @Component({
-    selector: 'sfc-text-input',
-    templateUrl: './sfc-text-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-input-dark-theme.css']
+    selector: 'sfc-text-area-input',
+    templateUrl: './sfc-text-area-input.component.html',
+    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-area-input.component.css']
 })
-export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
+export class TextAreaInputComponent implements ControlValueAccessor, AfterViewInit {
 
     // INPUTS
 
@@ -21,9 +21,6 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @Input()
     disabled: boolean;
-
-    @Input()
-    type: string = 'text';
 
     @Input('placeholder')
     _placeholder: string;
@@ -53,7 +50,12 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
     @ViewChild(InputRefDirective, { static: false })
     private input: InputRefDirective;
 
+    @ViewChild('textarea', { static: false })
+    private inputElement: ElementRef;
+
     private value: string = '';
+
+    private inputElementHeight: number;
 
     // END FIELDS
 
@@ -80,7 +82,7 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
             iconParts.forEach(part => classes[part] = true)
         }
 
-        if(this.input){
+        if (this.input) {
             if (this.input.isValid) {
                 classes[StyleClass.Valid] = true;
             } else if (this.input.isInValid) {
@@ -90,7 +92,7 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
                     classes[StyleClass.Active] = true;
                 }
             }
-        }        
+        }
 
         return classes;
     }
@@ -118,6 +120,12 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
 
     private get requiredLengthValue() {
         return this.input ? this.input.requiredLength : null;
+    }
+
+    private get charCounterValue() {
+        return this.requiredLengthValue
+            ? this.value.length + "/" + this.requiredLengthValue
+            : this.value.length ? this.value.length : '';
     }
 
     /**
@@ -157,6 +165,11 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
 
     private onBlur() {
         this.propagateBlur();
+    }
+
+    private onKeyUp(e: any) {
+        e.target.style.height = "0px";
+        e.target.style.height = (e.target.scrollHeight) + "px";
     }
 
     private propagateChange = (_: any) => { };

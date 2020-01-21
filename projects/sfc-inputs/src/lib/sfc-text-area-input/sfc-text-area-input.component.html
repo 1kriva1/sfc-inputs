@@ -1,9 +1,9 @@
 <div class="input-text-container">
     <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-    <input sfcinput id="sfc-{{id}}" [type]="type" class="input-text-input" 
+    <textarea #textarea sfcinput id="sfc-{{id}}" class="input-text-input" 
         [placeholder]="placeholder" [value]="value" [disabled]="disabled" [validations]="validations"
-        (input)="onChange($event.target.value)" (blur)="onBlur()">
+        (input)="onChange($event.target.value)" (blur)="onBlur()" (keyup)="onKeyUp($event)"></textarea>
     <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
     <span class="helper-text">{{helperText}}</span>
-    <span [hidden]="!requiredLengthValue" class="character-counter">{{value.length}}/{{requiredLengthValue}}</span>
+    <span class="character-counter">{{charCounterValue}}</span>
 </div>

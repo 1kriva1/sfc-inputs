@@ -1,0 +1,9 @@
+textarea.input-text-input{
+    line-height: normal;
+    overflow: hidden;
+    padding: .8rem 0 .8rem 0;
+    resize: none;
+    min-height: 3rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}

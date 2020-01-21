@@ -79,5 +79,5 @@ export class InputRefDirective {
     @HostListener('blur')
     onBlur() {
         this.isOnFocus = false;
-    }
+    }    
 }
