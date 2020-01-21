@@ -1,10 +1,10 @@
-import { Directive, HostListener, Self, Optional, Input, Inject } from "@angular/core";
+import { Directive, HostListener, Self, Optional, Input, Inject, HostBinding } from "@angular/core";
 import { NgControl, NG_VALIDATORS } from '@angular/forms';
 import IValidation from '../interfaces/IValidation';
-import { CommonConstants } from '../constants/common-constants';
+import { CommonConstants, StyleClass } from '../constants/common-constants';
 
 @Directive({
-    selector: 'sfc-text-input input'
+    selector: '[sfcinput]'
 })
 export class InputRefDirective {
 
@@ -59,6 +59,16 @@ export class InputRefDirective {
             return this.ngControl.errors;
         }
         return '';
+    }
+
+    @HostBinding('class.' + StyleClass.Valid)
+    public get isValid(): Boolean {
+        return this.isTouched && !this.hasError;
+    }
+
+    @HostBinding('class.' + StyleClass.Invalid)
+    public get isInValid(): Boolean {
+        return this.isTouched && this.hasError;
     }
 
     @HostListener('focus')

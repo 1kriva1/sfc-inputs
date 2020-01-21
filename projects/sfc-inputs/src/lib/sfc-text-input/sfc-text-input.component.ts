@@ -10,7 +10,6 @@ import { CommonConstants, StyleClass } from '../common/constants/common-constant
     styleUrls: ['./sfc-text-input.component.css', './sfc-text-input-dark-theme.css']
 })
 export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
-    
 
     // INPUTS
 
@@ -58,7 +57,7 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
 
     // END FIELDS
 
-    constructor(@Self() @Optional() private ngControl: NgControl, private changeDetector : ChangeDetectorRef) {
+    constructor(@Self() @Optional() private ngControl: NgControl, private changeDetector: ChangeDetectorRef) {
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }
@@ -69,16 +68,6 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
     }
 
     // STYLE CLASSES
-
-    private get validationClass() {
-        if (this.input) {
-            return this.input.isTouched
-                ? this.input.hasError ? StyleClass.Invalid : StyleClass.Valid
-                : '';
-        }
-
-        return '';
-    }
 
     private get labelClass() {
         return this._placeholder || this.isFocus || this.value ? StyleClass.Active : '';
@@ -91,14 +80,17 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
             iconParts.forEach(part => classes[part] = true)
         }
 
-        const validation = this.validationClass;
-        if (validation) {
-            classes[validation] = true;
-        } else {
-            if (this.isFocus) {
-                classes[StyleClass.Active] = true;
+        if(this.input){
+            if (this.input.isValid) {
+                classes[StyleClass.Valid] = true;
+            } else if (this.input.isInValid) {
+                classes[StyleClass.Invalid] = true;
+            } else {
+                if (this.isFocus) {
+                    classes[StyleClass.Active] = true;
+                }
             }
-        }
+        }        
 
         return classes;
     }

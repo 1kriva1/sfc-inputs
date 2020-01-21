@@ -11,7 +11,7 @@ import { InputRefDirective } from './common/directives/input-ref.directive';
     CommonModule,
     FormsModule
   ],
-  exports: [TextInputComponent],
+  exports: [TextInputComponent, InputRefDirective],
   providers: [{provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true},
     {provide: NG_VALIDATORS, useExisting: forwardRef(() => TextInputComponent), multi: true}]
 })

@@ -3,7 +3,9 @@ import { AppComponent } from "./app.component";
 import { CommonModule } from '@angular/common';
 import { TextInputComponent } from "../../projects/sfc-inputs/src/lib/sfc-text-input/sfc-text-input.component";
 import { DebugElement } from "@angular/core";
-import {By} from "@angular/platform-browser";
+import {By, BrowserModule} from "@angular/platform-browser";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SfcInputsModule } from 'projects/sfc-inputs/src/lib/sfc-inputs.module';
 
 describe("Component: AppComponent", () => {
     let fixture: ComponentFixture<AppComponent>;
@@ -12,7 +14,8 @@ describe("Component: AppComponent", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [AppComponent, TextInputComponent],
+            imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
+            declarations: [AppComponent],
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(AppComponent);
             el = fixture.debugElement;
