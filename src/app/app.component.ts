@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
 
 export class PersonalData {
     firstName: string;
@@ -45,6 +46,9 @@ export class AppComponent {
                 }],
                 undefinedValidation: ["", {
                     validators: [Validators.required]
+                }],
+                customTextArea: ["", {
+                    validators: [SfcValidators.TextAreaRequired]
                 }]
             },
             // Uncomment to test `registerOnTouched`
