@@ -3,13 +3,15 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import IValidation from '../common/interfaces/IValidation';
 import { InputRefDirective } from '../common/directives/input-ref.directive';
 import { CommonConstants, StyleClass } from '../common/constants/common-constants';
+import TextBaseInputComponent from '../common/interfaces/sfc-text-base.component';
 
 @Component({
     selector: 'sfc-text-area-input',
     templateUrl: './sfc-text-area-input.component.html',
     styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-area-input.component.css']
 })
-export class TextAreaInputComponent implements ControlValueAccessor, AfterViewInit {
+export class TextAreaInputComponent
+    extends TextBaseInputComponent {
 
     // INPUTS
 
@@ -53,20 +55,14 @@ export class TextAreaInputComponent implements ControlValueAccessor, AfterViewIn
     @ViewChild('textarea', { static: false })
     private inputElement: ElementRef;
 
-    private value: string = '';
+    // private value: string = '';
 
     private inputElementHeight: number;
 
-    // END FIELDS
+    // END FIELDS    
 
-    constructor(@Self() @Optional() private ngControl: NgControl, private changeDetector: ChangeDetectorRef) {
-        if (this.ngControl) {
-            this.ngControl.valueAccessor = this;
-        }
-    }
-
-    ngAfterViewInit(): void {
-        this.changeDetector.detectChanges();
+    constructor(@Self() @Optional() protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef) {
+        super(ngControl, changeDetector);
     }
 
     // STYLE CLASSES
@@ -128,51 +124,8 @@ export class TextAreaInputComponent implements ControlValueAccessor, AfterViewIn
             : this.value.length ? this.value.length : '';
     }
 
-    /**
-    * Write form value to the DOM element (model => view)
-    */
-    writeValue(value: any): void {
-        this.value = value;
-    }
-
-    /**
-     * Write form disabled state to the DOM element (model => view)
-     */
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-    }
-
-    /**
-     * Update form when DOM element value changes (view => model)
-     */
-    registerOnChange(fn: any): void {
-        // Store the provided function as an internal method.
-        this.propagateChange = fn;
-    }
-
-    /**
-     * Update form when DOM element is blurred (view => model)
-     */
-    registerOnTouched(fn: any): void {
-        // Store the provided function as an internal method.
-        this.propagateBlur = fn;
-    }
-
-    private onChange(newValue: any) {
-        this.value = newValue;
-        this.propagateChange(this.value);
-    }
-
-    private onBlur() {
-        this.propagateBlur();
-    }
-
     private onKeyUp(e: any) {
         e.target.style.height = "0px";
         e.target.style.height = (e.target.scrollHeight) + "px";
     }
-
-    private propagateChange = (_: any) => { };
-
-    private propagateBlur = () => { };
 }
