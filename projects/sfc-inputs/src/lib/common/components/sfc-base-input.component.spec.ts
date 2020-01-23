@@ -2,11 +2,11 @@ import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import {  DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SfcInputsModule } from '../sfc-inputs.module';
-import { TextInputComponent } from './sfc-text-input.component';
+import { SfcInputsModule } from '../../sfc-inputs.module';
+import { TextInputComponent } from '../../sfc-text-input/sfc-text-input.component';
 
 
-describe('Component: TextInputComponent', () => {
+describe('Component: BaseInputComponent', () => {
 
     let component: TextInputComponent;
     let fixture: ComponentFixture<TextInputComponent>;

@@ -1,4 +1,4 @@
-import { Component, Self, Optional, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { CommonConstants } from '../common/constants/common-constants';
@@ -11,22 +11,36 @@ import { CommonConstants } from '../common/constants/common-constants';
 export class TextAreaInputComponent
     extends BaseInputComponent {
 
+    @ViewChild("textarea", { static: false })
+    protected textareaElement: ElementRef;
+
     private readonly charCounterDelimeter: string = "/";
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef) {
         super(ngControl, changeDetector);
+
     }
 
     private get charCounterValue() {
-        const textAreaValueParsed = this.value.replace(/\r?\n/g,"\\n").replace(/\\n/g, "");
+        const textAreaValueParsed = this.value.replace(/\r?\n/g, "");
         return this.requiredLengthValue
             ? textAreaValueParsed.length + this.charCounterDelimeter + this.requiredLengthValue
             : textAreaValueParsed.length ? textAreaValueParsed.length : '';
     }
 
     private onKeyUp(e: any) {
-        e.target.style.height = "0"+ CommonConstants.CSS_PIXELS;
-        e.target.style.height = (e.target.scrollHeight) + CommonConstants.CSS_PIXELS;
+        this.alignTextAreHeight();
+    }
+
+    private alignTextAreHeight() {
+        this.textareaElement.nativeElement.style.height = "0" + CommonConstants.CSS_PIXELS;
+        this.textareaElement.nativeElement.style.height = (this.textareaElement.nativeElement.scrollHeight)
+            + CommonConstants.CSS_PIXELS;
+    }
+
+    ngAfterViewInit(): void {
+        this.alignTextAreHeight();
+        super.ngAfterViewInit();
     }
 }

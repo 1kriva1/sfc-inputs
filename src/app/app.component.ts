@@ -47,7 +47,7 @@ export class AppComponent {
                 undefinedValidation: ["", {
                     validators: [Validators.required]
                 }],
-                customTextArea: ["", {
+                customTextArea: ["asdhj \n asd \n asd", {
                     validators: [SfcValidators.TextAreaRequired]
                 }]
             },
