@@ -5,14 +5,15 @@ import { TextInputComponent } from './sfc-text-input/sfc-text-input.component';
 import { InputRefDirective } from './common/directives/input-ref.directive';
 import { TextAreaInputComponent } from './sfc-text-area-input/sfc-text-area-input.component';
 import TextBaseInputComponent from './common/components/sfc-base-input.component';
+import { FileInputComponent } from './sfc-file-input/sfc-file-input.component';
 
 @NgModule({
-  declarations: [TextInputComponent, InputRefDirective, TextAreaInputComponent],
+  declarations: [InputRefDirective, TextInputComponent, TextAreaInputComponent, FileInputComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [TextInputComponent, TextAreaInputComponent],
+  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => TextBaseInputComponent), multi: true }

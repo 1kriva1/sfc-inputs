@@ -42,7 +42,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
     @ViewChild(InputRefDirective, { static: false })
     protected input: InputRefDirective;
 
-    protected value: string = '';
+    protected value: any = '';
 
     constructor(protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef) {
         if (this.ngControl) {

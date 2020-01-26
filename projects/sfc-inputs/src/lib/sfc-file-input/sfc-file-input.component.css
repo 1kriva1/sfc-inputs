@@ -1,0 +1,121 @@
+/* .file-field {
+    position: relative
+}
+
+.file-field .file-path-wrapper {
+    overflow: hidden;
+    padding-left: 10px
+}
+
+.file-field input.file-path {
+    width: 100%
+}
+
+.file-field .btn, .file-field .btn-large, .file-field .btn-small {
+    float: left;
+    height: 3rem;
+    line-height: 3rem
+}
+
+.file-field span {
+    cursor: pointer
+}
+
+.file-field input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0)
+}
+
+.file-field input[type=file]::-webkit-file-upload-button {
+    display: none
+}
+
+.btn, .btn-large, .btn-small, .btn-flat {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent
+}
+
+.btn.disabled, .disabled.btn-large, .disabled.btn-small, .btn-floating.disabled, .btn-large.disabled, .btn-small.disabled, .btn-flat.disabled, .btn:disabled, .btn-large:disabled, .btn-small:disabled, .btn-floating:disabled, .btn-large:disabled, .btn-small:disabled, .btn-flat:disabled, .btn[disabled], [disabled].btn-large, [disabled].btn-small, .btn-floating[disabled], .btn-large[disabled], .btn-small[disabled], .btn-flat[disabled] {
+    pointer-events: none;
+    background-color: #DFDFDF !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #9F9F9F !important;
+    cursor: default
+}
+
+.btn.disabled:hover, .disabled.btn-large:hover, .disabled.btn-small:hover, .btn-floating.disabled:hover, .btn-large.disabled:hover, .btn-small.disabled:hover, .btn-flat.disabled:hover, .btn:disabled:hover, .btn-large:disabled:hover, .btn-small:disabled:hover, .btn-floating:disabled:hover, .btn-large:disabled:hover, .btn-small:disabled:hover, .btn-flat:disabled:hover, .btn[disabled]:hover, [disabled].btn-large:hover, [disabled].btn-small:hover, .btn-floating[disabled]:hover, .btn-large[disabled]:hover, .btn-small[disabled]:hover, .btn-flat[disabled]:hover {
+    background-color: #DFDFDF !important;
+    color: #9F9F9F !important
+}
+
+.btn, .btn-large, .btn-small, .btn-floating, .btn-large, .btn-small, .btn-flat {
+    font-size: 14px;
+    outline: 0
+}
+
+.btn i, .btn-large i, .btn-small i, .btn-floating i, .btn-large i, .btn-small i, .btn-flat i {
+    font-size: 1.3rem;
+    line-height: inherit
+}
+
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+    background-color: #1d7d74
+}
+
+.btn, .btn-large, .btn-small {
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #2bbbad
+} */
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    line-height: normal;
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}
+
+.inputfile+label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}

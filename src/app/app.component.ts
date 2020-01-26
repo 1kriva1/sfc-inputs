@@ -49,10 +49,20 @@ export class AppComponent {
                 }],
                 customTextArea: ["asdhj \n asd \n asd", {
                     validators: [SfcValidators.TextAreaRequired]
+                }],
+                file: [null, {
+                    validators: [Validators.required]
                 }]
             },
             // Uncomment to test `registerOnTouched`
             //{ validator: { updateOn: 'blur' } }
         );
+
+
+    }
+
+    submit(): void {
+        debugger;
+        const formValue = this.customInputForm.value;
     }
 }
