@@ -50,7 +50,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         }
     }
 
-    private get labelClass() {
+    protected get labelClass(): any {
         return this._placeholder || this.isFocus || this.value ? StyleClass.Active : '';
     }
 

@@ -1,14 +1,40 @@
-/* .file-field {
+.file-field {
     position: relative
 }
 
 .file-field .file-path-wrapper {
     overflow: hidden;
-    padding-left: 10px
+    padding-left: 10px;
+    /* position: relative; */
+    /* display: inline-block; */
 }
 
 .file-field input.file-path {
-    width: 100%
+    width: 100%;
+    padding-right: 24px;
+    box-sizing: border-box;
+}
+
+.clearable__clear {
+    /* display: none; */
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    padding: 0 8px;
+    font-style: normal;
+    font-size: 1.2em;
+    user-select: none;
+    cursor: pointer;
+    color: #26a69a;
+}
+
+.clearable__clear:hover {
+    color: red;
+}
+
+.clearable input::-ms-clear {
+    /* Remove IE default X */
+    display: none;
 }
 
 .file-field .btn, .file-field .btn-large, .file-field .btn-small {
@@ -93,9 +119,22 @@
 
 .btn:hover, .btn-large:hover, .btn-small:hover {
     background-color: #2bbbad
-} */
+}
 
-.inputfile {
+.file-path+label.active {
+    transform: translateY(-14px) translateX(75px) scale(0.8);
+}
+
+.file-path+label.withIcon {
+    transform: translateY(-14px) translateX(10px) scale(0.8);
+}
+
+.file-path-wrapper .character-counter {
+    position: relative;
+    display: inline-block;
+}
+
+/* .inputfile {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -118,4 +157,4 @@
     display: inline-block;
     overflow: hidden;
     padding: 0.625rem 1.25rem;
-}
+} */

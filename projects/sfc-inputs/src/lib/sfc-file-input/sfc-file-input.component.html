@@ -1,16 +1,19 @@
-<!-- <div class="input-text-container file-field">
-    <div class="btn">
-        <span>File</span>
-        <input type="file">
-    </div>
-    <div class="file-path-wrapper"> -->
-<!-- <sfc-text-input label="First Name" placeholder="Placeholder">
-        </sfc-text-input> -->
-<!-- <input class="file-path input-text-input" type="text" [placeholder]="placeholder">
-    </div>
-</div> -->
-
 <div class="input-text-container file-field">
+    <div [ngClass]="{'btn': !icon}">
+        <span *ngIf="!icon">File</span>
+        <input #inputFile id="sfc-{{id}}" type="file">
+    </div>
+    <div class="file-path-wrapper">
+        <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+        <input class="file-path input-text-input" value={{fileName}} type="text" [placeholder]="placeholder">
+        <label for="sfc-{{id}}" [ngClass]="labelClass" >{{label}}</label>
+        <span class="helper-text">{{helperText}}</span>
+        <span class="character-counter">{{fileSizeValue}}</span>
+        <i class="fa fa-times-circle clearable__clear" (click)="clearData()"></i>
+    </div>
+</div>
+
+<!-- <div class="input-text-container file-field">
     <input id="file" name="file" type="file" class="inputfile">
     <label for="file"><span>Choose a file…</span></label>
-</div>
+</div> -->
