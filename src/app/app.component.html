@@ -15,7 +15,7 @@
           </div> -->
           <div>
             <!-- <sfc-text-input id="demo-text-input-last" label="Last Name" formControlName="lastName"></sfc-text-input> -->
-            <sfc-file-input id="demo-input-field" label="Photo" placeholder="Placeholder" helper-text="Defined"
+            <sfc-file-input fileInputType="inline" icon="fa fa-camera" id="demo-input-field" label="Photo" [showFileName]="false" helper-text="Defined"
               formControlName="file" [validations]="{required: 'Photo is required', fileExtension: 'File extension is invalid'}"></sfc-file-input>
           </div>
         </div>

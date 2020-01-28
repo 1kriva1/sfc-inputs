@@ -1,7 +1,7 @@
-import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { NgControl, ControlValueAccessor } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
-import { StyleClass } from '../common/constants/common-constants';
+import { StyleClass, FileInputType } from '../common/constants/common-constants';
 
 @Component({
     selector: 'sfc-file-input',
@@ -10,7 +10,18 @@ import { StyleClass } from '../common/constants/common-constants';
 })
 export class FileInputComponent extends BaseInputComponent {
 
+    @Input()
+    fileInputType:FileInputType = FileInputType.Input;
+
+    @Input()
+    useDefaultIcon = true;
+
+    @Input()
+    showFileName = true;
+
     @ViewChild('inputFile', { static: false }) fileInput: ElementRef;
+
+    FileInputType = FileInputType;
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
         const file = event && event.item(0);
@@ -22,14 +33,39 @@ export class FileInputComponent extends BaseInputComponent {
 
         super(ngControl, changeDetector);
 
+        if(this.useDefaultIcon && this.fileInputType == FileInputType.Inline)
+            this.icon = "fa fa-upload";
     }
 
-    get FileName() {
+    get fileName() {
         return this.value ? this.value.name : null;
     }
 
-    get FileSize() {
+    get fileSize() {
         return this.value ? this.parseFileSize(this.value.size) : null;
+    }    
+
+    protected get placeholder() {
+        return this._placeholder || '';
+    }
+
+    protected get labelClass() {
+        const classes = {};
+
+        classes[StyleClass.Active] = true;
+
+        if (this.icon) {
+            classes["withIcon"] = true;
+        }
+
+        return classes;
+    }
+
+    private get inlineValueText(){
+        if(this.showFileName){
+            return this.fileName ? this.fileName : this.placeholder;
+        }
+        return '';
     }
 
     private get validationClass() {
@@ -40,25 +76,7 @@ export class FileInputComponent extends BaseInputComponent {
         return result;
     }
 
-    protected get placeholder() {
-        return this._placeholder;
-    }
-
-    protected get labelClass() {
-        const classes = {};
-
-        if (super.labelClass) {
-            classes[super.labelClass] = true;
-        }
-
-        if (this.icon) {
-            classes["withIcon"] = true;
-        }
-
-        return classes;
-    }
-
-    clearData(): void {
+    private clearData(): void {
         this.fileInput.nativeElement.value = null;
         this.onChange(null);
     }

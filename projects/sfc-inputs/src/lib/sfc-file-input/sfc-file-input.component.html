@@ -1,14 +1,29 @@
-<div class="input-text-container file-field">
-    <div [ngClass]="{'fileBtn': !icon}">
-        <span *ngIf="!icon">File</span>
-        <input sfcinput #inputFile id="sfc-{{id}}" type="file" [validations]="validations">
-    </div>
-    <div class="file-path-wrapper">
-        <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-        <input class="file-path input-text-input" value={{FileName}} type="text" [placeholder]="placeholder" [ngClass]="validationClass">
-        <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
-        <span class="helper-text">{{helperText}}</span>
-        <span class="character-counter">{{FileSize}}</span>
-        <i class="fa fa-times-circle clearBtn" *ngIf="value" (click)="clearData()"></i>
-    </div>
+<div class="input-text-container file-field" [ngSwitch]="fileInputType">
+    <ng-container *ngSwitchCase="FileInputType.Input">
+        <div [ngClass]="{'fileBtn': !icon}" class="input-file-input">
+            <span *ngIf="!icon">File</span>
+            <input sfcinput #inputFile id="sfc-{{id}}" type="file" [validations]="validations">
+        </div>
+        <div class="file-path-wrapper">
+            <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+            <input class="file-path input-text-input" value={{fileName}} type="text" [placeholder]="placeholder"
+                [ngClass]="validationClass">
+            <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+            <span class="helper-text">{{helperText}}</span>
+            <span class="character-counter">{{fileSize}}</span>
+            <i class="fa fa-times-circle clearBtn" *ngIf="value" (click)="clearData()"></i>
+        </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="FileInputType.Inline">
+        <div class="inline-file-input">
+            <input sfcinput #inputFile id="sfc-{{id}}" type="file" class="inputFile" [ngClass]="validationClass"
+                [validations]="validations">
+            <label for="sfc-{{id}}">
+                <i *ngIf="icon" class="file-icon" [ngClass]="iconClass"></i>
+                <span>{{inlineValueText}}</span>
+            </label>
+            <span class="helper-text">{{helperText}}</span>
+        </div>
+    </ng-container>
 </div>

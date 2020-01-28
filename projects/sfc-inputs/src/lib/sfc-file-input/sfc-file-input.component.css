@@ -11,13 +11,14 @@
     width: 100%;
     padding-right: 24px;
     box-sizing: border-box;
+    text-overflow: ellipsis;
 }
 
 .file-field span {
     cursor: pointer
 }
 
-.file-field input[type=file] {
+.input-file-input input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -119,3 +120,82 @@
 }
 
 /* END FILE COUNTER */
+
+.inline-file-input .inputFile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inline-file-input label {
+    color: black;
+    max-width: 50%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    /* display: inline-block; */
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* as */
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.inline-file-input .file-icon {
+    padding-right: 5px;
+}
+
+.inline-file-input .helper-text {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    text-align: center;
+}
+
+/* VALID */
+
+.inputFile.valid:not([readonly]), .inputFile.valid:not([readonly]):focus {
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50;
+}
+
+.inputFile.valid:focus:not([readonly])+label {
+    color: #4CAF50;
+}
+
+.inputFile.valid~.helper-text {
+    color: #4CAF50;
+}
+
+.inline-file-input i.file-icon.valid, .inline-file-input i.file-icon.valid + span {
+    color: #4CAF50;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+.inputFile.invalid:not([readonly]), .inputFile.invalid:not([readonly]):focus {
+    border-bottom: 1px solid #F44336;
+    box-shadow: 0 1px 0 0 #F44336;
+}
+
+.inputFile.invalid:focus:not([readonly])+label {
+    color: #F44336;
+}
+
+.inputFile.invalid~.helper-text {
+    color: #F44336;
+}
+
+.inline-file-input i.file-icon.invalid, .inline-file-input i.file-icon.invalid + span {
+    color: #F44336;
+}
+
+/* INVALID END */
