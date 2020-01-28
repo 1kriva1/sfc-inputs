@@ -5,42 +5,12 @@
 .file-field .file-path-wrapper {
     overflow: hidden;
     padding-left: 10px;
-    /* position: relative; */
-    /* display: inline-block; */
 }
 
 .file-field input.file-path {
     width: 100%;
     padding-right: 24px;
     box-sizing: border-box;
-}
-
-.clearable__clear {
-    /* display: none; */
-    position: absolute;
-    right: 10px;
-    top: 25%;
-    padding: 0 8px;
-    font-style: normal;
-    font-size: 1.2em;
-    user-select: none;
-    cursor: pointer;
-    color: #26a69a;
-}
-
-.clearable__clear:hover {
-    color: red;
-}
-
-.clearable input::-ms-clear {
-    /* Remove IE default X */
-    display: none;
-}
-
-.file-field .btn, .file-field .btn-large, .file-field .btn-small {
-    float: left;
-    height: 3rem;
-    line-height: 3rem
 }
 
 .file-field span {
@@ -62,11 +32,30 @@
     filter: alpha(opacity=0)
 }
 
-.file-field input[type=file]::-webkit-file-upload-button {
-    display: none
+/* FILE CLEAR BUTTON */
+
+.clearBtn {
+    /* display: none; */
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    padding: 0 8px;
+    font-style: normal;
+    font-size: 1.2em;
+    user-select: none;
+    cursor: pointer;
+    color: #26a69a;
 }
 
-.btn, .btn-large, .btn-small, .btn-flat {
+.clearBtn:hover {
+    color: red;
+}
+
+/* END FILE CLEAR BUTTON */
+
+/* FILE BUTTON */
+
+.fileBtn {
     border: none;
     border-radius: 2px;
     display: inline-block;
@@ -78,35 +67,22 @@
     -webkit-tap-highlight-color: transparent
 }
 
-.btn.disabled, .disabled.btn-large, .disabled.btn-small, .btn-floating.disabled, .btn-large.disabled, .btn-small.disabled, .btn-flat.disabled, .btn:disabled, .btn-large:disabled, .btn-small:disabled, .btn-floating:disabled, .btn-large:disabled, .btn-small:disabled, .btn-flat:disabled, .btn[disabled], [disabled].btn-large, [disabled].btn-small, .btn-floating[disabled], .btn-large[disabled], .btn-small[disabled], .btn-flat[disabled] {
-    pointer-events: none;
-    background-color: #DFDFDF !important;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #9F9F9F !important;
-    cursor: default
-}
-
-.btn.disabled:hover, .disabled.btn-large:hover, .disabled.btn-small:hover, .btn-floating.disabled:hover, .btn-large.disabled:hover, .btn-small.disabled:hover, .btn-flat.disabled:hover, .btn:disabled:hover, .btn-large:disabled:hover, .btn-small:disabled:hover, .btn-floating:disabled:hover, .btn-large:disabled:hover, .btn-small:disabled:hover, .btn-flat:disabled:hover, .btn[disabled]:hover, [disabled].btn-large:hover, [disabled].btn-small:hover, .btn-floating[disabled]:hover, .btn-large[disabled]:hover, .btn-small[disabled]:hover, .btn-flat[disabled]:hover {
-    background-color: #DFDFDF !important;
-    color: #9F9F9F !important
-}
-
-.btn, .btn-large, .btn-small, .btn-floating, .btn-large, .btn-small, .btn-flat {
+.fileBtn {
     font-size: 14px;
     outline: 0
 }
 
-.btn i, .btn-large i, .btn-small i, .btn-floating i, .btn-large i, .btn-small i, .btn-flat i {
-    font-size: 1.3rem;
-    line-height: inherit
+.file-field .fileBtn {
+    float: left;
+    height: 3rem;
+    line-height: 3rem
 }
 
-.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+.fileBtn:focus {
     background-color: #1d7d74
 }
 
-.btn, .btn-large, .btn-small {
+.fileBtn {
     text-decoration: none;
     color: #fff;
     background-color: #26a69a;
@@ -117,9 +93,13 @@
     cursor: pointer
 }
 
-.btn:hover, .btn-large:hover, .btn-small:hover {
+.fileBtn:hover {
     background-color: #2bbbad
 }
+
+/* END FILE BUTTON */
+
+/* FILE LABEL */
 
 .file-path+label.active {
     transform: translateY(-14px) translateX(75px) scale(0.8);
@@ -129,32 +109,13 @@
     transform: translateY(-14px) translateX(10px) scale(0.8);
 }
 
+/* END FILE LABEL */
+
+/* FILE COUNTER */
+
 .file-path-wrapper .character-counter {
     position: relative;
     display: inline-block;
 }
 
-/* .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-    line-height: normal;
-    font-family: inherit;
-    font-size: 100%;
-    margin: 0;
-}
-
-.inputfile+label {
-    max-width: 80%;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-    display: inline-block;
-    overflow: hidden;
-    padding: 0.625rem 1.25rem;
-} */
+/* END FILE COUNTER */

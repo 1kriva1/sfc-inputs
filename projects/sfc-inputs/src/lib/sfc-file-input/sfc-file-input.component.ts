@@ -1,6 +1,7 @@
 import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { NgControl, ControlValueAccessor } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
+import { StyleClass } from '../common/constants/common-constants';
 
 @Component({
     selector: 'sfc-file-input',
@@ -9,16 +10,10 @@ import BaseInputComponent from '../common/components/sfc-base-input.component';
 })
 export class FileInputComponent extends BaseInputComponent {
 
-    fileName: string;
-
-    fileSizeValue: string;
-
     @ViewChild('inputFile', { static: false }) fileInput: ElementRef;
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
         const file = event && event.item(0);
-        this.fileName = file.name;
-        this.fileSizeValue = this.parseFileSize(file.size);
         this.onChange(file);
     }
 
@@ -29,6 +24,26 @@ export class FileInputComponent extends BaseInputComponent {
 
     }
 
+    get FileName() {
+        return this.value ? this.value.name : null;
+    }
+
+    get FileSize() {
+        return this.value ? this.parseFileSize(this.value.size) : null;
+    }
+
+    private get validationClass() {
+        let result = this.input && this.input.isTouched !== null
+            ? this.input.isTouched && this.input.hasError ?
+                StyleClass.Invalid : StyleClass.Valid
+            : '';
+        return result;
+    }
+
+    protected get placeholder() {
+        return this._placeholder;
+    }
+
     protected get labelClass() {
         const classes = {};
 
@@ -36,7 +51,7 @@ export class FileInputComponent extends BaseInputComponent {
             classes[super.labelClass] = true;
         }
 
-        if(this.icon){
+        if (this.icon) {
             classes["withIcon"] = true;
         }
 
@@ -45,20 +60,18 @@ export class FileInputComponent extends BaseInputComponent {
 
     clearData(): void {
         this.fileInput.nativeElement.value = null;
-        this.fileName = null;
-        this.fileSizeValue = null;
         this.onChange(null);
     }
 
-    private parseFileSize(bytes, decimals = 2): string{
+    private parseFileSize(bytes, decimals = 2): string {
         if (bytes === 0) return '0';
 
         const k = 1024;
         const dm = decimals < 0 ? 0 : decimals;
         const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    
+
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
+
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 }

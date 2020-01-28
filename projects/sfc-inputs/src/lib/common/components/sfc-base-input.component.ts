@@ -54,6 +54,10 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         return this._placeholder || this.isFocus || this.value ? StyleClass.Active : '';
     }
 
+    protected get placeholder() {
+        return this._placeholder && !this.isFocus ? this._placeholder : '';
+    }
+
     private get iconClass() {
         const classes = {};
         if (this.icon) {
@@ -81,11 +85,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
     */
     private get isFocus() {
         return this.input ? this.input.isOnFocus : false;
-    }
-
-    private get placeholder() {
-        return this._placeholder && !this.isFocus ? this._placeholder : '';
-    }
+    }    
 
     private get helperText() {
         return this.input && this.input.hasError ? this.errorMessage : this._helperText;

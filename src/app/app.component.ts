@@ -23,35 +23,35 @@ export class AppComponent {
     ngOnInit() {
         this.customInputForm = this.formBuilder.group(
             {
-                firstName: [""], // , updateOn: "blur"
-                lastName: [{
-                    value: '',
-                    disabled: false
-                }, []],
-                password: [{
-                    value: '',
-                    disabled: false
-                }, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/)]],
-                helper: [''],
-                icon: [""],
-                disabledInput: [
-                    {
-                        value: 'I am disabled value',
-                        disabled: true
-                    }
-                ],
-                defined: ['defined value'],
-                definedValidation: ["defined val", {
-                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
-                }],
-                undefinedValidation: ["", {
-                    validators: [Validators.required]
-                }],
-                customTextArea: ["asdhj \n asd \n asd", {
-                    validators: [SfcValidators.TextAreaRequired]
-                }],
+                // firstName: [""], // , updateOn: "blur"
+                // lastName: [{
+                //     value: '',
+                //     disabled: false
+                // }, []],
+                // password: [{
+                //     value: '',
+                //     disabled: false
+                // }, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/)]],
+                // helper: [''],
+                // icon: [""],
+                // disabledInput: [
+                //     {
+                //         value: 'I am disabled value',
+                //         disabled: true
+                //     }
+                // ],
+                // defined: ['defined value'],
+                // definedValidation: ["defined val", {
+                //     validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                // }],
+                // undefinedValidation: ["", {
+                //     validators: [Validators.required]
+                // }],
+                // customTextArea: ["asdhj \n asd \n asd", {
+                //     validators: [SfcValidators.TextAreaRequired]
+                // }],
                 file: [null, {
-                    validators: [Validators.required]
+                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg"])]
                 }]
             },
             // Uncomment to test `registerOnTouched`
