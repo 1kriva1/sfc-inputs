@@ -2,7 +2,7 @@
     <ng-container *ngSwitchCase="FileInputType.Input">
         <div [ngClass]="{'fileBtn': !icon}" class="input-file-input">
             <span *ngIf="!icon">File</span>
-            <input sfcinput #inputFile id="sfc-{{id}}" type="file" [validations]="validations">
+            <input sfcinput #inputFile id="sfc-{{id}}" type="file" [validations]="validations" (change)="emitFiles($event.target.files)">
         </div>
         <div class="file-path-wrapper">
             <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>

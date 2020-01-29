@@ -147,8 +147,8 @@
     margin: 0 auto;
 }
 
-.inline-file-input .file-icon {
-    padding-right: 5px;
+.inline-file-input label span:not(:empty) {
+    padding-left: 5px;
 }
 
 .inline-file-input .helper-text {

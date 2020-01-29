@@ -1,10 +1,10 @@
 import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TextAreaRequired } from './sfc-text-area-required.validator';
-import SfcValidators from './sfc-input.validators';
+import { TextAreaRequired } from '../sfc-text-area-required.validator';
+import SfcValidators from '../sfc-input.validators';
 import { By } from '@angular/platform-browser';
-import { SfcInputsModule } from '../../sfc-inputs.module';
+import { SfcInputsModule } from '../../../sfc-inputs.module';
 
 @Component({
     template: `
@@ -14,7 +14,7 @@ import { SfcInputsModule } from '../../sfc-inputs.module';
         </form>
         `
 })
-export class ReativeFormTestComponent {
+export class TextAreaReativeFormTestComponent {
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -27,16 +27,16 @@ export class ReativeFormTestComponent {
     }
 }
 
-describe('Validators: Reactive form', () => {
-    let component: ReativeFormTestComponent;
-    let fixture: ComponentFixture<ReativeFormTestComponent>;
+describe('Validators: TextArea - Reactive form', () => {
+    let component: TextAreaReativeFormTestComponent;
+    let fixture: ComponentFixture<TextAreaReativeFormTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
-            declarations: [ReativeFormTestComponent, TextAreaRequired],
+            declarations: [TextAreaReativeFormTestComponent, TextAreaRequired],
         }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(ReativeFormTestComponent);
+            fixture = TestBed.createComponent(TextAreaReativeFormTestComponent);
             component = fixture.componentInstance;           
 
             component.ngOnInit();
@@ -44,7 +44,7 @@ describe('Validators: Reactive form', () => {
         });
     }));
 
-    it('Validator (Reactive form): TextAreaRequired validation failed', () => {
+    it('TextAreaRequired: validation failed', () => {
         const invalidValue = '\n\n\n';
         let textAreaField = component.form.controls['textAreaField'];
         textAreaField.setValue(invalidValue);
@@ -54,7 +54,7 @@ describe('Validators: Reactive form', () => {
         expect(textAreaField.errors['textAreaRequired']).toBeTruthy();
     });
 
-    it('Validator (Reactive form): TextAreaRequired validation success', () => {
+    it('TextAreaRequired: validation success', () => {
         const validValue = 'firstline \n second line';
         let textAreaField = component.form.controls['textAreaField'];
         textAreaField.setValue(validValue);

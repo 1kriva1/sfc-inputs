@@ -1,10 +1,10 @@
 import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TextAreaRequired } from './sfc-text-area-required.validator';
-import SfcValidators from './sfc-input.validators';
+import { TextAreaRequired } from '../sfc-text-area-required.validator';
+import SfcValidators from '../sfc-input.validators';
 import { By } from '@angular/platform-browser';
-import { SfcInputsModule } from '../../sfc-inputs.module';
+import { SfcInputsModule } from '../../../sfc-inputs.module';
 
 
 @Component({
@@ -15,12 +15,12 @@ import { SfcInputsModule } from '../../sfc-inputs.module';
       </form>
     `
 })
-class FormTemplateTestComponent {
+class TextAreaFormTemplateTestComponent {
 }
 
-describe('Validators: Template form', () => {
+describe('Validators: TextArea - Template form', () => {
 
-    let fixture: ComponentFixture<FormTemplateTestComponent>;
+    let fixture: ComponentFixture<TextAreaFormTemplateTestComponent>;
     let el: DebugElement;
     let debugTextAreaEl: DebugElement;
     let textAreaEl: any;
@@ -29,9 +29,9 @@ describe('Validators: Template form', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
-            declarations: [FormTemplateTestComponent, TextAreaRequired],
+            declarations: [TextAreaFormTemplateTestComponent, TextAreaRequired],
         }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(FormTemplateTestComponent);
+            fixture = TestBed.createComponent(TextAreaFormTemplateTestComponent);
             el = fixture.debugElement;
             textAreaEl = fixture.nativeElement.querySelector('textarea');
             debugTextAreaEl = el.query(By.css('textarea'));
@@ -41,7 +41,7 @@ describe('Validators: Template form', () => {
         });
     }));
 
-    it('Validator (Template form): TextAreaRequired validation failed', (() => {
+    it('TextAreaRequired: validation failed', (() => {
         const templateTextAreaControl = form.control.get('text-area-input');
         const invalidValue = '\n\n\n';
         textAreaEl.value = invalidValue;
@@ -53,7 +53,7 @@ describe('Validators: Template form', () => {
         expect(form.control.valid).toEqual(false);
     }));
 
-    it('Validator (Template form): TextAreaRequired validation success', (() => {
+    it('TextAreaRequired: validation success', (() => {
         const templateTextAreaControl = form.control.get('text-area-input');
         const validValue = 'firstline \n second line';
         debugTextAreaEl.nativeElement.value = validValue;

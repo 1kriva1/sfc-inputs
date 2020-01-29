@@ -51,7 +51,7 @@ export class AppComponent {
                 //     validators: [SfcValidators.TextAreaRequired]
                 // }],
                 file: [null, {
-                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg"])]
+                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
                 }]
             },
             // Uncomment to test `registerOnTouched`

@@ -10,6 +10,10 @@ import { StyleClass, FileInputType } from '../common/constants/common-constants'
 })
 export class FileInputComponent extends BaseInputComponent {
 
+    private FileInputType = FileInputType;
+    
+    private readonly DEFAULT_ICON = 'fa fa-upload';
+
     @Input()
     fileInputType:FileInputType = FileInputType.Input;
 
@@ -19,11 +23,10 @@ export class FileInputComponent extends BaseInputComponent {
     @Input()
     showFileName = true;
 
-    @ViewChild('inputFile', { static: false }) fileInput: ElementRef;
-
-    FileInputType = FileInputType;
+    @ViewChild('inputFile', { static: false }) fileInput: ElementRef;    
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
+        debugger;
         const file = event && event.item(0);
         this.onChange(file);
     }
@@ -34,7 +37,7 @@ export class FileInputComponent extends BaseInputComponent {
         super(ngControl, changeDetector);
 
         if(this.useDefaultIcon && this.fileInputType == FileInputType.Inline)
-            this.icon = "fa fa-upload";
+            this.icon = this.DEFAULT_ICON;
     }
 
     get fileName() {

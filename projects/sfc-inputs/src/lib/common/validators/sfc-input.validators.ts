@@ -19,8 +19,10 @@ export default class SfcValidators {
     static FileMaxSize(maxSize: number): ValidatorFn {
         const validatorFn = (file: File) => {
             if (file instanceof File && file.size > maxSize) {
-                return { fileMinSize: { requiredSize: maxSize, actualSize: file.size, file } };
+                return { fileMaxSize: { requiredSize: maxSize, actualSize: file.size, file } };
             }
+
+            return null;
         };
         return SfcValidators.fileValidation(validatorFn);
     }
@@ -30,6 +32,8 @@ export default class SfcValidators {
             if (file instanceof File && file.size < minSize) {
                 return { fileMinSize: { requiredSize: minSize, actualSize: file.size, file } };
             }
+
+            return null;
         };
         return SfcValidators.fileValidation(validatorFn);
     }
@@ -46,9 +50,11 @@ export default class SfcValidators {
             if (file instanceof File) {
                 const ext = SfcValidators.getExtension(file.name);
                 if (allowedExtensions.indexOf(ext) === -1) {
-                    return { fileExtension: { allowedExtensions: allowedExtensions, actualExtension: file.type, file } };
+                    return { fileExtension: { allowedExtensions: allowedExtensions, actualExtension: ext, file } };
                 }
             }
+
+            return null;
         };
         return SfcValidators.fileValidation(validatorFn);
     }
