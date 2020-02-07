@@ -12,50 +12,68 @@ export class PersonalData {
     selector: 'text-area-app',
     templateUrl: './text-area.component.html',
     styleUrls: [
-        
+        '../app/app.component.css',
+        './text-area.component.css'
     ]
 })
 export class TextAreaAppComponent {
     customInputForm: FormGroup;
+    private theme: string = "common";
 
     constructor(private formBuilder: FormBuilder) { }
 
     ngOnInit() {
         this.customInputForm = this.formBuilder.group(
             {
-                // firstName: [""], // , updateOn: "blur"
-                // lastName: [{
-                //     value: '',
-                //     disabled: false
-                // }, []],
-                // password: [{
-                //     value: '',
-                //     disabled: false
-                // }, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/)]],
-                // helper: [''],
-                // icon: [""],
-                // disabledInput: [
-                //     {
-                //         value: 'I am disabled value',
-                //         disabled: true
-                //     }
-                // ],
-                // defined: ['defined value'],
-                // definedValidation: ["defined val", {
-                //     validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
-                // }],
-                // undefinedValidation: ["", {
-                //     validators: [Validators.required]
-                // }],
-                // customTextArea: ["asdhj \n asd \n asd", {
-                //     validators: [SfcValidators.TextAreaRequired]
-                // }],
-                file: [null, {
-                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
-                }]
+                labelTextArea: [""],
+                placeholderTextArea: [""],
+                placlabelTextArea: [""],
+                labelTextAreaDis: [{
+                    value: '',
+                    disabled: true
+                }, []],
+                placeholderTextAreaDis: [{
+                    value: '',
+                    disabled: true
+                }, []],
+                placlabelTextAreaDis: [{
+                    value: '',
+                    disabled: true
+                }, []],
+                labelTextAreaIcon: [""],
+                placeholderTextAreaIcon: [""],
+                placlabelTextAreaIcon: [""],
+                labelTextAreahelper: [""],
+                placeholderTextAreahelper: [""],
+                placlabelTextAreahelper: [""],
+                undefTextAreaValidation: ["", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                defTextAreaValidation: ["", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                undefTextAreaValidationEmpty: ["", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                undefTextAreaValidationVal: ["tests \n asdasd\n", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                defTextAreaValidationVal: ["tests \n asdasd\n", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                undefTextAreaValidationEmptyVal: ["tests \n asdasd\n", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                undefTextAreaValidationValUndf: ["", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                defTextAreaValidationValUndf: ["", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
+                undefTextAreaValidationEmptyValUndf: ["", {
+                    validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
+                }],
             },
-            // Uncomment to test `registerOnTouched`
-            //{ validator: { updateOn: 'blur' } }
         );
     }
 }

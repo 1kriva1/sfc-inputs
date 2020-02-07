@@ -58,6 +58,14 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         return this._placeholder && !this.isFocus ? this._placeholder : '';
     }
 
+    protected get requiredLengthValue() {
+        return this.input ? this.input.requiredLength : null;
+    }
+
+    protected get isRequiredError(){
+        return this.input ? this.input.requiredError : null;
+    }
+
     private get iconClass() {
         const classes = {};
         if (this.icon) {
@@ -93,11 +101,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
 
     private get errorMessage() {
         return this.input ? this.input.errorMessages[0] || CommonConstants.DEFAULT_ERROR_MESSAGE : '';
-    }
-
-    protected get requiredLengthValue() {
-        return this.input ? this.input.requiredLength : null;
-    }
+    }    
 
     ngAfterViewInit(): void {
         this.changeDetector.detectChanges();

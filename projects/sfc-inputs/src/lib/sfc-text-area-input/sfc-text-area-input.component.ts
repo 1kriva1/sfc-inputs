@@ -23,7 +23,7 @@ export class TextAreaInputComponent
     }
 
     private get charCounterValue() {
-        const textAreaValueParsed = this.value.replace(/\r?\n/g, "");
+        const textAreaValueParsed = this.value; //this.value.replace(/\r?\n/g, "");
         return this.requiredLengthValue
             ? textAreaValueParsed.length + this.charCounterDelimeter + this.requiredLengthValue
             : textAreaValueParsed.length ? textAreaValueParsed.length : '';

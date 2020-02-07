@@ -2,7 +2,7 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export default class SfcValidators {
     static TextAreaRequired(control: AbstractControl) {
-
+        
         if (control.value === null || control.value === undefined) {
             return { textAreaRequired: true };
         }

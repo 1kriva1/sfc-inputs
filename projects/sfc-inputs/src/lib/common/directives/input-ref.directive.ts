@@ -46,13 +46,17 @@ export class InputRefDirective {
         return this.errors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
     }
 
+    get requiredError() {
+        return this.errors[CommonConstants.TEXT_AREA_REQUIRED_VALIDATOR_KEY] || this.errors[CommonConstants.BASE_REQUIRED_VALIDATOR_KEY];
+    }
+
     get requiredLength() {
         if (this.minLengthError) {
             return this.minLengthError.requiredLength;
         }
 
         return this.maxLengthError ? this.maxLengthError.requiredLength : null;
-    }
+    }    
 
     private get errors() {
         if (this.hasError && this.ngControl.errors) {

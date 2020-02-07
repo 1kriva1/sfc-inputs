@@ -20,7 +20,6 @@ export class PersonalData {
 export class TextInputAppComponent {
     private customInputForm: FormGroup;
     private theme: string = "common";
-    private routeSubscription: Subscription;
 
     constructor(private formBuilder: FormBuilder) {
         
@@ -55,9 +54,5 @@ export class TextInputAppComponent {
                 }]
             }
         );
-    }
-
-    setTheme(theme:string){
-        this.theme = theme;
     }
 }
