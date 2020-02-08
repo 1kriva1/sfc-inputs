@@ -7,11 +7,12 @@ import { RouterModule } from '@angular/router';
 import { routeConfig } from 'src/router-config';
 import { TextInputAppComponent } from 'src/text-input-app/text-input.component';
 import { TextAreaAppComponent } from 'src/text-area-app/text-area.component';
+import { FileInputAppComponent } from 'src/file-input-app/file-input.component';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
-    declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent],
+    declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

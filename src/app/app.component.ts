@@ -50,9 +50,9 @@ export class AppComponent {
                 // customTextArea: ["asdhj \n asd \n asd", {
                 //     validators: [SfcValidators.TextAreaRequired]
                 // }],
-                file: [null, {
-                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
-                }]
+                // file: [null, {
+                //     validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
+                // }]
             },
             // Uncomment to test `registerOnTouched`
             //{ validator: { updateOn: 'blur' } }

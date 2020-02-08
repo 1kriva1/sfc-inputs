@@ -1,6 +1,7 @@
 import { TextInputAppComponent } from './text-input-app/text-input.component';
 import { Route } from "@angular/router";
 import { TextAreaAppComponent } from './text-area-app/text-area.component';
+import { FileInputAppComponent } from './file-input-app/file-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -20,6 +21,10 @@ export const routeConfig = [
     {
         path: 'text-area',
         component: TextAreaAppComponent
+    },
+    {
+        path: 'file-input',
+        component: FileInputAppComponent
     },
     fallbackRoute,
     indexRoute

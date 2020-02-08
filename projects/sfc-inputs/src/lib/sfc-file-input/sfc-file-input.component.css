@@ -11,7 +11,7 @@
     width: 100%;
     padding-right: 24px;
     box-sizing: border-box;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
 }
 
 .file-field span {
@@ -39,7 +39,7 @@
     /* display: none; */
     position: absolute;
     right: 10px;
-    top: 25%;
+    top: 17%;
     padding: 0 8px;
     font-style: normal;
     font-size: 1.2em;
@@ -94,8 +94,13 @@
     cursor: pointer
 }
 
-.fileBtn:hover {
+.fileBtn:not([disabled]):hover {
     background-color: #2bbbad
+}
+
+.fileBtn[disabled] {
+    color: rgba(0, 0, 0, 0.42);
+    background-color: rgba(183, 174, 174, 0.42);
 }
 
 /* END FILE BUTTON */
@@ -121,43 +126,6 @@
 
 /* END FILE COUNTER */
 
-.inline-file-input .inputFile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-.inline-file-input label {
-    color: black;
-    max-width: 50%;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-    /* display: inline-block; */
-    overflow: hidden;
-    padding: 0.625rem 1.25rem;
-    /* as */
-    display: block;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.inline-file-input label span:not(:empty) {
-    padding-left: 5px;
-}
-
-.inline-file-input .helper-text {
-    display: block;
-    margin: 0 auto;
-    width: 100px;
-    text-align: center;
-}
-
 /* VALID */
 
 .inputFile.valid:not([readonly]), .inputFile.valid:not([readonly]):focus {
@@ -173,8 +141,16 @@
     color: #4CAF50;
 }
 
-.inline-file-input i.file-icon.valid, .inline-file-input i.file-icon.valid + span {
+.inline-file-input i.file-icon.valid, .inline-file-input i.file-icon.valid+span {
     color: #4CAF50;
+}
+
+.fileBtn.valid {
+    background-color: #4CAF50;
+}
+
+.fileBtn.valid:hover {
+    background-color: #58bd5c;
 }
 
 /* VALID END */
@@ -194,8 +170,61 @@
     color: #F44336;
 }
 
-.inline-file-input i.file-icon.invalid, .inline-file-input i.file-icon.invalid + span {
+.inline-file-input i.file-icon.invalid, .inline-file-input i.file-icon.invalid+span {
     color: #F44336;
 }
 
+.fileBtn.invalid {
+    background-color: #F44336;
+}
+
+.fileBtn.invalid:hover {
+    background-color: #ec665c;
+}
+
 /* INVALID END */
+
+/* INLINE */
+
+.inline-file-input .inputFile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inline-file-input label {
+    color: black;
+    max-width: 50%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    /* text-overflow: ellipsis; */
+    white-space: nowrap;
+    cursor: pointer;
+    /* display: inline-block; */
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* as */
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.inline-file-input label span {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.inline-file-input label span:not(:empty) {
+    padding-left: 5px;
+}
+
+.inline-file-input .helper-text {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    text-align: center;
+}
+
+/* INLINE END */

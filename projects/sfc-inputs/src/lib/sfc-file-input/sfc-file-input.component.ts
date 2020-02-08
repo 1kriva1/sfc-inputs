@@ -11,22 +11,22 @@ import { StyleClass, FileInputType } from '../common/constants/common-constants'
 export class FileInputComponent extends BaseInputComponent {
 
     private FileInputType = FileInputType;
-    
+
     private readonly DEFAULT_ICON = 'fa fa-upload';
+    private readonly DEFAULT_PLACEHOLDER = "Choose file";
 
     @Input()
-    fileInputType:FileInputType = FileInputType.Input;
+    fileInputType: FileInputType = FileInputType.Input;
 
     @Input()
-    useDefaultIcon = true;
+    useDefaultIcon = false;
 
     @Input()
     showFileName = true;
 
-    @ViewChild('inputFile', { static: false }) fileInput: ElementRef;    
+    @ViewChild('inputFile', { static: false }) fileInput: ElementRef;
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-        debugger;
         const file = event && event.item(0);
         this.onChange(file);
     }
@@ -36,7 +36,7 @@ export class FileInputComponent extends BaseInputComponent {
 
         super(ngControl, changeDetector);
 
-        if(this.useDefaultIcon && this.fileInputType == FileInputType.Inline)
+        if (this.useDefaultIcon && this.fileInputType == FileInputType.Inline)
             this.icon = this.DEFAULT_ICON;
     }
 
@@ -46,7 +46,7 @@ export class FileInputComponent extends BaseInputComponent {
 
     get fileSize() {
         return this.value ? this.parseFileSize(this.value.size) : null;
-    }    
+    }
 
     protected get placeholder() {
         return this._placeholder || '';
@@ -64,11 +64,41 @@ export class FileInputComponent extends BaseInputComponent {
         return classes;
     }
 
-    private get inlineValueText(){
-        if(this.showFileName){
-            return this.fileName ? this.fileName : this.placeholder;
+    private get inputButtonClass() {
+        const classes = {};
+
+        if (!this.icon) {
+            classes["fileBtn"] = true;
+        }
+
+        classes[this.validationClass] = true;
+
+        return classes;
+    }
+
+    private get inlineValueText() {
+        if (this.showFileName) {
+            return this.getSlicedText(this.fileName
+                ? this.fileName
+                : this.placeholder || this.label || this.DEFAULT_PLACEHOLDER);
         }
         return '';
+    }
+
+    private getSlicedText(value: string) {
+        return value.slice(0, 20)
+            + '...'
+            + this.getFileExtension();
+    }
+
+    private getFileExtension(): string {
+        if (!this.value)
+            return '';
+
+        if (this.value.name.indexOf('.') === -1) {
+            return '';
+        }
+        return this.value.name.split('.').pop();
     }
 
     private get validationClass() {
