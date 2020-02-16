@@ -8,7 +8,7 @@ import { StyleClass, FileInputType } from '../common/constants/common-constants'
     templateUrl: './sfc-file-input.component.html',
     styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-file-input.component.css']
 })
-export class FileInputComponent extends BaseInputComponent {
+export class FileInputComponent extends BaseInputComponent implements OnInit {
 
     private FileInputType = FileInputType;
 
@@ -24,6 +24,9 @@ export class FileInputComponent extends BaseInputComponent {
     @Input()
     showFileName = true;
 
+    @Input()
+    showClearButton = true;
+
     @ViewChild('inputFile', { static: false }) fileInput: ElementRef;
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
@@ -35,9 +38,15 @@ export class FileInputComponent extends BaseInputComponent {
         protected changeDetector: ChangeDetectorRef) {
 
         super(ngControl, changeDetector);
+    }
 
-        if (this.useDefaultIcon && this.fileInputType == FileInputType.Inline)
-            this.icon = this.DEFAULT_ICON;
+    ngOnInit() {
+        if (this.fileInputType == FileInputType.Inline) {
+            if (this.useDefaultIcon || (!this.showFileName && !this.icon)) {
+                this.icon = this.DEFAULT_ICON;
+            }
+        }
+
     }
 
     get fileName() {
@@ -109,7 +118,8 @@ export class FileInputComponent extends BaseInputComponent {
         return result;
     }
 
-    private clearData(): void {
+    private clearData(event): void {
+        event.preventDefault();
         this.fileInput.nativeElement.value = null;
         this.onChange(null);
     }

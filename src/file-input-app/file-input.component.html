@@ -10,6 +10,7 @@
         <form [formGroup]="customInputForm" autocomplete="off">
 
             <div class="input-container">
+
                 <div class="input-row">
                     <div>
                         <sfc-file-input id="demo-file" formControlName="inputFileNull"></sfc-file-input>
@@ -104,11 +105,80 @@
                     </div>
 
                     <div>
-                        <sfc-file-input id="demo-file-inline-placeholder" fileInputType="inline"
-                            formControlName="inlineFilePlaceholder" 
-                            placeholder="Icon inline" icon="fa fa-user">
+                        <sfc-file-input id="demo-file-inline-icon" fileInputType="inline"
+                            formControlName="inlineFileIcon" placeholder="Icon inline" icon="fa fa-user">
                         </sfc-file-input>
                     </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-helper" fileInputType="inline"
+                            formControlName="inlineFileHelper" label="Label inline" placeholder="Placeholder inline"
+                            helper-text="helper text111">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-default-icon" fileInputType="inline"
+                            formControlName="inlineFileDefaultIcon" label="DefaultIcon inline"
+                            placeholder="DefaultIcon inline" helper-text="helper text use default icon"
+                            [useDefaultIcon]="true">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-file-name" fileInputType="inline"
+                            formControlName="inlineFileFileName" label="FileName inline" placeholder="FileName inline"
+                            helper-text="helper FileName" [showFileName]="false">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-file-name-icon" fileInputType="inline"
+                            formControlName="inlineFileFileNameIcon" label="FileName icon inline" icon="fa fa-user"
+                            placeholder="FileName icon inline" helper-text="helper icon FileName"
+                            [showFileName]="false">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-clear-false" fileInputType="inline"
+                            formControlName="inlineFileClearFalse" label="ClearFalse inline"
+                            placeholder="ClearFalse inline" helper-text="helper ClearFalse" [showFileName]="false"
+                            [showClearButton]="false">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-disabled" fileInputType="inline"
+                            formControlName="inlineFileDisabled" label="Disabled inline" placeholder="Disabled inline"
+                            helper-text="helper text Disabled">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-undef" fileInputType="inline"
+                            formControlName="inlineFileValUndf" label="ValUndf inline" placeholder="ValUndf inline"
+                            helper-text="helper text ValUndf">
+                        </sfc-file-input>
+                    </div>
+                    
+                    
 
                 </div>
 

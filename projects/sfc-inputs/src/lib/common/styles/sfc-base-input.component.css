@@ -163,6 +163,7 @@
     -webkit-transition: color .2s;
     transition: color .2s;
     top: .5rem;
+    color: rgba(0, 0, 0, 0.54);
 }
 
 .input-text-container i.icon~.input-text-input {

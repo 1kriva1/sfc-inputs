@@ -36,20 +36,33 @@
 /* FILE CLEAR BUTTON */
 
 .clearBtn {
-    /* display: none; */
+    visibility: hidden;
     position: absolute;
     right: 10px;
-    top: 17%;
+    top: 20%;
     padding: 0 8px;
     font-style: normal;
     font-size: 1.2em;
     user-select: none;
     cursor: pointer;
     color: #26a69a;
+    opacity: 0;
 }
 
 .clearBtn:hover {
     color: red;
+    
+}
+
+.file-field:hover .clearBtn{
+    visibility: visible;
+    transition: opacity 1s ease-out;
+    opacity: 1;
+}
+
+.inline-file-input .clearBtn{
+    right: unset;
+    top: unset;
 }
 
 /* END FILE CLEAR BUTTON */
@@ -141,7 +154,7 @@
     color: #4CAF50;
 }
 
-.inline-file-input i.file-icon.valid, .inline-file-input i.file-icon.valid+span {
+.inputFile.valid + label span, .inputFile.valid + label i.file-icon{
     color: #4CAF50;
 }
 
@@ -170,7 +183,7 @@
     color: #F44336;
 }
 
-.inline-file-input i.file-icon.invalid, .inline-file-input i.file-icon.invalid+span {
+.inputFile.invalid + label span, .inputFile.invalid + label i.file-icon {
     color: #F44336;
 }
 
@@ -210,9 +223,10 @@
     display: block;
     text-align: center;
     margin: 0 auto;
+    overflow: inherit;
 }
 
-.inline-file-input label span {
+.inline-file-input label span, .inline-file-input label .file-icon {
     color: rgba(0, 0, 0, 0.54);
 }
 

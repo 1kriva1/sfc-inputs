@@ -11,17 +11,18 @@
             <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
             <span class="helper-text">{{helperText}}</span>
             <span class="character-counter">{{fileSize}}</span>
-            <i class="fa fa-times-circle clearBtn" *ngIf="value" (click)="clearData()"></i>
+            <i class="fa fa-times-circle clearBtn" *ngIf="value && showClearButton" (click)="clearData($event)"></i>
         </div>
     </ng-container>
 
     <ng-container *ngSwitchCase="FileInputType.Inline">
         <div class="inline-file-input">
-            <input sfcinput #inputFile id="sfc-{{id}}" type="file" class="inputFile" [ngClass]="validationClass"
+            <input sfcinput #inputFile id="sfc-{{id}}" type="file" class="inputFile" [disabled]="disabled" [ngClass]="validationClass"
                 [validations]="validations">
             <label for="sfc-{{id}}">
                 <i *ngIf="icon" class="file-icon" [ngClass]="iconClass"></i>
                 <span>{{inlineValueText}}</span>
+                <i class="fa fa-times-circle clearBtn" *ngIf="value && showClearButton" (click)="clearData($event)"></i>
             </label>
             <span class="helper-text">{{helperText}}</span>
         </div>

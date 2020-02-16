@@ -54,6 +54,19 @@ export class FileInputAppComponent {
                 inlineFileNull: [null],
                 inlineFileLabel: [null],
                 inlineFilePlaceholder: [null],
+                inlineFileIcon: [null],
+                inlineFileHelper: [null],
+                inlineFileDefaultIcon: [null],
+                inlineFileFileName: [null],
+                inlineFileFileNameIcon: [null],
+                inlineFileClearFalse: [null],
+                inlineFileDisabled:[{
+                    value: null,
+                    disabled: true
+                }],
+                inlineFileValUndf:[null, {
+                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
+                }]
             }
         );
     }
