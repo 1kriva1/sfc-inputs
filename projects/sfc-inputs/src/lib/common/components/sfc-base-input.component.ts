@@ -54,19 +54,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         return this._placeholder || this.isFocus || this.value ? StyleClass.Active : '';
     }
 
-    protected get placeholder() {
-        return this._placeholder && !this.isFocus ? this._placeholder : '';
-    }
-
-    protected get requiredLengthValue() {
-        return this.input ? this.input.requiredLength : null;
-    }
-
-    protected get isRequiredError(){
-        return this.input ? this.input.requiredError : null;
-    }
-
-    private get iconClass() {
+    protected get iconClass() {
         const classes = {};
         if (this.icon) {
             const iconParts = this.icon.split(' ');
@@ -76,7 +64,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         if (this.input) {
             if (this.input.isValid) {
                 classes[StyleClass.Valid] = true;
-            } else if (this.input.isInValid) {
+            } else if (this.input.isInvalid) {
                 classes[StyleClass.Invalid] = true;
             } else {
                 if (this.isFocus) {
@@ -88,12 +76,48 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         return classes;
     }
 
+    protected get placeholder() {
+        return this._placeholder && !this.isFocus ? this._placeholder : '';
+    }
+
+    // protected get requiredLengthValue() {
+    //     return this.input ? this.input.requiredLength : null;
+    // }
+
+    protected get requiredLengthValue() {
+        if (this.validationErrors) {
+            const minLengthError = this.validationErrors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY],
+                maxLengthError = this.validationErrors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
+
+            if (minLengthError) {
+                return minLengthError.requiredLength;
+            }
+
+            return maxLengthError ? maxLengthError.requiredLength : null;
+        }
+
+        return null;
+    }
+
+    // protected get isRequiredError(){
+    //     return this.input ? this.input.requiredError : null;
+    // }
+
+    
+
     /**
     * Is input on focus
     */
     private get isFocus() {
         return this.input ? this.input.isOnFocus : false;
-    }    
+    }
+
+    /**
+    * Return input validation errors
+    */
+    private get validationErrors() {
+        return this.input ? this.input.errors : null;
+    }
 
     private get helperText() {
         return this.input && this.input.hasError ? this.errorMessage : this._helperText;
@@ -101,7 +125,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
 
     private get errorMessage() {
         return this.input ? this.input.errorMessages[0] || CommonConstants.DEFAULT_ERROR_MESSAGE : '';
-    }    
+    }
 
     ngAfterViewInit(): void {
         this.changeDetector.detectChanges();

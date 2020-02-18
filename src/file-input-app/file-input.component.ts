@@ -66,6 +66,15 @@ export class FileInputAppComponent {
                 }],
                 inlineFileValUndf:[null, {
                     validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
+                }],
+                inlineFileValDef:[null, {
+                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
+                }],
+                inlineFileHasValue:[file, {
+                    validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
+                }],
+                inlineFileHasValueInvalid:[file, {
+                    validators: [Validators.required, SfcValidators.FileExtensions(["png", "jpeg"])]
                 }]
             }
         );

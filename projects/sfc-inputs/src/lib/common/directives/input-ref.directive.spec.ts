@@ -3,6 +3,7 @@ import { InputRefDirective } from './input-ref.directive';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule, NgControl } from '@angular/forms';
+import { CommonConstants } from '../constants/common-constants';
 
 
 @Component({
@@ -30,15 +31,30 @@ class TestHoverFocusComponent {
     }
 
     get minLengthError() {
-        return this.input ? this.input.minLengthError : null;
+        return this.input ? this.input.errors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY] : null;
     }
 
     get maxLengthError() {
-        return this.input ? this.input.maxLengthError : null;
+        return this.input ? this.input.errors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY] : null;
+    }
+
+    get validationErrors() {
+        return this.input ? this.input.errors : null;
     }
 
     get requiredLength() {
-        return this.input ? this.input.requiredLength : null;
+        if (this.validationErrors) {
+            const minLengthError = this.validationErrors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY],
+                maxLengthError = this.validationErrors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
+
+            if (minLengthError) {
+                return minLengthError.requiredLength;
+            }
+
+            return maxLengthError ? maxLengthError.requiredLength : null;
+        }
+
+        return null;
     }
 }
 

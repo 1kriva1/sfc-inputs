@@ -254,7 +254,7 @@ describe('Component: TextAreaInputComponent', () => {
         expect(fixture.nativeElement.querySelector('span.character-counter')).toBeDefined();
     });
 
-    it("Characters counter: check value with text", () => {
+    xit("Characters counter: check value with text", () => {
         const value = "first line \n";
         debugTextAreaEl.nativeElement.value = value;
         debugTextAreaEl.triggerEventHandler('input', { target: debugTextAreaEl.nativeElement });
@@ -264,7 +264,7 @@ describe('Component: TextAreaInputComponent', () => {
             .toEqual("first line ".length.toString());
     });
 
-    it("Characters counter: check value with new lines only", () => {
+    xit("Characters counter: check value with new lines only", () => {
         const value = "\n\n\n";
         debugTextAreaEl.nativeElement.value = value;
         debugTextAreaEl.triggerEventHandler('input', { target: debugTextAreaEl.nativeElement });

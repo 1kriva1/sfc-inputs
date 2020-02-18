@@ -38,27 +38,27 @@ export class InputRefDirective {
         return messages;
     }
 
-    get minLengthError() {
-        return this.errors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY];
-    }
+    // get minLengthError() {
+    //     return this.errors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY];
+    // }
 
-    get maxLengthError() {
-        return this.errors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
-    }
+    // get maxLengthError() {
+    //     return this.errors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
+    // }
 
-    get requiredError() {
-        return this.errors[CommonConstants.TEXT_AREA_REQUIRED_VALIDATOR_KEY] || this.errors[CommonConstants.BASE_REQUIRED_VALIDATOR_KEY];
-    }
+    // get requiredError() {
+    //     return this.errors[CommonConstants.TEXT_AREA_REQUIRED_VALIDATOR_KEY] || this.errors[CommonConstants.BASE_REQUIRED_VALIDATOR_KEY];
+    // }
 
-    get requiredLength() {
-        if (this.minLengthError) {
-            return this.minLengthError.requiredLength;
-        }
+    // get requiredLength() {
+    //     if (this.minLengthError) {
+    //         return this.minLengthError.requiredLength;
+    //     }
 
-        return this.maxLengthError ? this.maxLengthError.requiredLength : null;
-    }    
+    //     return this.maxLengthError ? this.maxLengthError.requiredLength : null;
+    // }    
 
-    private get errors() {
+    get errors() {
         if (this.hasError && this.ngControl.errors) {
             return this.ngControl.errors;
         }
@@ -71,7 +71,7 @@ export class InputRefDirective {
     }
 
     @HostBinding('class.' + StyleClass.Invalid)
-    public get isInValid(): Boolean {
+    public get isInvalid(): Boolean {
         return this.isTouched && this.hasError;
     }
 

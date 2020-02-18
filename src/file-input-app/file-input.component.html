@@ -177,8 +177,33 @@
                             helper-text="helper text ValUndf">
                         </sfc-file-input>
                     </div>
-                    
-                    
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-def" fileInputType="inline"
+                            formControlName="inlineFileValDef" label="ValDef inline" placeholder="ValDef inline"
+                            helper-text="helper text ValDef"
+                            [validations]="{required: 'First name is required', fileExtension: 'Invalid extension'}">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-has-value" fileInputType="inline"
+                            formControlName="inlineFileHasValue" label="Has value inline" placeholder="Has value inline"
+                            helper-text="helper text Has value">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-has-value-invalid" fileInputType="inline"
+                            formControlName="inlineFileHasValueInvalid" label="Has value inline invalid" placeholder="Has value inline invalid"
+                            helper-text="helper text Has value invalid"
+                            [validations]="{required: 'First name is required', fileExtension: 'Invalid extension'}">
+                        </sfc-file-input>
+                    </div>
 
                 </div>
 

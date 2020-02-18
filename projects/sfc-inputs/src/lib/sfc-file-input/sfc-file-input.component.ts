@@ -1,7 +1,8 @@
-import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
-import { NgControl, ControlValueAccessor } from '@angular/forms';
+import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, AfterViewInit, ViewChild, Input, OnInit } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { StyleClass, FileInputType } from '../common/constants/common-constants';
+import { FileUtils } from '../common/utils/file-utils';
 
 @Component({
     selector: 'sfc-file-input',
@@ -12,18 +13,41 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
 
     private FileInputType = FileInputType;
 
+    private readonly WITH_ICON_CLASS = "withIcon";
+
+    private readonly FILE_BUTTON_CLASS = "fileBtn";
+
+    /**
+    * Default icon for inline file input
+    */
     private readonly DEFAULT_ICON = 'fa fa-upload';
+
+    /**
+    * Default placeholder (label) for inline file input
+    */
     private readonly DEFAULT_PLACEHOLDER = "Choose file";
 
+    /**
+    * By default file input looks like default HTML input (type = text)
+    */
     @Input()
     fileInputType: FileInputType = FileInputType.Input;
 
+    /**
+    * Indication to use default icon for inline file input
+    */
     @Input()
     useDefaultIcon = false;
 
+    /**
+    * Indication to show file name and extension for inline file input
+    */
     @Input()
     showFileName = true;
 
+    /**
+    * Indication to show clear button (for input and inline types)
+    */
     @Input()
     showClearButton = true;
 
@@ -35,7 +59,7 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     }
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
-        protected changeDetector: ChangeDetectorRef) {
+        protected changeDetector: ChangeDetectorRef, private fileUtils: FileUtils) {
 
         super(ngControl, changeDetector);
     }
@@ -46,7 +70,6 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
                 this.icon = this.DEFAULT_ICON;
             }
         }
-
     }
 
     get fileName() {
@@ -54,7 +77,7 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     }
 
     get fileSize() {
-        return this.value ? this.parseFileSize(this.value.size) : null;
+        return this.value ? this.fileUtils.parseFileSize(this.value.size) : null;
     }
 
     protected get placeholder() {
@@ -67,7 +90,7 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
         classes[StyleClass.Active] = true;
 
         if (this.icon) {
-            classes["withIcon"] = true;
+            classes[this.WITH_ICON_CLASS] = true;
         }
 
         return classes;
@@ -77,12 +100,20 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
         const classes = {};
 
         if (!this.icon) {
-            classes["fileBtn"] = true;
+            classes[this.FILE_BUTTON_CLASS] = true;
         }
 
         classes[this.validationClass] = true;
 
         return classes;
+    }
+
+    private get validationClass() {
+        let result = this.input && this.input.isTouched !== null
+            ? this.input.isTouched && this.input.hasError ?
+                StyleClass.Invalid : StyleClass.Valid
+            : '';
+        return result;
     }
 
     private get inlineValueText() {
@@ -97,42 +128,15 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     private getSlicedText(value: string) {
         return value.slice(0, 20)
             + '...'
-            + this.getFileExtension();
-    }
+            + this.fileUtils.getFileExtension(this.value);
+    }    
 
-    private getFileExtension(): string {
-        if (!this.value)
-            return '';
-
-        if (this.value.name.indexOf('.') === -1) {
-            return '';
-        }
-        return this.value.name.split('.').pop();
-    }
-
-    private get validationClass() {
-        let result = this.input && this.input.isTouched !== null
-            ? this.input.isTouched && this.input.hasError ?
-                StyleClass.Invalid : StyleClass.Valid
-            : '';
-        return result;
-    }
-
-    private clearData(event): void {
+    /**
+    * Clear button handler
+    */
+    private clearData(event: Event): void {
         event.preventDefault();
         this.fileInput.nativeElement.value = null;
         this.onChange(null);
-    }
-
-    private parseFileSize(bytes, decimals = 2): string {
-        if (bytes === 0) return '0';
-
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 }
