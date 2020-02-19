@@ -6,7 +6,7 @@ import { CommonConstants } from '../common/constants/common-constants';
 @Component({
     selector: 'sfc-text-area-input',
     templateUrl: './sfc-text-area-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-area-input.component.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-area-input.component.css', './sfc-text-area-input-dark-theme.component.css']
 })
 export class TextAreaInputComponent
     extends BaseInputComponent {

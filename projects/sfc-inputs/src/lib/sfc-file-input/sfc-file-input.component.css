@@ -33,6 +33,10 @@
     filter: alpha(opacity=0)
 }
 
+.inline-file-input {
+    text-align: center;
+}
+
 /* FILE CLEAR BUTTON */
 
 .clearBtn {
@@ -45,24 +49,24 @@
     font-size: 1.2em;
     user-select: none;
     cursor: pointer;
-    color: #26a69a;
+    color: #656D78;
     opacity: 0;
 }
 
 .clearBtn:hover {
-    color: red;
-    
+    color: #ED5565;
 }
 
-.file-field:hover .clearBtn{
+.file-field:hover .clearBtn {
     visibility: visible;
     transition: opacity 1s ease-out;
     opacity: 1;
 }
 
-.inline-file-input .clearBtn{
+.inline-file-input .clearBtn {
     right: unset;
     top: unset;
+    font-size: 14px;
 }
 
 /* END FILE CLEAR BUTTON */
@@ -113,7 +117,7 @@
 
 .fileBtn[disabled] {
     color: rgba(0, 0, 0, 0.42);
-    background-color: rgba(183, 174, 174, 0.42);
+    background-color: rgba(0, 0, 0, 0.42);
 }
 
 /* END FILE BUTTON */
@@ -139,31 +143,43 @@
 
 /* END FILE COUNTER */
 
+/* ICON */
+
+.input-text-container i.icon {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.input-text-container i.icon.active {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+/* ICON END */
+
 /* VALID */
 
 .inputFile.valid:not([readonly]), .inputFile.valid:not([readonly]):focus {
-    border-bottom: 1px solid #4CAF50;
-    box-shadow: 0 1px 0 0 #4CAF50;
+    border-bottom: 1px solid #8CC152;
+    box-shadow: 0 1px 0 0 #8CC152;
 }
 
 .inputFile.valid:focus:not([readonly])+label {
-    color: #4CAF50;
+    color: #8CC152;
 }
 
 .inputFile.valid~.helper-text {
-    color: #4CAF50;
+    color: #8CC152;
 }
 
-.inputFile.valid + label span, .inputFile.valid + label i.file-icon{
-    color: #4CAF50;
+.inputFile.valid+label span, .inputFile.valid+label i.file-icon {
+    color: #8CC152;
 }
 
 .fileBtn.valid {
-    background-color: #4CAF50;
+    background-color: #8CC152;
 }
 
 .fileBtn.valid:hover {
-    background-color: #58bd5c;
+    background-color: #8CC152;
 }
 
 /* VALID END */
@@ -171,28 +187,28 @@
 /* INVALID */
 
 .inputFile.invalid:not([readonly]), .inputFile.invalid:not([readonly]):focus {
-    border-bottom: 1px solid #F44336;
-    box-shadow: 0 1px 0 0 #F44336;
+    border-bottom: 1px solid #E9573F;
+    box-shadow: 0 1px 0 0 #E9573F;
 }
 
 .inputFile.invalid:focus:not([readonly])+label {
-    color: #F44336;
+    color: #E9573F;
 }
 
 .inputFile.invalid~.helper-text {
-    color: #F44336;
+    color: #E9573F;
 }
 
-.inputFile.invalid + label span, .inputFile.invalid + label i.file-icon {
-    color: #F44336;
+.inputFile.invalid+label span, .inputFile.invalid+label i.file-icon {
+    color: #E9573F;
 }
 
 .fileBtn.invalid {
-    background-color: #F44336;
+    background-color: #E9573F;
 }
 
 .fileBtn.invalid:hover {
-    background-color: #ec665c;
+    background-color: #E9573F;
 }
 
 /* INVALID END */
@@ -218,9 +234,9 @@
     cursor: pointer;
     /* display: inline-block; */
     overflow: hidden;
-    padding: 0.625rem 1.25rem;
+    padding: 0.625rem 0;
     /* as */
-    display: block;
+    display: inline-block;
     text-align: center;
     margin: 0 auto;
     overflow: inherit;
@@ -228,6 +244,10 @@
 
 .inline-file-input label span, .inline-file-input label .file-icon {
     color: rgba(0, 0, 0, 0.54);
+}
+
+.inline-file-input input:disabled + label span {
+    color: #E6E9ED;
 }
 
 .inline-file-input label span:not(:empty) {

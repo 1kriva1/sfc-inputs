@@ -5,7 +5,7 @@ import BaseInputComponent from '../common/components/sfc-base-input.component';
 @Component({
     selector: 'sfc-text-input',
     templateUrl: './sfc-text-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-input-dark-theme.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-input-dark-theme.component.css']
 })
 export class TextInputComponent extends BaseInputComponent {
 

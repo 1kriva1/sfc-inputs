@@ -7,7 +7,7 @@ import { FileUtils } from '../common/utils/file-utils';
 @Component({
     selector: 'sfc-file-input',
     templateUrl: './sfc-file-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-file-input.component.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-file-input.component.css', './sfc-file-input-dark-theme.component.css']
 })
 export class FileInputComponent extends BaseInputComponent implements OnInit {
 
