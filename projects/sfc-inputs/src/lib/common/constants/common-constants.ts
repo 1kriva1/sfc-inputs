@@ -2,6 +2,7 @@ export enum StyleClass {
     Active = 'active',
     Valid = 'valid',
     Invalid = 'invalid',
+    WithIcon = "withIcon"
 };
 
 export enum FileInputType {

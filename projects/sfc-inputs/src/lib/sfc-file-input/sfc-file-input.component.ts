@@ -13,8 +13,6 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
 
     private FileInputType = FileInputType;
 
-    private readonly WITH_ICON_CLASS = "withIcon";
-
     private readonly FILE_BUTTON_CLASS = "fileBtn";
 
     /**
@@ -90,7 +88,7 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
         classes[StyleClass.Active] = true;
 
         if (this.icon) {
-            classes[this.WITH_ICON_CLASS] = true;
+            classes[StyleClass.WithIcon] = true;
         }
 
         return classes;

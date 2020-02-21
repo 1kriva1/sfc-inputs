@@ -108,7 +108,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
     /**
     * Is input on focus
     */
-    private get isFocus() {
+    protected get isFocus() {
         return this.input ? this.input.isOnFocus : false;
     }
 

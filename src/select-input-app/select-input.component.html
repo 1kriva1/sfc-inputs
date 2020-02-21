@@ -1,0 +1,35 @@
+<div class="demo-container">
+    <h1>SELECT INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="this.theme = 'common'">Common</button>
+        <button (click)="this.theme = 'dark'">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-text-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select" formControlName="inputSelectNull" 
+                            [data]="data" [isMultiple]="true"></sfc-select-input>
+                    </div>
+                    <!-- <div>
+                        <sfc-select-input id="demo-select-second" formControlName="inputSelectSecond" label="Empty second dropdown"></sfc-select-input>
+                    </div>
+                    <div>
+                        <sfc-select-input id="demo-select-third" formControlName="inputSelectThird" label="Empty third dropdown"></sfc-select-input>
+                    </div> -->
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

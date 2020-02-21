@@ -1,0 +1,27 @@
+<div class="input-text-container input-select-container">
+    
+    <div class="select-wrapper" [ngClass]="validationClass" (mousedown)="checkOption()">
+        <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+        <input sfcinput #inputSelect type="text" readonly class="select-dropdown input-text-input"
+            value={{displayValue}} [placeholder]="placeholder" [disabled]="disabled">
+        <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
+            [ngStyle]="dropdownWidthStyle">
+            <li *ngFor="let item of data" (mousedown)="setOptionValue($event, item)"
+                [ngClass]="value === item.key ? 'selected' : ''">
+                <span>
+                    <span *ngIf="!isMultiple">{{item.value}}</span>
+                    <label *ngIf="isMultiple">
+                        <input type="checkbox">
+                        <span (mousedown)="changeOption($event)">{{item.value}}</span>
+                    </label>
+                </span>
+            </li>
+        </ul>
+        <i class="caret fa fa-caret-down"></i>
+        <select id="sfc-{{id}}">
+            <option *ngFor="let item of data" value="{{item.key}}">{{item.value}}</option>
+        </select>
+    </div>
+    <label for="sfc-{{id}}" [ngClass]="labelClass" (click)="openDropdownContent()">{{label}}</label>
+    <span class="helper-text">{{helperText}}</span>
+</div>
