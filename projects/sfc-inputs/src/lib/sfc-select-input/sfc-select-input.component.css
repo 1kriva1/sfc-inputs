@@ -31,6 +31,9 @@ select {
 .select-wrapper input.select-dropdown {
     /* position: relative; */
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     /* background-color: transparent;
     border: none;
     border-bottom: 1px solid #9e9e9e;
@@ -110,6 +113,14 @@ select {
 .select-dropdown.dropdown-content li.selected {
     background-color: rgba(0, 0, 0, 0.03);
 }
+
+.select-dropdown.dropdown-content li.disabled{
+    background-color: #E6E9ED;
+}
+
+/* .select-dropdown.dropdown-content li.disabled > span > label > span{
+    display:none;
+} */
 
 .select-wrapper .caret {
     position: absolute;
@@ -243,7 +254,7 @@ select {
     transition: .2s;
 }
 
-[type="checkbox"]:checked+span:not(.lever):before {
+.select-dropdown.dropdown-content li.selected > span > label > span:not(.lever):before {
     top: -4px;
     left: -5px;
     width: 12px;

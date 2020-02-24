@@ -1,18 +1,18 @@
 <div class="input-text-container input-select-container">
     
-    <div class="select-wrapper" [ngClass]="validationClass" (mousedown)="checkOption()">
+    <div class="select-wrapper" [ngClass]="validationClass" >
         <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
         <input sfcinput #inputSelect type="text" readonly class="select-dropdown input-text-input"
             value={{displayValue}} [placeholder]="placeholder" [disabled]="disabled">
         <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dropdownWidthStyle">
             <li *ngFor="let item of data" (mousedown)="setOptionValue($event, item)"
-                [ngClass]="value === item.key ? 'selected' : ''">
+                [ngClass]="selectedClass(item)">
                 <span>
                     <span *ngIf="!isMultiple">{{item.value}}</span>
                     <label *ngIf="isMultiple">
-                        <input type="checkbox">
-                        <span (mousedown)="changeOption($event)">{{item.value}}</span>
+                        <input type="checkbox" value="{{item.key}}">
+                        <span>{{item.value}}</span>
                     </label>
                 </span>
             </li>

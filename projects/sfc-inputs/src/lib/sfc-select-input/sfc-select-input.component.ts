@@ -12,7 +12,7 @@ import { StyleClass } from '../common/constants/common-constants';
 export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
     @Input()
-    defaultDisplayValue: ISelectData = { value: "Choose your option", key: "-1" };
+    defaultDisplayValue: ISelectData = { value: "Choose your option", key: "-1", isDefault: true };
 
     @Input()
     showDefaultOption: boolean = true;
@@ -37,9 +37,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     get dropdownClasses() {
         const classes = {};
 
-        if (this.test) {
+        if (this.isFocus) {
             classes["active"] = true;
-            
+
 
         } else {
 
@@ -59,12 +59,32 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         return result;
     }
 
+    selectedClass(item: ISelectData) {
+        const classes = {};
+        if (this.isMultiple && item.isDefault && this.value.findIndex(i => i.key === item.key) === -1 
+            && this.value.length !== 0) {
+            classes['disabled'] = true;
+        }
+
+        if (this.isMultiple) {
+            if (this.value.findIndex(i => i.key === item.key) !== -1) {
+                classes['selected'] = true;
+            }
+        } else {
+            if (this.value === item.key) {
+                classes['selected'] = true;
+            }
+        }
+
+        return classes;
+    }
+
     get dropdownWidthStyle() {
         const classes = {},
             width = this.selectInput ? this.selectInput.nativeElement.offsetWidth : 0,
             left = this.selectInput ? this.selectInput.nativeElement.offsetLeft : 0;
 
-        if (this.test) {
+        if (this.isFocus) {
             classes["width"] = width + "px";
             classes["left"] = left + "px";
         }
@@ -88,12 +108,53 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         return classes;
     }
 
-    setOptionValue(event: any, item: any): void {
-        // if (this.isMultiple)
-        //     event.preventDefault();
+    protected isOptionDisabled(item: ISelectData) {
 
-        this.onChange(item.key);
-        this.displayValue = item.value;
+    }
+
+    setOptionValue(event: any, item: any): void {
+        if (this.isMultiple) {
+            event.cancelBubble = true;
+            if (event.stopPropagation)
+                event.stopPropagation();
+
+            // if (this.isMultiple) {
+            //     if (this.value !== null && this.value !== undefined && this.value.length > 0 && item.isDefault) {
+            //         return;
+            //     }
+            // } else {
+            //     if (this.value !== null && this.value !== undefined && item.isDefault) {
+            //         return;
+            //     }
+            // }
+
+
+            let itemIndex = this.value.findIndex(i => i.key === item.key);
+
+            if (itemIndex !== -1) {
+                this.value.splice(itemIndex, 1);
+            } else {
+                this.value.push(item);
+
+                if (this.value.findIndex(i => !i.isDefault) !== -1) {
+                    let defaultItemIndex = this.value.findIndex(i => i.isDefault);
+                    if (defaultItemIndex !== -1) {
+                        this.value.splice(defaultItemIndex, 1);
+                    }
+                }
+
+            }
+            this.onChange(this.value);
+
+            this.displayValue = this.value.map(a => a.value).join(", ")
+        } else {
+            this.onChange(item.key);
+            this.displayValue = item.value;
+            console.log("setOptionValue");
+        }
+
+
+
     }
 
     openDropdownContent() {
@@ -101,8 +162,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     checkOption() {
-        
-        this.test = true;
+
+        this.test = !this.test;
+        console.log("select-wrapper");
     }
 
     changeOption(event: any) {
@@ -113,8 +175,10 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
         if (this.showDefaultOption) {
             this.data.unshift(this.defaultDisplayValue);
-            // this.onChange(this.defaultDisplayValue.key);
-            // this.displayValue = this.defaultDisplayValue.value;        
+
+
+
+
         }
 
         if (this.value !== null && this.value !== undefined) {
@@ -129,6 +193,14 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
             }
 
             this.displayValue = valueText;
+        } else {
+            if (this.isMultiple) {
+                this.value = [];
+
+                this.displayValue = this.defaultDisplayValue.value;
+                this.value.push(this.defaultDisplayValue);
+                this.onChange(this.value);
+            }
         }
     }
 }
