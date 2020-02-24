@@ -1,18 +1,25 @@
 <div class="input-text-container input-select-container">
-    
-    <div class="select-wrapper" [ngClass]="validationClass" >
+
+    <div class="select-wrapper" [ngClass]="validationClass">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
         <input sfcinput #inputSelect type="text" readonly class="select-dropdown input-text-input"
             value={{displayValue}} [placeholder]="placeholder" [disabled]="disabled">
         <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dropdownWidthStyle">
-            <li *ngFor="let item of data" (mousedown)="setOptionValue($event, item)"
-                [ngClass]="selectedClass(item)">
+            <li *ngFor="let item of data" (mousedown)="setOptionValue($event, item)" [ngClass]="selectedClass(item)">
+                <img *ngIf="isImageInclude && item.imagePath" alt="" [src]="item.imagePath">
                 <span>
                     <span *ngIf="!isMultiple">{{item.value}}</span>
                     <label *ngIf="isMultiple">
-                        <input type="checkbox" value="{{item.key}}">
-                        <span>{{item.value}}</span>
+
+                        <div class="exp">
+                            <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
+                            <label for="{{item.key}}">
+                                <span></span>{{item.value}}
+                            </label>
+                        </div>
+                        <!-- <input type="checkbox" value="{{item.key}}">
+                        <span>{{item.value}}</span> -->
                     </label>
                 </span>
             </li>

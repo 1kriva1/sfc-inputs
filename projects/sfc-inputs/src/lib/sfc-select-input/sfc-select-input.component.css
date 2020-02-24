@@ -56,6 +56,13 @@ select {
     border-bottom: 1px solid #26a69a;
 }
 
+.select-wrapper .select-dropdown li img {
+    height: 40px;
+    width: 40px;
+    margin: 5px 15px;
+    float: right;
+}
+
 .dropdown-content {
     background-color: #fff;
     margin: 0;
@@ -114,8 +121,20 @@ select {
     background-color: rgba(0, 0, 0, 0.03);
 }
 
-.select-dropdown.dropdown-content li.disabled{
+.select-dropdown.dropdown-content li.disabled {
     background-color: #E6E9ED;
+}
+
+.select-dropdown li~li.optgroup-option span {
+    padding-left: 1rem;
+}
+
+.select-dropdown li.optgroup>span {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.select-dropdown li~li.optgroup:not(:nth-child(2)) {
+    border-top: 1px solid #eee;
 }
 
 /* .select-dropdown.dropdown-content li.disabled > span > label > span{
@@ -130,6 +149,10 @@ select {
     margin: auto 0;
     z-index: 0;
     fill: rgba(0, 0, 0, 0.87);
+}
+
+.select-wrapper input.select-dropdown:disabled~.caret {
+    color: rgba(0, 0, 0, 0.42);
 }
 
 .select-wrapper+label {
@@ -195,7 +218,7 @@ select {
 
 /* MULTY */
 
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+/* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -269,6 +292,121 @@ select {
     backface-visibility: hidden;
     -webkit-transform-origin: 100% 100%;
     transform-origin: 100% 100%;
+} */
+
+.exp .checkbox {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.exp label {
+    display: inline-block;
+    /* color: #fff; */
+    cursor: pointer;
+    position: relative;
+}
+
+.exp label span {
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    /* width: 25px;
+    height: 25px; */
+    width: 20px;
+    height: 20px;
+    transform-origin: center;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    vertical-align: -6px;
+    margin-right: 10px;
+    transition: background-color 150ms 200ms, transform 350ms cubic-bezier(0.78, -1.22, 0.17, 1.89);
+}
+
+.exp label span:before {
+    content: "";
+    width: 0px;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    position: absolute;
+    transform: rotate(45deg);
+    /* top: 13px;
+    left: 9px; */
+    top: 10px;
+    left: 7px;
+    transition: width 50ms ease 50ms;
+    transform-origin: 0% 0%;
+}
+
+.exp label span:after {
+    content: "";
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    position: absolute;
+    transform: rotate(305deg);
+    /* top: 16px;
+    left: 10px; */
+    top: 13px;
+    left: 8px;
+    transition: width 50ms ease;
+    transform-origin: 0% 0%;
+}
+
+.exp label:hover span:before {
+    width: 5px;
+    transition: width 100ms ease;
+}
+
+.exp label:hover span:after {
+    width: 10px;
+    transition: width 150ms ease 100ms;
+}
+
+.exp input[type="checkbox"] {
+    display: none;
+}
+
+.select-dropdown.dropdown-content li.selected .exp input[type="checkbox"]+label span {
+    background-color: #fff;
+    transform: scale(1.25);
+}
+
+.select-dropdown.dropdown-content li.selected .exp input[type="checkbox"]+label span:after {
+    width: 10px;
+    background: #1790b5;
+    transition: width 150ms ease 100ms;
+}
+
+.select-dropdown.dropdown-content li.selected .exp input[type="checkbox"]+label span:before {
+    width: 5px;
+    background: #1790b5;
+    transition: width 150ms ease 100ms;
+}
+
+.select-dropdown.dropdown-content li.selected .exp input[type="checkbox"]+label:hover span {
+    background-color: #fff;
+    transform: scale(1.25);
+}
+
+.select-dropdown.dropdown-content li.selected .exp input[type="checkbox"]+label:hover span:after {
+    width: 10px;
+    background: #1790b5;
+    transition: width 150ms ease 100ms;
+}
+
+.select-dropdown.dropdown-content li.selected .exp input[type="checkbox"]+label:hover span:before {
+    width: 5px;
+    background: #1790b5;
+    transition: width 150ms ease 100ms;
+}
+
+.select-dropdown.dropdown-content li.disabled .exp input[type="checkbox"]+label span {
+    opacity: 0;
 }
 
 /* MULTY END */

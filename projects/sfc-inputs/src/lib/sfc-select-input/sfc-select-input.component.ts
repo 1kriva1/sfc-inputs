@@ -3,6 +3,7 @@ import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import ISelectData from '../common/interfaces/ISelectData';
 import { StyleClass } from '../common/constants/common-constants';
+import ISelectDataGroup from '../common/interfaces/ISelectDataGroup';
 
 @Component({
     selector: 'sfc-select-input',
@@ -21,13 +22,21 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     isMultiple: boolean = false;
 
     @Input()
-    data: ISelectData[] = [];
+    isImageInclude: boolean = false;
+
+    @Input()
+    isOptGroups: boolean = false;
+
+    @Input()
+    data: any = {};
 
     @ViewChild('inputSelect', { static: false }) selectInput: ElementRef;
 
     private displayValue: string;
 
     private test: boolean;
+
+    // private innerData: any = {};
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef) {
@@ -59,9 +68,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         return result;
     }
 
-    selectedClass(item: ISelectData) {
+    selectedClass(item: any) {
         const classes = {};
-        if (this.isMultiple && item.isDefault && this.value.findIndex(i => i.key === item.key) === -1 
+        if (this.isMultiple && item.isDefault && this.value.findIndex(i => i.key === item.key) === -1
             && this.value.length !== 0) {
             classes['disabled'] = true;
         }
@@ -71,8 +80,19 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
                 classes['selected'] = true;
             }
         } else {
-            if (this.value === item.key) {
+            if (item.key !== null && item.key != null &&  this.value === item.key) {
                 classes['selected'] = true;
+            }
+        }
+
+        if (this.isOptGroups) {
+            if (item.isOptGroupOption) {
+                classes['optgroup-option'] = true;
+                
+            }
+
+            if(item.isGroupName){
+                classes['optgroup'] = true;
             }
         }
 
@@ -115,8 +135,11 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     setOptionValue(event: any, item: any): void {
         if (this.isMultiple) {
             event.cancelBubble = true;
-            if (event.stopPropagation)
+            if (event.stopPropagation) {
                 event.stopPropagation();
+                event.preventDefault();
+            }
+
 
             // if (this.isMultiple) {
             //     if (this.value !== null && this.value !== undefined && this.value.length > 0 && item.isDefault) {
@@ -146,15 +169,16 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
             }
             this.onChange(this.value);
 
-            this.displayValue = this.value.map(a => a.value).join(", ")
-        } else {
-            this.onChange(item.key);
-            this.displayValue = item.value;
+            this.displayValue = this.value.map(a => a.value).join(", ");
             console.log("setOptionValue");
+            return;
+        } else {
+            if(item.key != null){
+                this.onChange(item.key);
+                this.displayValue = item.value;
+                console.log("setOptionValue");
+            }            
         }
-
-
-
     }
 
     openDropdownContent() {
@@ -168,27 +192,44 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     changeOption(event: any) {
-        // this.test = !this.test;
+        this.test = !this.test;
     }
 
     ngOnInit(): void {
+        const isArray = Array.isArray(this.data);
+
+        if (isArray) {
+            // let innerData = this.data;
+            // this.data = {
+            //     a: innerData
+            // }
+        } else {
+            const groups = Object.keys(this.data);
+            let innerData = this.data;
+            this.data = [];
+            for (let group of groups) {
+                this.data.push({ value: group, key: null, isGroupName: true });
+                let test = innerData[group];
+                test.forEach(element => {
+                    element.isOptGroupOption = true;
+                });
+                this.data = this.data.concat(test);
+            }
+
+        }
 
         if (this.showDefaultOption) {
-            this.data.unshift(this.defaultDisplayValue);
-
-
-
-
+            this.data.unshift(this.defaultDisplayValue)
         }
 
         if (this.value !== null && this.value !== undefined) {
 
             let valueText: string;
-            if (this.data && this.data.length > 0) {
-                let dataValue = this.data.find(i => i.key === this.value);
+            if (this.data && this.data["a"] && this.data["a"].length > 0) {
+                let dataValue = this.data["a"].find(i => i.key === this.value);
 
                 if (dataValue) {
-                    valueText = dataValue.value;
+                    valueText = dataValue.value[""].value;
                 }
             }
 
@@ -202,5 +243,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
                 this.onChange(this.value);
             }
         }
+
+        console.log(this.data);
     }
 }
