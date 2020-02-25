@@ -3,5 +3,7 @@ export default interface ISelectData {
     value: string;
     imagePath?: string;
     isDefault?: boolean;
+    isOptGroup?: boolean;
+    isOptGroupOption?: boolean;
 }
 

@@ -74,6 +74,14 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         }
 
         return classes;
+    }    
+
+    protected get validationClass() {
+        let result = this.input && this.input.isTouched !== null
+            ? this.input.isTouched && this.input.hasError ?
+                StyleClass.Invalid : StyleClass.Valid
+            : '';
+        return result;
     }
 
     protected get placeholder() {
@@ -97,6 +105,10 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
         }
 
         return null;
+    }
+
+    protected get isValueNullOrEmpty(){
+        return this.value === null || this.value === undefined || (Array.isArray(this.value) && this.value.length === 0);
     }
 
     // protected get isRequiredError(){

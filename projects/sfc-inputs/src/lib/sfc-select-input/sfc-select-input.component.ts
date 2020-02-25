@@ -2,8 +2,11 @@ import { Component, Self, Optional, ChangeDetectorRef, Input, ElementRef, ViewCh
 import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import ISelectData from '../common/interfaces/ISelectData';
-import { StyleClass } from '../common/constants/common-constants';
+import { StyleClass, CommonConstants } from '../common/constants/common-constants';
 import ISelectDataGroup from '../common/interfaces/ISelectDataGroup';
+import { CollectionUtils } from '../common/utils/collection-utils';
+import { UIUtils } from '../common/utils/ui-utils';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'sfc-select-input',
@@ -12,11 +15,17 @@ import ISelectDataGroup from '../common/interfaces/ISelectDataGroup';
 })
 export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
+    private readonly OPT_GROUP_OPTION_CLASS = "optgroup-option";
+
+    private readonly OPT_GROUP_CLASS = "optgroup";
+
+    private readonly FOCUSED_LABEL_CLASS = "isFocus";
+
     @Input()
     defaultDisplayValue: ISelectData = { value: "Choose your option", key: "-1", isDefault: true };
 
     @Input()
-    showDefaultOption: boolean = true;
+    showDefaultOption: boolean = false;
 
     @Input()
     isMultiple: boolean = false;
@@ -25,91 +34,65 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     isImageInclude: boolean = false;
 
     @Input()
-    isOptGroups: boolean = false;
-
-    @Input()
     data: any = {};
 
     @ViewChild('inputSelect', { static: false }) selectInput: ElementRef;
 
     private displayValue: string;
 
-    private test: boolean;
-
-    // private innerData: any = {};
-
     constructor(@Self() @Optional() protected ngControl: NgControl,
-        protected changeDetector: ChangeDetectorRef) {
+        protected changeDetector: ChangeDetectorRef, private collectionUtils: CollectionUtils, private uiUtils: UIUtils) {
         super(ngControl, changeDetector);
     }
 
     get dropdownClasses() {
-        const classes = {};
-
-        if (this.isFocus) {
-            classes["active"] = true;
-
-
-        } else {
-
-            // if (this.isMultiple && )
-            //     classes["active"] = true;
-            console.log("lost focus");
-        }
-
-        return classes;
+        return this.isFocus ? StyleClass.Active : null;
     }
 
-    private get validationClass() {
-        let result = this.input && this.input.isTouched !== null
-            ? this.input.isTouched && this.input.hasError ?
-                StyleClass.Invalid : StyleClass.Valid
-            : '';
-        return result;
-    }
-
-    selectedClass(item: any) {
+    getOptionClasses(item: ISelectData) {
         const classes = {};
-        if (this.isMultiple && item.isDefault && this.value.findIndex(i => i.key === item.key) === -1
-            && this.value.length !== 0) {
-            classes['disabled'] = true;
-        }
 
         if (this.isMultiple) {
-            if (this.value.findIndex(i => i.key === item.key) !== -1) {
-                classes['selected'] = true;
+            if (this.collectionUtils.hasItem(this.value, "key", item.key)) {
+                classes[StyleClass.Selected] = true;
+            } else {
+                if (item.isDefault && !this.isValueNullOrEmpty) {
+                    classes[StyleClass.Disabled] = true;
+                }
             }
         } else {
-            if (item.key !== null && item.key != null &&  this.value === item.key) {
-                classes['selected'] = true;
+            if (this.value === item.key) {
+                classes[StyleClass.Selected] = true;
             }
         }
 
-        if (this.isOptGroups) {
-            if (item.isOptGroupOption) {
-                classes['optgroup-option'] = true;
-                
-            }
+        if (item.isOptGroupOption) {
+            classes[this.OPT_GROUP_OPTION_CLASS] = true;
+        }
 
-            if(item.isGroupName){
-                classes['optgroup'] = true;
-            }
+        if (item.isOptGroup) {
+            classes[this.OPT_GROUP_CLASS] = true;
         }
 
         return classes;
     }
 
-    get dropdownWidthStyle() {
+    get dynamicSizeStyles() {
         const classes = {},
-            width = this.selectInput ? this.selectInput.nativeElement.offsetWidth : 0,
-            left = this.selectInput ? this.selectInput.nativeElement.offsetLeft : 0;
+            selectNativeEl = this.selectInput ? this.selectInput.nativeElement : null,
+            width = selectNativeEl ? selectNativeEl.offsetWidth : 0,
+            left = selectNativeEl ? selectNativeEl.offsetLeft : 0;
 
         if (this.isFocus) {
-            classes["width"] = width + "px";
-            classes["left"] = left + "px";
+            classes[CommonConstants.CSS_WIDTH] = this.uiUtils.getCssLikePx(width);
+            classes[CommonConstants.CSS_LEFT] = this.uiUtils.getCssLikePx(left);
         }
 
         return classes;
+    }
+
+    get isOptGroup(): boolean {
+        return !Array.isArray(this.data)
     }
 
     protected get labelClass() {
@@ -123,34 +106,27 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
         if (this.isFocus) {
             classes[this.validationClass] = true;
+            classes[this.FOCUSED_LABEL_CLASS] = true;
         }
 
         return classes;
     }
 
-    protected isOptionDisabled(item: ISelectData) {
-
-    }
+    // private get isCurrentValueDefault() {
+    //     if (this.isMultiple) {
+    //         return this.collectionUtils.hasItem(this.value, "isDefault", true)
+    //     } else {
+    //         return this.value.isDefault;
+    //     }
+    // }
 
     setOptionValue(event: any, item: any): void {
         if (this.isMultiple) {
             event.cancelBubble = true;
             if (event.stopPropagation) {
-                event.stopPropagation();
+
                 event.preventDefault();
             }
-
-
-            // if (this.isMultiple) {
-            //     if (this.value !== null && this.value !== undefined && this.value.length > 0 && item.isDefault) {
-            //         return;
-            //     }
-            // } else {
-            //     if (this.value !== null && this.value !== undefined && item.isDefault) {
-            //         return;
-            //     }
-            // }
-
 
             let itemIndex = this.value.findIndex(i => i.key === item.key);
 
@@ -173,11 +149,8 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
             console.log("setOptionValue");
             return;
         } else {
-            if(item.key != null){
-                this.onChange(item.key);
-                this.displayValue = item.value;
-                console.log("setOptionValue");
-            }            
+            this.onChange(item.key);
+            this.displayValue = item.value;
         }
     }
 
@@ -185,41 +158,24 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         this.selectInput.nativeElement.focus();
     }
 
-    checkOption() {
-
-        this.test = !this.test;
-        console.log("select-wrapper");
-    }
-
-    changeOption(event: any) {
-        this.test = !this.test;
-    }
-
     ngOnInit(): void {
-        const isArray = Array.isArray(this.data);
 
-        if (isArray) {
-            // let innerData = this.data;
-            // this.data = {
-            //     a: innerData
-            // }
-        } else {
-            const groups = Object.keys(this.data);
-            let innerData = this.data;
+        if (this.isOptGroup) {
+            const groups = Object.keys(this.data),
+                innerData = this.data;
             this.data = [];
             for (let group of groups) {
-                this.data.push({ value: group, key: null, isGroupName: true });
+                this.data.push({ value: group, key: null, isOptGroup: true });
                 let test = innerData[group];
                 test.forEach(element => {
                     element.isOptGroupOption = true;
                 });
                 this.data = this.data.concat(test);
             }
-
         }
 
         if (this.showDefaultOption) {
-            this.data.unshift(this.defaultDisplayValue)
+            this.data.unshift(this.defaultDisplayValue);
         }
 
         if (this.value !== null && this.value !== undefined) {
@@ -237,10 +193,17 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         } else {
             if (this.isMultiple) {
                 this.value = [];
-
-                this.displayValue = this.defaultDisplayValue.value;
-                this.value.push(this.defaultDisplayValue);
-                this.onChange(this.value);
+                if (this.showDefaultOption) {
+                    this.displayValue = this.defaultDisplayValue.value;
+                    this.value.push(this.defaultDisplayValue);
+                    this.onChange(this.value);
+                }
+            } else {
+                if (this.showDefaultOption) {
+                    this.value = this.defaultDisplayValue.key;
+                    this.displayValue = this.defaultDisplayValue.value;
+                    this.onChange(this.value);
+                }
             }
         }
 

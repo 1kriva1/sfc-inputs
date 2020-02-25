@@ -106,14 +106,6 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
         return classes;
     }
 
-    private get validationClass() {
-        let result = this.input && this.input.isTouched !== null
-            ? this.input.isTouched && this.input.hasError ?
-                StyleClass.Invalid : StyleClass.Valid
-            : '';
-        return result;
-    }
-
     private get inlineValueText() {
         if (this.showFileName) {
             return this.getSlicedText(this.fileName

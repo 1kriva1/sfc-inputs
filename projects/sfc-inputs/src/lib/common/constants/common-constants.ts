@@ -1,7 +1,9 @@
 export enum StyleClass {
-    Active = 'active',
-    Valid = 'valid',
-    Invalid = 'invalid',
+    Active = "active",
+    Valid = "valid",
+    Invalid = "invalid",
+    Disabled = "disabled",
+    Selected = "selected",
     WithIcon = "withIcon"
 };
 
@@ -17,4 +19,6 @@ export class CommonConstants{
     static BASE_REQUIRED_VALIDATOR_KEY = 'required'
     static TEXT_AREA_REQUIRED_VALIDATOR_KEY = 'textAreaRequired'
     static CSS_PIXELS = 'px'
+    static CSS_WIDTH = 'width'
+    static CSS_LEFT = 'left'
 }

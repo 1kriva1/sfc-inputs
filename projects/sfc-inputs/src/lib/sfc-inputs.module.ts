@@ -8,6 +8,8 @@ import TextBaseInputComponent from './common/components/sfc-base-input.component
 import { FileInputComponent } from './sfc-file-input/sfc-file-input.component';
 import { FileUtils } from './common/utils/file-utils';
 import { SelectInputComponent } from './sfc-select-input/sfc-select-input.component';
+import { CollectionUtils } from './common/utils/collection-utils';
+import { UIUtils } from './common/utils/ui-utils';
 
 @NgModule({
   declarations: [InputRefDirective, TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent],
@@ -19,7 +21,9 @@ import { SelectInputComponent } from './sfc-select-input/sfc-select-input.compon
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
-    FileUtils
+    FileUtils,
+    CollectionUtils,
+    UIUtils
   ]
 })
 export class SfcInputsModule { }

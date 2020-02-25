@@ -190,7 +190,13 @@ select {
     transform: translateY(-14px) scale(0.8);
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
+    
 }
+
+.select-wrapper+label.isFocus {
+   color: #26a69a;
+}
+
 
 /* VALID */
 
