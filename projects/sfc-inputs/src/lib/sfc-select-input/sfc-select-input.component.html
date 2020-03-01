@@ -7,7 +7,7 @@
         <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dynamicSizeStyles">
             <li *ngFor="let item of data" (mousedown)="setOptionValue($event, item)" [ngClass]="getOptionClasses(item)">
-                <img *ngIf="isImageInclude && item.imagePath" alt="" [src]="item.imagePath">
+                <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
                 <span>
                     <span *ngIf="!isMultiple">{{item.value}}</span>
                     <label *ngIf="isMultiple">

@@ -22,23 +22,21 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     private readonly FOCUSED_LABEL_CLASS = "isFocus";
 
     @Input()
-    defaultDisplayValue: ISelectData = { value: "Choose your option", key: "-1", isDefault: true };
+    defaultDisplayValue: ISelectData = { value: "Choose your option", key: null, isDefault: true };
 
     @Input()
-    showDefaultOption: boolean = false;
+    showDefaultOption: boolean = true;
 
     @Input()
     isMultiple: boolean = false;
 
     @Input()
-    isImageInclude: boolean = false;
+    data: any;
 
-    @Input()
-    data: any = {};
 
     @ViewChild('inputSelect', { static: false }) selectInput: ElementRef;
 
-    private displayValue: string;
+
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef, private collectionUtils: CollectionUtils, private uiUtils: UIUtils) {
@@ -53,7 +51,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         const classes = {};
 
         if (this.isMultiple) {
-            if (this.collectionUtils.hasItem(this.value, "key", item.key)) {
+            if (this.value.findIndex(i => i === item.key) !== -1) {
                 classes[StyleClass.Selected] = true;
             } else {
                 if (item.isDefault && !this.isValueNullOrEmpty) {
@@ -92,7 +90,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     get isOptGroup(): boolean {
-        return !Array.isArray(this.data)
+        return !Array.isArray(this.data);
     }
 
     protected get labelClass() {
@@ -120,6 +118,37 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     //     }
     // }
 
+    private get displayValue(): string {
+        let valueText: string;
+        if (this.isOptGroup) {
+
+        } else if (this.isMultiple) {
+            let selectedItemsKeys = this.value,
+                selectedValues = [];
+
+            this.data.forEach(function (item) {
+                let findItem = selectedItemsKeys.find(i => i === item.key);
+
+                if (findItem || (findItem === null && item.isDefault)) {
+                    selectedValues.push(item.value);
+                }
+            });
+
+            valueText = selectedValues.join(", ");
+
+        } else {
+            if (this.data && this.data.length > 0) {
+                let dataValue = this.data.find(i => i.key === this.value);
+
+                if (dataValue) {
+                    valueText = dataValue.value;
+                }
+            }
+        }
+
+        return valueText;
+    }
+
     setOptionValue(event: any, item: any): void {
         if (this.isMultiple) {
             event.cancelBubble = true;
@@ -128,29 +157,37 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
                 event.preventDefault();
             }
 
-            let itemIndex = this.value.findIndex(i => i.key === item.key);
+            let itemIndex = this.value.findIndex(i => i === item.key);
 
             if (itemIndex !== -1) {
                 this.value.splice(itemIndex, 1);
             } else {
-                this.value.push(item);
 
-                if (this.value.findIndex(i => !i.isDefault) !== -1) {
-                    let defaultItemIndex = this.value.findIndex(i => i.isDefault);
-                    if (defaultItemIndex !== -1) {
-                        this.value.splice(defaultItemIndex, 1);
+                if (item.isDefault) {
+                    if (this.value.findIndex(i => i !== null) === -1) {
+                        this.value.push(item.key);
+                    }
+                } else {
+                    this.value.push(item.key);
+
+                    if (!item.isDefault) {
+                        let defaultItemIndex = this.value.findIndex(i => i === null);
+                        if (defaultItemIndex !== -1) {
+                            this.value.splice(defaultItemIndex, 1);
+                        }
                     }
                 }
+
 
             }
             this.onChange(this.value);
 
-            this.displayValue = this.value.map(a => a.value).join(", ");
+            //this.displayValue = this.value.map(a => a.value).join(", ");
             console.log("setOptionValue");
             return;
         } else {
             this.onChange(item.key);
-            this.displayValue = item.value;
+            //this.displayValue = item.value;
         }
     }
 
@@ -180,33 +217,47 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
         if (this.value !== null && this.value !== undefined) {
 
-            let valueText: string;
-            if (this.data && this.data["a"] && this.data["a"].length > 0) {
-                let dataValue = this.data["a"].find(i => i.key === this.value);
+            // if (this.isOptGroup) {
 
-                if (dataValue) {
-                    valueText = dataValue.value[""].value;
-                }
-            }
+            // } else if (this.isMultiple) {
+            //     let selectedItemsKeys = this.value,
+            //         selectedValues = [];
 
-            this.displayValue = valueText;
+            //     this.data.forEach(function (item) {
+            //         let findItem = selectedItemsKeys.find(i => i === item.key);
+
+            //         if (findItem) {
+            //             selectedValues.push(item.value);
+            //         }
+            //     });
+
+            // } else {
+            //     if (this.data && this.data.length > 0) {
+            //         let dataValue = this.data.find(i => i.key === this.value);
+
+            //         if (dataValue) {
+            //             valueText = dataValue.value;
+            //         }
+            //     }
+            // }
+
+            //this.displayValue = valueText;
         } else {
             if (this.isMultiple) {
                 this.value = [];
                 if (this.showDefaultOption) {
-                    this.displayValue = this.defaultDisplayValue.value;
-                    this.value.push(this.defaultDisplayValue);
-                    this.onChange(this.value);
+                    // this.displayValue = this.defaultDisplayValue.value;
+                    // this.value.push(this.defaultDisplayValue);
+                    // this.onChange(this.value);
                 }
             } else {
                 if (this.showDefaultOption) {
                     this.value = this.defaultDisplayValue.key;
-                    this.displayValue = this.defaultDisplayValue.value;
+                    //this.displayValue = this.defaultDisplayValue.value;
                     this.onChange(this.value);
                 }
             }
         }
 
-        console.log(this.data);
     }
 }

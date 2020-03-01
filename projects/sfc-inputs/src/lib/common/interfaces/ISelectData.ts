@@ -1,5 +1,5 @@
 export default interface ISelectData {
-    key: string;
+    key: any;
     value: string;
     imagePath?: string;
     isDefault?: boolean;
