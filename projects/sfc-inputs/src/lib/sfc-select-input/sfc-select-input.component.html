@@ -1,8 +1,8 @@
-<div class="input-select-container">
+<div class="input-text-container input-select-container">
 
     <div class="select-wrapper" [ngClass]="validationClass">
-        <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-        <input sfcinput #inputSelect type="text" readonly class="select-dropdown input-text-input"
+        <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
+        <input sfcinput #inputSelect type="text" class="select-dropdown input-text-input"
             value={{displayValue}} [placeholder]="placeholder" [disabled]="disabled">
         <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dynamicSizeStyles">
@@ -18,8 +18,6 @@
                                 <span></span>{{item.value}}
                             </label>
                         </div>
-                        <!-- <input type="checkbox" value="{{item.key}}">
-                        <span>{{item.value}}</span> -->
                     </label>
                 </span>
             </li>

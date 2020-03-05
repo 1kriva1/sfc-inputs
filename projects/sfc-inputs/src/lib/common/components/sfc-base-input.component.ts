@@ -77,8 +77,8 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
     }    
 
     protected get validationClass() {
-        let result = this.input && this.input.isTouched !== null
-            ? this.input.isTouched && this.input.hasError ?
+        let result = this.input && this.input.isTouched !== null && this.input.isTouched
+            ? this.input.hasError ?
                 StyleClass.Invalid : StyleClass.Valid
             : '';
         return result;

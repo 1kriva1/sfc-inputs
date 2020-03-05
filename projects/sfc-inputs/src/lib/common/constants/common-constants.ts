@@ -21,4 +21,6 @@ export class CommonConstants{
     static CSS_PIXELS = 'px'
     static CSS_WIDTH = 'width'
     static CSS_LEFT = 'left'
+
+    static NOT_FOUND_INDEX = -1;
 }
