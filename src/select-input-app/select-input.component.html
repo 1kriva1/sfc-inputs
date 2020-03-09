@@ -13,15 +13,132 @@
 
                 <div class="input-row">
                     <div>
-                        <sfc-select-input id="demo-select" formControlName="inputSelectNull" placeholder="tetsavd "
-                            label="test label " [isMultiple]="false" icon="fa fa-star" [data]="data"></sfc-select-input>
-                    </div>
-                    <!-- <div>
-                        <sfc-select-input id="demo-select-second" formControlName="inputSelectSecond" label="Empty second dropdown"></sfc-select-input>
+                        <sfc-select-input id="demo-select-full-empty" formControlName="inputSelectFullEmpty">
+                        </sfc-select-input>
                     </div>
                     <div>
-                        <sfc-select-input id="demo-select-third" formControlName="inputSelectThird" label="Empty third dropdown"></sfc-select-input>
-                    </div> -->
+                        <sfc-select-input id="demo-select-with-data" formControlName="inputSelectWithData"
+                            [data]="data">
+                        </sfc-select-input>
+                    </div>
+                    <div>
+                        <sfc-select-input id="demo-select-with-label" formControlName="inputSelectWithLabel"
+                            [data]="data" label="Single select label">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-with-placeholder" formControlName="inputSelectWithPlace"
+                            [data]="data" placeholder="Single select place">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-with-labelandplace"
+                            formControlName="inputSelectWithLabelPlace" [data]="data" label="Single select label"
+                            placeholder="Single select place">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-custom-default" formControlName="inputSelectCustomDefault"
+                            [data]="data" label="Single select custom default"
+                            placeholder="Single select custom default" [defaultDisplayValue]="defaultDisplayValue">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-without-default" formControlName="inputSelectWithoutDefault"
+                            [data]="data" label="Single select without default"
+                            placeholder="Single select without default" [showDefaultOption]="false">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-disabled" formControlName="inputSelectDisabled" [data]="data"
+                            label="Single select disabled" placeholder="Single select disabled">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-icon" formControlName="inputSelectIcon" [data]="data"
+                            label="Single select icon" placeholder="Single select icon" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-helper" formControlName="inputSelectHelper" [data]="data"
+                            label="Single select helper" placeholder="Single select helper" icon="fa fa-star"
+                            helper-text="helper text test">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-with-value" formControlName="inputSelectWithValue"
+                            [data]="data" label="Single select with value" placeholder="Single select with value"
+                            icon="fa fa-star" helper-text="helper text with value">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-single" formControlName="inputSelectSingle" [data]="data"
+                            label="Single select single" placeholder="Single select single">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-empty" formControlName="inputSelectMultipleEmpty"
+                            label="Muliple select Multiple empty" placeholder="Muliple select Multiple empty"
+                            helper-text="helper text Multiple empty" [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-multiple" formControlName="inputSelectMultiple" [data]="data"
+                            label="Muliple select Multiple" placeholder="Muliple select Multiple" icon="fa fa-star"
+                            helper-text="helper text Multiple" [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-without-default"
+                            formControlName="inputSelectultipleWithoutDefault" [data]="data"
+                            label="Muliple select without default" placeholder="Muliple select without default"
+                            [isMultiple]="true" [showDefaultOption]="false">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-with-value"
+                            formControlName="inputSelectMultipleWithValue" [data]="data"
+                            label="Muliple select with value" placeholder="Muliple select with value" icon="fa fa-star"
+                            helper-text="helper text Multiple with value" [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-disabled"
+                            formControlName="inputSelectultipleDisabled" [data]="data" label="Muliple select disabled"
+                            placeholder="Muliple select disabled" [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-not-found"
+                            formControlName="inputSelectultipleNotFound" [data]="data" label="Muliple select not found"
+                            placeholder="Muliple select not found" [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
                 </div>
 
             </div>
@@ -29,7 +146,7 @@
     </div>
 
     <div>
-        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <pre><code>{{ customInputForm.getRawValue() | json }}</code></pre>
         <h1>Valid: {{customInputForm.valid}}</h1>
     </div>
 </div>

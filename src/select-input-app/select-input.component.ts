@@ -25,8 +25,9 @@ export class SelectInputAppComponent {
     private customInputForm: FormGroup;
     private theme: string = "common";
 
-    private data: any;
+    private data: ISelectData[];
     private datagroup: ISelectDataGroup[];
+    private defaultDisplayValue: ISelectData = { value: "Choose customdefault option", key: -10, isDefault: true };
 
     constructor(private formBuilder: FormBuilder) {
 
@@ -114,9 +115,30 @@ export class SelectInputAppComponent {
 
         this.customInputForm = this.formBuilder.group(
             {
-                inputSelectNull: [null],
-                inputSelectSecond: [null],
-                inputSelectThird: [null],
+                inputSelectFullEmpty: [null],
+                inputSelectWithData: [null],
+                inputSelectWithLabel: [null],
+                inputSelectWithPlace: [null],
+                inputSelectWithLabelPlace: [null],
+                inputSelectCustomDefault: [null],
+                inputSelectWithoutDefault: [null],
+                inputSelectDisabled: [{
+                    value: null,
+                    disabled: true
+                }],
+                inputSelectIcon: [null],
+                inputSelectHelper: [null],
+                inputSelectWithValue: [3],
+                inputSelectSingle: [10],
+                inputSelectMultipleEmpty: [null],
+                inputSelectMultiple: [null],
+                inputSelectultipleWithoutDefault: [null],
+                inputSelectMultipleWithValue: [[1, 3]],
+                inputSelectultipleDisabled: [{
+                    value: [1],
+                    disabled: true
+                }],
+                inputSelectultipleNotFound:[[2, 33]],
             }
         );
     }

@@ -6,7 +6,7 @@
             value={{displayValue}} [placeholder]="placeholder" [disabled]="disabled">
         <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dynamicSizeStyles">
-            <li *ngFor="let item of data" (mousedown)="setOptionValue($event, item)" [ngClass]="getOptionClasses(item)">
+            <li *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)" [ngClass]="getOptionClasses(item)">
                 <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
                 <span>
                     <span *ngIf="!isMultiple">{{item.value}}</span>
@@ -24,7 +24,7 @@
         </ul>
         <i class="caret fa fa-caret-down"></i>
         <select id="sfc-{{id}}">
-            <option *ngFor="let item of data" value="{{item.key}}">{{item.value}}</option>
+            <option *ngFor="let item of localData" value="{{item.key}}">{{item.value}}</option>
         </select>
     </div>
     <label for="sfc-{{id}}" [ngClass]="labelClass" (click)="openDropdownContent()">{{label}}</label>

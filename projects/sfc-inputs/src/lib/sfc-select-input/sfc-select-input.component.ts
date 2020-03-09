@@ -34,6 +34,8 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
     private isOptGroup: boolean;
 
+    private localData: any;
+
     @ViewChild('inputSelect', { static: false }) selectInput: ElementRef;
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
@@ -145,8 +147,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data = this.data || [];
-        this.isOptGroup = this.data && Array.isArray(this.data) && this.data.length > 0 && this.instanceOfSelectData(this.data[0]);
+        this.localData = Object.assign([], this.data);
+        this.isOptGroup = this.localData && Array.isArray(this.localData) && this.localData.length > 0
+            && this.instanceOfSelectData(this.localData[0]);
 
         if (this.isOptGroup) {
             this.isMultiple = false;
@@ -158,7 +161,12 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         }
 
         if (this.showDefaultOption) {
-            this.data.unshift(this.defaultDisplayValue);
+
+            if (this.defaultDisplayValue.isDefault === null || this.defaultDisplayValue.isDefault == undefined) {
+                this.defaultDisplayValue.isDefault = true;
+            }
+
+            this.localData.unshift(this.defaultDisplayValue);
         }
     }
 
@@ -172,16 +180,16 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     private prepateOptGroupData() {
-        const innerData: ISelectDataGroup[] = this.data;
-        this.data = [];
+        const innerData: ISelectDataGroup[] = this.localData;
+        this.localData = [];
 
         for (let group of innerData) {
-            this.data.push({ value: group.value, key: group.key, isOptGroup: true });
+            this.localData.push({ value: group.value, key: group.key, isOptGroup: true });
             group.options.forEach(element => {
                 element.isOptGroupOption = true;
                 element.groupKey = group.key
             });
-            this.data = this.data.concat(group.options);
+            this.localData = this.localData.concat(group.options);
         }
     }
 
@@ -224,7 +232,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         let selectedItemsKeys = this.value,
             selectedValues = [];
 
-        this.data.forEach(function (item) {
+        this.localData.forEach(function (item) {
             let findItem = selectedItemsKeys.find(i => i === item.key);
 
             if (findItem || (findItem === null && item.isDefault)) {
@@ -235,10 +243,10 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         return selectedValues.join(", ");
     }
 
-    private getDisplayValue(predicate: (n: any) => boolean) {
-        if (this.data && this.data.length > 0) {
+    private getDisplayValue(predicate: (n: ISelectData) => boolean) {
+        if (this.localData && this.localData.length > 0) {
 
-            let dataValue = this.data.find(predicate);
+            let dataValue = this.localData.find(predicate);
 
             return dataValue ? dataValue.value : null;
         }
