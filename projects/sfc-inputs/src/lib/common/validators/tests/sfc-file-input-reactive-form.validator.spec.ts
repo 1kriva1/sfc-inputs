@@ -5,7 +5,7 @@ import { TextAreaRequired } from '../sfc-text-area-required.validator';
 import SfcValidators from '../sfc-input.validators';
 import { By } from '@angular/platform-browser';
 import { SfcInputsModule } from '../../../sfc-inputs.module';
-import { getHugeFile } from '../sfc-input-validator-helper';
+import { getHugeFile } from './sfc-input-validator-helper';
 
 @Component({
     template: `

@@ -97,7 +97,6 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
     protected get labelClass() {
         const classes = {};
-
         classes[super.labelClass] = true;
 
         if (this.icon) {
@@ -126,7 +125,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
         } else {
 
-            return this.getDisplayValue(i => i.key === this.value);
+            return this.value ? this.getDisplayValue(i => i.key === this.value): null;
 
         }
     }
@@ -221,9 +220,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
     private setOptGroupOption(event: any, item: ISelectData) {
         if (item.isOptGroupOption || item.isDefault) {
-            this.onChange({ key: item.key, value: item.value, groupKey: item.groupKey });
+            this.onChange({ key: item.key, groupKey: item.groupKey });
         } else {
-            if (event.stopPropagation)
+            if (event.preventDefault)
                 event.preventDefault();
         }
     }

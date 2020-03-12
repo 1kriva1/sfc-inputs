@@ -3,7 +3,7 @@
     <div class="select-wrapper" [ngClass]="validationClass">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
         <input sfcinput #inputSelect type="text" class="select-dropdown input-text-input"
-            value={{displayValue}} [placeholder]="placeholder" [disabled]="disabled">
+            value={{displayValue}} [placeholder]="placeholder" [validations]="validations" [disabled]="disabled">
         <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dynamicSizeStyles">
             <li *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)" [ngClass]="getOptionClasses(item)">

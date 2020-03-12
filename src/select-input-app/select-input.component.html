@@ -11,6 +11,9 @@
 
             <div class="input-container">
 
+                <h3>Single</h3>
+                <hr>
+
                 <div class="input-row">
                     <div>
                         <sfc-select-input id="demo-select-full-empty" formControlName="inputSelectFullEmpty">
@@ -95,6 +98,49 @@
 
                 <div class="input-row">
                     <div>
+                        <sfc-select-input id="demo-select-validation" formControlName="inputSelectValidation"
+                            [data]="data" label="Single select valiation" placeholder="Single select valiation"
+                            icon="fa fa-star" helper-text="helper text valiation">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-validation-with-value"
+                            formControlName="inputSelectValidationWithValue" [data]="data"
+                            label="Single select valiation with-value" placeholder="Single select valiation with-value"
+                            icon="fa fa-star" helper-text="helper text valiation with-value">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-validation-with-value-valid"
+                            formControlName="inputSelectValidationWithValueValid" [data]="data"
+                            label="Single select valiation with-value VALID"
+                            placeholder="Single select valiation with-value VALID" icon="fa fa-star"
+                            helper-text="helper text valiation with-value VALID">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-select-input id="demo-select-validation-with-value-val-text"
+                            formControlName="inputSelectValidationWithValueValText" [data]="data"
+                            label="Single select valiation with-value ValText"
+                            placeholder="Single select valiation with-value ValText" icon="fa fa-star"
+                            helper-text="helper text valiation with-value ValText"
+                            [validations]="{equalOrInclude: 'Include invalid', max: 'Max value is not valid'}">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <hr>
+                <h3>Multiple</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
                         <sfc-select-input id="demo-select-multiple-empty" formControlName="inputSelectMultipleEmpty"
                             label="Muliple select Multiple empty" placeholder="Muliple select Multiple empty"
                             helper-text="helper text Multiple empty" [isMultiple]="true">
@@ -137,6 +183,94 @@
                         <sfc-select-input id="demo-select-multiple-not-found"
                             formControlName="inputSelectultipleNotFound" [data]="data" label="Muliple select not found"
                             placeholder="Muliple select not found" [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-validation"
+                            formControlName="inputSelectMultipleValidation" [data]="data"
+                            label="Muliple select valiation" placeholder="Muliple select valiation" icon="fa fa-star"
+                            helper-text="Muliple select validation" [validations]="{equalOrInclude: 'Include invalid'}"
+                            [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-validation-value"
+                            formControlName="inputSelectMultipleValidationWithValue" [data]="data"
+                            label="Muliple select valiation value" placeholder="Muliple select valiation value"
+                            icon="fa fa-star" helper-text="Muliple select validation value"
+                            [validations]="{required: 'This field required', equalOrInclude: 'Include invalid'}"
+                            [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-multiple-validation-value-invalid"
+                            formControlName="inputSelectMultipleValidationWithValueInv" [data]="data"
+                            label="Muliple select valiation value invalid"
+                            placeholder="Muliple select valiation value invalid" icon="fa fa-star"
+                            helper-text="Muliple select validation value invalid"
+                            [validations]="{required: 'This field required', equalOrInclude: 'Include invalid'}"
+                            [isMultiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <hr>
+                <h3>OptGroup</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-optgroup-empty" formControlName="inputSelectOptGroupEmpty"
+                            [data]="datagroup" label="OptGroup select empty" placeholder="OptGroup select empty"
+                            icon="fa fa-star" helper-text="helper OptGroup select empty">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-optgroup-value" formControlName="inputSelectOptGroupWithValue"
+                            [data]="datagroup" label="OptGroup select with value"
+                            placeholder="OptGroup select with value" icon="fa fa-star"
+                            helper-text="helper OptGroup select with value">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-optgroup-without-default"
+                            formControlName="inputSelectOptGroupWithoutDefault" [data]="datagroup"
+                            label="OptGroup select without default" [showDefaultOption]="false">
+                        </sfc-select-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-optgroup-validation"
+                            formControlName="inputSelectOptGroupValiation" [data]="datagroup" icon="fa fa-star"
+                            label="OptGroup select validation" placeholder="OptGroup select validation"
+                            helper-text="helper OptGroup select validation">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-optgroup-validation"
+                            formControlName="inputSelectOptGroupValiationRange" [data]="datagroup" icon="fa fa-star"
+                            label="OptGroup select validation range" placeholder="OptGroup select validation range"
+                            helper-text="helper OptGroup select validation range">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-optgroup-validation"
+                            formControlName="inputSelectOptGroupValiationText" [data]="datagroup" icon="fa fa-star"
+                            label="OptGroup select validation text" placeholder="OptGroup select validation text"
+                            helper-text="helper OptGroup select validation text"
+                            [validations]="{equalOrInclude: 'Include invalid'}">
                         </sfc-select-input>
                     </div>
                 </div>

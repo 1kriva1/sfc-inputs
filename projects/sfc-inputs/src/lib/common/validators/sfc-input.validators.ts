@@ -2,7 +2,7 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export default class SfcValidators {
     static TextAreaRequired(control: AbstractControl) {
-        
+
         if (control.value === null || control.value === undefined) {
             return { textAreaRequired: true };
         }
@@ -14,6 +14,54 @@ export default class SfcValidators {
         }
 
         return null;
+    }
+
+    static EqualOrInclude(includes: any | Array<any>): ValidatorFn {
+
+        const validatorFn: ValidatorFn = (control: AbstractControl) => {
+
+            if (Array.isArray(includes)) {
+
+                if (Array.isArray(control.value)) {
+                    if (includes && includes.length > 0) {
+
+                        for (let index = 0; index < control.value.length; index++) {
+                            const element = control.value[index];
+                            if (!includes.includes(element)) {
+                                return { equalOrInclude: true };
+                            }
+                        }
+                    }
+                } else {
+                    if (includes && includes.length > 0) {
+                        if (control.value instanceof Object) {
+                            let found: boolean = false;
+                            for (let index = 0; index < includes.length; index++) {
+                                const element = includes[index];
+                                if (JSON.stringify(element) === JSON.stringify(control.value)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            return found ? null : { equalOrInclude: true };
+                        } else {
+                            return includes.includes(control.value) ? null : { equalOrInclude: true };
+                        }
+                    }
+                }
+            } else {
+                if (control.value instanceof Object) {
+                    return JSON.stringify(includes) !== JSON.stringify(control.value) ? { equalOrInclude: true } : null;
+                } else {
+                    return control.value === includes ? null : { equalOrInclude: true };
+                }
+            }
+
+            return null;
+        };
+
+        return validatorFn;
     }
 
     static FileMaxSize(maxSize: number): ValidatorFn {
