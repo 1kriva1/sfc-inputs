@@ -2,9 +2,9 @@
 
     <div class="select-wrapper" [ngClass]="validationClass">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
-        <input sfcinput #inputSelect type="text" class="select-dropdown input-text-input"
+        <input sfcinput #inputSelect type="text" class="input-select input-text-input"
             value={{displayValue}} [placeholder]="placeholder" [validations]="validations" [disabled]="disabled">
-        <ul class="dropdown-content select-dropdown scrollbar" [ngClass]="dropdownClasses"
+        <ul class="select-dropdown scrollbar" [ngClass]="dropdownClasses"
             [ngStyle]="dynamicSizeStyles">
             <li *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)" [ngClass]="getOptionClasses(item)">
                 <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
@@ -12,7 +12,7 @@
                     <span *ngIf="!isMultiple">{{item.value}}</span>
                     <label *ngIf="isMultiple">
 
-                        <div class="exp">
+                        <div class="multiple">
                             <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
                             <label for="{{item.key}}">
                                 <span></span>{{item.value}}
@@ -26,7 +26,8 @@
         <select id="sfc-{{id}}">
             <option *ngFor="let item of localData" value="{{item.key}}">{{item.value}}</option>
         </select>
+        <span class="helper-text">{{helperText}}</span>
     </div>
     <label for="sfc-{{id}}" [ngClass]="labelClass" (click)="openDropdownContent()">{{label}}</label>
-    <span class="helper-text">{{helperText}}</span>
+    
 </div>

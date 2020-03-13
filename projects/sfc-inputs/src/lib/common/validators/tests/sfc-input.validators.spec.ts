@@ -17,13 +17,13 @@ describe('Validators', () => {
     }));
 
     it('Validator: TextAreaRequired validation failed', () => {
-        const validationResult = SfcValidators.TextAreaRequired(new FormControl('\n\n\n')),
+        const validationResult = SfcValidators.TextAreaRequired()(new FormControl('\n\n\n')),
             expectedResult = { textAreaRequired: true };
         expect(validationResult).toEqual(expectedResult);
     });
 
     it('Validator: TextAreaRequired validation success', () => {
-        const validationResult = SfcValidators.TextAreaRequired(new FormControl('firstline \n second line')),
+        const validationResult = SfcValidators.TextAreaRequired()(new FormControl('firstline \n second line')),
             expectedResult = null;
         expect(validationResult).toEqual(expectedResult);
     });
@@ -66,11 +66,130 @@ describe('Validators', () => {
 
     it('Validator: FileExtensions validation success', () => {
         const mockFile = getHugeFile('testFile.png', 10),
-            allowedExtensions =  ["png", "jpeg"],
+            allowedExtensions = ["png", "jpeg"],
             validationResult = SfcValidators.FileExtensions(allowedExtensions)(new FormControl(mockFile)),
             expectedResult = null;
         expect(validationResult).toEqual(expectedResult);
     });
 
+    it('Validator: EqualOrInclude - single - not object - validation failed', () => {
+        const testValue = 1,
+            includes = 3,
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - single - not object - validation success', () => {
+        const testValue = 3,
+            includes = 3,
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - single - object - validation failed', () => {
+        const testValue = {key: 1, groupKey: 1},
+            includes = {key: 1, groupKey: 2},
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - single - object - validation success', () => {
+        const testValue = {key: 1, groupKey: 2},
+            includes = {key: 1, groupKey: 2},
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - multiple - not object - validation failed', () => {
+        const testValue = 2,
+            includes = [3, 1],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - multiple - not object - validation success', () => {
+        const testValue = 1,
+            includes = [3, 1],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - multiple - object - validation failed', () => {
+        const testValue = {key: 2, groupKey: 1},
+            includes = [{key: 1, groupKey: 2}, {key: 1, groupKey: 1}],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - multiple - object - validation success', () => {
+        const testValue = {key: 1, groupKey: 1},
+            includes = [{key: 1, groupKey: 2}, {key: 1, groupKey: 1}],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - multiple value - not object - validation failed', () => {
+        const testValue = [1, 2],
+            includes = [2,3],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - multiple value - not object - validation success', () => {
+        const testValue = [3, 2],
+            includes = [2,3],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - multiple value - object - validation failed', () => {
+        const testValue = [{key: 1, groupKey: 1}, {key: 1, groupKey: 2}],
+            includes = [{key: 2, groupKey: 1},{key: 2, groupKey: 2}],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - multiple value - object - validation success', () => {
+        const testValue = [{key: 2, groupKey: 1}, {key: 2, groupKey: 2}],
+            includes = [{key: 2, groupKey: 1},{key: 2, groupKey: 2}],
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - not multiple - multiple value - not object - validation failed', () => {
+        const testValue = [1, 2],
+            includes = 3,
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - not multiple - multiple value - not object - validation success', () => {
+        const testValue = [1, 2],
+            includes = 2,
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: EqualOrInclude - not multiple - multiple value - object - validation failed', () => {
+        const testValue = [{key: 1, groupKey: 1}, {key: 1, groupKey: 2}],
+            includes = {key: 2, groupKey: 1},
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue)),
+            expectedResult = { equalOrInclude: true };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: EqualOrInclude - not multiple - multiple value - object - validation success', () => {
+        const testValue = [{key: 1, groupKey: 1}, {key: 1, groupKey: 2}],
+            includes = {key: 1, groupKey: 1},
+            validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
+        expect(validationResult).toBeNull();
+    });
 });
 

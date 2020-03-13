@@ -15,7 +15,7 @@ export class FileUtils {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
-    public getFileExtension(value:File): string {
+    public static getFileExtension(value:File): string {
         if (!value)
             return '';
 

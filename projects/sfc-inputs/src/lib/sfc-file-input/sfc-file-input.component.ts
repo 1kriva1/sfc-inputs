@@ -118,7 +118,7 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     private getSlicedText(value: string) {
         return value.slice(0, 20)
             + '...'
-            + this.fileUtils.getFileExtension(this.value);
+            + FileUtils.getFileExtension(this.value);
     }    
 
     /**

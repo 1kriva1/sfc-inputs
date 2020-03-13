@@ -76,6 +76,7 @@
     min-height: 18px;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.54);
+    user-select: none;
 }
 
 .input-text-container .helper-text:empty {

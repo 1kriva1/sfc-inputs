@@ -1,10 +1,9 @@
 import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TextAreaRequired } from '../sfc-text-area-required.validator';
-import SfcValidators from '../sfc-input.validators';
+import { TextAreaRequired } from '../../sfc-text-area-required.validator';
 import { By } from '@angular/platform-browser';
-import { SfcInputsModule } from '../../../sfc-inputs.module';
+import { SfcInputsModule } from '../../../../sfc-inputs.module';
 
 
 @Component({

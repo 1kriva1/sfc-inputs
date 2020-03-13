@@ -1,3 +1,7 @@
-.input-row > div{
+.input-row>div {
     flex-basis: 33%;
+}
+
+.dark-background h3 {
+    color: white;
 }

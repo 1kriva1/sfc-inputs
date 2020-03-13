@@ -1,14 +1,12 @@
 import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TextAreaRequired } from '../sfc-text-area-required.validator';
-import SfcValidators from '../sfc-input.validators';
 import { By } from '@angular/platform-browser';
-import { SfcInputsModule } from '../../../sfc-inputs.module';
-import { getHugeFile } from './sfc-input-validator-helper';
-import { FileMaxSize } from '../sfc-file-max-size.validator';
-import { FileMinSize } from '../sfc-file-min-size.validator';
-import { FileExtensions } from '../sfc-file-extensions.validator';
+import { SfcInputsModule } from '../../../../sfc-inputs.module';
+import { FileMaxSize } from '../../sfc-file-max-size.validator';
+import { FileMinSize } from '../../sfc-file-min-size.validator';
+import { FileExtensions } from '../../sfc-file-extensions.validator';
+import { getHugeFile } from '../sfc-input-validator-helper';
 
 
 @Component({

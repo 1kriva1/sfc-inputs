@@ -10,7 +10,7 @@ import { UIUtils } from '../common/utils/ui-utils';
 @Component({
     selector: 'sfc-select-input',
     templateUrl: './sfc-select-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-select-input.component.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-select-input.component.css', './sfc-select-input-dark-theme.component.css']
 })
 export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
@@ -105,6 +105,16 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
         if (this.isFocus) {
             classes[this.validationClass] = true;
+            classes[this.FOCUSED_LABEL_CLASS] = true;
+        }
+
+        return classes;
+    }
+
+    protected get iconClass() {
+        const classes = super.iconClass;
+        
+        if (this.isFocus) {
             classes[this.FOCUSED_LABEL_CLASS] = true;
         }
 

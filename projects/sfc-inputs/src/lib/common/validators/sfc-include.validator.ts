@@ -5,10 +5,10 @@ import SfcValidators from './sfc-input.validators';
 @Directive({
     selector: '[equal-or-include]',
     providers: [
-        { provide: NG_VALIDATORS, multi: true, useExisting: Includes }
+        { provide: NG_VALIDATORS, multi: true, useExisting: EqualOrInclude }
     ]
 })
-export class Includes {
+export class EqualOrInclude {
     @Input('equal-or-include') includes: any | Array<any>;
 
     validate(control: AbstractControl): { [key: string]: any } | null {

@@ -1,11 +1,9 @@
 import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TextAreaRequired } from '../sfc-text-area-required.validator';
-import SfcValidators from '../sfc-input.validators';
-import { By } from '@angular/platform-browser';
-import { SfcInputsModule } from '../../../sfc-inputs.module';
-import { getHugeFile } from './sfc-input-validator-helper';
+import SfcValidators from '../../sfc-input.validators';
+import { SfcInputsModule } from '../../../../sfc-inputs.module';
+import { getHugeFile } from '../sfc-input-validator-helper';
 
 @Component({
     template: `
@@ -14,7 +12,7 @@ import { getHugeFile } from './sfc-input-validator-helper';
         </form>
         `
 })
-export class TextAreaReativeFormTestComponent {
+export class FileInputReativeFormTestComponent {
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -28,15 +26,15 @@ export class TextAreaReativeFormTestComponent {
 }
 
 describe('Validators: FileInput - Reactive form', () => {
-    let component: TextAreaReativeFormTestComponent;
-    let fixture: ComponentFixture<TextAreaReativeFormTestComponent>;
+    let component: FileInputReativeFormTestComponent;
+    let fixture: ComponentFixture<FileInputReativeFormTestComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
-            declarations: [TextAreaReativeFormTestComponent, TextAreaRequired],
+            declarations: [FileInputReativeFormTestComponent],
         }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(TextAreaReativeFormTestComponent);
+            fixture = TestBed.createComponent(FileInputReativeFormTestComponent);
             component = fixture.componentInstance;
 
             component.ngOnInit();
