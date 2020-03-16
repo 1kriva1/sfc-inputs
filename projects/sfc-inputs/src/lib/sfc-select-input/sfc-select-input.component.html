@@ -23,8 +23,8 @@
             </li>
         </ul>
         <i class="caret fa fa-caret-down"></i>
-        <select id="sfc-{{id}}" value={{value}}>
-            <option *ngFor="let item of localData" value="{{item.key}}">{{item.value}}</option>
+        <select id="sfc-{{id}}" value={{value}} [attr.multiple]="isMultiple ? '' : null">
+            <option *ngFor="let item of localData" value="{{item.key}}" [attr.selected]="isItemSelected(item) ? 'selected' : null">{{item.value}}</option>
         </select>
         <span class="helper-text">{{helperText}}</span>
     </div>

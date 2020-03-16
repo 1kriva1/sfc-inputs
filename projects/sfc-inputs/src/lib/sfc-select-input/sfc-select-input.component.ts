@@ -81,6 +81,17 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
         return classes;
     }
 
+    isItemSelected(item: ISelectData) {
+
+        if (this.isOptGroup) {
+            return this.value && this.value.key === item.key && this.value.groupKey === item.groupKey;
+        } else if (this.isMultiple) {
+            return this.collectionUtils.hasItem(this.value, item.key);
+        } else {
+            return this.value === item.key;
+        }
+    }
+
     get dynamicSizeStyles() {
         const styles = {},
             selectNativeEl = this.selectInput ? this.selectInput.nativeElement : null,
@@ -113,7 +124,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
     protected get iconClass() {
         const classes = super.iconClass;
-        
+
         if (this.isFocus) {
             classes[this.FOCUSED_LABEL_CLASS] = true;
         }
@@ -135,7 +146,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
         } else {
 
-            return this.value ? this.getDisplayValue(i => i.key === this.value): null;
+            return this.value ? this.getDisplayValue(i => i.key === this.value) : null;
 
         }
     }
@@ -180,9 +191,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     openDropdownContent() {
-        if (!this.isFocus){
+        if (!this.isFocus) {
             this.selectInput.nativeElement.focus();
-        }        
+        }
     }
 
     private instanceOfSelectData(object: any): object is ISelectDataGroup {
@@ -205,7 +216,8 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
 
     private setMultipleOption(event: any, item: ISelectData) {
 
-        event.preventDefault();
+        if (event.preventDefault)
+            event.preventDefault();
 
         let itemIndex = this.value.findIndex(i => i === item.key);
 
