@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { SfcInputsModule } from '../sfc-inputs.module';
 import { By } from '@angular/platform-browser';
-import { StyleClass } from '../common/constants/common-constants';
+import { StyleClass, CommonConstants } from '../common/constants/common-constants';
 
 
 describe('Component: SelectInputComponent', () => {
@@ -13,14 +13,13 @@ describe('Component: SelectInputComponent', () => {
     let fixture: ComponentFixture<SelectInputComponent>;
     let el: DebugElement;
     let debugTextInputEl: DebugElement;
-    let textAreaEl: DebugElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
             declarations: [],
         }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(SelectInputComponent);            
+            fixture = TestBed.createComponent(SelectInputComponent);
             el = fixture.debugElement;
             component = el.componentInstance;
             debugTextInputEl = el.query(By.css('input.input-select'));
@@ -52,7 +51,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Label: html text value default", async(() => {
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');        
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
         expect(labelEl.innerText).toEqual("")
     }));
 
@@ -65,23 +64,23 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Label: CSS classes default", async(() => {
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');        
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
         expect(labelEl.className).toEqual("")
     }));
 
     it("Label: CSS classes with placeholder", async(() => {
         component._placeholder = "test placeholder";
         fixture.detectChanges();
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');    
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
 
         expect(labelEl.className).toEqual(StyleClass.Active)
     }));
 
     it("Label: CSS classes with defined value", async(() => {
-        component.data = [{id: 1, value: "option 1"}, {id: 2, value: "option 2"}]
+        component.data = [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]
         component.writeValue(2);
         fixture.detectChanges();
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');    
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
 
         expect(labelEl.className).toEqual(StyleClass.Active)
     }));
@@ -89,7 +88,7 @@ describe('Component: SelectInputComponent', () => {
     it("Label: CSS classes with icon", async(() => {
         component.icon = "fa fa-user";
         fixture.detectChanges();
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');    
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
 
         expect(labelEl.className).toEqual(StyleClass.WithIcon)
     }));
@@ -97,7 +96,7 @@ describe('Component: SelectInputComponent', () => {
     it("Label: CSS classes when focused", async(() => {
         debugTextInputEl.triggerEventHandler('focus', { target: debugTextInputEl.nativeElement });
         fixture.detectChanges();
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');    
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
 
         expect(labelEl.classList).not.toBeNull();
         expect(labelEl.classList).not.toBeUndefined();
@@ -106,13 +105,17 @@ describe('Component: SelectInputComponent', () => {
         expect(labelEl.classList.contains("isFocus")).toBeTruthy();
     }));
 
-    it("Label: click event", async(() => {
-        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
-        component.data = [{id: 1, value: "option 1"}, {id: 2, value: "option 2"}];
-        component.ngOnInit();        
-        labelEl.click();
+    xit("Label: click event", async(() => {
+        component.label = "test label";
+        component.data = [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }];
+        component.ngOnInit();
         fixture.detectChanges();
-            
+
+        let labelDebugEl: DebugElement = el.query(By.css('label'));
+        labelDebugEl.triggerEventHandler('click', { target: labelDebugEl.nativeElement });
+
+        let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
+
         expect(labelEl.classList.length).toEqual(2);
         expect(labelEl.classList.contains(StyleClass.Active)).toBeTruthy();
         expect(labelEl.classList.contains("isFocus")).toBeTruthy();
@@ -153,19 +156,186 @@ describe('Component: SelectInputComponent', () => {
         expect(iconEl.classList.contains("isFocus")).toBeTruthy();
     });
 
-    it("Icon: click event", async(() => {        
+    xit("Icon: click event", async(() => {
+        debugger;
         component.icon = "fa fa-user";
-        component.data = [{id: 1, value: "option 1"}, {id: 2, value: "option 2"}];
-        component.ngOnInit();  
         fixture.detectChanges();
 
         let iconEl = fixture.nativeElement.querySelector('i.icon');
         iconEl.click();
         fixture.detectChanges();
-        
+
         expect(iconEl.classList.contains(StyleClass.Active)).toBeTruthy();
         expect(iconEl.classList.contains("isFocus")).toBeTruthy();
         expect(component.dropdownClasses).toEqual(StyleClass.Active);
     }));
 
+    it("Data: check if data empty with default", async(() => {
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toBeGreaterThan(0);
+        expect(liElements.length).toEqual(1);
+
+        expect(optionsElements.length).toBeGreaterThan(0);
+        expect(optionsElements.length).toEqual(1);
+    }));
+
+    it("Data: check if data empty without default", async(() => {
+        component.showDefaultOption = false;
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(0);
+        expect(optionsElements.length).toEqual(0);
+    }));
+
+    it("Data: check if data empty with custom default option", async(() => {
+        let defaultOptionValue = "Choose your custom option";
+        component.defaultDisplayValue = { value: defaultOptionValue, key: -2 };
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toBeGreaterThan(0);
+        expect(liElements.length).toEqual(1);
+        expect(liElements[0].nativeElement.innerText).toEqual(defaultOptionValue);
+
+        expect(optionsElements.length).toBeGreaterThan(0);
+        expect(optionsElements.length).toEqual(1);
+        expect(optionsElements[0].nativeElement.innerText).toEqual(defaultOptionValue);
+    }));
+
+    it("Text Input: should create element", async(() => {
+        expect(debugTextInputEl).toBeTruthy();
+    }));
+
+    it("Text Input: value not defined", async(() => {
+        expect(debugTextInputEl.nativeElement.value).toEqual("");
+    }));
+
+    it("Text Input: value defined", async(() => {
+        component.data = [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]
+        component.writeValue(2);
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        expect(debugTextInputEl.nativeElement.value).toEqual("option 2");
+    }));
+
+    it("Text Input: NOT disabled", async(() => {
+        expect(debugTextInputEl.nativeElement.disabled).toBeFalsy();
+    }));
+
+    it("Text Input: disabled", async(() => {
+        component.disabled = true;
+        fixture.detectChanges();
+
+        expect(debugTextInputEl.nativeElement.disabled).toBeTruthy();
+    }));
+
+    it("Placeholder: empty value", async(() => {
+        expect(debugTextInputEl.nativeElement.placeholder).toEqual("");
+    }));
+
+    it("Placeholder: defined value", async(() => {
+        component._placeholder = "test placeholder";
+        fixture.detectChanges();
+        expect(debugTextInputEl.nativeElement.placeholder).toEqual("test placeholder");
+    }));
+
+    it("Ul-Dropdown: should create element", async(() => {
+        let dropdownEl = el.queryAll(By.css('ul.select-dropdown.scrollbar'));
+        expect(dropdownEl).toBeTruthy();
+    }));
+
+    it("Ul-Dropdown: CSS classes default", async(() => {
+        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+        expect(dropdownEl.nativeElement.classList.contains(StyleClass.Active)).toBeFalsy();
+    }));
+
+    it("Ul-Dropdown: CSS classes when focus", async(() => {
+        debugTextInputEl.triggerEventHandler('focus', { target: debugTextInputEl.nativeElement });
+        fixture.detectChanges();
+
+        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+        expect(dropdownEl.nativeElement.classList.contains(StyleClass.Active)).toBeTruthy();
+    }));
+
+    it("Ul-Dropdown: CSS styles default", async(() => {
+        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+        expect(dropdownEl.nativeElement.style[CommonConstants.CSS_WIDTH]).toEqual("");
+        expect(dropdownEl.nativeElement.style[CommonConstants.CSS_LEFT]).toEqual("");
+    }));
+
+    it("Ul-Dropdown: CSS styles  when focus", async(() => {
+        debugTextInputEl.triggerEventHandler('focus', { target: debugTextInputEl.nativeElement });
+        fixture.detectChanges();
+
+        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+        expect(dropdownEl.nativeElement.style[CommonConstants.CSS_WIDTH]).not.toEqual("");
+        expect(dropdownEl.nativeElement.style[CommonConstants.CSS_LEFT]).not.toEqual("");
+    }));
+
+    it("Ul-Dropdown: li - value is undefined", async(() => {
+        let liElements = el.queryAll(By.css('ul.select-dropdown li.selected'));
+        expect(liElements.length).toEqual(0);
+    }));
+
+    it("Ul-Dropdown: li - value is defined", async(() => {
+        component.data = [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]
+        component.writeValue(2);
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li.selected'));
+        expect(liElements.length).toEqual(1);
+    }));
+
+    it("Ul-Dropdown: li - set option value", async(() => {
+        component.data = [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li')),
+            secondOption = liElements[2],
+            selectEl = el.query(By.css('select'));
+        secondOption.triggerEventHandler('mousedown', { target: secondOption.nativeElement, data: {} });
+        fixture.detectChanges();
+
+        expect(debugTextInputEl.nativeElement.value).toEqual("option 2");
+        expect(selectEl.nativeElement.value).toEqual("2");
+    }));
+
+    it("Ul-Dropdown: IMG - not defined", async(() => {
+        let imgElements = el.queryAll(By.css('ul.select-dropdown li img'));
+        expect(imgElements.length).toEqual(0);
+    }));
+
+    it("Ul-Dropdown: IMG - defined", async(() => {        
+        component.data = [{ key: 1, value: "option 1", imagePath: "testImg.jpg" }, { key: 2, value: "option 2" }]
+        component.writeValue(2);
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let imgElements = el.queryAll(By.css('ul.select-dropdown li img'));
+        expect(imgElements.length).toEqual(1);
+        expect(imgElements[0].nativeElement.src.indexOf("testImg.jpg")).not.toEqual(-1);
+    }));
+
+    it("Ul-Dropdown: li - default  text", async(() => {
+        let liSpanEl = el.queryAll(By.css('ul.select-dropdown li span span'));
+        expect(liSpanEl.length).toEqual(1);
+        expect(liSpanEl[0].nativeElement.innerText).toEqual("Choose your option");
+    }));
+
+    fit("Caret: should create element", async(() => {
+        let caretEl = el.query(By.css('i.caret.fa.fa-caret-down'));
+        expect(caretEl).toBeTruthy();
+    }));
 });

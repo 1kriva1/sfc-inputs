@@ -82,17 +82,17 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     get dynamicSizeStyles() {
-        const classes = {},
+        const styles = {},
             selectNativeEl = this.selectInput ? this.selectInput.nativeElement : null,
             width = selectNativeEl ? selectNativeEl.offsetWidth : 0,
             left = selectNativeEl ? selectNativeEl.offsetLeft : 0;
 
         if (this.isFocus) {
-            classes[CommonConstants.CSS_WIDTH] = this.uiUtils.getCssLikePx(width);
-            classes[CommonConstants.CSS_LEFT] = this.uiUtils.getCssLikePx(left);
+            styles[CommonConstants.CSS_WIDTH] = this.uiUtils.getCssLikePx(width);
+            styles[CommonConstants.CSS_LEFT] = this.uiUtils.getCssLikePx(left);
         }
 
-        return classes;
+        return styles;
     }
 
     protected get labelClass() {
@@ -180,8 +180,9 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     }
 
     openDropdownContent() {
-        if (!this.isFocus)
+        if (!this.isFocus){
             this.selectInput.nativeElement.focus();
+        }        
     }
 
     private instanceOfSelectData(object: any): object is ISelectDataGroup {

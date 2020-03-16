@@ -23,7 +23,7 @@
             </li>
         </ul>
         <i class="caret fa fa-caret-down"></i>
-        <select id="sfc-{{id}}">
+        <select id="sfc-{{id}}" value={{value}}>
             <option *ngFor="let item of localData" value="{{item.key}}">{{item.value}}</option>
         </select>
         <span class="helper-text">{{helperText}}</span>
