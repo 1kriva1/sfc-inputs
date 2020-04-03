@@ -1,6 +1,6 @@
 <div class="input-text-container file-field" [ngSwitch]="fileInputType">
     <ng-container *ngSwitchCase="FileInputType.Input">
-        <div [ngClass]="inputButtonClass" class="input-file-input" [attr.disabled]="disabled ? '' : null">
+        <div [ngClass]="inputButtonClass" class="input-file-input" [attr.disabled]="disabled ? true : null">
             <span *ngIf="!icon">File</span>
             <input sfcinput #inputFile id="sfc-{{id}}" type="file" [disabled]="disabled" [validations]="validations" (change)="emitFiles($event.target.files)">
         </div>

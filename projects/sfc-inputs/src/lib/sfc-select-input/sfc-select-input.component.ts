@@ -39,12 +39,71 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
     @ViewChild('inputSelect', { static: false }) selectInput: ElementRef;
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
-        protected changeDetector: ChangeDetectorRef, private collectionUtils: CollectionUtils, private uiUtils: UIUtils) {
+        protected changeDetector: ChangeDetectorRef, private collectionUtils: CollectionUtils) {
         super(ngControl, changeDetector);
     }
 
     get dropdownClasses() {
         return this.isFocus ? StyleClass.Active : null;
+    }
+
+    get labelClass() {
+        const classes = {};
+        classes[super.labelClass] = true;
+
+        if (this.icon) {
+            classes[StyleClass.WithIcon] = true;
+        }
+
+        if (this.isFocus) {
+            classes[this.validationClass] = true;
+            classes[this.FOCUSED_LABEL_CLASS] = true;
+        }
+
+        return classes;
+    }
+
+    get iconClass() {
+        const classes = super.iconClass;
+
+        if (this.isFocus) {
+            classes[this.FOCUSED_LABEL_CLASS] = true;
+        }
+
+        return classes;
+    }
+
+    get dynamicSizeStyles() {
+        const styles = {},
+            selectNativeEl = this.selectInput ? this.selectInput.nativeElement : null,
+            width = selectNativeEl ? selectNativeEl.offsetWidth : 0,
+            left = selectNativeEl ? selectNativeEl.offsetLeft : 0;
+
+        if (this.isFocus) {
+            styles[CommonConstants.CSS_WIDTH] = UIUtils.getCssLikePx(width);
+            styles[CommonConstants.CSS_LEFT] = UIUtils.getCssLikePx(left);
+        }
+
+        return styles;
+    }
+
+    get displayValue(): string {
+
+        if (this.isOptGroup) {
+
+            if (this.value) {
+                return this.getDisplayValue(i => i.key === this.value.key && i.groupKey === this.value.groupKey);
+            }
+
+        } else if (this.isMultiple) {
+
+            return this.getMultipleDisplayValue();
+
+        } else {
+
+            return this.value ? this.getDisplayValue(i => i.key === this.value) : null;
+
+        }
     }
 
     getOptionClasses(item: ISelectData) {
@@ -89,65 +148,6 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit {
             return this.collectionUtils.hasItem(this.value, item.key);
         } else {
             return this.value === item.key;
-        }
-    }
-
-    get dynamicSizeStyles() {
-        const styles = {},
-            selectNativeEl = this.selectInput ? this.selectInput.nativeElement : null,
-            width = selectNativeEl ? selectNativeEl.offsetWidth : 0,
-            left = selectNativeEl ? selectNativeEl.offsetLeft : 0;
-
-        if (this.isFocus) {
-            styles[CommonConstants.CSS_WIDTH] = this.uiUtils.getCssLikePx(width);
-            styles[CommonConstants.CSS_LEFT] = this.uiUtils.getCssLikePx(left);
-        }
-
-        return styles;
-    }
-
-    protected get labelClass() {
-        const classes = {};
-        classes[super.labelClass] = true;
-
-        if (this.icon) {
-            classes[StyleClass.WithIcon] = true;
-        }
-
-        if (this.isFocus) {
-            classes[this.validationClass] = true;
-            classes[this.FOCUSED_LABEL_CLASS] = true;
-        }
-
-        return classes;
-    }
-
-    protected get iconClass() {
-        const classes = super.iconClass;
-
-        if (this.isFocus) {
-            classes[this.FOCUSED_LABEL_CLASS] = true;
-        }
-
-        return classes;
-    }
-
-    private get displayValue(): string {
-
-        if (this.isOptGroup) {
-
-            if (this.value) {
-                return this.getDisplayValue(i => i.key === this.value.key && i.groupKey === this.value.groupKey);
-            }
-
-        } else if (this.isMultiple) {
-
-            return this.getMultipleDisplayValue();
-
-        } else {
-
-            return this.value ? this.getDisplayValue(i => i.key === this.value) : null;
-
         }
     }
 

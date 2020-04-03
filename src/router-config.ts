@@ -3,6 +3,7 @@ import { Route } from "@angular/router";
 import { TextAreaAppComponent } from './text-area-app/text-area.component';
 import { FileInputAppComponent } from './file-input-app/file-input.component';
 import { SelectInputAppComponent } from './select-input-app/select-input.component';
+import { LoaderAppComponent } from './loader-app/loader.component';
 
 const indexRoute: Route = {
     path: "",
@@ -30,6 +31,10 @@ export const routeConfig = [
     {
         path: 'select-input',
         component: SelectInputAppComponent
+    },
+    {
+        path: 'loader',
+        component: LoaderAppComponent
     },
     fallbackRoute,
     indexRoute

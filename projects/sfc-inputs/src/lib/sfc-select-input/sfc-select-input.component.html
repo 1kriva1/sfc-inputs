@@ -1,33 +1,41 @@
 <div class="input-text-container input-select-container">
-
     <div class="select-wrapper" [ngClass]="validationClass">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
-        <input sfcinput #inputSelect type="text" class="input-select input-text-input"
-            value={{displayValue}} [placeholder]="placeholder" [validations]="validations" [disabled]="disabled">
-        <ul class="select-dropdown scrollbar" [ngClass]="dropdownClasses"
-            [ngStyle]="dynamicSizeStyles">
-            <li *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)" [ngClass]="getOptionClasses(item)">
-                <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
-                <span>
-                    <span *ngIf="!isMultiple">{{item.value}}</span>
-                    <label *ngIf="isMultiple">
+        <input sfcinput #inputSelect type="text" class="input-select input-text-input" value={{displayValue}}
+            [placeholder]="placeholder" [validations]="validations" [disabled]="disabled">
 
-                        <div class="multiple">
-                            <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
-                            <label for="{{item.key}}">
-                                <span></span>{{item.value}}
-                            </label>
-                        </div>
-                    </label>
-                </span>
-            </li>
-        </ul>
+
+        <div class="select-dropdown-container" [ngStyle]="dynamicSizeStyles" [ngClass]="dropdownClasses">
+            <app-circle-loader [id]="id"></app-circle-loader>
+            <ul class="select-dropdown scrollbar">
+                <li *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)"
+                    [ngClass]="getOptionClasses(item)">
+                    <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
+                    <span>
+                        <span *ngIf="!isMultiple">{{item.value}}</span>
+                        <label *ngIf="isMultiple">
+
+                            <div class="multiple">
+                                <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
+                                <label for="{{item.key}}">
+                                    <span></span>{{item.value}}
+                                </label>
+                            </div>
+                        </label>
+                    </span>
+                </li>
+
+            </ul>
+        </div>
+
         <i class="caret fa fa-caret-down"></i>
         <select id="sfc-{{id}}" value={{value}} [attr.multiple]="isMultiple ? '' : null">
-            <option *ngFor="let item of localData" value="{{item.key}}" [attr.selected]="isItemSelected(item) ? 'selected' : null">{{item.value}}</option>
+            <option *ngFor="let item of localData" value="{{item.key}}"
+                [attr.selected]="isItemSelected(item) ? 'selected' : null">{{item.value}}</option>
         </select>
         <span class="helper-text">{{helperText}}</span>
+
     </div>
     <label for="sfc-{{id}}" [ngClass]="labelClass" (click)="openDropdownContent()">{{label}}</label>
-    
+
 </div>

@@ -10,20 +10,25 @@ import { FileUtils } from './common/utils/file-utils';
 import { SelectInputComponent } from './sfc-select-input/sfc-select-input.component';
 import { CollectionUtils } from './common/utils/collection-utils';
 import { UIUtils } from './common/utils/ui-utils';
+import { LoaderService } from './common/components/loader/base/sfc-loader.service';
+import { CircleLoaderComponent } from './common/components/loader/circle/sfc-circle-loader.component';
+import { CircleFadingLoaderComponent } from './common/components/loader/circle-fading/sfc-circle-fading-loader.component';
+import { BounceLoaderComponent } from './common/components/loader/bounce/sfc-bounce-loader.component';
 
 @NgModule({
-  declarations: [InputRefDirective, TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent],
+  declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent],
+  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
     FileUtils,
     CollectionUtils,
-    UIUtils
+    UIUtils,
+    LoaderService
   ]
 })
 export class SfcInputsModule { }

@@ -1,0 +1,51 @@
+#globalButton{
+    position: fixed;
+}
+
+.input-row-loader {
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.loader-container {
+    flex-basis: initial !important;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.loader-container button {
+    width: inherit;
+    margin-bottom: 20px;
+}
+
+.loader-container .content {
+    border: 1px solid black;
+    font-size: 10px;
+    text-align: center;
+    position: relative;
+    padding: 3px;
+}
+
+.loader-container.small .content {
+    width: 100px;
+    height: 100px;
+}
+
+.loader-container.medium .content {
+    width: 400px;
+    height: 400px;
+}
+
+.loader-container.large .content {
+    width: 1200px;
+    height: 1200px;
+}
+
+.loader-container.round .content {
+    border-radius: 50%;
+}
+
+.loader-container.round ::ng-deep div.preloader {
+    border-radius: 50%;
+}

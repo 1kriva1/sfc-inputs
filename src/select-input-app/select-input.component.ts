@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import ISelectData from 'projects/sfc-inputs/src/lib/common/interfaces/ISelectData';
 import SelectData from 'projects/sfc-inputs/src/lib/common/interfaces/ISelectData';
 import ISelectDataGroup from 'projects/sfc-inputs/src/lib/common/interfaces/ISelectDataGroup';
+import { LoaderService } from 'projects/sfc-inputs/src/lib/common/components/loader/base/sfc-loader.service';
 
 export class PersonalData {
     firstName: string;
@@ -29,7 +30,7 @@ export class SelectInputAppComponent {
     private datagroup: ISelectDataGroup[];
     private defaultDisplayValue: ISelectData = { value: "Choose customdefault option", key: -10, isDefault: true };
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private loaderService: LoaderService) {
 
     }
 

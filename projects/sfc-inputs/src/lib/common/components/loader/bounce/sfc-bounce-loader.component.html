@@ -1,0 +1,10 @@
+<div *ngIf="show" class="preloader"
+    [ngClass]="{global: id === 'global', secondary: id !== 'global', background: background}">
+
+    <div *ngIf="show" class="spinner" [ngClass]="circleSizeClass" >
+        <div class="bounce1" [ngStyle]="circleSizeStyle"></div>
+        <div class="bounce2" [ngStyle]="circleSizeStyle"></div>
+        <div class="bounce3" [ngStyle]="circleSizeStyle"></div>
+    </div>
+    
+</div>

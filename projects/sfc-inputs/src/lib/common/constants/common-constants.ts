@@ -12,6 +12,12 @@ export enum FileInputType {
     Inline = 'inline'
 };
 
+export enum ComponentSizeType {
+    Small = 'small',
+    Medium = 'medium',
+    Large = 'large'
+};
+
 export class CommonConstants{
     static DEFAULT_ERROR_MESSAGE = 'Invalid value'
     static MIN_LENGTH_VALIDATOR_KEY = 'minlength'
@@ -21,6 +27,8 @@ export class CommonConstants{
     static CSS_PIXELS = 'px'
     static CSS_WIDTH = 'width'
     static CSS_LEFT = 'left'
+    static CSS_CLASS_FIXED = "fixed"
 
+    static GLOBAL_LOADER_ID = "global"
     static NOT_FOUND_INDEX = -1;
 }

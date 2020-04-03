@@ -3,6 +3,7 @@ import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { StyleClass, FileInputType } from '../common/constants/common-constants';
 import { FileUtils } from '../common/utils/file-utils';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
     selector: 'sfc-file-input',
@@ -116,10 +117,15 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     }
 
     private getSlicedText(value: string) {
+
+        if (value.length < 20) {
+            return value;
+        }
+
         return value.slice(0, 20)
             + '...'
             + FileUtils.getFileExtension(this.value);
-    }    
+    }
 
     /**
     * Clear button handler

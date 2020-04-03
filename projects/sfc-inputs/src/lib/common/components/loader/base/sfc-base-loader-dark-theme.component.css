@@ -1,0 +1,11 @@
+:host-context(.sfc-text-input-dark-theme) .preloader {
+    background-color: #434A54;
+}
+
+:host-context(.sfc-text-input-dark-theme) .sk-child:before {
+    background-color: white;
+}
+
+:host-context(.sfc-text-input-dark-theme) .spinner>div {
+    background-color: white;
+}

@@ -41,7 +41,7 @@ describe('Component: SelectInputComponent', () => {
 
     it("Label: 'for' attribute default value", async(() => {
         let expectedValue = "sfc-";
-        expect(labelEl.htmlFor).toEqual(expectedValue)
+        expect(labelEl.htmlFor).toEqual(expectedValue);
     }));
 
     it("Label: 'for' attribute value", async(() => {
@@ -49,14 +49,14 @@ describe('Component: SelectInputComponent', () => {
         component.id = "test-id";
         fixture.detectChanges();
 
-        expect(labelEl.htmlFor).toEqual(expectedValue)
+        expect(labelEl.htmlFor).toEqual(expectedValue);
     }));
 
     it("Label: html text value default", async(() => {
-        expect(labelEl.innerText).toEqual("")
+        expect(labelEl.innerText).toEqual("");
     }));
 
-    it("Label: html text value default", async(() => {
+    it("Label: html text value", async(() => {
         let expectedValue = "test label";
         component.label = expectedValue;
         fixture.detectChanges();
@@ -65,26 +65,26 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Label: CSS classes default", async(() => {
-        expect(labelEl.className).toEqual("")
+        expect(labelEl.className).toEqual("");
     }));
 
     it("Label: CSS classes with placeholder", async(() => {
         component._placeholder = "test placeholder";
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual(StyleClass.Active)
+        expect(labelEl.className).toEqual(StyleClass.Active);
     }));
 
     it("Label: CSS classes with defined value", async(() => {
         setOptionData(2);
-        expect(labelEl.className).toEqual(StyleClass.Active)
+        expect(labelEl.className).toEqual(StyleClass.Active);
     }));
 
     it("Label: CSS classes with icon", async(() => {
         component.icon = "fa fa-user";
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual(StyleClass.WithIcon)
+        expect(labelEl.className).toEqual(StyleClass.WithIcon);
     }));
 
     it("Label: CSS classes when focused", async(() => {
@@ -251,31 +251,31 @@ describe('Component: SelectInputComponent', () => {
         expect(debugTextInputEl.nativeElement.placeholder).toEqual(expectedPlaceholder);
     }));
 
-    it("Ul-Dropdown: should create element", async(() => {
-        let dropdownEl = el.queryAll(By.css('ul.select-dropdown.scrollbar'));
+    it("Ul-Dropdown container: should create element", async(() => {
+        let dropdownEl = el.queryAll(By.css('div.select-dropdown-container'));
         expect(dropdownEl).toBeTruthy();
     }));
 
-    it("Ul-Dropdown: CSS classes default", async(() => {
-        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+    it("Ul-Dropdown container: CSS classes default", async(() => {
+        let dropdownEl = el.query(By.css('div.select-dropdown-container'));
         expect(dropdownEl.nativeElement.classList.contains(StyleClass.Active)).toBeFalsy();
     }));
 
-    it("Ul-Dropdown: CSS classes when focus", async(() => {
+    it("Ul-Dropdown container: CSS classes when focus", async(() => {
         focusTextInput();
-        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+        let dropdownEl = el.query(By.css('div.select-dropdown-container'));
         expect(dropdownEl.nativeElement.classList.contains(StyleClass.Active)).toBeTruthy();
     }));
 
-    it("Ul-Dropdown: CSS styles default", async(() => {
-        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+    it("Ul-Dropdown container: CSS styles default", async(() => {
+        let dropdownEl = el.query(By.css('div.select-dropdown-container'));
         expect(dropdownEl.nativeElement.style[CommonConstants.CSS_WIDTH]).toEqual("");
         expect(dropdownEl.nativeElement.style[CommonConstants.CSS_LEFT]).toEqual("");
     }));
 
-    it("Ul-Dropdown: CSS styles  when focus", async(() => {
+    it("Ul-Dropdown container: CSS styles  when focus", async(() => {
         focusTextInput();
-        let dropdownEl = el.query(By.css('ul.select-dropdown.scrollbar'));
+        let dropdownEl = el.query(By.css('div.select-dropdown-container'));
 
         expect(dropdownEl.nativeElement.style[CommonConstants.CSS_WIDTH]).not.toEqual("");
         expect(dropdownEl.nativeElement.style[CommonConstants.CSS_LEFT]).not.toEqual("");
