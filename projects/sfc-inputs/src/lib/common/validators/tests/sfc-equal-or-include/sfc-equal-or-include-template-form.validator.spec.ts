@@ -6,6 +6,7 @@ import { SfcInputsModule } from '../../../../sfc-inputs.module';
 import { EqualOrInclude } from '../../sfc-include.validator';
 import ISelectData from '../../../interfaces/ISelectData';
 import ISelectDataGroup from '../../../interfaces/ISelectDataGroup';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -118,7 +119,7 @@ describe('Validators: SelectInput - Template form', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
+            imports: [FormsModule, ReactiveFormsModule, HttpClientModule, SfcInputsModule],
             declarations: [SelectInputFormTemplateTestComponent, EqualOrInclude],
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(SelectInputFormTemplateTestComponent);

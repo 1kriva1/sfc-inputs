@@ -1,5 +1,5 @@
-:host-context(.sfc-text-input-dark-theme) .preloader {
-    background-color: #434A54;
+:host-context(.sfc-text-input-dark-theme) .preloader.background {
+    background-color: inherit;
 }
 
 :host-context(.sfc-text-input-dark-theme) .sk-child:before {
@@ -9,3 +9,7 @@
 :host-context(.sfc-text-input-dark-theme) .spinner>div {
     background-color: white;
 }
+
+/* :host-context(.select-dropdown-container.active) .spinner>div {
+    background-color: red;
+} */

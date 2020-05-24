@@ -34,21 +34,22 @@
                 <div class="input-row">
                     <div>
                         <sfc-select-input id="demo-select-with-placeholder" formControlName="inputSelectWithPlace"
-                            [data]="data" placeholder="Single select place">
+                            [data]="data" placeholder="Single select placeholder">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-with-labelandplace"
-                            formControlName="inputSelectWithLabelPlace" [data]="data" label="Single select label"
-                            placeholder="Single select place">
+                            formControlName="inputSelectWithLabelPlace" [data]="data"
+                            label="Single select label and placeholder"
+                            placeholder="Single select label and placeholder">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-custom-default" formControlName="inputSelectCustomDefault"
                             [data]="data" label="Single select custom default"
-                            placeholder="Single select custom default" [defaultDisplayValue]="defaultDisplayValue">
+                            placeholder="Single select custom default" [default-display-value]="defaultDisplayValue">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                     <div>
                         <sfc-select-input id="demo-select-without-default" formControlName="inputSelectWithoutDefault"
                             [data]="data" label="Single select without default"
-                            placeholder="Single select without default" [showDefaultOption]="false">
+                            placeholder="Single select without default" [show-default-option]="false">
                         </sfc-select-input>
                     </div>
 
@@ -77,21 +78,21 @@
                 <div class="input-row">
                     <div>
                         <sfc-select-input id="demo-select-helper" formControlName="inputSelectHelper" [data]="data"
-                            label="Single select helper" placeholder="Single select helper" icon="fa fa-star"
+                            label="Single select helper text" placeholder="Single select helper text" icon="fa fa-star"
                             helper-text="helper text test">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-with-value" formControlName="inputSelectWithValue"
-                            [data]="data" label="Single select with value" placeholder="Single select with value"
-                            icon="fa fa-star" helper-text="helper text with value">
+                            [data]="data" label="Single select with value 3" placeholder="Single select with value 3"
+                            icon="fa fa-star" helper-text="helper text with value 3">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-single" formControlName="inputSelectSingle" [data]="data"
-                            label="Single select single" placeholder="Single select single">
+                            label="Single select single value 10" placeholder="Single select single value 10">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -99,16 +100,17 @@
                 <div class="input-row">
                     <div>
                         <sfc-select-input id="demo-select-validation" formControlName="inputSelectValidation"
-                            [data]="data" label="Single select valiation" placeholder="Single select valiation"
-                            icon="fa fa-star" helper-text="helper text valiation">
+                            [data]="data" label="Single select validation" placeholder="Single select validation"
+                            icon="fa fa-star" helper-text="helper text validation (must be less than 1)">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-validation-with-value"
                             formControlName="inputSelectValidationWithValue" [data]="data"
-                            label="Single select valiation with-value" placeholder="Single select valiation with-value"
-                            icon="fa fa-star" helper-text="helper text valiation with-value">
+                            label="Single select valiation with-value (must be >= 3)"
+                            placeholder="Single select valiation with-value" icon="fa fa-star"
+                            helper-text="helper text valiation with-value 2 (must be >= 3)">
                         </sfc-select-input>
                     </div>
 
@@ -117,7 +119,7 @@
                             formControlName="inputSelectValidationWithValueValid" [data]="data"
                             label="Single select valiation with-value VALID"
                             placeholder="Single select valiation with-value VALID" icon="fa fa-star"
-                            helper-text="helper text valiation with-value VALID">
+                            helper-text="helper text valiation with-value  (must be >= 3)">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -127,10 +129,10 @@
                     <div>
                         <sfc-select-input id="demo-select-validation-with-value-val-text"
                             formControlName="inputSelectValidationWithValueValText" [data]="data"
-                            label="Single select valiation with-value ValText"
-                            placeholder="Single select valiation with-value ValText" icon="fa fa-star"
-                            helper-text="helper text valiation with-value ValText"
-                            [validations]="{equalOrInclude: 'Include invalid', max: 'Max value is not valid'}">
+                            label="Single select valiation with-value (must be 1 or 3)"
+                            placeholder="Single select valiation with-value (must be 1 or 3)" icon="fa fa-star"
+                            helper-text="helper text valiation with-value (must be 1 or 3)"
+                            [validations]="{equalOrInclude: 'Include invalid (must be 1 or 3)', max: 'Max value is not valid'}">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -143,14 +145,14 @@
                     <div>
                         <sfc-select-input id="demo-select-multiple-empty" formControlName="inputSelectMultipleEmpty"
                             label="Muliple select Multiple empty" placeholder="Muliple select Multiple empty"
-                            helper-text="helper text Multiple empty" [isMultiple]="true">
+                            helper-text="helper text Multiple empty" [multiple]="true" [show-default-option]="true">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-multiple" formControlName="inputSelectMultiple" [data]="data"
                             label="Muliple select Multiple" placeholder="Muliple select Multiple" icon="fa fa-star"
-                            helper-text="helper text Multiple" [isMultiple]="true">
+                            helper-text="helper text Multiple" [multiple]="true">
                         </sfc-select-input>
                     </div>
 
@@ -158,7 +160,7 @@
                         <sfc-select-input id="demo-select-multiple-without-default"
                             formControlName="inputSelectultipleWithoutDefault" [data]="data"
                             label="Muliple select without default" placeholder="Muliple select without default"
-                            [isMultiple]="true" [showDefaultOption]="false">
+                            [multiple]="true" [show-default-option]="false">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -167,22 +169,24 @@
                     <div>
                         <sfc-select-input id="demo-select-multiple-with-value"
                             formControlName="inputSelectMultipleWithValue" [data]="data"
-                            label="Muliple select with value" placeholder="Muliple select with value" icon="fa fa-star"
-                            helper-text="helper text Multiple with value" [isMultiple]="true">
+                            label="Muliple select with value (1 and 3)" placeholder="Muliple select with value"
+                            icon="fa fa-star" helper-text="helper text Multiple with value (1 and 3)"
+                            [multiple]="true">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-multiple-disabled"
                             formControlName="inputSelectultipleDisabled" [data]="data" label="Muliple select disabled"
-                            placeholder="Muliple select disabled" [isMultiple]="true">
+                            placeholder="Muliple select disabled" [multiple]="true">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-multiple-not-found"
-                            formControlName="inputSelectultipleNotFound" [data]="data" label="Muliple select not found"
-                            placeholder="Muliple select not found" [isMultiple]="true">
+                            formControlName="inputSelectultipleNotFound" [data]="data"
+                            label="Muliple select not found (33 not found)"
+                            placeholder="Muliple select not found (33 not found)" [multiple]="true">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -191,30 +195,31 @@
                     <div>
                         <sfc-select-input id="demo-select-multiple-validation"
                             formControlName="inputSelectMultipleValidation" [data]="data"
-                            label="Muliple select valiation" placeholder="Muliple select valiation" icon="fa fa-star"
-                            helper-text="Muliple select validation" [validations]="{equalOrInclude: 'Include invalid'}"
-                            [isMultiple]="true">
+                            label="Muliple select valiation (1 or 3)" placeholder="Muliple select valiation"
+                            icon="fa fa-star" helper-text="Muliple select validation (1 or 3)"
+                            [validations]="{equalOrInclude: 'Include invalid  (1 or 3)'}" [multiple]="true">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-multiple-validation-value"
                             formControlName="inputSelectMultipleValidationWithValue" [data]="data"
-                            label="Muliple select valiation value" placeholder="Muliple select valiation value"
-                            icon="fa fa-star" helper-text="Muliple select validation value"
-                            [validations]="{required: 'This field required', equalOrInclude: 'Include invalid'}"
-                            [isMultiple]="true">
+                            label="Muliple select valiation value Valid (1 or 3)"
+                            placeholder="Muliple select valiation Valid value" icon="fa fa-star"
+                            helper-text="Muliple select validation value (1 or 3)"
+                            [validations]="{required: 'This field required', equalOrInclude: 'Include invalid (1 or 3)'}"
+                            [multiple]="true">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-multiple-validation-value-invalid"
                             formControlName="inputSelectMultipleValidationWithValueInv" [data]="data"
-                            label="Muliple select valiation value invalid"
-                            placeholder="Muliple select valiation value invalid" icon="fa fa-star"
+                            label="Muliple select valiation value invalid (1 or 3)"
+                            placeholder="Muliple select valiation value invalid (1 or 3)" icon="fa fa-star"
                             helper-text="Muliple select validation value invalid"
-                            [validations]="{required: 'This field required', equalOrInclude: 'Include invalid'}"
-                            [isMultiple]="true">
+                            [validations]="{required: 'This field required', equalOrInclude: 'Include invalid (1 or 3)'}"
+                            [multiple]="true">
                         </sfc-select-input>
                     </div>
 
@@ -227,23 +232,23 @@
                 <div class="input-row">
                     <div>
                         <sfc-select-input id="demo-select-optgroup-empty" formControlName="inputSelectOptGroupEmpty"
-                            [data]="datagroup" label="OptGroup select empty" placeholder="OptGroup select empty"
-                            icon="fa fa-star" helper-text="helper OptGroup select empty">
+                            label="OptGroup select empty" placeholder="OptGroup select empty" icon="fa fa-star"
+                            helper-text="helper OptGroup select empty">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-optgroup-value" formControlName="inputSelectOptGroupWithValue"
-                            [data]="datagroup" label="OptGroup select with value"
-                            placeholder="OptGroup select with value" icon="fa fa-star"
-                            helper-text="helper OptGroup select with value">
+                            [data]="datagroup" label="OptGroup select with value (2.2)"
+                            placeholder="OptGroup select with value (2.2)" icon="fa fa-star"
+                            helper-text="helper OptGroup select with value (2.2)">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-optgroup-without-default"
                             formControlName="inputSelectOptGroupWithoutDefault" [data]="datagroup"
-                            label="OptGroup select without default" [showDefaultOption]="false">
+                            label="OptGroup select without default" [show-default-option]="false">
                         </sfc-select-input>
                     </div>
                 </div>
@@ -252,27 +257,306 @@
                     <div>
                         <sfc-select-input id="demo-select-optgroup-validation"
                             formControlName="inputSelectOptGroupValiation" [data]="datagroup" icon="fa fa-star"
-                            label="OptGroup select validation" placeholder="OptGroup select validation"
-                            helper-text="helper OptGroup select validation">
+                            label="OptGroup select validation (only 1.1)"
+                            placeholder="OptGroup select validation (only 1.1)"
+                            helper-text="helper OptGroup select validation (only 1.1)">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-optgroup-validation-range"
                             formControlName="inputSelectOptGroupValiationRange" [data]="datagroup" icon="fa fa-star"
-                            label="OptGroup select validation range" placeholder="OptGroup select validation range"
-                            helper-text="helper OptGroup select validation range">
+                            label="OptGroup select validation (only 1.1 and 1.2)"
+                            placeholder="OptGroup select validation (only 1.1 and 1.2)"
+                            helper-text="helper OptGroup select validation (only 1.1 and 1.2)">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-optgroup-validation-text"
                             formControlName="inputSelectOptGroupValiationText" [data]="datagroup" icon="fa fa-star"
-                            label="OptGroup select validation text" placeholder="OptGroup select validation text"
-                            helper-text="helper OptGroup select validation text"
-                            [validations]="{equalOrInclude: 'Include invalid'}">
+                            label="OptGroup select validation with value Invalid"
+                            placeholder="OptGroup select validation  with value Invalid"
+                            helper-text="helper OptGroup select validation  with value Invalid"
+                            [validations]="{equalOrInclude: 'Include invalid (only 1.1 and 1.2)'}">
                         </sfc-select-input>
                     </div>
+                </div>
+
+                <hr>
+                <h3>HTTP (full data observable)</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-http-data" formControlName="inputSelectHttpData"
+                            [data]="$httpData" [load-on-init]="false" label="Http observable without value"
+                            placeholder="Http observable swithout value" icon="fa fa-star"
+                            helper-text="helper http observable without value">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-value" formControlName="inputSelectHttpDataValue"
+                            [data]="$httpData" [load-on-init]="false" label="Http observable with value 34"
+                            placeholder="Http observable with value 34" icon="fa fa-star"
+                            helper-text="helper http observable with value 34">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-no-obs" formControlName="inputSelectHttpDataNoObs"
+                            [data]="data" [load-on-init]="false" label="Http NOT observable select label"
+                            placeholder="Http NOT observable select place" icon="fa fa-star"
+                            helper-text="helper NOT http observable">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-init" formControlName="inputSelectHttpDataOnInit"
+                            [data]="$httpData" [load-on-init]="true"
+                            label="Http observable without value label load-on-init = TRUE"
+                            placeholder="Http observable select without value load-on-init = TRUE" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-value-init"
+                            formControlName="inputSelectHttpDataValueOnInit" [data]="$httpData" [load-on-init]="true"
+                            label="Http observable with value 34 load-on-init = TRUE"
+                            placeholder="Http observable with value 34 load-on-init = TRUE" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-no-obs-init"
+                            formControlName="inputSelectHttpDataNoObsOnInit" [data]="data" [load-on-init]="true"
+                            label="Http NOT observable select label load-on-init = TRUE"
+                            placeholder="Http NOT observable select place load-on-init = TRUE" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-multy" formControlName="inputSelectHttpDataMulty"
+                            [data]="$httpData" [load-on-init]="false" label="Http observable select label MULTIPLE"
+                            placeholder="Http observable select place MULTIPLE" icon="fa fa-star" [multiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-multy-value"
+                            formControlName="inputSelectHttpDataMultyValue" [data]="$httpData" [load-on-init]="false"
+                            label="Http observable select label MULTIPLE with value"
+                            placeholder="Http observable select place MULTIPLE with value" icon="fa fa-star"
+                            [multiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-noobs--data-multy-value"
+                            formControlName="inputSelectHttpNpobsDataMultyValue" [data]="data" [load-on-init]="false"
+                            label="Http NOT observable select label multiple value"
+                            placeholder="Http NOT observable select place MULTIPLE with value" icon="fa fa-star"
+                            [multiple]="true">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-group" formControlName="inputSelectHttpDataGroup"
+                            [data]="$httpDataGroup" [load-on-init]="false"
+                            label="Http observable select label GROUP_SELECT"
+                            placeholder="Http observable select place GROUP_SELECT" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-group-value"
+                            formControlName="inputSelectHttpDataGroupValue" [data]="$httpDataGroup"
+                            [load-on-init]="false" label="Http observable select label GROUP_SELECT with value"
+                            placeholder="Http observable GROUP_SELECT place with value" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-noobs--data-group-value"
+                            formControlName="inputSelectHttpNpobsDataGroupValue" [data]="datagroup"
+                            [load-on-init]="false" label="Http NOT observable label GROUP_SELECT"
+                            placeholder="Http NOT observable GROUP_SELECT place group" icon="fa fa-star">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-validation-valid"
+                            formControlName="inputSelectHttpDataValidValidation" [data]="$httpData"
+                            [load-on-init]="false" label="Http observable validation VALID"
+                            placeholder="Http observable validation VALID" icon="fa fa-star"
+                            helper-text="helper http observable validation VALID">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-data-validation-invalid"
+                            formControlName="inputSelectHttpDataInvalidValidation" [data]="$httpData"
+                            [load-on-init]="false" label="Http observable validation INVALID"
+                            placeholder="Http observable validation INVALID" icon="fa fa-star"
+                            helper-text="helper http observable validation INVALID">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <hr>
+                <h3>HTTP (pageable data observable - scroll)</h3>
+                <hr>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-scroll" formControlName="inputSelectHttpPageableScroll"
+                            [load-on-init]="false" label="Http observable pageable scroll" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable pageable scroll" icon="fa fa-star" [data]="null" [loader]="loadFuncScroll">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-scroll-value" formControlName="inputSelectHttpPageableScrollValue"
+                            [load-on-init]="false" label="Http observable pageable scroll with value 80" [load-more-button]="false" [show-default-option]="false"
+                            placeholder="Http observable pageable scroll with value 80" icon="fa fa-star" [data]="null" [loader]="loadFuncScroll1">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-scroll-validation-invalid" formControlName="inputSelectHttpPageableScrollValidatinInvalid"
+                            [load-on-init]="false" label="Http observable pageable scroll INVALID validation" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable pageable scroll INVALID validation" icon="fa fa-star" [data]="null" [loader]="loadFuncScroll2">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <hr>
+                <h3>HTTP (pageable data observable - load more button)</h3>
+                <hr>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-scroll" formControlName="inputSelectHttpPageableButton"
+                            [load-on-init]="false" label="Http observable pageable button" [load-more-button]="true" [show-default-option]="true"
+                            placeholder="Http observable pageable button" icon="fa fa-star" [data]="null" [loader]="loadFuncButton">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-scroll" formControlName="inputSelectHttpPageableButtonValue"
+                            [load-on-init]="false" label="Http observable pageable button with value 80" [load-more-button]="true" [show-default-option]="false"
+                            placeholder="Http observable pageable button with value 80" icon="fa fa-star" [data]="null" [loader]="loadFuncButton1">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-button-validation-invalid" formControlName="inputSelectHttpPageableButtonValidatinInvalid"
+                            [load-on-init]="false" label="Http observable pageable button INVALID validation" [load-more-button]="true" [show-default-option]="true"
+                            placeholder="Http observable pageable button INVALID validation" icon="fa fa-star" [data]="null" [loader]="loadFuncButton2">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                
+                <hr>
+                <h3>HTTP (full data - config)</h3>
+                <hr>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfig"
+                            [load-on-init]="false" label="Http observable FULL data config" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable FULL data" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigValue"
+                            [load-on-init]="false" label="Http observable FULL data config with VALUE 33" [load-more-button]="false" [show-default-option]="false"
+                            placeholder="Http observable FULL data with VALUE 33" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigValidatinInvalid"
+                            [load-on-init]="false" label="Http observable FULL data config INVALID validation" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable FULL data INVALID validation" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <hr>
+                <h3>HTTP (pageable data - config)</h3>
+                <hr>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableScroll"
+                            [load-on-init]="false" label="Http observable pageable data SCROLL config" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable pageable data SCROLL config" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableScrollValue"
+                            [load-on-init]="false" label="Http observable pageable data SCROLL config with Value" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable pageable data SCROLL config with Value" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig1">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableScrollValidationInvalid"
+                            [load-on-init]="false" label="Http observable pageable data SCROLL config INVALID" [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable pageable data SCROLL config INVALID" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig2">
+                        </sfc-select-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableButton"
+                            [load-on-init]="false" label="Http observable pageable data BUTTTON config" [load-more-button]="true" [show-default-option]="true"
+                            placeholder="Http observable pageable data BUTTTON config" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableButtonValue"
+                            [load-on-init]="false" label="Http observable pageable data BUTTTON config with Value" [load-more-button]="true" [show-default-option]="true"
+                            placeholder="Http observable pageable data BUTTTON config with Value" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig1">
+                        </sfc-select-input>
+                    </div>
+
+                    <div>
+                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableButtonValidationInvalid"
+                            [load-on-init]="false" label="Http observable pageable data BUTTTON config INVALID" [load-more-button]="true" [show-default-option]="true"
+                            placeholder="Http observable pageable data BUTTTON config INVALID" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig2">
+                        </sfc-select-input>
+                    </div>
+
                 </div>
 
             </div>

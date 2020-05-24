@@ -56,18 +56,26 @@ export class LoaderService {
   }
 
   private setLoaderStatus(loaderId: string, loaderIdStatus: boolean) {
-    
+
     const loaders = this.subject.getValue();
 
     const loaderIndex = loaders.findIndex(loader => loader.id == loaderId);
 
-    const newLoader = loaders.slice(0);
+    if (loaderIndex === CommonConstants.NOT_FOUND_INDEX) {
 
-    newLoader[loaderIndex] = {
-      ...loaders[loaderIndex],
-      ...{ id: loaderId, status: loaderIdStatus }
-    };
+      this.registerLoader({ id: loaderId, status: loaderIdStatus })
 
-    this.subject.next(newLoader);
+    } else {
+      const newLoader = loaders.slice(0);
+
+      newLoader[loaderIndex] = {
+        ...loaders[loaderIndex],
+        ...{ id: loaderId, status: loaderIdStatus }
+      };
+
+      this.subject.next(newLoader);
+    }
+
+
   }
 }

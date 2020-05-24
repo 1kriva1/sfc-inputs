@@ -11,10 +11,11 @@ import { FileInputAppComponent } from 'src/file-input-app/file-input.component';
 import { SelectInputAppComponent } from 'src/select-input-app/select-input.component';
 import { LoaderService } from 'projects/sfc-inputs/src/lib/common/components/loader/base/sfc-loader.service';
 import { LoaderAppComponent } from 'src/loader-app/loader.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule,  HttpClientModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
     declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,57 @@
+/* DELIMETER */
+
+.main-hr {
+    width: 90%;
+    border: none;
+    border-top: 1px solid #c3c3c3;
+    margin-top: 1px;
+}
+
+/* DELIMETER END */
+
+/* BUTTON */
+
+.btn {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    padding: 5px 2rem 1rem 2rem;
+    margin: 0 1rem 5px 1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    color: #8d99ae;
+    height: 100%;
+}
+
+/* BUTTON END */
+
+/* BUTTON TEXT */
+
+.btn .text {
+    transition: color 0.5s;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* BUTTON TEXT END */
+
+/* BUTTON ICON */
+
+.btn .show-more-icon {
+    transition: color 0.5s;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+/* BUTTON ICON END */
+
+.btn:hover .text, .btn:hover .show-more-icon {
+    color: #656D78;
+}

@@ -12,13 +12,18 @@ export enum FileInputType {
     Inline = 'inline'
 };
 
+export enum HttpMethod {
+    GET = "GET",
+    POST = "POST"
+}
+
 export enum ComponentSizeType {
     Small = 'small',
     Medium = 'medium',
     Large = 'large'
 };
 
-export class CommonConstants{
+export class CommonConstants {
     static DEFAULT_ERROR_MESSAGE = 'Invalid value'
     static MIN_LENGTH_VALIDATOR_KEY = 'minlength'
     static MAX_LENGTH_VALIDATOR_KEY = 'maxlength'

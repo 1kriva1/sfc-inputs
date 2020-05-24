@@ -6,6 +6,12 @@ import { SfcInputsModule } from '../sfc-inputs.module';
 import { By } from '@angular/platform-browser';
 import { StyleClass, CommonConstants } from '../common/constants/common-constants';
 import ISelectData from '../common/interfaces/ISelectData';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { LoaderService } from '../common/components/loader/base/sfc-loader.service';
+import { ILoadMoreData } from '../common/interfaces/ILoadMoreData';
+import ISelectPagedModel from 'src/select-input-app/select-paged.model';
+import HttpUtils from '../common/utils/http-utils';
 
 
 describe('Component: SelectInputComponent', () => {
@@ -16,10 +22,20 @@ describe('Component: SelectInputComponent', () => {
     let debugTextInputEl: DebugElement;
     let labelEl: HTMLLabelElement;
 
+    let loaderServiceInjectedSpy: jasmine.SpyObj<LoaderService>;
+    let httpUtilsServiceInjectedSpy: jasmine.SpyObj<HttpUtils<any[]>>;
+
     beforeEach(async(() => {
+        loaderServiceInjectedSpy = jasmine.createSpyObj('LoaderService', ['showLoader', 'hideLoader']);
+        httpUtilsServiceInjectedSpy = jasmine.createSpyObj('HttpUtils', ['getDataByConfig']);
+
         TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
+            imports: [FormsModule, ReactiveFormsModule, HttpClientModule, SfcInputsModule],
             declarations: [],
+            providers: [
+                { provide: LoaderService, useValue: loaderServiceInjectedSpy },
+                { provide: HttpUtils, useValue: httpUtilsServiceInjectedSpy }
+            ]
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(SelectInputComponent);
             el = fixture.debugElement;
@@ -99,12 +115,12 @@ describe('Component: SelectInputComponent', () => {
 
     xit("Label: click event", async(() => {
         component.label = "test label";
-        component.data = [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }];
-        component.ngOnInit();
-        fixture.detectChanges();
+        component._placeholder = "test placeholder";
+        setOptionData(null, [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]);
 
         let labelDebugEl: DebugElement = el.query(By.css('label'));
         labelDebugEl.triggerEventHandler('click', { target: labelDebugEl.nativeElement });
+        fixture.detectChanges();
 
         let labelEl: HTMLLabelElement = fixture.nativeElement.querySelector('label');
 
@@ -148,7 +164,6 @@ describe('Component: SelectInputComponent', () => {
     });
 
     xit("Icon: click event", async(() => {
-        debugger;
         component.icon = "fa fa-user";
         fixture.detectChanges();
 
@@ -174,7 +189,7 @@ describe('Component: SelectInputComponent', () => {
 
     it("Data: check if data empty without default", async(() => {
         component.showDefaultOption = false;
-        component.ngOnInit();
+        component.initData([]);
         fixture.detectChanges();
 
         let liElements = el.queryAll(By.css('ul.select-dropdown li'));
@@ -184,10 +199,21 @@ describe('Component: SelectInputComponent', () => {
         expect(optionsElements.length).toEqual(0);
     }));
 
+    it("Data: check if data NOT empty with default option", async(() => {
+        component.initData([{ key: 1, value: "test_1" }, { key: 2, value: "test_2" }]);
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(3);
+        expect(optionsElements.length).toEqual(3);
+    }));
+
     it("Data: check if data empty with custom default option", async(() => {
         let defaultOptionValue = "Choose your custom option";
         component.defaultDisplayValue = { value: defaultOptionValue, key: -2 };
-        component.ngOnInit();
+        component.initData(component.data);
         fixture.detectChanges();
 
         let liElements = el.queryAll(By.css('ul.select-dropdown li'));
@@ -200,6 +226,561 @@ describe('Component: SelectInputComponent', () => {
         expect(optionsElements.length).toBeGreaterThan(0);
         expect(optionsElements.length).toEqual(1);
         expect(optionsElements[0].nativeElement.innerText).toEqual(defaultOptionValue);
+    }));
+
+    it("Data: with observable and loadOnInit = TRUE", async(() => {
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.data = mockObservable();
+        component.ngAfterViewInit();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with observable and loadOnInit = FALSE", async(() => {
+        component.showDefaultOption = false;
+        component.data = mockObservable();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(0);
+        expect(optionsElements.length).toEqual(0);
+        expect(loaderServiceInjectedSpy.showLoader).not.toHaveBeenCalled();
+        expect(loaderServiceInjectedSpy.hideLoader).not.toHaveBeenCalled();
+    }));
+
+    it("Data: with observable and loadOnInit = FALSE. Open dropdown.", async(() => {
+        component.showDefaultOption = false;
+        component.data = mockObservable();
+
+        let selectWrapperDebugEl: DebugElement = el.query(By.css('.select-wrapper'));
+        selectWrapperDebugEl.triggerEventHandler('click', { target: selectWrapperDebugEl.nativeElement });
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with observable and loadOnInit = FALSE with defined value.", async(() => {
+        component.showDefaultOption = false;
+        component.writeValue(2);
+        component.data = mockObservable();
+        component.ngAfterViewInit();   
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(infinity scroll) observable and loadOnInit = TRUE", async(() => {
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.loader = mockLoader(false);
+        component.ngAfterViewInit();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(infinity scroll) observable and loadOnInit = FALSE", async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+        component.showDefaultOption = false;
+        component.loader = mockLoader(false);
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(0);
+        expect(optionsElements.length).toEqual(0);
+        expect(loaderServiceInjectedSpy.showLoader).not.toHaveBeenCalled();
+        expect(loaderServiceInjectedSpy.hideLoader).not.toHaveBeenCalled();
+        expect(component.onLoadMore).toHaveBeenCalledTimes(0);
+        expect(component.updateData).toHaveBeenCalledTimes(0);
+    }));
+
+    it("Data: with pageable(infinity scroll) observable and loadOnInit = FALSE. Open dropdown.", async(() => {
+        component.showDefaultOption = false;
+        component.loader = mockLoader(false);
+
+        let selectWrapperDebugEl: DebugElement = el.query(By.css('.select-wrapper'));
+        selectWrapperDebugEl.triggerEventHandler('click', { target: selectWrapperDebugEl.nativeElement });
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(infinity scroll) observable and loadOnInit = FALSE with defined value", async(() => {
+        component.showDefaultOption = false;
+        component.writeValue(2);
+        component.loader = mockLoader(false);
+        component.ngAfterViewInit();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(infinity scroll) observable. Load more than one time.", async(() => {
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.loader = mockLoader(true, 8);
+        component.ngAfterViewInit();
+
+        focusTextInput();
+        scroll();
+
+        fixture.detectChanges();        
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(16);
+        expect(optionsElements.length).toEqual(16);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(2);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(2);
+    }));
+
+    it("Data: with pageable(infinity scroll) observable. Try to load more, but data is full.", async(() => {
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.loader = mockLoader(false, 8);
+        component.ngAfterViewInit();
+
+        focusTextInput();
+        scroll();
+
+        fixture.detectChanges();        
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(8);
+        expect(optionsElements.length).toEqual(8);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(show more button) observable and loadOnInit = TRUE", async(() => {
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.isLoadOnInit = true;
+        component.loader = mockLoader(false);
+        component.ngAfterViewInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+        const moreButtonEl = el.query(By.css('load-more-button'));
+
+        expect(moreButtonEl).toBeTruthy();
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(show more button) observable and loadOnInit = FALSE", async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.loader = mockLoader(false);
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+        const moreButtonEl = el.query(By.css('load-more-button'));
+
+        expect(moreButtonEl).toBeTruthy();
+        expect(liElements.length).toEqual(0);
+        expect(optionsElements.length).toEqual(0);
+        expect(loaderServiceInjectedSpy.showLoader).not.toHaveBeenCalled();
+        expect(loaderServiceInjectedSpy.hideLoader).not.toHaveBeenCalled();
+        expect(component.onLoadMore).toHaveBeenCalledTimes(0);
+        expect(component.updateData).toHaveBeenCalledTimes(0);
+    }));
+
+    it("Data: with pageable(show more button) observable and loadOnInit = FALSE. Click show more button.", async(() => {
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.loader = mockLoader(false);
+        fixture.detectChanges();
+
+        const moreButtonEl = el.query(By.css('load-more-button'));
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(show more button) observable and loadOnInit = FALSE and defined value", async(() => {
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.writeValue(2);
+        component.loader = mockLoader(false);
+        component.ngAfterViewInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+        const moreButtonEl = el.query(By.css('load-more-button'));
+
+        expect(moreButtonEl).toBeTruthy();
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with pageable(show more button) observable. Load more than one time.", async(() => {
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.isLoadOnInit = true;
+        component.loader = mockLoader(true, 8);
+        component.ngAfterViewInit();
+
+        const moreButtonEl = el.query(By.css('load-more-button'));
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();       
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(moreButtonEl).toBeTruthy();
+        expect(liElements.length).toEqual(16);
+        expect(optionsElements.length).toEqual(16);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(2);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(2);
+    }));
+
+    it("Data: with pageable(show more button) observable. Try to load more, but data is full.", async(() => {
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.isLoadOnInit = true;
+        component.loader = mockLoader(false, 8);
+        component.ngAfterViewInit();
+
+        const moreButtonEl = el.query(By.css('load-more-button'));
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();       
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(moreButtonEl).toBeTruthy();
+        expect(liElements.length).toEqual(8);
+        expect(optionsElements.length).toEqual(8);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with http config (infinity scroll) and loadOnInit = TRUE", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with http config (infinity scroll) and loadOnInit = FALSE", async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(0);
+        expect(optionsElements.length).toEqual(0);
+        expect(loaderServiceInjectedSpy.showLoader).not.toHaveBeenCalled();
+        expect(loaderServiceInjectedSpy.hideLoader).not.toHaveBeenCalled();
+        expect(component.onLoadMore).toHaveBeenCalledTimes(0);
+        expect(component.updateData).toHaveBeenCalledTimes(0);
+    }));
+
+    it("Data: with http config (infinity scroll) and loadOnInit = FALSE. Open dropdown.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let selectWrapperDebugEl: DebugElement = el.query(By.css('.select-wrapper'));
+        selectWrapperDebugEl.triggerEventHandler('click', { target: selectWrapperDebugEl.nativeElement });
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with http config (infinity scroll) and loadOnInit = FALSE with defined value.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.writeValue(2);
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with http config (infinity scroll) observable. Load more than one time.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockLoader(true, 8)());
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.httpConfig = mockLoadMoreConfig();
+        component.ngOnInit();
+
+        focusTextInput();
+        scroll();
+        fixture.detectChanges();        
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(16);
+        expect(optionsElements.length).toEqual(16);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(2);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(2);
+    }));
+
+    it("Data: with http config (infinity scroll) observable. Try to load more, but data is full.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockLoader(false, 8)());
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.httpConfig = mockLoadMoreConfig();
+        component.ngOnInit();
+
+        focusTextInput();
+        scroll();
+        fixture.detectChanges();        
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(8);
+        expect(optionsElements.length).toEqual(8);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+    }));
+
+    xit("Data: with http config (load more button) and loadOnInit = TRUE", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.isLoadOnInit = true;
+        component.loadMoreButton = true;
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with http config (load more button) and loadOnInit = FALSE", async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(0);
+        expect(optionsElements.length).toEqual(0);
+        expect(loaderServiceInjectedSpy.showLoader).not.toHaveBeenCalled();
+        expect(loaderServiceInjectedSpy.hideLoader).not.toHaveBeenCalled();
+        expect(component.onLoadMore).toHaveBeenCalledTimes(0);
+        expect(component.updateData).toHaveBeenCalledTimes(0);
+    }));
+
+    it("Data: with http config (load more button) and loadOnInit = FALSE. Click show more button.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const moreButtonEl = el.query(By.css('load-more-button'));
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();    
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(1);
+    }));
+
+    xit("Data: with http config (load more button) and loadOnInit = FALSE with defined value.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.writeValue(2);
+        component.httpConfig = mockConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(2);
+        expect(optionsElements.length).toEqual(2);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(1);
+    }));
+
+    it("Data: with http config (load more button) observable. Load more than one time.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockLoader(true, 8)());
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.httpConfig = mockLoadMoreConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const moreButtonEl = el.query(By.css('load-more-button'));
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();   
+        
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(16);
+        expect(optionsElements.length).toEqual(16);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(2);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(2);
+    }));
+
+    it("Data: with http config (load more button) observable. Try to load more, but data is full.", async(() => {
+        httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockLoader(false, 8)());
+        component.showDefaultOption = false;
+        component.loadMoreButton = true;
+        component.httpConfig = mockLoadMoreConfig();
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const moreButtonEl = el.query(By.css('load-more-button'));
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();   
+        
+        moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        fixture.detectChanges();        
+
+        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
+        let optionsElements = el.queryAll(By.css('select option'));
+
+        expect(liElements.length).toEqual(8);
+        expect(optionsElements.length).toEqual(8);
+        expect(optionsElements[0].nativeElement.text).toEqual("test_1");
+        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
+        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
     }));
 
     it("Text Input: should create element", async(() => {
@@ -216,7 +797,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Text Input: Multiple - value defined", async(() => {
-        component.isMultiple = true;
+        component.multiple = true;
         setOptionData([1, 2]);
 
         expect(debugTextInputEl.nativeElement.value).toEqual("option 1, option 2");
@@ -294,7 +875,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Ul-Dropdown: Multiple - li - value is defined", async(() => {
-        component.isMultiple = true;
+        component.multiple = true;
         setOptionData([1, 2]);
 
         let liElements = el.queryAll(By.css('ul.select-dropdown li.selected')),
@@ -325,7 +906,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Ul-Dropdown: Multiple - li - set option value", async(() => {
-        component.isMultiple = true;
+        component.multiple = true;
         setOptionData([-1]);
 
         let liElements = el.queryAll(By.css('ul.select-dropdown li')),
@@ -431,18 +1012,17 @@ describe('Component: SelectInputComponent', () => {
     // Private functions
 
     function setOptionData(value?: number | Array<number>, data?: ISelectData[]) {
-        component.data = data || [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]
+        component.updateData(data || [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]);
 
         if (value) {
             component.writeValue(value);
         }
 
-        component.ngOnInit();
         fixture.detectChanges();
     }
 
     function setOptOptionData(value?: any) {
-        component.data = [
+        const mockData = [
             {
                 key: 1,
                 value: "group one",
@@ -468,18 +1048,70 @@ describe('Component: SelectInputComponent', () => {
                 }]
             }
         ]
+        component.initData(mockData);
 
         if (value != null && value != undefined) {
             component.writeValue(value);
         }
 
-        component.ngOnInit();
         fixture.detectChanges();
     }
 
     function focusTextInput() {
         debugTextInputEl.triggerEventHandler('focus', { target: debugTextInputEl.nativeElement });
         fixture.detectChanges();
+    }
+
+    function mockObservable() {
+        const testData: ISelectData[] = [{ key: 1, value: "test_1" }, { key: 2, value: "test_2" }];
+        return Observable.of<ISelectData[]>(testData);
+    }
+
+    function mockLoader(hasNext, count:number = 2 ) {
+
+        let data = [];
+
+        for (let index = 1; index <= count; index++) {
+            data.push({ key: index, value: "test_" + index });            
+        }
+
+        return (): Observable<any> => {
+            const testData: any = { HasNext: hasNext, Items: data }
+            return Observable.of<any>(testData);
+        };
+    }
+
+    function mockConfig() {
+        return {
+            url: 'http://test',
+            mapper: site => {
+                return site;
+            }
+        };
+    }
+
+    function mockLoadMoreConfig() {
+        return {
+            url: 'http://test',
+            mapper: resp => {
+                return { Items: resp.Items.map((s: any) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            }
+        };
+    }
+
+    function scroll(scrollTopPosition = null) {
+        // required dispatch 2 scroll evnts because infinityscroller directive use pairwise operator
+        let scrollContainer = el.query(By.css('.select-dropdown'));
+        scrollContainer.nativeElement.dispatchEvent(new Event('scroll'));
+        scrollToBottom(scrollTopPosition);
+        scrollContainer.nativeElement.dispatchEvent(new Event('scroll'));
+    }
+
+    function scrollToBottom(scrollPercentage: number = null): void {
+        let scrollContainer = el.query(By.css('.select-dropdown'));
+        scrollContainer.nativeElement.scrollTop = scrollPercentage
+            ? ((scrollContainer.nativeElement.scrollHeight - scrollContainer.nativeElement.offsetHeight) / 100) * scrollPercentage
+            : scrollContainer.nativeElement.scrollHeight;
     }
 
     // END Private functions

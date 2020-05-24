@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { SfcInputsModule } from '../../../../sfc-inputs.module';
 import ISelectData from '../../../interfaces/ISelectData';
 import ISelectDataGroup from '../../../interfaces/ISelectDataGroup';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     template: `
@@ -114,7 +115,7 @@ describe('Validators: FileInput - Reactive form', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, SfcInputsModule],
+            imports: [FormsModule, ReactiveFormsModule, HttpClientModule, SfcInputsModule],
             declarations: [SelectInputReativeFormTestComponent],
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(SelectInputReativeFormTestComponent);

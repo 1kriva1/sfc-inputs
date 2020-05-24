@@ -14,20 +14,27 @@ import { LoaderService } from './common/components/loader/base/sfc-loader.servic
 import { CircleLoaderComponent } from './common/components/loader/circle/sfc-circle-loader.component';
 import { CircleFadingLoaderComponent } from './common/components/loader/circle-fading/sfc-circle-fading-loader.component';
 import { BounceLoaderComponent } from './common/components/loader/bounce/sfc-bounce-loader.component';
+import { InfiniteScrollerDirective } from './common/directives/infinite-scroll/sfc-infinite-scroll.directive';
+import { LoadMoreButtonComponent } from './common/components/load-more-button/sfc-load-more-button.component';
+import { ClickOutside } from './common/directives/clickoutside.directive';
+import HttpUtils from './common/utils/http-utils';
 
 @NgModule({
-  declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent],
+  declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent, 
+    FileInputComponent, SelectInputComponent, InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent],
+  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CircleLoaderComponent, 
+    CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, InfiniteScrollerDirective],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => TextBaseInputComponent), multi: true },
     FileUtils,
     CollectionUtils,
     UIUtils,
+    HttpUtils,
     LoaderService
   ]
 })

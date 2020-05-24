@@ -1,5 +1,4 @@
 :host-context(.sfc-text-input-dark-theme) .input-text-input {
-    border-bottom: 1px solid #656D78;
     color: white;
 }
 
@@ -22,7 +21,7 @@
     color: #A0D468;
 }
 
-:host-context(.sfc-text-input-dark-theme) .input-text-input.valid~.helper-text {
+:host-context(.sfc-text-input-dark-theme) .select-wrapper.valid~.helper-text {
     color: #A0D468;
 }
 
@@ -34,7 +33,7 @@
 
 /* INVALID */
 
-:host-context(.sfc-text-input-dark-theme) .input-text-input.invalid:not([readonly]), :host-context(.sfc-text-input-dark-theme) .input-text-input.invalid:not([readonly]):focus {
+:host-context(.sfc-text-input-dark-theme) .input-text-input.invalid, :host-context(.sfc-text-input-dark-theme) .input-text-input.invalid:focus {
     border-bottom: 1px solid #DA4453;
     box-shadow: 0 1px 0 0 #DA4453;
 }
@@ -43,7 +42,7 @@
     color: #DA4453;
 }
 
-:host-context(.sfc-text-input-dark-theme) .input-text-input.invalid~.helper-text {
+:host-context(.sfc-text-input-dark-theme) .select-wrapper.invalid~.helper-text {
     color: #DA4453;
 }
 
@@ -80,3 +79,11 @@
 }
 
 /* HELPER TEXT END */
+
+:host-context(.sfc-text-input-dark-theme) ::ng-deep .select-dropdown-container.active .preloader.background {
+    background-color: rgba(255, 255, 255) !important;
+}
+
+:host-context(.sfc-text-input-dark-theme) ::ng-deep .select-dropdown-container.active .spinner>div {
+    background-color: #333 !important;
+}

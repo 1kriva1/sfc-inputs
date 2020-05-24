@@ -14,7 +14,7 @@
     height: 3rem;
     width: 100%;
     font-size: 16px;
-    margin: 0 0 8px 0;
+    /* margin: 0 0 8px 0; */
     padding: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -28,12 +28,12 @@
 
 /* VALID */
 
-.input-text-input.valid:not([readonly]), .input-text-input.valid:not([readonly]):focus {
+.input-text-input.valid, .input-text-input.valid:focus {
     border-bottom: 1px solid #8CC152;
     box-shadow: 0 1px 0 0 #8CC152;
 }
 
-.input-text-input.valid:focus:not([readonly])+label {
+.input-text-input.valid:focus+label {
     color: #8CC152;
 }
 
@@ -49,12 +49,12 @@
 
 /* INVALID */
 
-.input-text-input.invalid:not([readonly]), .input-text-input.invalid:not([readonly]):focus {
+.input-text-input.invalid, .input-text-input.invalid:focus {
     border-bottom: 1px solid #E9573F;
     box-shadow: 0 1px 0 0 #E9573F;
 }
 
-.input-text-input.invalid:focus:not([readonly])+label {
+.input-text-input.invalid:focus+label {
     color: #E9573F;
 }
 
@@ -165,6 +165,7 @@
     transition: color .2s;
     top: .5rem;
     color: rgba(0, 0, 0, 0.54);
+    cursor:pointer;
 }
 
 .input-text-container i.icon~.input-text-input {
@@ -196,13 +197,13 @@
 
 /* FOCUS */
 
-.input-text-input:focus:not([readonly]) {
+.input-text-input:focus {
     border-bottom: 1px solid #26a69a;
     -webkit-box-shadow: 0 1px 0 0 #26a69a;
     box-shadow: 0 1px 0 0 #26a69a;
 }
 
-.input-text-input:focus:not([readonly])+label {
+.input-text-input:focus+label {
     color: #26a69a;
 }
 

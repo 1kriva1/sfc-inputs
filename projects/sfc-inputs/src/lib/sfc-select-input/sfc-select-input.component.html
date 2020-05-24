@@ -1,41 +1,48 @@
 <div class="input-text-container input-select-container">
-    <div class="select-wrapper" [ngClass]="validationClass">
+    <div class="select-wrapper" [ngClass]="validationClass" (click)="openDropdown()">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
         <input sfcinput #inputSelect type="text" class="input-select input-text-input" value={{displayValue}}
-            [placeholder]="placeholder" [validations]="validations" [disabled]="disabled">
+            [placeholder]="placeholder" [validations]="validations" [disabled]="disabled" readonly>
+        <div class="select-dropdown-container" [ngStyle]="dynamicSizeStyles" [ngClass]="dropdownClasses">            
+            <div style="position: relative;">
+                <app-bounce-loader *ngIf="isLoadingData" [id]="id" [size]="'small'" [background]="true"></app-bounce-loader>
+                <ul #ulSelect class="select-dropdown" 
+                    [infinite-scroller]="loader && !loadMoreButton" scrollPercent="99"
+                    [immediateCallback]="isImediateCallback" [loader]="loader" (scrolled)="onLoadMore()"
+                    (updated)="updateData($event)">
+
+                    <li #liSelected *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)"
+                        [ngClass]="getOptionClasses(item, liSelected)">
+                        <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
+                        <span>
+                            <span *ngIf="!multiple">{{item.value}}</span>
+                            <label *ngIf="multiple">
+
+                                <div class="multiple">
+                                    <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
+                                    <label for="{{item.key}}">
+                                        <span></span>{{item.value}}
+                                    </label>
+                                </div>
+                            </label>
+                        </span>
+                    </li>
+
+                    <load-more-button *ngIf="loader && loadMoreButton" [loader]="loader" [immediateCallback]="isImediateCallback"
+                        (clicked)="onLoadMore()" (updated)="updateData($event)"></load-more-button>
+                </ul>
+            </div>
 
 
-        <div class="select-dropdown-container" [ngStyle]="dynamicSizeStyles" [ngClass]="dropdownClasses">
-            <app-circle-loader [id]="id"></app-circle-loader>
-            <ul class="select-dropdown scrollbar">
-                <li *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)"
-                    [ngClass]="getOptionClasses(item)">
-                    <img *ngIf="item.imagePath" alt="" [src]="item.imagePath">
-                    <span>
-                        <span *ngIf="!isMultiple">{{item.value}}</span>
-                        <label *ngIf="isMultiple">
-
-                            <div class="multiple">
-                                <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
-                                <label for="{{item.key}}">
-                                    <span></span>{{item.value}}
-                                </label>
-                            </div>
-                        </label>
-                    </span>
-                </li>
-
-            </ul>
         </div>
 
-        <i class="caret fa fa-caret-down"></i>
-        <select id="sfc-{{id}}" value={{value}} [attr.multiple]="isMultiple ? '' : null">
+        <i class="caret fa fa-caret-down" (click)="openDropdownContent()"></i>
+        <select id="sfc-{{id}}" value={{value}} [attr.multiple]="multiple ? '' : null">
             <option *ngFor="let item of localData" value="{{item.key}}"
                 [attr.selected]="isItemSelected(item) ? 'selected' : null">{{item.value}}</option>
         </select>
-        <span class="helper-text">{{helperText}}</span>
-
     </div>
     <label for="sfc-{{id}}" [ngClass]="labelClass" (click)="openDropdownContent()">{{label}}</label>
+    <span class="helper-text">{{helperText}}</span>
 
 </div>

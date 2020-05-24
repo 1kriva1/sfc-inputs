@@ -108,7 +108,7 @@ export default abstract class BaseInputComponent implements ControlValueAccessor
     }
 
     protected get isValueNullOrEmpty(){
-        return this.value === null || this.value === undefined || (Array.isArray(this.value) && this.value.length === 0);
+        return this.value === null || this.value === undefined || this.value === "" || (Array.isArray(this.value) && this.value.length === 0);
     }
 
     // protected get isRequiredError(){

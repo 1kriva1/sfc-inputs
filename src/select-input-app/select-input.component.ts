@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import ISelectData from 'projects/sfc-inputs/src/lib/common/interfaces/ISelectData';
 import SelectData from 'projects/sfc-inputs/src/lib/common/interfaces/ISelectData';
 import ISelectDataGroup from 'projects/sfc-inputs/src/lib/common/interfaces/ISelectDataGroup';
 import { LoaderService } from 'projects/sfc-inputs/src/lib/common/components/loader/base/sfc-loader.service';
-
-export class PersonalData {
-    firstName: string;
-    lastName: string;
-    password: string
-}
+import SelectService from './select.service';
+import { map, tap } from 'rxjs/operators';
+import ISelectModel from './select.model';
+import ISelectGroupModel from './select-group.model';
+import ISelectPagedModel from './select-paged.model';
+import { IHttpConfig } from 'projects/sfc-inputs/src/lib/common/interfaces/IHttpConfig';
 
 @Component({
     selector: 'select-input-app',
@@ -27,14 +27,200 @@ export class SelectInputAppComponent {
     private theme: string = "common";
 
     private data: ISelectData[];
+    private $httpData: Observable<ISelectData[]>;
+    private httpData: ISelectData[];
+
     private datagroup: ISelectDataGroup[];
+    private $httpDataGroup: Observable<ISelectDataGroup[]>;
+    private httpGroupData: ISelectDataGroup[];
+
+    loadFuncScroll;
+    loadFuncScroll1;
+    loadFuncScroll2;
+    loadFuncButton;
+    loadFuncButton1;
+    loadFuncButton2;
+    private dataPaged: ISelectData[] = [];
+    private $httpDataPaged: Observable<ISelectData[]>;
+    private httpDataPaged: ISelectData[];
+    private subject: BehaviorSubject<ISelectData[]> = new BehaviorSubject<ISelectData[]>([]);
+    private loaders$: Observable<ISelectData[]> = this.subject.asObservable();
+
     private defaultDisplayValue: ISelectData = { value: "Choose customdefault option", key: -10, isDefault: true };
 
-    constructor(private formBuilder: FormBuilder, private loaderService: LoaderService) {
+    private pageScroll = 1;
+    private pageScroll1 = 1;
+    private pageScroll2 = 1;
+    private pageButton = 1;
+    private pageButton1 = 1;
+    private pageButton2 = 1;
+    private size = 30;
 
+    private httpConfig: IHttpConfig;
+    private httpLoadMoreConfig: IHttpConfig;
+    private httpLoadMoreConfig1: IHttpConfig;
+    private httpLoadMoreConfig2: IHttpConfig;
+
+    private httpLoadMoreButtonConfig: IHttpConfig;
+    private httpLoadMoreButtonConfig1: IHttpConfig;
+    private httpLoadMoreButtonConfig2: IHttpConfig;
+
+    constructor(private formBuilder: FormBuilder, private loaderService: LoaderService, private selectService: SelectService) {
+        this.loadFuncScroll = () => this.selectService.getPagedSelects(this.pageScroll, this.size).pipe(
+            tap((resp: ISelectPagedModel) => {
+                this.pageScroll = ++resp.CurrentPage;
+            }),
+            map((resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            })
+        );
+
+        this.loadFuncScroll1 = () => this.selectService.getPagedSelects(this.pageScroll1, this.size).pipe(
+            tap((resp: ISelectPagedModel) => {
+                this.pageScroll1 = ++resp.CurrentPage;
+            }),
+            map((resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            })
+        );
+
+        this.loadFuncScroll2 = () => this.selectService.getPagedSelects(this.pageScroll2, this.size).pipe(
+            tap((resp: ISelectPagedModel) => {
+                this.pageScroll2 = ++resp.CurrentPage;
+            }),
+            map((resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            })
+        );
+
+        this.loadFuncButton = () => this.selectService.getPagedSelects(this.pageButton, this.size).pipe(
+            tap((resp: ISelectPagedModel) => {
+                this.pageButton = ++resp.CurrentPage;
+            }),
+            map((resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            })
+        );
+
+        this.loadFuncButton1 = () => this.selectService.getPagedSelects(this.pageButton1, this.size).pipe(
+            tap((resp: ISelectPagedModel) => {
+                this.pageButton1 = ++resp.CurrentPage;
+            }),
+            map((resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            })
+        );
+
+        this.loadFuncButton2 = () => this.selectService.getPagedSelects(this.pageButton2, this.size).pipe(
+            tap((resp: ISelectPagedModel) => {
+                this.pageButton2 = ++resp.CurrentPage;
+            }),
+            map((resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            })
+        );
+
+        this.httpConfig = {
+            url: 'http://sfc.mock.com:88/values/sleep/1000',
+            mapper: site => {
+                return site.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } });
+            }
+        }
+
+        this.httpLoadMoreConfig = {
+
+            url: 'http://sfc.mock.com:88/values/pagination',
+            params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
+            mapper: (resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            },
+            updater: (resp: ISelectPagedModel, config: IHttpConfig) => {
+                let pageParam = config.params.find(m => m.key === 'PageNumber');
+                let pageParamIndex = config.params.findIndex(m => m.key === 'PageNumber');
+                pageParam.value = ++resp.CurrentPage;
+                config.params[pageParamIndex] = pageParam;
+            }
+        }
+
+        this.httpLoadMoreConfig1 = {
+
+            url: 'http://sfc.mock.com:88/values/pagination',
+            params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
+            mapper: (resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            },
+            updater: (resp: ISelectPagedModel, config: IHttpConfig) => {
+                let pageParam = config.params.find(m => m.key === 'PageNumber');
+                let pageParamIndex = config.params.findIndex(m => m.key === 'PageNumber');
+                pageParam.value = ++resp.CurrentPage;
+                config.params[pageParamIndex] = pageParam;
+            }
+        }
+
+        this.httpLoadMoreConfig2 = {
+
+            url: 'http://sfc.mock.com:88/values/pagination',
+            params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
+            mapper: (resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            },
+            updater: (resp: ISelectPagedModel, config: IHttpConfig) => {
+                let pageParam = config.params.find(m => m.key === 'PageNumber');
+                let pageParamIndex = config.params.findIndex(m => m.key === 'PageNumber');
+                pageParam.value = ++resp.CurrentPage;
+                config.params[pageParamIndex] = pageParam;
+            }
+        }
+
+        this.httpLoadMoreButtonConfig = {
+
+            url: 'http://sfc.mock.com:88/values/pagination',
+            params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
+            mapper: (resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            },
+            updater: (resp: ISelectPagedModel, config: IHttpConfig) => {
+                let pageParam = config.params.find(m => m.key === 'PageNumber');
+                let pageParamIndex = config.params.findIndex(m => m.key === 'PageNumber');
+                pageParam.value = ++resp.CurrentPage;
+                config.params[pageParamIndex] = pageParam;
+            }
+        }
+
+        this.httpLoadMoreButtonConfig1 = {
+
+            url: 'http://sfc.mock.com:88/values/pagination',
+            params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
+            mapper: (resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            },
+            updater: (resp: ISelectPagedModel, config: IHttpConfig) => {
+                let pageParam = config.params.find(m => m.key === 'PageNumber');
+                let pageParamIndex = config.params.findIndex(m => m.key === 'PageNumber');
+                pageParam.value = ++resp.CurrentPage;
+                config.params[pageParamIndex] = pageParam;
+            }
+        }
+
+        this.httpLoadMoreButtonConfig2 = {
+
+            url: 'http://sfc.mock.com:88/values/pagination',
+            params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
+            mapper: (resp: ISelectPagedModel) => {
+                return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
+            },
+            updater: (resp: ISelectPagedModel, config: IHttpConfig) => {
+                let pageParam = config.params.find(m => m.key === 'PageNumber');
+                let pageParamIndex = config.params.findIndex(m => m.key === 'PageNumber');
+                pageParam.value = ++resp.CurrentPage;
+                config.params[pageParamIndex] = pageParam;
+            }
+        }
     }
 
     ngOnInit() {
+
+        this.getSelects();
 
         this.datagroup = [
             {
@@ -112,6 +298,30 @@ export class SelectInputAppComponent {
         {
             key: 5,
             value: "option 5"
+        },
+        {
+            key: 6,
+            value: "option 6"
+        },
+        {
+            key: 7,
+            value: "option 7"
+        },
+        {
+            key: 8,
+            value: "option 8"
+        },
+        {
+            key: 9,
+            value: "option 9"
+        },
+        {
+            key: 10,
+            value: "option 10"
+        },
+        {
+            key: 11,
+            value: "option 11"
         }];
 
         this.customInputForm = this.formBuilder.group(
@@ -151,7 +361,7 @@ export class SelectInputAppComponent {
                     value: [1],
                     disabled: true
                 }],
-                inputSelectultipleNotFound: [[2, 33]],
+                inputSelectultipleNotFound: [[6, 33]],
                 inputSelectMultipleValidation: [null, {
                     validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
                 }],
@@ -193,8 +403,66 @@ export class SelectInputAppComponent {
                         key: 1,
                         groupKey: 2
                     }])]
+                }],
+                inputSelectHttpData: [null],
+                inputSelectHttpDataValue: [34],
+                inputSelectHttpDataNoObs: [null],
+                inputSelectHttpDataOnInit: [null],
+                inputSelectHttpDataValueOnInit: [34],
+                inputSelectHttpDataNoObsOnInit: [null],
+                inputSelectHttpDataMulty: [null],
+                inputSelectHttpDataMultyValue: [[11, 31, 43]],
+                inputSelectHttpNpobsDataMultyValue: [[11, 31, 43]],
+                inputSelectHttpDataGroup: [null],
+                inputSelectHttpDataGroupValue: [{
+                    key: 1,
+                    groupKey: 1
+                }],
+                inputSelectHttpNpobsDataGroupValue: [null],
+                inputSelectHttpDataLoadMoreScroll: [10],
+                inputSelectHttpDataLoadHttpConf: [null],
+                inputSelectHttpDataValidValidation: [1, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
+                }],
+                inputSelectHttpDataInvalidValidation: [5, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
+                }],
+                inputSelectHttpPageableScroll: [null],
+                inputSelectHttpPageableScrollValue: [80],
+                inputSelectHttpPageableScrollValidatinInvalid: [5, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
+                }],
+                inputSelectHttpPageableButton: [null],
+                inputSelectHttpPageableButtonValue: [80],
+                inputSelectHttpPageableButtonValidatinInvalid: [5, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
+                }],
+                inputSelectHttpConfig: [null],
+                inputSelectHttpConfigValue: [33],
+                inputSelectHttpConfigValidatinInvalid: [5, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
+                }],
+                inputSelectHttpConfigPageableScroll: [null],
+                inputSelectHttpConfigPageableScrollValue: [33],
+                inputSelectHttpConfigPageableScrollValidationInvalid: [5, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
+                }],
+                inputSelectHttpConfigPageableButton: [null],
+                inputSelectHttpConfigPageableButtonValue: [33],
+                inputSelectHttpConfigPageableButtonValidationInvalid: [5, {
+                    validators: [Validators.required, SfcValidators.EqualOrInclude([1, 3])]
                 }]
             }
         );
+    }
+
+    private getSelects(): void {
+        this.$httpData = this.selectService.getSelects().pipe(map(site => {
+            return site.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } });
+        }));
+
+        this.$httpDataGroup = this.selectService.getGroupSelects().pipe(map(site => {
+            return site.map((s: ISelectGroupModel) => { return { key: s.GroupId, value: s.GroupValue, options: s.Options.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }) } });
+        }));
     }
 }
