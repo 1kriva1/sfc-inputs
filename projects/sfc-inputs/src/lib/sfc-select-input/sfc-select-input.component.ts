@@ -21,7 +21,7 @@ import { ILoadMoreData } from '../common/interfaces/ILoadMoreData';
     templateUrl: './sfc-select-input.component.html',
     styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-select-input.component.css', './sfc-select-input-dark-theme.component.css']
 })
-export class SelectInputComponent extends BaseInputComponent implements OnInit, AfterViewInit, OnChanges, IPageable<ILoadMoreData> {
+export class SelectInputComponent extends BaseInputComponent<string | Array<string> | ISelectData> implements OnInit, AfterViewInit, OnChanges, IPageable<ILoadMoreData> {
 
     // class name for group option
     private readonly OPT_GROUP_OPTION_CLASS = "optgroup-option";
@@ -45,7 +45,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
 
         this._showDefaultOption = value;
 
-        if(this.localData){
+        if (this.localData) {
             let defaultItemIndex = this.localData.findIndex(i => i.isDefault);
 
             if (value) {
@@ -57,7 +57,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
                     this.localData.splice(defaultItemIndex, 1);
                 }
             }
-        }        
+        }
     }
 
     get showDefaultOption() {
@@ -149,7 +149,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
     }
 
     ngAfterViewInit(): void {
-        if (this.isLoadOnInit || !this.isValueNullOrEmpty) {
+        if (this.isLoadOnInit || this.isValueDefined) {
             this.loadData();
             this.changeDetector.detectChanges();
         }
@@ -160,6 +160,16 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
         if (changes.data && !changes.data.firstChange) {
             this.initData(changes.data.currentValue);
         }
+    }
+
+    protected get isValueDefined() {
+        let isDefined = super.isValueDefined;
+
+        if (Array.isArray(this.value)) {
+            return isDefined && this.value.length > 0;
+        }
+
+        return isDefined;
     }
 
     protected get labelClass() {
@@ -231,13 +241,14 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
 
     // check if immediate callback for pageable data
     private get isImediateCallback(): boolean {
-        return this.isLoadOnInit || !this.isValueNullOrEmpty;
+        return this.isLoadOnInit || this.isValueDefined;
     }
 
     // get value to display (single, multiple and grouped)
     private get displayValue(): string {
         if (this.isOptGroup) {
-            return this.value ? this.getDisplayValue(i => i.key === this.value.key && i.groupKey === this.value.groupKey) : null;
+            let optGroupValue = this.value as ISelectData;
+            return optGroupValue ? this.getDisplayValue(i => i.key === optGroupValue.key && i.groupKey === optGroupValue.groupKey) : null;
         } else if (this.multiple) {
             return this.getMultipleDisplayValue();
         } else {
@@ -253,7 +264,7 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
             this.setActiveOption(classes, child);
         } else {
             // handle for multiple state (disable default item if value not empty)
-            if (this.multiple && item.isDefault && !this.isValueNullOrEmpty) {
+            if (this.multiple && item.isDefault && this.isValueDefined) {
                 classes[StyleClass.Disabled] = true;
             }
         }
@@ -271,9 +282,10 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
 
     private isItemSelected(item: ISelectData) {
         if (this.isOptGroup) {
-            return this.value && this.value.key === item.key && this.value.groupKey === item.groupKey;
+            let optGroupValue = this.value as ISelectData;
+            return optGroupValue && optGroupValue.key === item.key && optGroupValue.groupKey === item.groupKey;
         } else if (this.multiple) {
-            return this.collectionUtils.hasItem(this.value, item.key);
+            return this.collectionUtils.hasItem<string>(this.value as Array<string>, item.key);
         } else {
             return this.value === item.key;
         }
@@ -328,10 +340,10 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
             });
         }
         else {
-            if(this.data){
+            if (this.data) {
                 this.initData(this.data);
                 this.setLoaded(false);
-            }            
+            }
         }
     }
 
@@ -392,21 +404,21 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
         if (event.preventDefault)
             event.preventDefault();
 
-        let itemIndex = this.value.findIndex(i => i === item.key);
+        let itemIndex = (this.value as Array<string>).findIndex(i => i === item.key);
 
         if (itemIndex !== CommonConstants.NOT_FOUND_INDEX) {
-            this.value.splice(itemIndex, 1);
+            (this.value as Array<string>).splice(itemIndex, 1);
         } else {
             if (item.isDefault) {
-                let notDefaultItemIndex = this.value.findIndex(i => i !== this.defaultDisplayValue.key);
+                let notDefaultItemIndex = (this.value as Array<string>).findIndex(i => i !== this.defaultDisplayValue.key);
                 if (notDefaultItemIndex === CommonConstants.NOT_FOUND_INDEX) {
-                    this.value.push(item.key);
+                    (this.value as Array<string>).push(item.key);
                 }
             } else {
-                this.value.push(item.key);
-                let defaultItemIndex = this.value.findIndex(i => i === this.defaultDisplayValue.key);
+                (this.value as Array<string>).push(item.key);
+                let defaultItemIndex = (this.value as Array<string>).findIndex(i => i === this.defaultDisplayValue.key);
                 if (defaultItemIndex !== CommonConstants.NOT_FOUND_INDEX) {
-                    this.value.splice(defaultItemIndex, 1);
+                    (this.value as Array<string>).splice(defaultItemIndex, 1);
                 }
             }
         }
@@ -423,13 +435,13 @@ export class SelectInputComponent extends BaseInputComponent implements OnInit, 
         }
 
         if (item.isOptGroupOption || item.isDefault) {
-            this.onChange({ key: item.key, groupKey: item.groupKey });
+            this.onChange({ key: item.key, groupKey: item.groupKey } as any);
         }
     }
 
     private getMultipleDisplayValue() {
         if (this.localData && this.localData.length > 0) {
-            let selectedItemsKeys = this.value,
+            let selectedItemsKeys = (this.value as Array<string>),
                 selectedValues = [];
 
             this.localData.forEach(function (item) {

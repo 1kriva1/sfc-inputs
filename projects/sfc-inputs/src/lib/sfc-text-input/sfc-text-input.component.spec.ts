@@ -1,9 +1,10 @@
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-import {  DebugElement } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SfcInputsModule } from '../sfc-inputs.module';
 import { TextInputComponent } from './sfc-text-input.component';
+import { StyleClass } from '../common/constants/common-constants';
 
 
 describe('Component: TextInputComponent', () => {
@@ -31,7 +32,7 @@ describe('Component: TextInputComponent', () => {
         });        
     }));
 
-    it("Should create component", async(() => {
+    it("TextInputComponent: Should create component", async(() => {
         expect(component).toBeTruthy();
     }));
 
@@ -40,20 +41,33 @@ describe('Component: TextInputComponent', () => {
     });
 
     it("Icon: should create icon element if icon value defined", () => {
-        component.icon = "fa fa-user";
+        component.icon = 'fa fa-user';
         fixture.detectChanges();
 
         expect(fixture.nativeElement.querySelector('i.icon')).toBeDefined();
     });
 
     it("Icon: should add class to icon element", () => {
-        component.icon = "fa fa-user";
+        component.icon = 'fa fa-user';
+        fixture.detectChanges();
+
+        const icon = fixture.nativeElement.querySelector('i.icon');
+
+        expect(icon.className).toContain('icon');
+        expect(icon.className).toContain('fa');
+        expect(icon.className).toContain('fa-user');
+    });
+
+    it("Icon: when component is focused", () => {
+        component.icon = 'fa fa-user';
+        debugInputEl.triggerEventHandler('focus', { target: debugInputEl.nativeElement });
         fixture.detectChanges();
         const icon = fixture.nativeElement.querySelector('i.icon');
 
-        expect(icon.className).toContain("icon");
-        expect(icon.className).toContain("fa");
-        expect(icon.className).toContain("fa-user");
+        expect(icon.className).toContain('icon');
+        expect(icon.className).toContain('fa');
+        expect(icon.className).toContain('fa-user');
+        expect(icon.className).toContain(StyleClass.Active);
     });
 
     it("Input: should create input element", () => {
@@ -61,22 +75,22 @@ describe('Component: TextInputComponent', () => {
     });
 
     it("Input: default id value", () => {
-        expect(inputEl.id).toEqual("sfc-");
+        expect(inputEl.id).toEqual('sfc-');
     });
 
     it("Input: id value", () => {
-        component.id = "test-id";
+        component.id = 'test-id';
         fixture.detectChanges();
 
-        expect(inputEl.id).toEqual("sfc-test-id");
+        expect(inputEl.id).toEqual('sfc-test-id');
     });
 
     it("Input: default type value", () => {
-        expect(inputEl.type).toEqual("text");
+        expect(inputEl.type).toEqual('text');
     });
 
     it("Input: type value defined", () => {
-        const typeAssertValue = "email";
+        const typeAssertValue = 'email';
         component.type = typeAssertValue;
         fixture.detectChanges();
 
@@ -88,19 +102,28 @@ describe('Component: TextInputComponent', () => {
     });
 
     it("Input: placeholder value if value not defined", () => {
-        expect(inputEl.placeholder).toEqual("");
+        expect(inputEl.placeholder).toEqual('');
     });
 
     it("Input: placeholder value", () => {
-        const placeholderAssertValue = "test placeholder";
+        const placeholderAssertValue = 'test placeholder';
         component._placeholder = placeholderAssertValue;
         fixture.detectChanges();
 
         expect(inputEl.placeholder).toEqual(placeholderAssertValue);
     });
 
+    it("Input: placeholder with value and focused", () => {
+        const placeholderAssertValue = "test placeholder";
+        component._placeholder = placeholderAssertValue;
+        debugInputEl.triggerEventHandler('focus', { target: debugInputEl.nativeElement });
+        fixture.detectChanges();
+
+        expect(inputEl.placeholder).toEqual('');
+    });
+
     it("Input: default input value", () => {
-        expect(inputEl.value).toEqual("");
+        expect(inputEl.value).toEqual('');
     });
 
     it("Input: set input value", () => {
@@ -124,9 +147,7 @@ describe('Component: TextInputComponent', () => {
 
     it("Input: change event", () => {
         const value = 'trigger input event';
-        debugInputEl.nativeElement.value = value;
-
-        debugInputEl.triggerEventHandler('input', { target: debugInputEl.nativeElement });
+        debugInputEl.triggerEventHandler('input', { target: { nativeElement: debugInputEl.nativeElement, value: value} });
         fixture.detectChanges();
 
         expect(inputEl.value).toEqual(value);
@@ -136,11 +157,11 @@ describe('Component: TextInputComponent', () => {
         debugInputEl.triggerEventHandler('focus', { target: debugInputEl.nativeElement });
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual("active");
+        expect(labelEl.className).toEqual(StyleClass.Active);
     });
 
     it("Input: focus event (placeholder)", () => {
-        const placeholderAssertValue = "test placeholder";
+        const placeholderAssertValue = 'test placeholder';
         component._placeholder = placeholderAssertValue;
         fixture.detectChanges();
 
@@ -149,7 +170,7 @@ describe('Component: TextInputComponent', () => {
         debugInputEl.triggerEventHandler('focus', { target: debugInputEl.nativeElement });
         fixture.detectChanges();
 
-        expect(inputEl.placeholder).toEqual("");
+        expect(inputEl.placeholder).toEqual('');
     });
 
     it("Input: blur event", () => {
@@ -157,15 +178,15 @@ describe('Component: TextInputComponent', () => {
         debugInputEl.triggerEventHandler('blur', { target: debugInputEl.nativeElement });
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual("");
+        expect(labelEl.className).toEqual('');
     });
 
     it("Label: default inner text value", () => {        
-        expect(labelEl.innerText).toEqual("");
+        expect(labelEl.innerText).toEqual('');
     });
 
     it("Label: inner text value", () => {
-        const labelAssertValue = "test label";
+        const labelAssertValue = 'test label';
         component.label = labelAssertValue;
         fixture.detectChanges();
 
@@ -179,24 +200,24 @@ describe('Component: TextInputComponent', () => {
     });
 
     it("Label: class value - active, when placeholder exist", () => {
-        component._placeholder = "test placeholder";
+        component._placeholder = 'test placeholder';
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual("active");
+        expect(labelEl.className).toEqual(StyleClass.Active);
     });
 
     it("Label: class value - active, when input in focus", () => {
         debugInputEl.triggerEventHandler('focus', { target: debugInputEl.nativeElement });
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual("active");
+        expect(labelEl.className).toEqual(StyleClass.Active);
     });
 
     it("Label: class value - active, when value defined", () => {
-        component.writeValue("test value");
+        component.writeValue('test value');
         fixture.detectChanges();
 
-        expect(labelEl.className).toEqual("active");
+        expect(labelEl.className).toEqual(StyleClass.Active);
     });
 
     it("Helper text: should create element with permanent class value", () => {
@@ -204,7 +225,7 @@ describe('Component: TextInputComponent', () => {
     });
 
     it("Helper text: inner text value", () => {
-        const helperTextAssertValue = "test helper text";
+        const helperTextAssertValue = 'test helper text';
         component._helperText = helperTextAssertValue;
         fixture.detectChanges();
 

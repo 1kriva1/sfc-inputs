@@ -5,18 +5,32 @@
         <button (click)="this.theme = 'dark'">Dark</button>
     </div>
 
-    <div class="background" [ngClass]="(theme=='common')?'default-background':['sfc-text-input-dark-theme', 'dark-background']">
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-text-input-dark-theme', 'dark-background']">
         <form [formGroup]="customInputForm" autocomplete="off">
 
             <div class="input-container">
                 <div class="input-row">
                     <div>
-                        <sfc-text-input id="demo-text-input-first" label="First Name" placeholder="Placeholder"
-                            formControlName="firstName">
+                        <sfc-text-input id="demo-text-input-full-empty" formControlName="fullEmpty">
+                        </sfc-text-input>
+                    </div>
+
+                    <div>
+                        <sfc-text-input id="demo-text-input-only-placeholder" formControlName="onlyPlaceholder"
+                            placeholder="Placeholder">
+                        </sfc-text-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-text-input id="demo-text-input-last" label="Last Name" formControlName="lastName">
                         </sfc-text-input>
                     </div>
                     <div>
-                        <sfc-text-input id="demo-text-input-last" label="Last Name" formControlName="lastName">
+                        <sfc-text-input id="demo-text-input-first" label="First Name" placeholder="Placeholder"
+                            formControlName="firstName">
                         </sfc-text-input>
                     </div>
                 </div>
@@ -26,8 +40,8 @@
                         <sfc-text-input id="demo-text-input-not-valid" label="Not validatable"></sfc-text-input>
                     </div>
                     <div>
-                        <sfc-text-input id="demo-text-input-disabled" label="Disabled"
-                            placeholder="I am disabled" formControlName="disabledInput"></sfc-text-input>
+                        <sfc-text-input id="demo-text-input-disabled" label="Disabled" placeholder="I am disabled"
+                            formControlName="disabledInput"></sfc-text-input>
                     </div>
                 </div>
 
@@ -37,8 +51,8 @@
                             placeholder="Password" formControlName="password"></sfc-text-input>
                     </div>
                     <div>
-                        <sfc-text-input id="demo-text-input-helper" label="Helper"
-                            helper-text="Helper text is it" placeholder="plavceholder" formControlName="helper">
+                        <sfc-text-input id="demo-text-input-helper" label="Helper" helper-text="Helper text is it"
+                            placeholder="plavceholder" formControlName="helper">
                         </sfc-text-input>
                     </div>
                 </div>

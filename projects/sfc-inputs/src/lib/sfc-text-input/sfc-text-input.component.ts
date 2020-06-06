@@ -1,17 +1,19 @@
-import { Component, Self, Optional, ChangeDetectorRef } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import BaseInputComponent from '../common/components/sfc-base-input.component';
+import BaseTextInputComponent from '../common/components/sfc-base-text-input.component';
 
 @Component({
     selector: 'sfc-text-input',
     templateUrl: './sfc-text-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-text-input-dark-theme.component.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', '../common/styles/sfc-base-input-dark-theme.component.css', './sfc-text-input.component.css']
 })
-export class TextInputComponent extends BaseInputComponent {
+export class TextInputComponent extends BaseTextInputComponent {
+
+    @Input()
+    type: string = 'text';
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef) {
         super(ngControl, changeDetector);
     }
-
 }

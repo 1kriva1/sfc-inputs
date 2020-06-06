@@ -1,0 +1,12 @@
+/* CHARACTERS COUNT */
+
+.character-counter {
+    user-select: none;
+    float: right;
+    font-size: 12px;
+    min-height: 18px;
+    position: relative;
+    top: 5px;
+}
+
+/* CHARACTERS COUNT END */

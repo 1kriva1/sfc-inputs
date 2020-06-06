@@ -1,14 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-
-export class PersonalData {
-    firstName: string;
-    lastName: string;
-    password: string
-}
 
 @Component({
     selector: 'text-input-app',
@@ -22,7 +13,7 @@ export class TextInputAppComponent {
     private theme: string = "common";
 
     constructor(private formBuilder: FormBuilder) {
-        
+
     }
 
     ngOnInit() {
@@ -51,7 +42,9 @@ export class TextInputAppComponent {
                 }],
                 undefinedValidation: ["s", {
                     validators: [Validators.required, Validators.minLength(2)]
-                }]
+                }],
+                fullEmpty: [null],
+                onlyPlaceholder: [null]
             }
         );
     }

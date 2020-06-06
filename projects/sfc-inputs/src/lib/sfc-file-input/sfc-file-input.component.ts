@@ -3,18 +3,15 @@ import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { StyleClass, FileInputType } from '../common/constants/common-constants';
 import { FileUtils } from '../common/utils/file-utils';
-import { IfStmt } from '@angular/compiler';
 
 @Component({
     selector: 'sfc-file-input',
     templateUrl: './sfc-file-input.component.html',
     styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-file-input.component.css', './sfc-file-input-dark-theme.component.css']
 })
-export class FileInputComponent extends BaseInputComponent implements OnInit {
+export class FileInputComponent extends BaseInputComponent<File> implements OnInit {
 
     private FileInputType = FileInputType;
-
-    private readonly FILE_BUTTON_CLASS = "fileBtn";
 
     /**
     * Default icon for inline file input
@@ -50,16 +47,15 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     @Input()
     showClearButton = true;
 
-    @ViewChild('inputFile', { static: false }) fileInput: ElementRef;
+    @ViewChild('inputFile', { static: false }) 
+    fileInput: ElementRef;
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
         const file = event && event.item(0);
         this.onChange(file);
     }
 
-    constructor(@Self() @Optional() protected ngControl: NgControl,
-        protected changeDetector: ChangeDetectorRef, private fileUtils: FileUtils) {
-
+    constructor(@Self() @Optional() protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef) {
         super(ngControl, changeDetector);
     }
 
@@ -76,35 +72,11 @@ export class FileInputComponent extends BaseInputComponent implements OnInit {
     }
 
     get fileSize() {
-        return this.value ? this.fileUtils.parseFileSize(this.value.size) : null;
+        return this.value ? FileUtils.parseFileSize(this.value.size) : null;
     }
 
     protected get placeholder() {
         return this._placeholder || '';
-    }
-
-    protected get labelClass() {
-        const classes = {};
-
-        classes[StyleClass.Active] = true;
-
-        if (this.icon) {
-            classes[StyleClass.WithIcon] = true;
-        }
-
-        return classes;
-    }
-
-    private get inputButtonClass() {
-        const classes = {};
-
-        if (!this.icon) {
-            classes[this.FILE_BUTTON_CLASS] = true;
-        }
-
-        classes[this.validationClass] = true;
-
-        return classes;
     }
 
     private get inlineValueText() {

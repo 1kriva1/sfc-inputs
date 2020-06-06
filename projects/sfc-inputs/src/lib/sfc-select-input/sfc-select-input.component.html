@@ -2,7 +2,7 @@
     <div class="select-wrapper" [ngClass]="validationClass" (click)="openDropdown()">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
         <input sfcinput #inputSelect type="text" class="input-select input-text-input" value={{displayValue}}
-            [placeholder]="placeholder" [validations]="validations" [disabled]="disabled" readonly>
+            [placeholder]="placeholder" [disabled]="disabled" readonly>
         <div class="select-dropdown-container" [ngStyle]="dynamicSizeStyles" [ngClass]="dropdownClasses">            
             <div style="position: relative;">
                 <app-bounce-loader *ngIf="isLoadingData" [id]="id" [size]="'small'" [background]="true"></app-bounce-loader>

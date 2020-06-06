@@ -1,15 +1,12 @@
-import { Directive, HostListener, Self, Optional, Input, Inject, HostBinding } from "@angular/core";
-import { NgControl, NG_VALIDATORS } from '@angular/forms';
-import IValidation from '../interfaces/IValidation';
-import { CommonConstants, StyleClass } from '../constants/common-constants';
+import { Directive, HostListener, Optional, HostBinding } from "@angular/core";
+import { NgControl } from '@angular/forms';
+import { StyleClass } from '../constants/common-constants';
+import { CommonUtils } from '../utils/common-utils';
 
 @Directive({
     selector: '[sfcinput]'
 })
 export class InputRefDirective {
-
-    @Input()
-    validations: IValidation = {};
 
     isOnFocus: boolean;
 
@@ -17,62 +14,44 @@ export class InputRefDirective {
         this.isOnFocus = false;
     }
 
-    get isTouched(){
-        return this.ngControl && (this.ngControl.dirty || (this.ngControl.value && this.ngControl.invalid)); // || this.ngControl.touched
+    get isDirty() {
+        return this.ngControl && this.ngControl.dirty;
     }
 
-    get hasError() {
-        return this.isTouched && this.ngControl.invalid;
-    }   
-
-    get errorMessages() {
-        const errors = this.errors;
-        const messages = [];
-        const keys = Object.keys(this.validations);
-
-        keys.forEach(key => {
-            if (errors[key]) {
-                messages.push(this.validations[key]);
-            }
-        });
-        return messages;
+    get hasValue() {
+        return this.ngControl && CommonUtils.isDefined(this.ngControl.value) && this.ngControl.value !== '';
     }
 
-    // get minLengthError() {
-    //     return this.errors[CommonConstants.MIN_LENGTH_VALIDATOR_KEY];
-    // }
-
-    // get maxLengthError() {
-    //     return this.errors[CommonConstants.MAX_LENGTH_VALIDATOR_KEY];
-    // }
-
-    // get requiredError() {
-    //     return this.errors[CommonConstants.TEXT_AREA_REQUIRED_VALIDATOR_KEY] || this.errors[CommonConstants.BASE_REQUIRED_VALIDATOR_KEY];
-    // }
-
-    // get requiredLength() {
-    //     if (this.minLengthError) {
-    //         return this.minLengthError.requiredLength;
-    //     }
-
-    //     return this.maxLengthError ? this.maxLengthError.requiredLength : null;
-    // }    
+    get hasInvalidValue() {
+        return this.hasValue && this.ngControl.invalid;
+    }
 
     get errors() {
-        if (this.hasError && this.ngControl.errors) {
+        if (this.isInvalid && this.ngControl.errors) {
             return this.ngControl.errors;
         }
-        return '';
+
+        return null;
     }
 
     @HostBinding('class.' + StyleClass.Valid)
     public get isValid(): Boolean {
-        return this.isTouched && !this.hasError;
+        if (this.isDirty) {
+            return this.ngControl.valid;
+        }
+
+        if (this.hasInvalidValue) {
+            return false;
+        }
     }
 
     @HostBinding('class.' + StyleClass.Invalid)
     public get isInvalid(): Boolean {
-        return this.isTouched && this.hasError;
+        if (this.isDirty) {
+            return this.ngControl.invalid;
+        }
+
+        return this.hasInvalidValue;
     }
 
     @HostListener('focus')
@@ -83,5 +62,5 @@ export class InputRefDirective {
     @HostListener('blur')
     onBlur() {
         this.isOnFocus = false;
-    }    
+    }
 }

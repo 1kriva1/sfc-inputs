@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
-
-export class PersonalData {
-    firstName: string;
-    lastName: string;
-    password: string
-}
 
 @Component({
     selector: 'text-area-app',
@@ -46,13 +39,13 @@ export class TextAreaAppComponent {
                 labelTextAreahelper: [""],
                 placeholderTextAreahelper: [""],
                 placlabelTextAreahelper: [""],
-                undefTextAreaValidation: ["", {
+                undefTextAreaValidation: ["test", {
                     validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
                 }],
-                defTextAreaValidation: ["", {
+                defTextAreaValidation: ["test", {
                     validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
                 }],
-                undefTextAreaValidationEmpty: ["", {
+                undefTextAreaValidationEmpty: ["test", {
                     validators: [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
                 }],
                 undefTextAreaValidationVal: ["tests \n asdasd\n", {

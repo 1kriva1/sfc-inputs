@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()  
 export class FileUtils {  
 
-    public parseFileSize(bytes, decimals = 2): string {
+    public static parseFileSize(bytes, decimals = 2): string {
         if (bytes === 0) return '0';
 
         const k = 1024;

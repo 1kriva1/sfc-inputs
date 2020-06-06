@@ -1,24 +1,14 @@
-.file-field {
-    position: relative
+.input-file-container {
+    margin: 1rem .75rem;
+    padding: 0 0;
 }
 
-.file-field .file-path-wrapper {
+.input-file-container .file-path-wrapper {
     overflow: hidden;
     padding-left: 10px;
 }
 
-.file-field input.file-path {
-    width: 100%;
-    padding-right: 24px;
-    box-sizing: border-box;
-    /* text-overflow: ellipsis; */
-}
-
-.file-field span {
-    cursor: pointer
-}
-
-.input-file-input input[type=file] {
+input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -26,23 +16,24 @@
     bottom: 0;
     width: 100%;
     margin: 0;
-    padding: 0;
-    font-size: 20px;
+    padding: 50px 0 0 0;
+    font-size: 0px;
     cursor: pointer;
     opacity: 0;
-    filter: alpha(opacity=0)
+    filter: alpha(opacity=0);
+    box-sizing: border-box;
 }
 
-.inline-file-input {
+.inline-input-container {
     text-align: center;
 }
 
 /* FILE CLEAR BUTTON */
 
-.clearBtn {
+.clear-button {
     visibility: hidden;
     position: absolute;
-    right: 10px;
+    right: 5px;
     top: 20%;
     padding: 0 8px;
     font-style: normal;
@@ -53,17 +44,17 @@
     opacity: 0;
 }
 
-.clearBtn:hover {
+.clear-button:hover {
     color: #ED5565;
 }
 
-.file-field:hover .clearBtn {
+.input-file-container:hover .clear-button {
     visibility: visible;
     transition: opacity 1s ease-out;
     opacity: 1;
 }
 
-.inline-file-input .clearBtn {
+.inline-input-container .clear-button {
     right: unset;
     top: unset;
     font-size: 14px;
@@ -73,50 +64,35 @@
 
 /* FILE BUTTON */
 
-.fileBtn {
+.file-button {
     border: none;
     border-radius: 2px;
-    display: inline-block;
-    height: 36px;
-    line-height: 36px;
+    height: 3rem;
+    line-height: 3rem;
     padding: 0 16px;
     text-transform: uppercase;
     vertical-align: middle;
-    -webkit-tap-highlight-color: transparent
-}
-
-.fileBtn {
-    font-size: 14px;
-    outline: 0
-}
-
-.file-field .fileBtn {
     float: left;
-    height: 3rem;
-    line-height: 3rem
-}
-
-.fileBtn:focus {
-    background-color: #1d7d74
-}
-
-.fileBtn {
+    font-size: 14px;
+    outline: 0;
     text-decoration: none;
     color: #fff;
     background-color: #26a69a;
     text-align: center;
     letter-spacing: .5px;
-    -webkit-transition: background-color .2s ease-out;
     transition: background-color .2s ease-out;
-    cursor: pointer
+    cursor: pointer;
 }
 
-.fileBtn:not([disabled]):hover {
+.file-button:focus {
+    background-color: #1d7d74
+}
+
+.input-file-container:hover .file-button:not([disabled]) {
     background-color: #2bbbad
 }
 
-.fileBtn[disabled] {
-    color: rgba(0, 0, 0, 0.42);
+.file-button[disabled] {
     background-color: rgba(0, 0, 0, 0.42);
 }
 
@@ -125,60 +101,64 @@
 /* FILE LABEL */
 
 .file-path+label.active {
-    transform: translateY(-14px) translateX(75px) scale(0.8);
+    transform: translateY(-14px) translateX(60px) scale(0.8);
 }
 
-.file-path+label.withIcon {
-    transform: translateY(-14px) translateX(10px) scale(0.8);
+i.icon~.file-path+label {
+    transform: translateY(-14px) scale(0.8);
 }
 
 /* END FILE LABEL */
 
-/* FILE COUNTER */
-
-.file-path-wrapper .character-counter {
-    position: relative;
-    display: inline-block;
-}
-
-/* END FILE COUNTER */
-
 /* ICON */
 
-.input-text-container i.icon {
-    color: rgba(0, 0, 0, 0.54);
-}
-
-.input-text-container i.icon.active {
+i.icon, i.icon.active {
     color: rgba(0, 0, 0, 0.54);
 }
 
 /* ICON END */
 
+/* CHARACTERS COUNT */
+
+.character-counter {
+    user-select: none;
+    float: right;
+    font-size: 12px;
+    min-height: 18px;
+    position: relative;
+    top: 5px;
+}
+
+/* CHARACTERS COUNT END */
+
 /* VALID */
 
-.inputFile.valid:not([readonly]), .inputFile.valid:not([readonly]):focus {
+.inline-file-input.valid, .inline-file-input.valid:focus {
     border-bottom: 1px solid #8CC152;
     box-shadow: 0 1px 0 0 #8CC152;
 }
 
-.inputFile.valid:focus:not([readonly])+label {
+.inline-file-input.valid:focus+label {
     color: #8CC152;
 }
 
-.inputFile.valid~.helper-text {
+.inline-file-input.valid~.helper-text {
     color: #8CC152;
 }
 
-.inputFile.valid+label span, .inputFile.valid+label i.file-icon {
+.inline-file-input.valid+label span, .inline-file-input.valid+label i.file-icon {
     color: #8CC152;
 }
 
-.fileBtn.valid {
+.inline-file-input.valid+label:hover span{
+    color:  #8CC152;
+}
+
+.file-button.valid {
     background-color: #8CC152;
 }
 
-.fileBtn.valid:hover {
+.input-file-container:hover .file-button.valid {
     background-color: #8CC152;
 }
 
@@ -186,28 +166,32 @@
 
 /* INVALID */
 
-.inputFile.invalid:not([readonly]), .inputFile.invalid:not([readonly]):focus {
+.inline-file-input.invalid, .inline-file-input.invalid:focus {
     border-bottom: 1px solid #E9573F;
     box-shadow: 0 1px 0 0 #E9573F;
 }
 
-.inputFile.invalid:focus:not([readonly])+label {
+.inline-file-input.invalid:focus+label {
     color: #E9573F;
 }
 
-.inputFile.invalid~.helper-text {
+.inline-file-input.invalid~.helper-text {
     color: #E9573F;
 }
 
-.inputFile.invalid+label span, .inputFile.invalid+label i.file-icon {
+.inline-file-input.invalid+label span, .inline-file-input.invalid+label i.file-icon {
     color: #E9573F;
 }
 
-.fileBtn.invalid {
+.inline-file-input.invalid+label:hover span{
+    color:  #E9573F;
+}
+
+.file-button.invalid {
     background-color: #E9573F;
 }
 
-.fileBtn.invalid:hover {
+.input-file-container:hover .file-button.invalid {
     background-color: #E9573F;
 }
 
@@ -215,7 +199,7 @@
 
 /* INLINE */
 
-.inline-file-input .inputFile {
+.inline-input-container .inline-file-input {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -224,37 +208,38 @@
     z-index: -1;
 }
 
-.inline-file-input label {
+.inline-input-container label {
     color: black;
     max-width: 50%;
     font-size: 1.25rem;
     font-weight: 700;
-    /* text-overflow: ellipsis; */
     white-space: nowrap;
     cursor: pointer;
-    /* display: inline-block; */
     overflow: hidden;
     padding: 0.625rem 0;
-    /* as */
     display: inline-block;
     text-align: center;
     margin: 0 auto;
     overflow: inherit;
 }
 
-.inline-file-input label span, .inline-file-input label .file-icon {
+.inline-input-container label span, .inline-input-container label .file-icon {
     color: rgba(0, 0, 0, 0.54);
 }
 
-.inline-file-input input:disabled + label span {
-    color: #E6E9ED;
+.inline-file-input+label:hover span{
+    color:  #434A54;
 }
 
-.inline-file-input label span:not(:empty) {
+.inline-input-container input:disabled+label span {
+    color: rgba(0, 0, 0, 0.42);
+}
+
+.inline-input-container label span:not(:empty) {
     padding-left: 5px;
 }
 
-.inline-file-input .helper-text {
+.inline-input-container .helper-text {
     display: block;
     margin: 0 auto;
     width: 100px;

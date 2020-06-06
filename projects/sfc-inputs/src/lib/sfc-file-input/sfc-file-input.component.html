@@ -1,28 +1,29 @@
-<div class="input-text-container file-field" [ngSwitch]="fileInputType">
+<div class="input-container input-file-container" [ngSwitch]="fileInputType">
     <ng-container *ngSwitchCase="FileInputType.Input">
-        <div [ngClass]="inputButtonClass" class="input-file-input" [attr.disabled]="disabled ? true : null">
-            <span *ngIf="!icon">File</span>
-            <input sfcinput #inputFile id="sfc-{{id}}" type="file" [disabled]="disabled" [validations]="validations" (change)="emitFiles($event.target.files)">
+        <div *ngIf="!icon" [ngClass]="validationClass" class="file-button" [attr.disabled]="disabled ? true : null">
+            <span>File</span>
         </div>
+        <input sfcinput #inputFile id="sfc-{{id}}" type="file" [disabled]="disabled"
+            (change)="emitFiles($event.target.files)">
         <div class="file-path-wrapper">
             <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-            <input class="file-path input-text-input" value={{fileName}} type="text" [disabled]="disabled" [placeholder]="placeholder"
-                [ngClass]="validationClass">
-            <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+            <input class="file-path input-text-input" value={{fileName}} type="text" [disabled]="disabled"
+                [placeholder]="placeholder" [ngClass]="validationClass">
+            <label for="sfc-{{id}}" class="active">{{label}}</label>
             <span class="helper-text">{{helperText}}</span>
             <span class="character-counter">{{fileSize}}</span>
-            <i class="fa fa-times clearBtn" *ngIf="value && showClearButton" (click)="clearData($event)"></i>
+            <i class="fa fa-times clear-button" *ngIf="value && showClearButton" (click)="clearData($event)"></i>
         </div>
     </ng-container>
 
     <ng-container *ngSwitchCase="FileInputType.Inline">
-        <div class="inline-file-input">
-            <input sfcinput #inputFile id="sfc-{{id}}" type="file" class="inputFile" [disabled]="disabled" [ngClass]="validationClass"
-                [validations]="validations">
+        <div class="inline-input-container">
+            <input sfcinput #inputFile id="sfc-{{id}}" type="file" class="inline-file-input" [disabled]="disabled"
+                [ngClass]="validationClass">
             <label for="sfc-{{id}}">
                 <i *ngIf="icon" class="file-icon" [ngClass]="iconClass"></i>
                 <span>{{inlineValueText}}</span>
-                <i class="fa fa-times clearBtn" *ngIf="value && showClearButton" (click)="clearData($event)"></i>
+                <i class="fa fa-times clear-button" *ngIf="value && showClearButton" (click)="clearData($event)"></i>
             </label>
             <span class="helper-text">{{helperText}}</span>
         </div>
