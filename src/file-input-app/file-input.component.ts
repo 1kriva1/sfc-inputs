@@ -6,7 +6,8 @@ import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-inp
     selector: 'file-input-app',
     templateUrl: './file-input.component.html',
     styleUrls: [
-        '../app/app.component.css'
+        '../app/app.component.css',
+        './file-input.component.css'
     ]
 })
 export class FileInputAppComponent {
@@ -21,6 +22,10 @@ export class FileInputAppComponent {
         const file = new File([''], "name.jpg");
         Object.defineProperty(
             file, 'size', { value: 200, writable: false });
+
+        const fileInvalid = new File([''], "name.jpg");
+        Object.defineProperty(
+            fileInvalid, 'size', { value: 2001, writable: false });
 
         this.customInputForm = this.formBuilder.group(
             {
@@ -43,6 +48,9 @@ export class FileInputAppComponent {
                 inputFileWithValue: [file, {
                     validators: [Validators.required, SfcValidators.FileMaxSize(2000)]
                 }],
+                inputFileWithValueInvalid: [fileInvalid, {
+                    validators: [Validators.required, SfcValidators.FileMaxSize(2000)]
+                }],
                 inlineFileNull: [null],
                 inlineFileLabel: [null],
                 inlineFilePlaceholder: [null],
@@ -52,20 +60,20 @@ export class FileInputAppComponent {
                 inlineFileFileName: [null],
                 inlineFileFileNameIcon: [null],
                 inlineFileClearFalse: [null],
-                inlineFileDisabled:[{
+                inlineFileDisabled: [{
                     value: null,
                     disabled: true
                 }],
-                inlineFileValUndf:[null, {
+                inlineFileValUndf: [null, {
                     validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
                 }],
-                inlineFileValDef:[null, {
+                inlineFileValDef: [null, {
                     validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
                 }],
-                inlineFileHasValue:[file, {
+                inlineFileHasValue: [file, {
                     validators: [Validators.required, SfcValidators.FileExtensions(["jpg", "jpeg"])]
                 }],
-                inlineFileHasValueInvalid:[file, {
+                inlineFileHasValueInvalid: [file, {
                     validators: [Validators.required, SfcValidators.FileExtensions(["png", "jpeg"])]
                 }]
             }

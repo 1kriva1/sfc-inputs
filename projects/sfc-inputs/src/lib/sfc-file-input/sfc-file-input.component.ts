@@ -1,13 +1,13 @@
-import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, AfterViewInit, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, ViewChild, Input, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
-import { StyleClass, FileInputType } from '../common/constants/common-constants';
+import { FileInputType } from '../common/constants/common-constants';
 import { FileUtils } from '../common/utils/file-utils';
 
 @Component({
     selector: 'sfc-file-input',
     templateUrl: './sfc-file-input.component.html',
-    styleUrls: ['../common/styles/sfc-base-input.component.css', './sfc-file-input.component.css', './sfc-file-input-dark-theme.component.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', '../common/styles/sfc-base-input-dark-theme.component.css', './sfc-file-input.component.css', './sfc-file-input-dark-theme.component.css']
 })
 export class FileInputComponent extends BaseInputComponent<File> implements OnInit {
 
@@ -47,7 +47,7 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
     @Input()
     showClearButton = true;
 
-    @ViewChild('inputFile', { static: false }) 
+    @ViewChild('inputFile', { static: false })
     fileInput: ElementRef;
 
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
@@ -61,42 +61,32 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
 
     ngOnInit() {
         if (this.fileInputType == FileInputType.Inline) {
-            if (this.useDefaultIcon || (!this.showFileName && !this.icon)) {
+            if (this.useDefaultIcon || !this.showFileName && !this.icon) {
                 this.icon = this.DEFAULT_ICON;
             }
         }
-    }
-
-    get fileName() {
-        return this.value ? this.value.name : null;
-    }
-
-    get fileSize() {
-        return this.value ? FileUtils.parseFileSize(this.value.size) : null;
-    }
+    }    
 
     protected get placeholder() {
         return this._placeholder || '';
     }
 
-    private get inlineValueText() {
-        if (this.showFileName) {
-            return this.getSlicedText(this.fileName
-                ? this.fileName
-                : this.placeholder || this.label || this.DEFAULT_PLACEHOLDER);
-        }
-        return '';
+    private get fileName() {
+        return this.value ? this.value.name : null;
     }
 
-    private getSlicedText(value: string) {
+    private get fileSize() {
+        return this.value ? FileUtils.parseFileSize(this.value.size) : null;
+    }
 
-        if (value.length < 20) {
-            return value;
+    private get inlineValueText() {
+        if (this.showFileName) {
+            return this.fileName
+                ? this.fileName
+                : this.placeholder || this.label || this.DEFAULT_PLACEHOLDER;
         }
 
-        return value.slice(0, 20)
-            + '...'
-            + FileUtils.getFileExtension(this.value);
+        return '';
     }
 
     /**

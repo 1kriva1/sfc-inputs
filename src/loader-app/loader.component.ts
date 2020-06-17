@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { LoaderService } from 'projects/sfc-inputs/src/lib/common/components/loader/base/sfc-loader.service';
 import ISize from 'projects/sfc-inputs/src/lib/common/interfaces/ISize';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'loader-app',
@@ -16,7 +15,7 @@ export class LoaderAppComponent {
 
     private customSize: ISize = { width: 80, height: 80 };
 
-    constructor(@Inject(DOCUMENT) private document: Document, private loaderService: LoaderService) {
+    constructor(private loaderService: LoaderService) {
 
     }
 
@@ -27,6 +26,7 @@ export class LoaderAppComponent {
     public showLoader(id?: string): void {
         this.loaderService.showLoader(id);
 
+        // hide global loader after 3 sec
         if(!id){
             setTimeout(() => {
                 this.hideLoader()

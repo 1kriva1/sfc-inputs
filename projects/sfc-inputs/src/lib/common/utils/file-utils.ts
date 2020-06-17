@@ -25,5 +25,4 @@ export class FileUtils {
         
         return value.name.split('.').pop();
     }
-
 }

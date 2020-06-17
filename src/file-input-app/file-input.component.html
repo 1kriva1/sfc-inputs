@@ -6,10 +6,14 @@
     </div>
 
     <div class="background"
-        [ngClass]="(theme=='common')?'default-background':['sfc-text-input-dark-theme', 'dark-background']">
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
         <form [formGroup]="customInputForm" autocomplete="off">
 
             <div class="input-container">
+
+                <hr>
+                <h3>Input:</h3>
+                <hr>
 
                 <div class="input-row">
                     <div>
@@ -57,7 +61,7 @@
 
                     <div>
                         <sfc-file-input id="demo-file-validundef" formControlName="inputFileValidationUndefined"
-                            label="Validation label" placeholder="Validation placeholder" helper-text="Demo Validation">
+                            label="Validation undefined label" placeholder="Validation undefined placeholder" helper-text="Demo Validation undefined">
                         </sfc-file-input>
                     </div>
 
@@ -73,12 +77,27 @@
 
                     <div>
                         <sfc-file-input id="demo-file-validdef" formControlName="inputFileValidationDefined"
-                            label="Validation label" placeholder="Validation placeholder" helper-text="Demo Validation"
+                            label="Validation defined label" placeholder="Validation defined placeholder" helper-text="Demo Validation defined"
                             [validations]="{required: 'File is required', fileMaxSize: 'Max length is not valid'}">
                         </sfc-file-input>
                     </div>
 
                 </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-validdef" formControlName="inputFileWithValueInvalid"
+                            label="With invalid value label" placeholder="With invalid value placeholder" helper-text="Demo With invalid value"
+                            [validations]="{required: 'File is required', fileMaxSize: 'Max length is not valid'}">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <hr>
+                <h3>Inline:</h3>
+                <hr>
 
                 <div class="input-row">
 
@@ -116,8 +135,7 @@
 
                     <div>
                         <sfc-file-input id="demo-file-inline-helper" fileInputType="inline"
-                            formControlName="inlineFileHelper" label="Helper inline"
-                            helper-text="helper text">
+                            formControlName="inlineFileHelper" label="Helper inline" helper-text="helper text">
                         </sfc-file-input>
                     </div>
 
@@ -199,8 +217,8 @@
 
                     <div>
                         <sfc-file-input id="demo-file-inline-validation-has-value-invalid" fileInputType="inline"
-                            formControlName="inlineFileHasValueInvalid" label="Has value inline invalid" placeholder="Has value inline invalid"
-                            helper-text="helper text Has value invalid"
+                            formControlName="inlineFileHasValueInvalid" label="Has value inline invalid"
+                            placeholder="Has value inline invalid" helper-text="helper text Has value invalid"
                             [validations]="{required: 'First name is required', fileExtension: 'Invalid extension'}">
                         </sfc-file-input>
                     </div>

@@ -92,7 +92,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Label: CSS classes with defined value", async(() => {
-        setOptionData(2);
+        setOptionData('2');
         expect(labelEl.className).toEqual(StyleClass.Active);
     }));
 
@@ -278,7 +278,7 @@ describe('Component: SelectInputComponent', () => {
 
     it("Data: with observable and loadOnInit = FALSE with defined value.", async(() => {
         component.showDefaultOption = false;
-        component.writeValue(2);
+        component.writeValue('2');
         component.data = mockObservable();
         component.ngAfterViewInit();   
 
@@ -346,7 +346,7 @@ describe('Component: SelectInputComponent', () => {
 
     it("Data: with pageable(infinity scroll) observable and loadOnInit = FALSE with defined value", async(() => {
         component.showDefaultOption = false;
-        component.writeValue(2);
+        component.writeValue('2');
         component.loader = mockLoader(false);
         component.ngAfterViewInit();
 
@@ -466,7 +466,7 @@ describe('Component: SelectInputComponent', () => {
     it("Data: with pageable(show more button) observable and loadOnInit = FALSE and defined value", async(() => {
         component.showDefaultOption = false;
         component.loadMoreButton = true;
-        component.writeValue(2);
+        component.writeValue('2');
         component.loader = mockLoader(false);
         component.ngAfterViewInit();
         fixture.detectChanges();
@@ -591,7 +591,7 @@ describe('Component: SelectInputComponent', () => {
     it("Data: with http config (infinity scroll) and loadOnInit = FALSE with defined value.", async(() => {
         httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
         component.showDefaultOption = false;
-        component.writeValue(2);
+        component.writeValue('2');
         component.httpConfig = mockConfig();
         component.ngOnInit();
         fixture.detectChanges();
@@ -717,7 +717,7 @@ describe('Component: SelectInputComponent', () => {
         httpUtilsServiceInjectedSpy.getDataByConfig.and.returnValue(mockObservable());
         component.showDefaultOption = false;
         component.loadMoreButton = true;
-        component.writeValue(2);
+        component.writeValue('2');
         component.httpConfig = mockConfig();
         component.ngOnInit();
         fixture.detectChanges();
@@ -792,13 +792,13 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Text Input: value defined", async(() => {
-        setOptionData(2);
+        setOptionData('2');
         expect(debugTextInputEl.nativeElement.value).toEqual("option 2");
     }));
 
     it("Text Input: Multiple - value defined", async(() => {
         component.multiple = true;
-        setOptionData([1, 2]);
+        setOptionData(['1', '2']);
 
         expect(debugTextInputEl.nativeElement.value).toEqual("option 1, option 2");
     }));
@@ -868,7 +868,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Ul-Dropdown: li - value is defined", async(() => {
-        setOptionData(2);
+        setOptionData('2');
         let liElements = el.queryAll(By.css('ul.select-dropdown li.selected'));
 
         expect(liElements.length).toEqual(1);
@@ -876,7 +876,7 @@ describe('Component: SelectInputComponent', () => {
 
     it("Ul-Dropdown: Multiple - li - value is defined", async(() => {
         component.multiple = true;
-        setOptionData([1, 2]);
+        setOptionData(['1', '2']);
 
         let liElements = el.queryAll(By.css('ul.select-dropdown li.selected')),
             liDisabledElements = el.queryAll(By.css('ul.select-dropdown li.disabled'));
@@ -907,7 +907,7 @@ describe('Component: SelectInputComponent', () => {
 
     it("Ul-Dropdown: Multiple - li - set option value", async(() => {
         component.multiple = true;
-        setOptionData([-1]);
+        setOptionData(['-1']);
 
         let liElements = el.queryAll(By.css('ul.select-dropdown li')),
             firstOption = liElements[1],
@@ -946,7 +946,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Ul-Dropdown: IMG - defined", async(() => {
-        setOptionData(2, [{ key: 1, value: "option 1", imagePath: "testImg.jpg" }, { key: 2, value: "option 2" }]);
+        setOptionData('2', [{ key: 1, value: "option 1", imagePath: "testImg.jpg" }, { key: 2, value: "option 2" }]);
 
         let imgElements = el.queryAll(By.css('ul.select-dropdown li img'));
         expect(imgElements.length).toEqual(1);
@@ -980,7 +980,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it("Select: check value", async(() => {
-        setOptionData(2);
+        setOptionData('2');
         let selectEl = el.query(By.css('select'));
 
         expect(selectEl.nativeElement.value).toEqual("2")
@@ -1011,7 +1011,7 @@ describe('Component: SelectInputComponent', () => {
 
     // Private functions
 
-    function setOptionData(value?: number | Array<number>, data?: ISelectData[]) {
+    function setOptionData(value?: string | Array<string>, data?: ISelectData[]) {
         component.updateData(data || [{ key: 1, value: "option 1" }, { key: 2, value: "option 2" }]);
 
         if (value) {

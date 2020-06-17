@@ -1,15 +1,11 @@
-:host-context(.sfc-text-input-dark-theme) .preloader.background {
+:host-context(.sfc-input-dark-theme) .preloader.background {
     background-color: inherit;
 }
 
-:host-context(.sfc-text-input-dark-theme) .sk-child:before {
+:host-context(.sfc-input-dark-theme) .sk-child:before {
     background-color: white;
 }
 
-:host-context(.sfc-text-input-dark-theme) .spinner>div {
+:host-context(.sfc-input-dark-theme) .spinner>.spinner-child {
     background-color: white;
 }
-
-/* :host-context(.select-dropdown-container.active) .spinner>div {
-    background-color: red;
-} */

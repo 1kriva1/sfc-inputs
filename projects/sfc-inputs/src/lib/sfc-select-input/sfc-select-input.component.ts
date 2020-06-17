@@ -118,7 +118,6 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef,
-        private collectionUtils: CollectionUtils,
         private loaderService: LoaderService,
         private httpUtils: HttpUtils<any>) {
         super(ngControl, changeDetector);
@@ -285,7 +284,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
             let optGroupValue = this.value as ISelectData;
             return optGroupValue && optGroupValue.key === item.key && optGroupValue.groupKey === item.groupKey;
         } else if (this.multiple) {
-            return this.collectionUtils.hasItem<string>(this.value as Array<string>, item.key);
+            return CollectionUtils.hasItem<string>(this.value as Array<string>, item.key);
         } else {
             return this.value === item.key;
         }

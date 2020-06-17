@@ -11,5 +11,4 @@ export class UIUtils {
     public static getValueFromCssLikePx(value: string): number {
         return +value.replace(CommonConstants.CSS_PIXELS, '');
     }
-
 }

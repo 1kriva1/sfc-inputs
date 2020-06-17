@@ -11,7 +11,7 @@ import ISelectPagedModel from './select-paged.model';
 @Injectable({ providedIn: 'root' })
 export default class SelectService {
 
-    private sfcUrl = 'http://sfc.mock.com:88';  // URL to web api
+    private sfcUrl = 'http://sfc.mock.com';  // URL to web api
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })

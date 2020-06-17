@@ -1,7 +1,5 @@
-<div *ngIf="show" class="preloader"
-    [ngClass]="{global: id === 'global', secondary: id !== 'global', background: background}">
-    <div *ngIf="show" class="sk-circle" [ngClass]="circleSizeClass"
-        [ngStyle]="circleSizeStyle">
+<div *ngIf="show" class="preloader" [ngClass]="preLoaderClass">
+    <div class="sk-circle" [ngClass]="loaderClass" [ngStyle]="loaderStyle">
         <div class="sk-circle1 sk-child"></div>
         <div class="sk-circle2 sk-child"></div>
         <div class="sk-circle3 sk-child"></div>

@@ -121,7 +121,7 @@ export class SelectInputAppComponent {
         );
 
         this.httpConfig = {
-            url: 'http://sfc.mock.com:88/values/sleep/1000',
+            url: 'http://sfc.mock.com/values/sleep/1000',
             mapper: site => {
                 return site.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } });
             }
@@ -129,7 +129,7 @@ export class SelectInputAppComponent {
 
         this.httpLoadMoreConfig = {
 
-            url: 'http://sfc.mock.com:88/values/pagination',
+            url: 'http://sfc.mock.com/values/pagination',
             params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
             mapper: (resp: ISelectPagedModel) => {
                 return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
@@ -144,7 +144,7 @@ export class SelectInputAppComponent {
 
         this.httpLoadMoreConfig1 = {
 
-            url: 'http://sfc.mock.com:88/values/pagination',
+            url: 'http://sfc.mock.com/values/pagination',
             params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
             mapper: (resp: ISelectPagedModel) => {
                 return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
@@ -159,7 +159,7 @@ export class SelectInputAppComponent {
 
         this.httpLoadMoreConfig2 = {
 
-            url: 'http://sfc.mock.com:88/values/pagination',
+            url: 'http://sfc.mock.com/values/pagination',
             params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
             mapper: (resp: ISelectPagedModel) => {
                 return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
@@ -174,7 +174,7 @@ export class SelectInputAppComponent {
 
         this.httpLoadMoreButtonConfig = {
 
-            url: 'http://sfc.mock.com:88/values/pagination',
+            url: 'http://sfc.mock.com/values/pagination',
             params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
             mapper: (resp: ISelectPagedModel) => {
                 return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
@@ -189,7 +189,7 @@ export class SelectInputAppComponent {
 
         this.httpLoadMoreButtonConfig1 = {
 
-            url: 'http://sfc.mock.com:88/values/pagination',
+            url: 'http://sfc.mock.com/values/pagination',
             params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
             mapper: (resp: ISelectPagedModel) => {
                 return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }
@@ -204,7 +204,7 @@ export class SelectInputAppComponent {
 
         this.httpLoadMoreButtonConfig2 = {
 
-            url: 'http://sfc.mock.com:88/values/pagination',
+            url: 'http://sfc.mock.com/values/pagination',
             params: [{ key: "PageNumber", value: 1 }, { key: "PageSize", value: 25 }, { key: "sleep", value: 1500 }],
             mapper: (resp: ISelectPagedModel) => {
                 return { Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext }

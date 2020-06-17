@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter, map, distinctUntilChanged } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ILoader } from '../../../interfaces/ILoader';
 import { CollectionUtils } from '../../../utils/collection-utils';
 import { CommonConstants } from '../../../constants/common-constants';
+import ILoader from '../../../interfaces/ILoader';
 
 @Injectable()
 export class LoaderService {
@@ -12,9 +12,6 @@ export class LoaderService {
   private subject: BehaviorSubject<ILoader[]> = new BehaviorSubject<ILoader[]>([]);
 
   private loaders$: Observable<ILoader[]> = this.subject.asObservable();
-
-  constructor(private collectionUtils: CollectionUtils) {
-  }
 
   /**
    * Show loader
@@ -33,20 +30,38 @@ export class LoaderService {
   }
 
   /**
-   * Hide loader
+   * Register loader
    * @param {ILoader} loader
    */
   public registerLoader(loader: ILoader): void {
 
     const loaders = this.subject.getValue();
 
-    if (!this.collectionUtils.hasObjectItem(loaders, "id", loader.id)) {
+    if (!CollectionUtils.hasObjectItem(loaders, 'id', loader.id)) {
       loaders.push(loader);
       this.subject.next(loaders);
     }
   }
 
-  public selectLoaderById(id: string) {
+  /**
+   * Unregister loader
+   * @param {ILoader} loader
+   */
+  public removeLoader(loader: ILoader): void {
+    const loaders = this.subject.getValue(),
+      loaderIndex = loaders.findIndex(loader => loader.id == loader.id);
+
+    if (loaderIndex !== CommonConstants.NOT_FOUND_INDEX) {
+      loaders.splice(loaderIndex, 1);
+      this.subject.next(loaders);
+    }
+  }
+
+  /**
+   * Return loader's observable by id
+   * @param {string} id
+   */
+  public selectLoaderById(id: string): Observable<ILoader> {
     return this.loaders$
       .pipe(
         map(courses => courses.find(course => course.id == id)),
@@ -75,7 +90,5 @@ export class LoaderService {
 
       this.subject.next(newLoader);
     }
-
-
   }
 }

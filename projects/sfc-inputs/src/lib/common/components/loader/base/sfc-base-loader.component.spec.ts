@@ -2,42 +2,42 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { SfcInputsModule } from 'projects/sfc-inputs/src/lib/sfc-inputs.module';
 import { CircleLoaderComponent } from '../circle/sfc-circle-loader.component';
-import { ComponentSizeType } from '../../../constants/common-constants';
+import { ComponentSizeType, CommonConstants } from '../../../constants/common-constants';
 import { LoaderService } from './sfc-loader.service';
-import { CollectionUtils } from '../../../utils/collection-utils';
+import { UIUtils } from '../../../utils/ui-utils';
 
 describe('Component: Loader', () => {
 
     let component: CircleLoaderComponent;
     let fixture: ComponentFixture<CircleLoaderComponent>;
     let el: DebugElement;
-    const loaderService = new LoaderService(new CollectionUtils());
+    const loaderService = new LoaderService();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SfcInputsModule],
             declarations: [],
             providers: [{ provide: LoaderService, useValue: loaderService }]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(CircleLoaderComponent);
-            el = fixture.debugElement;
-            component = el.componentInstance;
-
-            fixture.detectChanges();
-        });
+        }).compileComponents();
     }));
 
-    it("Should create component", async(() => {
+    it("LoaderComponent: Should create component", async(() => {
+        initLoaderTest();
         expect(component).toBeTruthy();
     }));
 
     it("Preloader: should not exist", async(() => {
-        const preloaderEl = fixture.nativeElement.querySelector('div.preloader');
+        initLoaderTest();
+        component.id = 'my-loader-3';
+        fixture.detectChanges();
+
+        const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary.my-loader-3');
         expect(preloaderEl).toBeFalsy();
     }));
 
     it("Preloader: should exist", async(() => {
-        component.show = true;
+        initLoaderTest();
+        loaderService.showLoader();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader');
@@ -45,7 +45,8 @@ describe('Component: Loader', () => {
     }));
 
     it("Preloader: global id", async(() => {
-        component.show = true;
+        initLoaderTest();
+        loaderService.showLoader();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.global');
@@ -53,8 +54,9 @@ describe('Component: Loader', () => {
     }));
 
     it("Preloader: secondary id", async(() => {
-        component.id = "my-loader";
-        component.show = true;
+        initLoaderTest();
+        component.id = 'my-loader';
+        loaderService.showLoader(component.id);
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary');
@@ -62,7 +64,8 @@ describe('Component: Loader', () => {
     }));
 
     it("Preloader: background by default", async(() => {
-        component.show = true;
+        initLoaderTest();
+        loaderService.showLoader();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.background');
@@ -70,103 +73,178 @@ describe('Component: Loader', () => {
     }));
 
     it("Preloader: without background", async(() => {
+        initLoaderTest();
         component.background = false;
-        component.show = true;
+        loaderService.showLoader();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.background');
         expect(preloaderEl).toBeFalsy();
     }));
 
-    it("Size: default value", async(() => {
-        component.show = true;
+    it("Preloader: start = True", async(() => {
+        initLoaderTest();
+        component.id = 'my-loader-2';
+        component.start = true;
+        component.ngOnInit();
         fixture.detectChanges();
 
-        const preloaderEl = fixture.nativeElement.querySelector('div.preloader div.medium');
+        const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary');
         expect(preloaderEl).toBeTruthy();
     }));
 
-    it("Size: small size", async(() => {
+    it("Loader: loading class", async(() => {
+        initLoaderTest();
+        loaderService.showLoader();
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.classList.contains('loading')).toBeTruthy();
+    }));
+
+    it("Loader: size - default value", async(() => {
+        initLoaderTest();
+        loaderService.showLoader();
+        fixture.detectChanges();
+
+        const loaderEl = fixture.nativeElement.querySelector('div.preloader div.medium');
+        expect(loaderEl).toBeTruthy();
+    }));
+
+    it("Loader: size - small", async(() => {
+        initLoaderTest();
         component.size = ComponentSizeType.Small;
-        component.show = true;
+        loaderService.showLoader();
         fixture.detectChanges();
 
-        const preloaderEl = fixture.nativeElement.querySelector('div.preloader div.small');
-        expect(preloaderEl).toBeTruthy();
+        const loaderEl = fixture.nativeElement.querySelector('div.preloader div.small');
+        expect(loaderEl).toBeTruthy();
     }));
 
-    it("Size: custom size", async(() => {
+    it("Loader: size - medium", async(() => {
+        initLoaderTest();
+        component.size = ComponentSizeType.Medium;
+        loaderService.showLoader();
+        fixture.detectChanges();
+
+        const loaderEl = fixture.nativeElement.querySelector('div.preloader div.medium');
+        expect(loaderEl).toBeTruthy();
+    }));
+
+    it("Loader: size - large", async(() => {
+        initLoaderTest();
+        component.size = ComponentSizeType.Large;
+        loaderService.showLoader();
+        fixture.detectChanges();
+
+        const loaderEl = fixture.nativeElement.querySelector('div.preloader div.large');
+        expect(loaderEl).toBeTruthy();
+    }));
+
+    it("Loader: size - custom", async(() => {
+        initLoaderTest();
+        component.id = 'my-loader-1';
         component.customSize = { width: 100, height: 100 };
         component.size = ComponentSizeType.Small;
-        component.show = true;
+        loaderService.showLoader();
         fixture.detectChanges();
 
-        const preloaderEl = fixture.nativeElement.querySelector('div.preloader div.small');
-        expect(preloaderEl).toBeFalsy();
+        const loaderEl = fixture.nativeElement.querySelector('div.preloader div.small');
+        expect(loaderEl).toBeFalsy();
     }));
 
-    it("Size: custom size value check", async(() => {
+    it("Loader: size - custom - value check", async(() => {
+        initLoaderTest();
         component.customSize = { width: 100, height: 80 };
-        component.show = true;
+        loaderService.showLoader();
         fixture.detectChanges();
 
-        const preloaderEl = fixture.nativeElement.querySelector('div.preloader div');
-        expect(preloaderEl.offsetWidth).toEqual(component.customSize.width);
-        expect(preloaderEl.offsetHeight).toEqual(component.customSize.height);
+        const loaderEl = fixture.nativeElement.querySelector('div.preloader div');
+        expect(loaderEl.offsetWidth).toEqual(component.customSize.width);
+        expect(loaderEl.offsetHeight).toEqual(component.customSize.height);
     }));
 
-    it("Loader service: show global loader", async(() => {
-
+    it("Loader: show global loader", async(() => {
+        initLoaderTest();
         loaderService.showLoader();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.global');
         expect(preloaderEl).toBeTruthy();
+        expect(document.body.classList.contains(CommonConstants.CSS_CLASS_FIXED)).toBeTruthy();
 
         loaderService.hideLoader();
         fixture.detectChanges();
     }));
 
-    it("Loader service: hide global loader", async(() => {
-        component.show = true;
+    it("Loader: hide global loader", async(() => {
+        initLoaderTest();
+        loaderService.showLoader();
         fixture.detectChanges();
 
         loaderService.hideLoader();
+        fixture.detectChanges();
+
+        const preloaderAfterHideEl = fixture.nativeElement.querySelector('div.preloader.global');
+        expect(preloaderAfterHideEl).toBeFalsy();
+        expect(document.body.classList.contains(CommonConstants.CSS_CLASS_FIXED)).toBeFalsy();
+    }));
+
+    it("Loader: show and hide global loader with scroll down", async(() => {
+        initLoaderTest();
+        document.body.insertAdjacentHTML('beforeend', '<div style="height: 1500px;"></div>');
+        window.scrollTo(0, document.body.scrollHeight);
+        let documentScrollTop = document.documentElement.scrollTop,
+            documentScrollTopPx = UIUtils.getCssLikePx(-document.documentElement.scrollTop);
+
+        loaderService.removeLoader({ id: CommonConstants.GLOBAL_LOADER_ID, status: false });
+        loaderService.showLoader();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.global');
-        expect(preloaderEl).toBeFalsy();
+        expect(preloaderEl).toBeTruthy();
+        expect(document.body.classList.contains(CommonConstants.CSS_CLASS_FIXED)).toBeTruthy();
+        expect(document.body.style.top).toEqual(documentScrollTopPx);
+
+        loaderService.hideLoader();
+        fixture.detectChanges();
+
+        const preloaderAfterHideEl = fixture.nativeElement.querySelector('div.preloader.global');
+        expect(preloaderAfterHideEl).toBeNull();
+        expect(document.body.classList.contains(CommonConstants.CSS_CLASS_FIXED)).toBeFalsy();
+        expect(document.body.style.top).toEqual('');
+        expect(document.documentElement.scrollTop).toEqual(documentScrollTop);
     }));
 
-    it("Loader service: show loader", async(() => {
-        let fixtureSecondaryLoader = TestBed.createComponent(CircleLoaderComponent);
-        let elSecondaryLoader = fixtureSecondaryLoader.debugElement;
-        let componentSecondaryLoader = elSecondaryLoader.componentInstance;
+    it("Loader service: show secondary(not global) loader", async(() => {
+        initLoaderTest();
 
-        componentSecondaryLoader.id = "my-loader";
-        fixtureSecondaryLoader.detectChanges();
+        component.id = 'my-loader';
+        fixture.detectChanges();
 
-        loaderService.showLoader("my-loader");
-        fixtureSecondaryLoader.detectChanges();
+        loaderService.showLoader('my-loader');
+        fixture.detectChanges();
 
-        const preloaderEl = fixtureSecondaryLoader.nativeElement.querySelector('div.preloader.secondary');
+        const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary');
         expect(preloaderEl).toBeTruthy();
     }));
 
-    it("Loader service: hide loader", async(() => {
-        let fixtureSecondaryLoader = TestBed.createComponent(CircleLoaderComponent);
-        let elSecondaryLoader = fixtureSecondaryLoader.debugElement;
-        let componentSecondaryLoader = elSecondaryLoader.componentInstance;
+    it("Loader service: hide secondary(not global) loader", async(() => {
+        initLoaderTest();
 
-        componentSecondaryLoader.id = "my-loader";
-        componentSecondaryLoader.show = true;
-        fixtureSecondaryLoader.detectChanges();
+        component.id = 'my-loader';
+        loaderService.showLoader('my-loader');
+        fixture.detectChanges();
 
-        loaderService.hideLoader("my-loader");
-        fixtureSecondaryLoader.detectChanges();
+        loaderService.hideLoader('my-loader');
+        fixture.detectChanges();
 
-        const preloaderEl = fixtureSecondaryLoader.nativeElement.querySelector('div.preloader.secondary');
+        const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary');
         expect(preloaderEl).toBeFalsy();
     }));
 
+    function initLoaderTest(){
+        fixture = TestBed.createComponent(CircleLoaderComponent);
+        el = fixture.debugElement;
+        component = el.componentInstance;
+    }
 })
