@@ -45,4 +45,14 @@ export class CommonConstants {
 
     static ENTER_KEY_CODE = 13;
     static BACKSPACE_KEY_CODE = 8;
+
+    static SELECT_INPUT = {
+        // class name for group option
+        OPT_GROUP_OPTION_CLASS: "optgroup-option",
+
+        // class name for group deliminator
+        OPT_GROUP_CLASS: "optgroup",
+
+        DEFAULT_OPTION_VALUE: "Choose your option"
+    }
 }

@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import { SfcInputsModule } from '../../../sfc-inputs.module';
 import { InfiniteScrollerDirective } from './sfc-infinite-scroll.directive';
+import ISelectData from '../../interfaces/select-input/ISelectData';
 
 @Component({
     template: `
-    <ul #scrollContainer [infinite-scroller]="showInfiniteScroller" [scrollPercent]="scrollPercent"
-        [immediateCallback]="isImmediateCallback" [loader]="loader" (scrolled)="onLoadMore()"
-        (updated)="updateData($event)">
-        <li *ngFor="let item of data">   
+    <ul #scrollContainer [infinite-scroller]='showInfiniteScroller' [scrollPercent]='scrollPercent'
+        [immediateCallback]='isImmediateCallback' [loader]='loader' (scrolled)='onLoadMore()'
+        (updated)='updateData($event)'>
+        <li *ngFor='let item of data'>   
             {{item}}         
         </li>
     </ul>
@@ -25,30 +26,30 @@ export class InfiniteScrollerTestComponent {
     loader: any;
     data: Array<string>;
 
-    @ViewChild("scrollContainer", { static: false, read: InfiniteScrollerDirective })
+    @ViewChild('scrollContainer', { static: false, read: InfiniteScrollerDirective })
     infinityScroll: InfiniteScrollerDirective;
 
-    @ViewChild("scrollContainer", { static: false })
+    @ViewChild('scrollContainer', { static: false })
     myScrollContainer: ElementRef;
 
-    mockLoader = (hasNext: boolean): () => Observable<ILoadMoreData> => {
+    mockLoader = (hasNext: boolean): () => Observable<ILoadMoreData<ISelectData>> => {
 
-        return (): Observable<ILoadMoreData> => {
-            const testData: ILoadMoreData = { HasNext: hasNext, Items: [{ key: 1, value: "test_1" }, { key: 2, value: "test_2" }] }
-            return Observable.of<ILoadMoreData>(testData);
+        return (): Observable<ILoadMoreData<ISelectData>> => {
+            const testData: ILoadMoreData<ISelectData> = { HasNext: hasNext, Items: [{ key: 1, value: 'test_1' }, { key: 2, value: 'test_2' }] }
+            return Observable.of<ILoadMoreData<ISelectData>>(testData);
         };
     }
 
     constructor() {
         this.loader = this.mockLoader(true);
-        this.data = ["option_1", "option_2", "option_3", "option_4", "option_5", "option_6", "option_7", "option_8"];
+        
+        // need for scroll checking
+        this.data = ['option_1', 'option_2', 'option_3', 'option_4', 'option_5', 'option_6', 'option_7', 'option_8'];
     }
 
-    onLoadMore() {
-    }
+    onLoadMore() { }
 
-    updateData() {
-    }
+    updateData() { }
 
     scrollToBottom(scrollPercentage: number = null): void {
         let scrollContainer = this.myScrollContainer.nativeElement;
@@ -57,13 +58,17 @@ export class InfiniteScrollerTestComponent {
             : scrollContainer.scrollHeight;
     }
 
+    enableShowInfiniteScroller(){
+        this.infinityScroll.infiniteScroller = true;
+        this.infinityScroll.ngAfterViewInit();
+    }
+
     scrollToTop(): void {
         this.myScrollContainer.nativeElement.scrollTop = 0;
     }
 }
 
 describe('Directive: InfiniteScroller', () => {
-
     let component: InfiniteScrollerTestComponent;
     let fixture: ComponentFixture<InfiniteScrollerTestComponent>;
     let el: DebugElement;
@@ -81,50 +86,126 @@ describe('Directive: InfiniteScroller', () => {
         });
     }));
 
-    it("Infinite Scroller: set enabled", async(() => {
+    it('Infinite Scroller: set enabled', async(() => {
         spyOn<any>(component.infinityScroll, 'setUpScrollProcess').and.callThrough();
         enableInfinityScroller();
 
         expect(component.infinityScroll['setUpScrollProcess']).toHaveBeenCalledTimes(1);
     }));
 
-    it("Infinite Scroller: stay disabled", async(() => {
+    it('Infinite Scroller: set enabled and check all init steps', async(() => {
+        spyOn<any>(component.infinityScroll, 'registerScrollEvent').and.callThrough();
+        spyOn<any>(component.infinityScroll, 'streamScrollEvents').and.callThrough();
+        spyOn<any>(component.infinityScroll, 'requestCallbackOnScroll').and.callThrough();
+
+        enableInfinityScroller();
+
+        expect(component.infinityScroll['registerScrollEvent']).toHaveBeenCalledTimes(1);
+        expect(component.infinityScroll['streamScrollEvents']).toHaveBeenCalledTimes(1);
+        expect(component.infinityScroll['requestCallbackOnScroll']).toHaveBeenCalledTimes(1);
+    }));
+
+    it('Infinite Scroller: stay disabled', async(() => {
         spyOn<any>(component.infinityScroll, 'setUpScrollProcess').and.callThrough();
 
         expect(component.infinityScroll['setUpScrollProcess']).not.toHaveBeenCalled();
     }));
 
-    it("Immediate callback is FALSE", async(() => {
+    it('Infinite Scroller: set enabled but loader function not defined', async(() => {
+        spyOn<any>(component.infinityScroll, 'setUpScrollProcess').and.callThrough();
+
+        component.loader = null;
+        fixture.detectChanges();
+        enableInfinityScroller();
+
+        expect(component.infinityScroll['setUpScrollProcess']).not.toHaveBeenCalledTimes(1);
+    }));
+
+    it('Immediate callback is FALSE', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
+
         enableInfinityScroller();
 
         expect(component.onLoadMore).not.toHaveBeenCalled();
         expect(component.updateData).not.toHaveBeenCalled();
     }));
 
-    it("Immediate callback is TRUE", async(() => {
+    it('Immediate callback is TRUE', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
+        spyOn<any>(component.infinityScroll, 'requestCallbackOnScroll').and.callThrough();
+
         enableInfinityScroller();
 
         component.isImmediateCallback = true;
         fixture.detectChanges();
 
-        expect(component.onLoadMore).toHaveBeenCalled();
-        expect(component.updateData).toHaveBeenCalled();
+        expect(component.onLoadMore).toHaveBeenCalledTimes(1);
+        expect(component.updateData).toHaveBeenCalledTimes(1);
+        expect(component.infinityScroll['requestCallbackOnScroll']).toHaveBeenCalledTimes(2);
     }));
 
-    it("Scroll event has NOT occured", async(() => {
+    it('Immediate callback is TRUE and set it again to TRUE', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
+        spyOn<any>(component.infinityScroll, 'requestCallbackOnScroll').and.callThrough();
+
+        enableInfinityScroller();
+
+        component.isImmediateCallback = true;
+        fixture.detectChanges();
+
+        component.isImmediateCallback = true;
+        fixture.detectChanges();
+
+        expect(component.onLoadMore).toHaveBeenCalledTimes(1);
+        expect(component.updateData).toHaveBeenCalledTimes(1);
+        expect(component.infinityScroll['requestCallbackOnScroll']).toHaveBeenCalledTimes(2);
+    }));
+
+    it('Immediate callback is TRUE and set it to FALSE', async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+        spyOn<any>(component.infinityScroll, 'requestCallbackOnScroll').and.callThrough();
+
+        enableInfinityScroller();
+
+        component.isImmediateCallback = true;
+        fixture.detectChanges();
+
+        component.isImmediateCallback = false;
+        fixture.detectChanges();
+
+        expect(component.onLoadMore).toHaveBeenCalledTimes(1);
+        expect(component.updateData).toHaveBeenCalledTimes(1);
+        expect(component.infinityScroll['requestCallbackOnScroll']).toHaveBeenCalledTimes(2);
+    }));
+
+    it('Set immediate callback to TRUE when infinity scroller not enabled', async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+        spyOn<any>(component.infinityScroll, 'requestCallbackOnScroll').and.callThrough();
+
+        component.isImmediateCallback = true;
+        fixture.detectChanges();
+
+        expect(component.onLoadMore).not.toHaveBeenCalled();
+        expect(component.updateData).not.toHaveBeenCalled();
+        expect(component.infinityScroll['requestCallbackOnScroll']).not.toHaveBeenCalled();
+    }));
+
+    it('Scroll event has NOT occured', async(() => {
+        spyOn(component, 'onLoadMore');
+        spyOn(component, 'updateData');
+
         enableInfinityScroller();
 
         expect(component.onLoadMore).not.toHaveBeenCalled();
         expect(component.updateData).not.toHaveBeenCalled();
     }));
 
-    it("Scroll event has been occured(scroll to bottom 100%)", async(() => {
+    it('Scroll event has been occured(scroll to bottom 100%)', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
         enableInfinityScroller();
@@ -135,7 +216,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).toHaveBeenCalled();
     }));
 
-    it("Scroll event has been occured (scrolling only to 50%): but request stream was NOT occured", async(() => {
+    it('Scroll event has been occured (scrolling only to 50%): but request stream was NOT occured', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
         enableInfinityScroller();
@@ -146,7 +227,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).not.toHaveBeenCalled();
     }));
 
-    it("Scrolling to bottom and than back to top: request stream was occured only one time", async(() => {
+    it('Scrolling to bottom and than back to top: request stream was occured only one time', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
         enableInfinityScroller();
@@ -160,7 +241,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).toHaveBeenCalledTimes(1);
     }));
 
-    it("Scroll event has been occured(scroll to middle and than to bottom) with HasNext = TRUE", async(() => {
+    it('Scroll event has been occured(scroll to middle and than to bottom) with HasNext = TRUE', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
 
@@ -178,7 +259,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).toHaveBeenCalledTimes(2);
     }));
 
-    it("Scroll event has been occured(scroll to middle and than to bottom) with HasNext = FALSE", async(() => {
+    it('Scroll event has been occured(scroll to middle and than to bottom) with HasNext = FALSE', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
 
@@ -197,7 +278,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).toHaveBeenCalledTimes(1);
     }));
 
-    it("Scroll event has been occured(scroll to bottom 100%) but loader function is NULL", async(() => {
+    it('Scroll event has been occured(scroll to bottom 100%) but loader function is NULL', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
         component.loader = null;
@@ -209,7 +290,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).not.toHaveBeenCalled();
     }));
 
-    it("Scroll event has been occured but onLoadMore function is NULL", async(() => {
+    it('Scroll event has been occured but onLoadMore function is NULL', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
         component.infinityScroll.scrolled = null;
@@ -221,7 +302,7 @@ describe('Directive: InfiniteScroller', () => {
         expect(component.updateData).toHaveBeenCalled();
     }));
 
-    it("Scroll event has been occured but updateData function is NULL", async(() => {
+    it('Scroll event has been occured but updateData function is NULL', async(() => {
         spyOn(component, 'onLoadMore');
         spyOn(component, 'updateData');
         component.infinityScroll.updated = null;
@@ -241,8 +322,7 @@ describe('Directive: InfiniteScroller', () => {
     }
 
     function enableInfinityScroller() {
-        component.showInfiniteScroller = true;
+        component.enableShowInfiniteScroller();
         fixture.detectChanges();
     }
-
 });

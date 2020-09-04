@@ -1,11 +1,11 @@
-import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SfcInputsModule } from '../../../../sfc-inputs.module';
 import { EqualOrInclude } from '../../sfc-include.validator';
-import ISelectData from '../../../interfaces/ISelectData';
-import ISelectDataGroup from '../../../interfaces/ISelectDataGroup';
+import ISelectData from '../../../interfaces/select-input/ISelectData';
+import ISelectDataGroup from '../../../interfaces/select-input/ISelectDataGroup';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -140,7 +140,6 @@ describe('Validators: SelectInput - Template form', () => {
 
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeTruthy();
         expect(templateSelectInputControl.valid).toBeFalsy();
-        expect(form.control.valid).toBeFalsy();
     }));
 
     it('EqualOrInclude: single - not object - validation success', (() => {
@@ -151,7 +150,6 @@ describe('Validators: SelectInput - Template form', () => {
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeFalsy();
         expect(templateSelectInputControl.errors).toBeNull();
         expect(templateSelectInputControl.valid).toBeTruthy();
-        expect(form.control.valid).toBeTruthy();
     }));
 
     it('EqualOrInclude: single - object - validation failed', (() => {
@@ -161,7 +159,6 @@ describe('Validators: SelectInput - Template form', () => {
 
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeTruthy();
         expect(templateSelectInputControl.valid).toBeFalsy();
-        expect(form.control.valid).toBeFalsy();
     }));
 
     it('EqualOrInclude: single - object - validation success', (() => {
@@ -172,7 +169,6 @@ describe('Validators: SelectInput - Template form', () => {
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeFalsy();
         expect(templateSelectInputControl.errors).toBeNull();
         expect(templateSelectInputControl.valid).toBeTruthy();
-        expect(form.control.valid).toBeTruthy();
     }));
 
     it('EqualOrInclude: multiple - not object - validation failed', (() => {
@@ -182,7 +178,6 @@ describe('Validators: SelectInput - Template form', () => {
 
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeTruthy();
         expect(templateSelectInputControl.valid).toBeFalsy();
-        expect(form.control.valid).toBeFalsy();
     }));
 
     it('EqualOrInclude: multiple - not object - validation success', (() => {
@@ -193,7 +188,6 @@ describe('Validators: SelectInput - Template form', () => {
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeFalsy();
         expect(templateSelectInputControl.errors).toBeNull();
         expect(templateSelectInputControl.valid).toBeTruthy();
-        expect(form.control.valid).toBeTruthy();
     }));
 
     it('EqualOrInclude: multiple - object - validation failed', (() => {
@@ -203,7 +197,6 @@ describe('Validators: SelectInput - Template form', () => {
 
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeTruthy();
         expect(templateSelectInputControl.valid).toBeFalsy();
-        expect(form.control.valid).toBeFalsy();
     }));
 
     it('EqualOrInclude: multiple - object - validation success', (() => {
@@ -214,6 +207,5 @@ describe('Validators: SelectInput - Template form', () => {
         expect(templateSelectInputControl.hasError('equalOrInclude')).toBeFalsy();
         expect(templateSelectInputControl.errors).toBeNull();
         expect(templateSelectInputControl.valid).toBeTruthy();
-        expect(form.control.valid).toBeTruthy();
     }));
 });

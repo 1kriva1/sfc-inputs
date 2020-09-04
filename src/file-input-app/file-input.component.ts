@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
+import BaseAppInputComponent from 'src/base-app-input.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'file-input-app',
@@ -10,12 +12,10 @@ import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-inp
         './file-input.component.css'
     ]
 })
-export class FileInputAppComponent {
-    private customInputForm: FormGroup;
-    private theme: string = "common";
+export class FileInputAppComponent extends BaseAppInputComponent {
 
-    constructor(private formBuilder: FormBuilder) {
-
+    constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute) {
+        super(formBuilder, router, activatedRoute);
     }
 
     ngOnInit() {

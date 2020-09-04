@@ -37,7 +37,7 @@ describe('Component: Loader', () => {
 
     it("Preloader: should exist", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader');
@@ -46,7 +46,7 @@ describe('Component: Loader', () => {
 
     it("Preloader: global id", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.global');
@@ -56,7 +56,7 @@ describe('Component: Loader', () => {
     it("Preloader: secondary id", async(() => {
         initLoaderTest();
         component.id = 'my-loader';
-        loaderService.showLoader(component.id);
+        registerAndShow(component.id);
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary');
@@ -65,7 +65,7 @@ describe('Component: Loader', () => {
 
     it("Preloader: background by default", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.background');
@@ -75,7 +75,7 @@ describe('Component: Loader', () => {
     it("Preloader: without background", async(() => {
         initLoaderTest();
         component.background = false;
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.background');
@@ -95,7 +95,7 @@ describe('Component: Loader', () => {
 
     it("Loader: loading class", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         expect(fixture.nativeElement.classList.contains('loading')).toBeTruthy();
@@ -103,7 +103,7 @@ describe('Component: Loader', () => {
 
     it("Loader: size - default value", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const loaderEl = fixture.nativeElement.querySelector('div.preloader div.medium');
@@ -113,7 +113,7 @@ describe('Component: Loader', () => {
     it("Loader: size - small", async(() => {
         initLoaderTest();
         component.size = ComponentSizeType.Small;
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const loaderEl = fixture.nativeElement.querySelector('div.preloader div.small');
@@ -123,7 +123,7 @@ describe('Component: Loader', () => {
     it("Loader: size - medium", async(() => {
         initLoaderTest();
         component.size = ComponentSizeType.Medium;
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const loaderEl = fixture.nativeElement.querySelector('div.preloader div.medium');
@@ -133,7 +133,7 @@ describe('Component: Loader', () => {
     it("Loader: size - large", async(() => {
         initLoaderTest();
         component.size = ComponentSizeType.Large;
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const loaderEl = fixture.nativeElement.querySelector('div.preloader div.large');
@@ -142,10 +142,9 @@ describe('Component: Loader', () => {
 
     it("Loader: size - custom", async(() => {
         initLoaderTest();
-        component.id = 'my-loader-1';
         component.customSize = { width: 100, height: 100 };
         component.size = ComponentSizeType.Small;
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const loaderEl = fixture.nativeElement.querySelector('div.preloader div.small');
@@ -155,7 +154,7 @@ describe('Component: Loader', () => {
     it("Loader: size - custom - value check", async(() => {
         initLoaderTest();
         component.customSize = { width: 100, height: 80 };
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const loaderEl = fixture.nativeElement.querySelector('div.preloader div');
@@ -165,7 +164,7 @@ describe('Component: Loader', () => {
 
     it("Loader: show global loader", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.global');
@@ -178,7 +177,7 @@ describe('Component: Loader', () => {
 
     it("Loader: hide global loader", async(() => {
         initLoaderTest();
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         loaderService.hideLoader();
@@ -196,8 +195,7 @@ describe('Component: Loader', () => {
         let documentScrollTop = document.documentElement.scrollTop,
             documentScrollTopPx = UIUtils.getCssLikePx(-document.documentElement.scrollTop);
 
-        loaderService.removeLoader({ id: CommonConstants.GLOBAL_LOADER_ID, status: false });
-        loaderService.showLoader();
+        registerAndShow();
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.global');
@@ -215,24 +213,24 @@ describe('Component: Loader', () => {
         expect(document.documentElement.scrollTop).toEqual(documentScrollTop);
     }));
 
-    it("Loader service: show secondary(not global) loader", async(() => {
+    it("Loader: show secondary(not global) loader", async(() => {
         initLoaderTest();
 
         component.id = 'my-loader';
         fixture.detectChanges();
 
-        loaderService.showLoader('my-loader');
+        registerAndShow('my-loader');
         fixture.detectChanges();
 
         const preloaderEl = fixture.nativeElement.querySelector('div.preloader.secondary');
         expect(preloaderEl).toBeTruthy();
     }));
 
-    it("Loader service: hide secondary(not global) loader", async(() => {
+    it("Loader: hide secondary(not global) loader", async(() => {
         initLoaderTest();
 
         component.id = 'my-loader';
-        loaderService.showLoader('my-loader');
+        registerAndShow('my-loader');
         fixture.detectChanges();
 
         loaderService.hideLoader('my-loader');
@@ -242,9 +240,14 @@ describe('Component: Loader', () => {
         expect(preloaderEl).toBeFalsy();
     }));
 
-    function initLoaderTest(){
+    function initLoaderTest() {
         fixture = TestBed.createComponent(CircleLoaderComponent);
         el = fixture.debugElement;
         component = el.componentInstance;
+    }
+
+    function registerAndShow(loaderId = CommonConstants.GLOBAL_LOADER_ID) {
+        loaderService.registerLoader({ id: loaderId, status: false });
+        loaderService.showLoader(loaderId);
     }
 })

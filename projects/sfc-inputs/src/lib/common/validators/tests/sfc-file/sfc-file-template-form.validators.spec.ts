@@ -1,4 +1,4 @@
-import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -69,6 +69,30 @@ describe('Validators: FileInput - Template form', () => {
         expect(form.control.valid).toBeTruthy();
     }));
 
+    it('FileMaxSize: value is NOT a file', (() => {
+        const templateFileInputControl = form.control.get('file-input'),
+            validValue = { test: 1 };
+
+        debugFileInputEl.componentInstance.ngControl.control.setValue(validValue);
+        fixture.detectChanges();
+
+        expect(templateFileInputControl.hasError('fileMaxSize')).toBeFalsy();
+        expect(templateFileInputControl.errors).toBeNull();
+        expect(templateFileInputControl.valid).toBeTruthy();
+        expect(form.control.valid).toBeTruthy();
+    }));
+
+    it('FileMaxSize: value is NULL', (() => {
+        const templateFileInputControl = form.control.get('file-input');
+        debugFileInputEl.componentInstance.ngControl.control.setValue(null);
+        fixture.detectChanges();
+
+        expect(templateFileInputControl.hasError('fileMaxSize')).toBeFalsy();
+        expect(templateFileInputControl.errors).toBeNull();
+        expect(templateFileInputControl.valid).toBeTruthy();
+        expect(form.control.valid).toBeTruthy();
+    }));
+
     it('FileMinSize: validation failed', (() => {
         const templateFileInputControl = form.control.get('file-input'),
             invalidValue = getHugeFile('testFile.jpg', 128),
@@ -96,6 +120,30 @@ describe('Validators: FileInput - Template form', () => {
         expect(form.control.valid).toBeTruthy();
     }));
 
+    it('FileMinSize: value is NOT a file', (() => {
+        const templateFileInputControl = form.control.get('file-input'),
+            validValue = { test: 1 };
+
+        debugFileInputEl.componentInstance.ngControl.control.setValue(validValue);
+        fixture.detectChanges();
+
+        expect(templateFileInputControl.hasError('fileMinSize')).toBeFalsy();
+        expect(templateFileInputControl.errors).toBeNull();
+        expect(templateFileInputControl.valid).toBeTruthy();
+        expect(form.control.valid).toBeTruthy();
+    }));
+
+    it('FileMinSize: value is NULL', (() => {
+        const templateFileInputControl = form.control.get('file-input');
+        debugFileInputEl.componentInstance.ngControl.control.setValue(null);
+        fixture.detectChanges();
+
+        expect(templateFileInputControl.hasError('fileMinSize')).toBeFalsy();
+        expect(templateFileInputControl.errors).toBeNull();
+        expect(templateFileInputControl.valid).toBeTruthy();
+        expect(form.control.valid).toBeTruthy();
+    }));
+
     it('FileExtensions: validation failed', (() => {
         const templateFileInputControl = form.control.get('file-input'),
             allowedExtensions = ["jpg", "jpeg"],
@@ -114,6 +162,32 @@ describe('Validators: FileInput - Template form', () => {
     it('FileExtensions: validation success', (() => {
         const templateFileInputControl = form.control.get('file-input'),
             invalidValue = getHugeFile('testFile.jpg', 512);
+
+        debugFileInputEl.componentInstance.ngControl.control.setValue(invalidValue);
+        fixture.detectChanges();
+
+        expect(templateFileInputControl.hasError('fileExtension')).toBeFalsy();
+        expect(templateFileInputControl.errors).toBeNull();
+        expect(templateFileInputControl.valid).toBeTruthy();
+        expect(form.control.valid).toBeTruthy();
+    }));
+
+    it('FileExtensions: value is NOT a file', (() => {
+        const templateFileInputControl = form.control.get('file-input'),
+            invalidValue = { test: 1 };
+
+        debugFileInputEl.componentInstance.ngControl.control.setValue(invalidValue);
+        fixture.detectChanges();
+
+        expect(templateFileInputControl.hasError('fileExtension')).toBeFalsy();
+        expect(templateFileInputControl.errors).toBeNull();
+        expect(templateFileInputControl.valid).toBeTruthy();
+        expect(form.control.valid).toBeTruthy();
+    }));
+
+    it('FileExtensions: value is NULL', (() => {
+        const templateFileInputControl = form.control.get('file-input'),
+            invalidValue = null;
 
         debugFileInputEl.componentInstance.ngControl.control.setValue(invalidValue);
         fixture.detectChanges();

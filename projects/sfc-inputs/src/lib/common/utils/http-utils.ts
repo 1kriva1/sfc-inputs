@@ -1,76 +1,116 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpEvent } from '@angular/common/http';
-
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap, distinctUntilChanged, exhaustMap, switchMap, shareReplay } from 'rxjs/operators';
-import { IHttpConfig } from '../interfaces/IHttpConfig';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, tap, distinctUntilChanged, retry } from 'rxjs/operators';
+import { HttpConfig } from './http-config';
+import { CommonUtils } from './common-utils';
 
 
 @Injectable({ providedIn: 'root' })
-export default class HttpUtils<T> {
+export default class HttpUtils {
 
-    private readonly defaultContentTypeHttpHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    /**
+     * Default http header for all requests
+     */
+    private readonly defaultContentTypeHttpHeader = { 'Content-Type': 'application/json' };
+
+    /**
+     * Retry a failed request up to 3 times
+     */
+    private readonly RETRY_COUNT = 3;
 
     constructor(private http: HttpClient) { }
 
-    getDataByConfig(config: IHttpConfig): Observable<T> {
+    getDataByConfig<T>(config: HttpConfig<T>): Observable<T> {
 
-        if (!config)
-            throw new Error("HTTP configuration is empty");
+        if (!CommonUtils.isDefined(config))
+            throw new Error('HTTP configuration is empty');
 
-        let options = {
-            headers: this.defaultContentTypeHttpHeader,
-            params:this.buildParams(config.params)
-        };
+        if (!CommonUtils.isDefined(config.url))
+            throw new Error('HTTP configuration URL is not defined');
+
+        const options = this.buildOptions(config.params, config.headers);
 
         return this.http.get<T>(config.url, options)
             .pipe(
-                tap(data => config.updater ? config.updater(data, config) : this.defaultTap(data)),
                 distinctUntilChanged(),
+                tap(data => config.updater ? config.updater(data) : this.defaultUpdater(data)),
                 map(config.mapper || this.defaultMap),
-                catchError(this.handleError<T>('get config data', null))
+                retry(this.RETRY_COUNT), // retry a failed request
+                catchError(this.handleError)
             );
     }
 
-    private defaultMap(data: T) {
+    /**
+     * Buld options for configuration request
+     */
+    private buildOptions(params: HttpParams, headers: HttpHeaders) {
+        const options = {
+            headers: this.buildHeaders(headers),
+            observe: 'body' as const,
+            params: params,
+            reportProgress: false,
+            responseType: 'json' as const,
+            withCredentials: false
+        };
+
+        return options
+    }
+
+    /**
+     * Build headers for configuration request
+     */
+    private buildHeaders(headers: HttpHeaders): HttpHeaders {
+        let headersOption: HttpHeaders = new HttpHeaders(this.defaultContentTypeHttpHeader);
+
+        if (CommonUtils.isDefined(headers)) {
+            let keys = headers.keys();
+
+            keys.forEach((key) => {
+                if (!headersOption.has(key)) {
+                    headersOption.append(key, headers[key]);
+                } else {
+                    headersOption.set(key, headers[key]);
+                }
+            });
+        }
+
+        return headersOption;
+    }
+
+    /** Default map function */
+    private defaultMap<T>(data: T) {
         return data;
     }
 
-    private defaultTap(data: T) {
-        this.log("get data");
-    }
-
-    private buildParams(params: Array<any>) {
-        if (params) {
-            let httpParams = new HttpParams();
-
-            params.forEach(function (param) {
-                httpParams = httpParams.append(param.key, param.value);
-            });
-
-            return httpParams;
-        }
+    /** Default update function */
+    private defaultUpdater<T>(data: T) {
+        this.log('Get data by configuration');
     }
 
     /**
      * Handle Http operation that failed.
      * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
+     * @param error Error response
      */
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
+    private handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            // A client-side or network error occurred. Handle it accordingly.
+            console.error('An error occurred:', error.error.message);
+        } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
+        }
+        // return an observable with a user-facing error message
+        return throwError(
+            'Something bad happened; please try again later.');
+    };
 
-            console.error(error); // log to console instead
-
-            this.log(`${operation} failed: ${error.message}`);
-
-            return of(result as T);
-        };
-    }
-
-    /** Log a HeroService message with the MessageService */
+    /** Log a HttpUtils message */
     private log(message: string) {
-        console.log(`SelectService: ${message}`);
+        console.log(`Http utils: ${message}`);
     }
 }

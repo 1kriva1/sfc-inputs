@@ -17,8 +17,8 @@ export class LoaderService {
    * Show loader
    * @param {string} id
    */
-  public showLoader(id: string = CommonConstants.GLOBAL_LOADER_ID): void {
-    this.setLoaderStatus(id, true);
+  public showLoader(id: string = CommonConstants.GLOBAL_LOADER_ID, register: boolean = false): void {
+    this.setLoaderStatus(id, true, register);
   }
 
   /**
@@ -33,7 +33,7 @@ export class LoaderService {
    * Register loader
    * @param {ILoader} loader
    */
-  public registerLoader(loader: ILoader): void {
+  public registerLoader(loader: ILoader): Observable<ILoader> {
 
     const loaders = this.subject.getValue();
 
@@ -41,15 +41,17 @@ export class LoaderService {
       loaders.push(loader);
       this.subject.next(loaders);
     }
+
+    return this.selectLoaderById(loader.id);
   }
 
   /**
    * Unregister loader
    * @param {ILoader} loader
    */
-  public removeLoader(loader: ILoader): void {
+  public removeLoader(id: string = CommonConstants.GLOBAL_LOADER_ID): void {
     const loaders = this.subject.getValue(),
-      loaderIndex = loaders.findIndex(loader => loader.id == loader.id);
+      loaderIndex = loaders.findIndex(loader => loader.id == id);
 
     if (loaderIndex !== CommonConstants.NOT_FOUND_INDEX) {
       loaders.splice(loaderIndex, 1);
@@ -57,11 +59,7 @@ export class LoaderService {
     }
   }
 
-  /**
-   * Return loader's observable by id
-   * @param {string} id
-   */
-  public selectLoaderById(id: string): Observable<ILoader> {
+  private selectLoaderById(id: string): Observable<ILoader> {
     return this.loaders$
       .pipe(
         map(courses => courses.find(course => course.id == id)),
@@ -70,17 +68,14 @@ export class LoaderService {
       );
   }
 
-  private setLoaderStatus(loaderId: string, loaderIdStatus: boolean) {
+  private setLoaderStatus(loaderId: string, loaderIdStatus: boolean, register: boolean = false): void {
 
     const loaders = this.subject.getValue();
 
     const loaderIndex = loaders.findIndex(loader => loader.id == loaderId);
 
-    if (loaderIndex === CommonConstants.NOT_FOUND_INDEX) {
+    if (loaderIndex !== CommonConstants.NOT_FOUND_INDEX) {
 
-      this.registerLoader({ id: loaderId, status: loaderIdStatus })
-
-    } else {
       const newLoader = loaders.slice(0);
 
       newLoader[loaderIndex] = {
@@ -89,6 +84,10 @@ export class LoaderService {
       };
 
       this.subject.next(newLoader);
+    } else {
+      if (register) {
+        this.registerLoader({ id: loaderId, status: loaderIdStatus });
+      }
     }
   }
 }

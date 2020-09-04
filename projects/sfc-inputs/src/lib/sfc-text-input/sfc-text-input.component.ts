@@ -1,4 +1,4 @@
-import { Component, Self, Optional, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, Input, ElementRef, Renderer2 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import BaseTextInputComponent from '../common/components/sfc-base-text-input.component';
 
@@ -13,7 +13,7 @@ export class TextInputComponent extends BaseTextInputComponent {
     type: string = 'text';
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
-        protected changeDetector: ChangeDetectorRef) {
-        super(ngControl, changeDetector);
+        protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
+            super(ngControl, changeDetector, renderer, elementRef);
     }
 }

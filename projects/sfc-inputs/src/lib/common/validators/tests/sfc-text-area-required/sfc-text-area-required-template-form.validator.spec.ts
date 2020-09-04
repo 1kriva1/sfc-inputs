@@ -52,6 +52,28 @@ describe('Validators: TextArea - Template form', () => {
         expect(form.control.valid).toEqual(false);
     }));
 
+    it('TextAreaRequired: validation failed (empty value)', (() => {
+        const templateTextAreaControl = form.control.get('text-area-input');
+        textAreaEl.value = '';
+        textAreaEl.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(templateTextAreaControl.hasError('textAreaRequired')).toBe(true);
+        expect(templateTextAreaControl.valid).toBe(false);
+        expect(form.control.valid).toEqual(false);
+    }));
+
+    it('TextAreaRequired: validation failed (null value)', (() => {
+        const templateTextAreaControl = form.control.get('text-area-input');
+        textAreaEl.value = null;
+        textAreaEl.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(templateTextAreaControl.hasError('textAreaRequired')).toBe(true);
+        expect(templateTextAreaControl.valid).toBe(false);
+        expect(form.control.valid).toEqual(false);
+    }));
+
     it('TextAreaRequired: validation success', (() => {
         const templateTextAreaControl = form.control.get('text-area-input');
         const validValue = 'firstline \n second line';

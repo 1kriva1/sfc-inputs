@@ -9,7 +9,6 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['../base/sfc-base-loader.component.css', './sfc-bounce-loader.component.css', '../base/sfc-base-loader-dark-theme.component.css']
 })
 export class BounceLoaderComponent extends BaseLoaderComponent {
-
   constructor(@Inject(DOCUMENT) protected document: Document,
     protected renderer: Renderer2, protected loaderService: LoaderService) {
     super(document, renderer, loaderService);

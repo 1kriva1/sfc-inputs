@@ -47,21 +47,17 @@ export default abstract class BaseLoaderComponent implements OnInit {
 
   public ngOnInit(): void {
 
-    // 1. Register new loader
-    this.loaderService.registerLoader({ id: this.id, status: this.start });
-
-    // 2. Subscribe to loader changes by id
-    this.loaderService.selectLoaderById(this.id)
-      .subscribe((response: ILoader) => {
-        this.show = response && this.id === response.id && response.status;
-        if (this.id == CommonConstants.GLOBAL_LOADER_ID)
-          this.setGlobalLoaderStyles();
-      });
+    // register new loader
+    this.loaderService.registerLoader({ id: this.id, status: this.start }).subscribe((response: ILoader) => {
+      this.show = response && this.id === response.id && response.status;
+      if (this.id == CommonConstants.GLOBAL_LOADER_ID)
+        this.setGlobalLoaderStyles();
+    });
   }
 
   private get preLoaderClass() {
     let classes = {};
-    
+
     if (this.id === CommonConstants.GLOBAL_LOADER_ID)
       classes[CommonConstants.GLOBAL_LOADER_ID] = true;
     else

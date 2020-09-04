@@ -1,11 +1,10 @@
-import { FormsModule, FormControl, NgForm, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Component, DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from "@angular/forms";
+import { Component } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import SfcValidators from '../../sfc-input.validators';
-import { By } from '@angular/platform-browser';
 import { SfcInputsModule } from '../../../../sfc-inputs.module';
-import ISelectData from '../../../interfaces/ISelectData';
-import ISelectDataGroup from '../../../interfaces/ISelectDataGroup';
+import ISelectData from '../../../interfaces/select-input/ISelectData';
+import ISelectDataGroup from '../../../interfaces/select-input/ISelectDataGroup';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -130,16 +129,14 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectField'];
         selectField.setValue(2);
 
-        expect(component.form.valid).toBeFalsy();
         expect(selectField.valid).toBeFalsy();
         expect(selectField.errors['equalOrInclude']).toBeTruthy();
     });
 
-    it('EqualOrInclude: single - not object - validation success', () => {
+    it('EqualOrInclude: single - not object - validation success', () => {        
         const selectField = component.form.controls['selectField'];
         selectField.setValue(1);
 
-        expect(component.form.valid).toBeTruthy();
         expect(selectField.valid).toBeTruthy();
         expect(selectField.errors).toBeNull();
     });
@@ -148,7 +145,6 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectOptGroupField'];
         selectField.setValue({key: 2, groupKey: 1});
 
-        expect(component.form.valid).toBeFalsy();
         expect(selectField.valid).toBeFalsy();
         expect(selectField.errors['equalOrInclude']).toBeTruthy();
     });
@@ -157,7 +153,6 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectOptGroupField'];
         selectField.setValue({key: 1, groupKey: 1});
 
-        expect(component.form.valid).toBeTruthy();
         expect(selectField.valid).toBeTruthy();
         expect(selectField.errors).toBeNull();
     });
@@ -166,7 +161,6 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectField'];
         selectField.setValue([2, 1]);
 
-        expect(component.form.valid).toBeFalsy();
         expect(selectField.valid).toBeFalsy();
         expect(selectField.errors['equalOrInclude']).toBeTruthy();
     });
@@ -175,7 +169,6 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectField'];
         selectField.setValue([3, 1]);
 
-        expect(component.form.valid).toBeTruthy();
         expect(selectField.valid).toBeTruthy();
         expect(selectField.errors).toBeNull();
     });
@@ -184,7 +177,6 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectOptGroupField'];
         selectField.setValue([{key: 2, groupKey: 1}, {key: 1, groupKey: 1}]);
 
-        expect(component.form.valid).toBeFalsy();
         expect(selectField.valid).toBeFalsy();
         expect(selectField.errors['equalOrInclude']).toBeTruthy();
     }));
@@ -193,7 +185,6 @@ describe('Validators: FileInput - Reactive form', () => {
         const selectField = component.form.controls['selectOptGroupField'];
         selectField.setValue([{key: 1, groupKey: 1}, {key: 1, groupKey: 2}]);
 
-        expect(component.form.valid).toBeTruthy();
         expect(selectField.valid).toBeTruthy();
         expect(selectField.errors).toBeNull();
     }));

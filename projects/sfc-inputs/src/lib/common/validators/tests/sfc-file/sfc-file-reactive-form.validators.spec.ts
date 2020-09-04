@@ -63,6 +63,26 @@ describe('Validators: FileInput - Reactive form', () => {
         expect(textAreaField.errors).toBeNull();
     });
 
+    it('FileMaxSize: value is NOT a file', () => {
+        const mockFile = {test: 1},
+            textAreaField = component.form.controls['fileField'];
+        textAreaField.setValue(mockFile);
+
+        expect(component.form.valid).toBeTruthy();
+        expect(textAreaField.valid).toBeTruthy();
+        expect(textAreaField.errors).toBeNull();
+    });
+
+    it('FileMaxSize: value is NULL', () => {
+        const mockFile = null,
+            textAreaField = component.form.controls['fileField'];
+        textAreaField.setValue(mockFile);
+
+        expect(component.form.valid).toBeTruthy();
+        expect(textAreaField.valid).toBeTruthy();
+        expect(textAreaField.errors).toBeNull();
+    });
+
     it('FileMinSize: validation failed', () => {
         const mockFile = getHugeFile('testFile.jpg', 256),
             expectedResult = { requiredSize: 512, actualSize: 256, file: mockFile },
@@ -76,6 +96,26 @@ describe('Validators: FileInput - Reactive form', () => {
 
     it('FileMinSize: validation success', () => {
         const mockFile = getHugeFile('testFile.jpg', 1024),
+            textAreaField = component.form.controls['fileField'];
+        textAreaField.setValue(mockFile);
+
+        expect(component.form.valid).toBeTruthy();
+        expect(textAreaField.valid).toBeTruthy();
+        expect(textAreaField.errors).toBeNull();
+    });
+
+    it('FileMinSize: value is NOT a file', () => {
+        const mockFile = {test: 1},
+            textAreaField = component.form.controls['fileField'];
+        textAreaField.setValue(mockFile);
+
+        expect(component.form.valid).toBeTruthy();
+        expect(textAreaField.valid).toBeTruthy();
+        expect(textAreaField.errors).toBeNull();
+    });
+
+    it('FileMinSize: value is NULL', () => {
+        const mockFile = null,
             textAreaField = component.form.controls['fileField'];
         textAreaField.setValue(mockFile);
 
@@ -98,6 +138,26 @@ describe('Validators: FileInput - Reactive form', () => {
 
     it('FileExtensions: validation success', () => {
         const mockFile = getHugeFile('testFile.jpg', 1024),
+            textAreaField = component.form.controls['fileField'];
+        textAreaField.setValue(mockFile);
+
+        expect(component.form.valid).toBeTruthy();
+        expect(textAreaField.valid).toBeTruthy();
+        expect(textAreaField.errors).toBeNull();
+    });
+
+    it('FileExtensions: value is NOT a file', () => {
+        const mockFile = {test: 1},
+            textAreaField = component.form.controls['fileField'];
+        textAreaField.setValue(mockFile);
+
+        expect(component.form.valid).toBeTruthy();
+        expect(textAreaField.valid).toBeTruthy();
+        expect(textAreaField.errors).toBeNull();
+    });
+
+    it('FileExtensions: value is NULL', () => {
+        const mockFile = null,
             textAreaField = component.form.controls['fileField'];
         textAreaField.setValue(mockFile);
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, AfterViewInit, Input, ViewChild, HostBinding, ElementRef, Renderer2 } from '@angular/core';
 import { NgControl, ControlValueAccessor } from '@angular/forms';
 import IValidation from '../interfaces/IValidation';
 import { InputRefDirective } from '../directives/input-ref.directive';
@@ -40,9 +40,20 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     @ViewChild(InputRefDirective, { static: false })
     protected input: InputRefDirective;
 
+    @ViewChild(InputRefDirective, { static: false, read: ElementRef })
+    protected elementRefInput: ElementRef;
+
     protected value: T = null;
 
-    constructor(protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef) {
+    /*
+    * Is input on focus
+    */
+    @HostBinding('class.focus')
+    protected get isFocus() {
+        return this.input ? this.input.isOnFocus : false;
+    }
+
+    constructor(protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }
@@ -55,13 +66,6 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     */
     protected get isValueDefined() {
         return CommonUtils.isDefined(this.value);
-    }
-
-    /*
-    * Is input on focus
-    */
-    protected get isFocus() {
-        return this.input ? this.input.isOnFocus : false;
     }
 
     protected get labelClass(): any {
@@ -149,9 +153,18 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         return this.input ? this.input.errors : null;
     }
 
-    ngAfterViewInit(): void {
-        this.changeDetector.detectChanges();
+    protected setOnFocusEvent(element: ElementRef) {
+        if (element) {
+            this.renderer.listen(element, 'click', () => {
+                this.elementRefInput.nativeElement.focus();
+            });
+        }
     }
+
+    ngAfterViewInit(): void {
+        this.setOnFocusEvent(this.elementRef.nativeElement.querySelector('i.icon'));
+        this.changeDetector.detectChanges();
+    }    
 
     /*
     * Write form value to the DOM element (model => view)

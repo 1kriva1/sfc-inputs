@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import BaseAppInputComponent from 'src/base-app-input.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'text-input-app',
@@ -8,12 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         '../app/app.component.css'
     ]
 })
-export class TextInputAppComponent {
-    private customInputForm: FormGroup;
-    private theme: string = "common";
+export class TextInputAppComponent extends BaseAppInputComponent {
 
-    constructor(private formBuilder: FormBuilder) {
-
+    constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute) {
+        super(formBuilder, router, activatedRoute);
     }
 
     ngOnInit() {

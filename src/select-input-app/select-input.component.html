@@ -1,8 +1,8 @@
 <div class="demo-container">
     <h1>SELECT INPUT</h1>
     <div class="theme-switcher">
-        <button (click)="this.theme = 'common'">Common</button>
-        <button (click)="this.theme = 'dark'">Dark</button>
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
     </div>
 
     <div class="background"
@@ -15,6 +15,7 @@
                 <hr>
 
                 <div class="input-row">
+
                     <div>
                         <sfc-select-input id="demo-select-full-empty" formControlName="inputSelectFullEmpty">
                         </sfc-select-input>
@@ -170,8 +171,7 @@
                         <sfc-select-input id="demo-select-multiple-with-value"
                             formControlName="inputSelectMultipleWithValue" [data]="data"
                             label="Muliple select with value (1 and 3)" placeholder="Muliple select with value"
-                            icon="fa fa-star" helper-text="helper text Multiple with value (1 and 3)"
-                            [multiple]="true">
+                            icon="fa fa-star" helper-text="helper text Multiple with value (1 and 3)" [multiple]="true">
                         </sfc-select-input>
                     </div>
 
@@ -291,16 +291,15 @@
                     <div>
                         <sfc-select-input id="demo-select-http-data" formControlName="inputSelectHttpData"
                             [data]="$httpData" [load-on-init]="false" label="Http observable without value"
-                            placeholder="Http observable swithout value" icon="fa fa-star"
-                            helper-text="helper http observable without value">
+                            icon="fa fa-star" helper-text="helper http observable without value"
+                            [show-default-option]="false">
                         </sfc-select-input>
                     </div>
 
                     <div>
                         <sfc-select-input id="demo-select-http-data-value" formControlName="inputSelectHttpDataValue"
                             [data]="$httpData" [load-on-init]="false" label="Http observable with value 34"
-                            placeholder="Http observable with value 34" icon="fa fa-star"
-                            helper-text="helper http observable with value 34">
+                            icon="fa fa-star" helper-text="helper http observable with value 34">
                         </sfc-select-input>
                     </div>
 
@@ -424,23 +423,30 @@
                 <div class="input-row">
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-scroll" formControlName="inputSelectHttpPageableScroll"
-                            [load-on-init]="false" label="Http observable pageable scroll" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable pageable scroll" icon="fa fa-star" [data]="null" [loader]="loadFuncScroll">
+                        <sfc-select-input id="demo-select-http-pageable-scroll"
+                            formControlName="inputSelectHttpPageableScroll" [load-on-init]="false"
+                            label="Http observable pageable scroll" [load-more-button]="false"
+                            [show-default-option]="true" placeholder="Http observable pageable scroll" icon="fa fa-star"
+                            [data]="null" [loader]="loadFuncScroll">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-scroll-value" formControlName="inputSelectHttpPageableScrollValue"
-                            [load-on-init]="false" label="Http observable pageable scroll with value 80" [load-more-button]="false" [show-default-option]="false"
-                            placeholder="Http observable pageable scroll with value 80" icon="fa fa-star" [data]="null" [loader]="loadFuncScroll1">
+                        <sfc-select-input id="demo-select-http-pageable-scroll-value"
+                            formControlName="inputSelectHttpPageableScrollValue" [load-on-init]="false"
+                            label="Http observable pageable scroll with value 80" [load-more-button]="false"
+                            [show-default-option]="false" placeholder="Http observable pageable scroll with value 80"
+                            icon="fa fa-star" [data]="null" [loader]="loadFuncScroll1">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-scroll-validation-invalid" formControlName="inputSelectHttpPageableScrollValidatinInvalid"
-                            [load-on-init]="false" label="Http observable pageable scroll INVALID validation" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable pageable scroll INVALID validation" icon="fa fa-star" [data]="null" [loader]="loadFuncScroll2">
+                        <sfc-select-input id="demo-select-http-pageable-scroll-validation-invalid"
+                            formControlName="inputSelectHttpPageableScrollValidatinInvalid" [load-on-init]="false"
+                            label="Http observable pageable scroll INVALID validation" [load-more-button]="false"
+                            [show-default-option]="true"
+                            placeholder="Http observable pageable scroll INVALID validation" icon="fa fa-star"
+                            [data]="null" [loader]="loadFuncScroll2">
                         </sfc-select-input>
                     </div>
 
@@ -453,29 +459,36 @@
                 <div class="input-row">
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-scroll" formControlName="inputSelectHttpPageableButton"
-                            [load-on-init]="false" label="Http observable pageable button" [load-more-button]="true" [show-default-option]="true"
-                            placeholder="Http observable pageable button" icon="fa fa-star" [data]="null" [loader]="loadFuncButton">
+                        <sfc-select-input id="demo-select-http-pageable-scroll"
+                            formControlName="inputSelectHttpPageableButton" [load-on-init]="false"
+                            label="Http observable pageable button" [load-more-button]="true"
+                            [show-default-option]="true" placeholder="Http observable pageable button" icon="fa fa-star"
+                            [data]="null" [loader]="loadFuncButton">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-scroll" formControlName="inputSelectHttpPageableButtonValue"
-                            [load-on-init]="false" label="Http observable pageable button with value 80" [load-more-button]="true" [show-default-option]="false"
-                            placeholder="Http observable pageable button with value 80" icon="fa fa-star" [data]="null" [loader]="loadFuncButton1">
+                        <sfc-select-input id="demo-select-http-pageable-scroll"
+                            formControlName="inputSelectHttpPageableButtonValue" [load-on-init]="false"
+                            label="Http observable pageable button with value 80" [load-more-button]="true"
+                            [show-default-option]="false" placeholder="Http observable pageable button with value 80"
+                            icon="fa fa-star" [data]="null" [loader]="loadFuncButton1">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-button-validation-invalid" formControlName="inputSelectHttpPageableButtonValidatinInvalid"
-                            [load-on-init]="false" label="Http observable pageable button INVALID validation" [load-more-button]="true" [show-default-option]="true"
-                            placeholder="Http observable pageable button INVALID validation" icon="fa fa-star" [data]="null" [loader]="loadFuncButton2">
+                        <sfc-select-input id="demo-select-http-pageable-button-validation-invalid"
+                            formControlName="inputSelectHttpPageableButtonValidatinInvalid" [load-on-init]="false"
+                            label="Http observable pageable button INVALID validation" [load-more-button]="true"
+                            [show-default-option]="true"
+                            placeholder="Http observable pageable button INVALID validation" icon="fa fa-star"
+                            [data]="null" [loader]="loadFuncButton2">
                         </sfc-select-input>
                     </div>
 
                 </div>
 
-                
+
                 <hr>
                 <h3>HTTP (full data - config)</h3>
                 <hr>
@@ -484,22 +497,27 @@
 
                     <div>
                         <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfig"
-                            [load-on-init]="false" label="Http observable FULL data config" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable FULL data" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
+                            [load-on-init]="false" label="Http observable FULL data config" [load-more-button]="false"
+                            [show-default-option]="true" placeholder="Http observable FULL data" icon="fa fa-star"
+                            [data]="null" [loader]="null" [http-data-config]="httpConfig">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigValue"
-                            [load-on-init]="false" label="Http observable FULL data config with VALUE 33" [load-more-button]="false" [show-default-option]="false"
-                            placeholder="Http observable FULL data with VALUE 33" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigValue" [load-on-init]="false"
+                            label="Http observable FULL data config with VALUE 33" [load-more-button]="false"
+                            [show-default-option]="false" placeholder="Http observable FULL data with VALUE 33"
+                            icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigValidatinInvalid"
-                            [load-on-init]="false" label="Http observable FULL data config INVALID validation" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable FULL data INVALID validation" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigValidatinInvalid" [load-on-init]="false"
+                            label="Http observable FULL data config INVALID validation" [load-more-button]="false"
+                            [show-default-option]="true" placeholder="Http observable FULL data INVALID validation"
+                            icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpConfig">
                         </sfc-select-input>
                     </div>
 
@@ -512,23 +530,31 @@
                 <div class="input-row">
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableScroll"
-                            [load-on-init]="false" label="Http observable pageable data SCROLL config" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable pageable data SCROLL config" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigPageableScroll" [load-on-init]="false"
+                            label="Http observable pageable data SCROLL config" [load-more-button]="false"
+                            [show-default-option]="true" placeholder="Http observable pageable data SCROLL config"
+                            icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableScrollValue"
-                            [load-on-init]="false" label="Http observable pageable data SCROLL config with Value" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable pageable data SCROLL config with Value" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig1">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigPageableScrollValue" [load-on-init]="false"
+                            label="Http observable pageable data SCROLL config with Value" [load-more-button]="false"
+                            [show-default-option]="true"
+                            placeholder="Http observable pageable data SCROLL config with Value" icon="fa fa-star"
+                            [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig1">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableScrollValidationInvalid"
-                            [load-on-init]="false" label="Http observable pageable data SCROLL config INVALID" [load-more-button]="false" [show-default-option]="true"
-                            placeholder="Http observable pageable data SCROLL config INVALID" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig2">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigPageableScrollValidationInvalid"
+                            [load-on-init]="false" label="Http observable pageable data SCROLL config INVALID"
+                            [load-more-button]="false" [show-default-option]="true"
+                            placeholder="Http observable pageable data SCROLL config INVALID" icon="fa fa-star"
+                            [data]="null" [loader]="null" [http-data-config]="httpLoadMoreConfig2">
                         </sfc-select-input>
                     </div>
 
@@ -537,23 +563,32 @@
                 <div class="input-row">
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableButton"
-                            [load-on-init]="false" label="Http observable pageable data BUTTTON config" [load-more-button]="true" [show-default-option]="true"
-                            placeholder="Http observable pageable data BUTTTON config" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigPageableButton" [load-on-init]="false"
+                            label="Http observable pageable data BUTTTON config" [load-more-button]="true"
+                            [show-default-option]="true" placeholder="Http observable pageable data BUTTTON config"
+                            icon="fa fa-star" [data]="null" [loader]="null"
+                            [http-data-config]="httpLoadMoreButtonConfig">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableButtonValue"
-                            [load-on-init]="false" label="Http observable pageable data BUTTTON config with Value" [load-more-button]="true" [show-default-option]="true"
-                            placeholder="Http observable pageable data BUTTTON config with Value" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig1">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigPageableButtonValue" [load-on-init]="false"
+                            label="Http observable pageable data BUTTTON config with Value" [load-more-button]="true"
+                            [show-default-option]="true"
+                            placeholder="Http observable pageable data BUTTTON config with Value" icon="fa fa-star"
+                            [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig1">
                         </sfc-select-input>
                     </div>
 
                     <div>
-                        <sfc-select-input id="demo-select-http-pageable-config" formControlName="inputSelectHttpConfigPageableButtonValidationInvalid"
-                            [load-on-init]="false" label="Http observable pageable data BUTTTON config INVALID" [load-more-button]="true" [show-default-option]="true"
-                            placeholder="Http observable pageable data BUTTTON config INVALID" icon="fa fa-star" [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig2">
+                        <sfc-select-input id="demo-select-http-pageable-config"
+                            formControlName="inputSelectHttpConfigPageableButtonValidationInvalid"
+                            [load-on-init]="false" label="Http observable pageable data BUTTTON config INVALID"
+                            [load-more-button]="true" [show-default-option]="true"
+                            placeholder="Http observable pageable data BUTTTON config INVALID" icon="fa fa-star"
+                            [data]="null" [loader]="null" [http-data-config]="httpLoadMoreButtonConfig2">
                         </sfc-select-input>
                     </div>
 

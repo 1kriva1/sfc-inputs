@@ -105,7 +105,7 @@ describe('Component: TextAreaInputComponent', () => {
     });
 
     it("TextArea: placeholder with value and focused", () => {
-        const placeholderAssertValue = "test placeholder";
+        const placeholderAssertValue = 'test placeholder';
         component._placeholder = placeholderAssertValue;
         debugTextAreaEl.triggerEventHandler('focus', { target: textAreaEl.nativeElement });
         fixture.detectChanges();
@@ -114,7 +114,7 @@ describe('Component: TextAreaInputComponent', () => {
     });
 
     it("TextArea: default input value", () => {
-        expect(textAreaEl.value).toEqual("");
+        expect(textAreaEl.value).toEqual('');
     });
 
     it("TextArea: set input value", () => {

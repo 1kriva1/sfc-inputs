@@ -1,4 +1,4 @@
-import { Component, Self, Optional, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { UIUtils } from '../common/utils/ui-utils';
 import BaseTextInputComponent from '../common/components/sfc-base-text-input.component';
@@ -15,8 +15,8 @@ export class TextAreaInputComponent extends BaseTextInputComponent {
     protected textareaElement: ElementRef;    
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
-        protected changeDetector: ChangeDetectorRef) {
-        super(ngControl, changeDetector);
+        protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
+            super(ngControl, changeDetector, renderer, elementRef);
     }
 
     ngAfterViewInit(): void {

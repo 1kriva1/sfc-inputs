@@ -1,4 +1,4 @@
-import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, HostListener, ElementRef, ViewChild, Input, OnInit, Renderer2 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { FileInputType } from '../common/constants/common-constants';
@@ -47,16 +47,13 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
     @Input()
     showClearButton = true;
 
-    @ViewChild('inputFile', { static: false })
-    fileInput: ElementRef;
-
     @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
         const file = event && event.item(0);
         this.onChange(file);
     }
 
-    constructor(@Self() @Optional() protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef) {
-        super(ngControl, changeDetector);
+    constructor(@Self() @Optional() protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
+        super(ngControl, changeDetector, renderer, elementRef);
     }
 
     ngOnInit() {
@@ -94,7 +91,7 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
     */
     private clearData(event: Event): void {
         event.preventDefault();
-        this.fileInput.nativeElement.value = null;
+        this.elementRefInput.nativeElement.value = null;
         this.onChange(null);
     }
 }

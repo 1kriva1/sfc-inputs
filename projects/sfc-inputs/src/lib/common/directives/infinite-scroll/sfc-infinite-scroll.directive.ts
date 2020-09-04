@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit, ElementRef, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
+import { Directive, AfterViewInit, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/pairwise';
@@ -6,49 +6,105 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/startWith';
-import { tap } from 'rxjs/operators';
+import { tap, distinctUntilChanged } from 'rxjs/operators';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import IScrollPosition from './IScrollPosition';
-
-const DEFAULT_SCROLL_POSITION: IScrollPosition = {
-    sH: 0,
-    sT: 0,
-    cH: 0
-};
+import { CommonUtils } from '../../utils/common-utils';
 
 @Directive({
     selector: '[infinite-scroller]'
 })
 export class InfiniteScrollerDirective implements AfterViewInit {
 
-    // scroll Observable
+    /**
+     * Default scroll position
+     */
+    private readonly DEFAULT_SCROLL_POSITION: IScrollPosition = {
+        sH: 0,
+        sT: 0,
+        cH: 0
+    };
+
+    /**
+     * Scroll Observable 
+     */
     private scrollEvent$;
 
-    // scroll down Observable
+    /**
+     * Scroll down Observable 
+     */
     private userScrolledDown$;
 
-    // http request on scroll Observable
+    /**
+     * Http request on scroll Observable
+     */
     private requestOnScroll$;
 
-    // indicate if source is empty
+    /**
+     * If ILoadMoreData HasNext is false it means that we need stop load data on scroll
+     */
     private isSourceEmpty = false;
 
-    // http request on scroll subscription (need for unsubscribe)
+    /**
+     * Http request on scroll subscription (need for unsubscribe)
+     */
     private requestOnScrollSubscription: Subscription
 
-    // loader functon
+    /**
+     * Loader function (return Observable)
+     */
     @Input()
-    loader: () => Observable<ILoadMoreData>;
+    loader: () => Observable<ILoadMoreData<any>>;
 
-    // start request immediatly
+    /**
+     * Start load data after such value(70 by default persentage) 
+     */
+    @Input()
+    scrollPercent = 70;
+
+    /**
+     * If True subscribe to scolling and load data on init
+    */
+    @Input('infinite-scroller')
+    infiniteScroller = true;
+
+    /**
+     * Called when scrolled(before load data)
+     */
+    @Output()
+    scrolled: EventEmitter<void> = new EventEmitter<void>();
+
+    /**
+     * Called when data were loaded
+     */
+    @Output()
+    updated: EventEmitter<any> = new EventEmitter<any>();
+
+    constructor(private element: ElementRef) { }
+
+    ngAfterViewInit() {
+        if (this.isNeedInitStreams) {
+            this.setUpScrollProcess();
+        }
+    }
+
+    /**
+     * Start request for data immediately
+     */
     _immediateCallback = false;
-    
+
     @Input()
     set immediateCallback(value: boolean) {
 
-        if (!this._immediateCallback && value && this.requestOnScroll$) {
-            this.requestOnScrollSubscription.unsubscribe();
-            this.requestCallbackOnScroll(true);
+        if (!this._immediateCallback && value) {
+            if (this.isNeedInitStreams) {
+                this.setUpScrollProcess(true);
+            } else {
+                if (this.requestOnScrollSubscription) {
+                    this.requestOnScrollSubscription.unsubscribe();
+                    this.requestCallbackOnScroll(true);
+                }
+            }
         }
 
         this._immediateCallback = value;
@@ -58,49 +114,36 @@ export class InfiniteScrollerDirective implements AfterViewInit {
         return this._immediateCallback;
     }
 
-    @Input()
-    scrollPercent = 70;
-
-    @Input('infinite-scroller')
-    infiniteScroller = true;
-
-    @Output()
-    updated = new EventEmitter();
-
-    @Output()
-    scrolled = new EventEmitter();
-
-    constructor(private elm: ElementRef) { }
-
-    ngAfterViewInit() {
-        if (this.infiniteScroller) {
-            this.setUpScrollProcess();
-        }
+    private get isNeedInitStreams() {
+        return this.infiniteScroller && CommonUtils.isDefined(this.loader) && !CommonUtils.isDefined(this.userScrolledDown$);
     }
 
-    ngOnChanges(changes: SimpleChange) {
-        const infiniteScrollerChange = changes["infiniteScroller"],
-            immediateCallbackChange = changes["immediateCallback"];
-
-        if (infiniteScrollerChange && !infiniteScrollerChange.firstChange && infiniteScrollerChange.currentValue) {
-            this.setUpScrollProcess();
-        }
-    }
-
-    private setUpScrollProcess() {
+    /**
+     * Register scroll event
+     * Stream scroll events
+     * Subscribe to load data
+     */
+    private setUpScrollProcess(lateBinding: boolean = false) {
         this.registerScrollEvent();
-
         this.streamScrollEvents();
-
-        this.requestCallbackOnScroll();
+        this.requestCallbackOnScroll(lateBinding);
     }
 
+    /**
+     * Register scroll event
+     */
     private registerScrollEvent() {
-        this.scrollEvent$ = Observable.fromEvent(this.elm.nativeElement, 'scroll');
+        this.scrollEvent$ = Observable.fromEvent(this.element.nativeElement, 'scroll', {});
     }
 
+    /**
+     * Stream scroll events
+     * - allow scroll only down
+     * - filtering scroll by expected percentage
+     */
     private streamScrollEvents() {
         this.userScrolledDown$ = this.scrollEvent$
+            .pipe(distinctUntilChanged())
             .map((e: any): IScrollPosition => ({
                 sH: e.target.scrollHeight,
                 sT: e.target.scrollTop,
@@ -110,12 +153,17 @@ export class InfiniteScrollerDirective implements AfterViewInit {
             .filter(positions => !this.isSourceEmpty && this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1]));
     }
 
+    /**
+     * Subscribe to load data on scroll
+     * depend to scrollEvent and userScrolledDown streams
+     * @param lateBinding - immediate calback was set after directive init
+     */
     private requestCallbackOnScroll(lateBinding: boolean = false) {
         this.requestOnScroll$ = this.userScrolledDown$;
 
         if (this.immediateCallback || lateBinding) {
             this.requestOnScroll$ = this.requestOnScroll$
-                .startWith([DEFAULT_SCROLL_POSITION, DEFAULT_SCROLL_POSITION]);
+                .startWith([this.DEFAULT_SCROLL_POSITION, this.DEFAULT_SCROLL_POSITION]);
         }
 
         this.requestOnScrollSubscription = this.requestOnScroll$
@@ -133,24 +181,30 @@ export class InfiniteScrollerDirective implements AfterViewInit {
                 return Observable.empty();
             })
             .pipe(
-                tap((data: ILoadMoreData) => {
+                tap((data: ILoadMoreData<any>) => {
                     this.isSourceEmpty = data ? !data.HasNext : this.isSourceEmpty;
                 }))
             .subscribe(
-                (res: ILoadMoreData) => {
+                (data: ILoadMoreData<any>) => {
                     if (this.updated)
-                        this.updated.emit(res.Items || res);
+                        this.updated.emit(data);
                 }
             );
-
     }
 
+    /**
+     * Detect if user scrolling down
+     * @param positions - positions of current and previus scroll events
+     */
     private isUserScrollingDown = (positions) => {
         return positions[0].sT < positions[1].sT;
     }
 
+    /**
+     * Detect if scroll reach expected percentage
+     * @param position - positions of current and previus scroll events
+     */
     private isScrollExpectedPercent = (position) => {
         return ((position.sT + position.cH) / position.sH) >= (this.scrollPercent / 100);
     }
-
 }

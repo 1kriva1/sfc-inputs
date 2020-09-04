@@ -1,21 +1,19 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { FileUtils } from '../utils/file-utils';
+import { CommonUtils } from '../utils/common-utils';
+import { CollectionUtils } from '../utils/collection-utils';
 
 export default class SfcValidators {
     static TextAreaRequired() {
         const validatorFn: ValidatorFn = (value: any) => {
 
-            if (value === null || value === undefined) {
+            if (!CommonUtils.isDefined(value)) {
                 return { textAreaRequired: true };
             }
 
-            const valueWithoutEscapeChars = value.replace(/\r?\n/g, "\\n").replace(/\\n/g, "");
-
-            if (valueWithoutEscapeChars === '') {
-                return { textAreaRequired: true };
-            }
-
-            return null;
+            return value.replace(/\r?\n/g, "\\n").replace(/\\n/g, "") === ''
+                ? { textAreaRequired: true }
+                : null;
         }
 
         return SfcValidators.validation(validatorFn);
@@ -90,7 +88,7 @@ export default class SfcValidators {
 
     static FileExtensions(allowedExtensions: Array<string>): ValidatorFn {
         const validatorFn = (file: File) => {
-            if (allowedExtensions.length === 0) {
+            if (!CollectionUtils.any(allowedExtensions)) {
                 return null;
             }
 
@@ -110,11 +108,7 @@ export default class SfcValidators {
 
     private static validation(validatorFn: (any) => null | object): ValidatorFn {
         return (formControl: AbstractControl) => {
-            if (!formControl.value) {
-                return null;
-            }
-
-            return validatorFn(formControl.value);
+            return CommonUtils.isDefined(formControl) ? validatorFn(formControl.value) : null;
         };
     }
 

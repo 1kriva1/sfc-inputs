@@ -1,6 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoaderService } from 'projects/sfc-inputs/src/lib/common/components/loader/base/sfc-loader.service';
 import ISize from 'projects/sfc-inputs/src/lib/common/interfaces/ISize';
+import BaseAppInputComponent from 'src/base-app-input.component';
+import { FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'loader-app',
@@ -10,13 +13,11 @@ import ISize from 'projects/sfc-inputs/src/lib/common/interfaces/ISize';
         './loader.component.css'
     ]
 })
-export class LoaderAppComponent {
-    private theme: string = "common";
-
+export class LoaderAppComponent extends BaseAppInputComponent {
     private customSize: ISize = { width: 80, height: 80 };
 
-    constructor(private loaderService: LoaderService) {
-
+    constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute, private loaderService: LoaderService) {
+        super(formBuilder, router, activatedRoute);
     }
 
     /**

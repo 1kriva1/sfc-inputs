@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, ElementRef, Input, Output } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Input, Output, ViewChild, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import { EventEmitter } from '@angular/core';
+import { CollectionUtils } from '../../utils/collection-utils';
 
 @Component({
     selector: 'load-more-button',
@@ -11,22 +12,47 @@ import { EventEmitter } from '@angular/core';
 })
 export class LoadMoreButtonComponent implements AfterViewInit {
 
-    @Input()
+    /**
+     * Start load more on init (before click on button)
+     */
+    @Input('load-on-init')
     immediateCallback;
 
+    /**
+     * Loader function (return Observable)
+     */
     @Input()
-    loader: () => Observable<ILoadMoreData>;
+    loader: () => Observable<ILoadMoreData<any>>;
 
+    /**
+     * Called when button was clicked(before load data)
+     */
     @Output()
-    clicked: EventEmitter<any> = new EventEmitter<any>();
+    clicked: EventEmitter<void> = new EventEmitter<void>();
 
+    /**
+     * Called when data were loaded
+     */
     @Output()
     updated: EventEmitter<any> = new EventEmitter<any>();
 
+    /**
+     * If ILoadMoreData HasNext is false it means that we need hide load more button
+     */
     private isSourceEmpty = false;
 
-    constructor(private showMoreButton: ElementRef) {
+    /**
+     * TODO? move hr deliminator to parent components
+     */
+    private hasData = false;
 
+    @ViewChild('showMoreButton', { static: false })
+    private showMoreButton: ElementRef;
+
+    @HostListener('mousedown', ['$event'])
+    onMouseDown(event) {
+        if (event.preventDefault)
+            event.preventDefault();
     }
 
     ngAfterViewInit(): void {
@@ -38,11 +64,6 @@ export class LoadMoreButtonComponent implements AfterViewInit {
 
         mouseDownEvent$
             .filter(_ => !this.isSourceEmpty)
-            .pipe(
-                tap((event: Event) => {
-                    if (event.preventDefault)
-                        event.preventDefault();
-                }))
             .exhaustMap(() => {
                 if (this.loader) {
 
@@ -57,14 +78,13 @@ export class LoadMoreButtonComponent implements AfterViewInit {
                 return Observable.empty();
             })
             .pipe(
-                tap((data: ILoadMoreData) => {
+                tap((data: ILoadMoreData<any>) => {
                     this.isSourceEmpty = data ? !data.HasNext : this.isSourceEmpty;
+                    this.hasData = data ? !this.isSourceEmpty && CollectionUtils.any(data.Items) : false;
                 }))
-            .subscribe((data: ILoadMoreData) => {
+            .subscribe((data: ILoadMoreData<any>) => {
                 if (this.updated)
-                    this.updated.emit(data.Items || data);
+                    this.updated.emit(data);
             });
     }
-
 }
-

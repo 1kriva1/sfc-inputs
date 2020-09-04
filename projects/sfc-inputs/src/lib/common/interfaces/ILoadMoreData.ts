@@ -1,4 +1,4 @@
-export interface ILoadMoreData {
+export interface ILoadMoreData<T> {
     HasNext: boolean;
-    Items: any;
+    Items: T[];
 }

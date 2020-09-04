@@ -64,7 +64,7 @@
   }
   
   /* Change the background color on mouse-over */
-  .header a:hover {
+  .header a:hover, .header a.menu-active  {
     background-color: #ddd;
     color: black;
   }

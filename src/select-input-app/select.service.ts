@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap, distinctUntilChanged, exhaustMap, switchMap, shareReplay } from 'rxjs/operators';
+import { catchError, tap, distinctUntilChanged } from 'rxjs/operators';
 import ISelectModel from './select.model';
 import ISelectGroupModel from './select-group.model';
 import ISelectPagedModel from './select-paged.model';
@@ -11,45 +10,35 @@ import ISelectPagedModel from './select-paged.model';
 @Injectable({ providedIn: 'root' })
 export default class SelectService {
 
-    private sfcUrl = 'http://sfc.mock.com';  // URL to web api
-
-    httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    private sfcUrl = 'http://sfc.mock.com:88';
 
     constructor(private http: HttpClient) { }
-
-    /** GET heroes from the server */
+    
     getSelects(): Observable<ISelectModel[]> {
         return this.http.get<ISelectModel[]>(this.sfcUrl + '/values/sleep/1000')
             .pipe(
                 tap(_ => this.log('fetched selects')),
-                //shareReplay(),
                 distinctUntilChanged(),
                 catchError(this.handleError<ISelectModel[]>('getSelects', []))
             );
     }
 
-    /** GET heroes from the server */
     getGroupSelects(): Observable<ISelectGroupModel[]> {
         return this.http.get<ISelectGroupModel[]>(this.sfcUrl + '/values/group/sleep/1000')
             .pipe(
                 tap(_ => this.log('fetched group selects')),
-                //shareReplay(),
                 distinctUntilChanged(),
                 catchError(this.handleError<ISelectGroupModel[]>('getGroupSelects', []))
             );
     }
 
-    /** GET heroes from the server */
     getPagedSelects(page: number, size: number): Observable<ISelectPagedModel> {
         const options =
-            { params: new HttpParams().set('PageSize', size.toString()).set('PageNumber', page.toString()).set('Sleep', "3000") };
+            { params: new HttpParams().set('PageSize', size.toString()).set('PageNumber', page.toString()).set('Sleep', "1000") };
 
         return this.http.get<ISelectPagedModel>(this.sfcUrl + '/values/pagination', options)
             .pipe(
                 tap(_ => this.log('fetched paged selects')),
-                //shareReplay(),
                 distinctUntilChanged(),
                 catchError(this.handleError<ISelectPagedModel>('getPagedSelects', { Items: [], Total: 0, CurrentPage: 0, HasNext: false, HasPrevious: false, TotalPages: 0 }))
             );

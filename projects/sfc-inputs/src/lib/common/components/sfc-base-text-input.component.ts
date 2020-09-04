@@ -1,12 +1,12 @@
 import BaseInputComponent from './sfc-base-input.component';
 import { CommonConstants } from '../constants/common-constants';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Renderer2, ElementRef } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 export default abstract class BaseTextInputComponent extends BaseInputComponent<string> {
 
-    constructor(protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef) {
-        super(ngControl, changeDetector);
+    constructor(protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
+        super(ngControl, changeDetector, renderer, elementRef);
         this.value = '';
     }
 

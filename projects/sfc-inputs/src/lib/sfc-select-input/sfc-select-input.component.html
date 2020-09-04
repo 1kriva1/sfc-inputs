@@ -1,14 +1,19 @@
-<div class="input-text-container input-select-container">
-    <div class="select-wrapper" [ngClass]="validationClass" (click)="openDropdown()">
-        <i *ngIf="icon" class="icon" [ngClass]="iconClass" (click)="openDropdownContent()"></i>
-        <input sfcinput #inputSelect type="text" class="input-select input-text-input" value={{displayValue}}
-            [placeholder]="placeholder" [disabled]="disabled" readonly>
-        <div class="select-dropdown-container" [ngStyle]="dynamicSizeStyles" [ngClass]="dropdownClasses">            
-            <div style="position: relative;">
-                <app-bounce-loader *ngIf="isLoadingData" [id]="id" [size]="'small'" [background]="true"></app-bounce-loader>
-                <ul #ulSelect class="select-dropdown" 
-                    [infinite-scroller]="loader && !loadMoreButton" scrollPercent="99"
-                    [immediateCallback]="isImediateCallback" [loader]="loader" (scrolled)="onLoadMore()"
+<div class="input-container">
+
+    <div class="select-wrapper">
+        <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+        <input sfcinput type="text" class="input-select input-text-input" value={{displayValue}}
+            [placeholder]="placeholder" [disabled]="disabled" readonly (focus)="openDropdown($event)">
+        <label #labelFocused for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+        <span class="helper-text">{{helperText}}</span>
+
+        <div class="select-dropdown-container">
+            <div [ngClass]="hasItems && isFocus ? 'hasItems' : ''">
+                <app-bounce-loader [hidden]="!isLoadingData" [id]="id" [size]="'small'" [background]="true">
+                </app-bounce-loader>
+
+                <ul class="select-dropdown" [infinite-scroller]="!loadMoreButton" scrollPercent="100"
+                    [immediateCallback]="isInfScrollImmediateCallback" [loader]="loader" (scrolled)="onLoadMore()"
                     (updated)="updateData($event)">
 
                     <li #liSelected *ngFor="let item of localData" (mousedown)="setOptionValue($event, item)"
@@ -21,28 +26,25 @@
                                 <div class="multiple">
                                     <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
                                     <label for="{{item.key}}">
-                                        <span></span>{{item.value}}
+                                        <span></span>
+                                        {{item.value}}
                                     </label>
                                 </div>
                             </label>
                         </span>
                     </li>
 
-                    <load-more-button *ngIf="loader && loadMoreButton" [loader]="loader" [immediateCallback]="isImediateCallback"
-                        (clicked)="onLoadMore()" (updated)="updateData($event)"></load-more-button>
+                    <load-more-button *ngIf="loader && loadMoreButton" [loader]="loader"
+                        [load-on-init]="isLoadMoreBtnImmediateCallback" (clicked)="onLoadMore()"
+                        (updated)="updateData($event)"></load-more-button>
                 </ul>
             </div>
-
-
         </div>
 
-        <i class="caret fa fa-caret-down" (click)="openDropdownContent()"></i>
+        <i class="caret fa fa-caret-down"></i>
         <select id="sfc-{{id}}" value={{value}} [attr.multiple]="multiple ? '' : null">
             <option *ngFor="let item of localData" value="{{item.key}}"
                 [attr.selected]="isItemSelected(item) ? 'selected' : null">{{item.value}}</option>
         </select>
     </div>
-    <label for="sfc-{{id}}" [ngClass]="labelClass" (click)="openDropdownContent()">{{label}}</label>
-    <span class="helper-text">{{helperText}}</span>
-
 </div>
