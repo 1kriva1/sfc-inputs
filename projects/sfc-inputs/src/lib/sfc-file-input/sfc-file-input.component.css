@@ -101,11 +101,11 @@ input[type=file] {
 
 /* FILE LABEL */
 
-.file-path+label.active {
+.sfc-input+label.active {
     transform: translateY(-14px) translateX(72px) scale(0.8);
 }
 
-i.icon~.file-path+label {
+i.icon~.sfc-input+label {
     transform: translateY(-14px) translateX(10px) scale(0.8);
 }
 

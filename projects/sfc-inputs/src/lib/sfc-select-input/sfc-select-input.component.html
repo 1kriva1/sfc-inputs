@@ -1,8 +1,7 @@
 <div class="input-container">
-
     <div class="select-wrapper">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-        <input sfcinput type="text" class="input-select input-text-input" value={{displayValue}}
+        <input sfcinput type="text" class="sfc-input input-text-input" value={{displayValue}}
             [placeholder]="placeholder" [disabled]="disabled" readonly (focus)="openDropdown($event)">
         <label #labelFocused for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
         <span class="helper-text">{{helperText}}</span>

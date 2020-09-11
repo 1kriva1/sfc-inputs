@@ -14,6 +14,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     label: string;
 
     @Input()
+    @HostBinding('class.disabled')
     disabled: boolean;
 
     @Input('placeholder')
@@ -162,7 +163,10 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     }
 
     ngAfterViewInit(): void {
-        this.setOnFocusEvent(this.elementRef.nativeElement.querySelector('i.icon'));
+        if(this.elementRefInput){
+            this.setOnFocusEvent(this.elementRef.nativeElement.querySelector('i.icon'));
+        }
+        
         this.changeDetector.detectChanges();
     }    
 

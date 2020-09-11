@@ -55,6 +55,7 @@
     font-size: 18px;
     line-height: 25px;
     border-radius: 4px;
+    margin: 0 5px 0 5px;
   }
   
   /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */

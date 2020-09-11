@@ -4,7 +4,8 @@ export enum StyleClass {
     Invalid = 'invalid',
     Disabled = 'disabled',
     Selected = 'selected',
-    WithIcon = 'withIcon'
+    WithIcon = 'withIcon',
+    Empty = 'empty'
 };
 
 export enum FileInputType {

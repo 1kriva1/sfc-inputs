@@ -7,4 +7,7 @@ export class CommonUtils {
         return <T>value !== undefined && <T>value !== null;
     }
 
+    public static isNullOrEmptyString<T>(value: string | undefined | null) {
+        return !CommonUtils.isDefined(value) || value === '';
+    }
 }

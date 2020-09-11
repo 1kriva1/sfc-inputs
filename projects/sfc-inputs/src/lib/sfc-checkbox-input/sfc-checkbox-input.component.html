@@ -1,0 +1,10 @@
+<div class="input-container input-checkbox-container">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <input sfcinput id="sfc-{{id}}" type="checkbox" [disabled]="disabled" class="sfc-input" [checked]="value"
+        [value]="value" (input)="onChange($event.target.checked)" />
+    <label for="sfc-{{id}}" [ngClass]="labelClass">
+        <span></span>
+        <p>{{displayValue}}</p>
+    </label>
+    <span class="helper-text">{{helperText}}</span>
+</div>

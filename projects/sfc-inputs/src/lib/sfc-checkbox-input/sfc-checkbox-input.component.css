@@ -1,0 +1,130 @@
+.input-checkbox-container {
+    display: inline-block;
+}
+
+/* ICON */
+
+.input-checkbox-container>i.icon {
+    top: 0;
+}
+
+/* END ICON */
+
+/* CHECKBOX */
+
+input[type='checkbox'].sfc-input {
+    display: none;
+}
+
+/* END CHECKBOX */
+
+/* LABEL */
+
+input[type='checkbox'].sfc-input+label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    margin: 0 auto;
+    color: rgba(0, 0, 0, 0.54);
+    width: auto;
+}
+
+.input-checkbox-container>i.icon~input[type='checkbox'].sfc-input+label {
+    margin-left: 3rem;
+}
+
+input[type='checkbox']+label>span {
+    margin-right: 1em;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 2px solid #9E9E9E;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 250ms cubic-bezier(.4, .0, .23, 1);
+    box-sizing: border-box;
+}
+
+input[type='checkbox'].sfc-input+label.empty>span {
+    margin-right: 0;
+}
+
+input[type='checkbox'].sfc-input:checked+label>span {
+    border: 1em solid #26a69a;
+    animation: shrink-bounce 200ms cubic-bezier(.4, .0, .23, 1);
+}
+
+input[type='checkbox'].sfc-input:checked+label>span:before {
+    content: "";
+    position: absolute;
+    top: .75em;
+    left: 0.55em;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    transform: rotate(45deg);
+    transform-origin: 0% 100%;
+    animation: checkbox-check 125ms 250ms cubic-bezier(.4, .0, .23, 1) forwards;
+}
+
+input[type='checkbox'].sfc-input+label>p {
+    margin: 0;
+}
+
+input[type='checkbox'].sfc-input+label>p:hover {
+    color: #434A54;
+}
+
+/* END LABEL */
+
+/* DISABLED */
+
+:host(.disabled) input[type='checkbox'].sfc-input:disabled+label>p {
+    color: rgba(0, 0, 0, 0.42);
+}
+
+:host(.disabled) input[type='checkbox'].sfc-input:disabled+label>span {
+    border-color: rgba(0, 0, 0, 0.42);
+}
+
+/* END DISABLED */
+
+
+/* ANIMATION */
+
+@keyframes shrink-bounce {
+    0% {
+        transform: scale(1);
+    }
+    33% {
+        transform: scale(.85);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes checkbox-check {
+    0% {
+        width: 0;
+        height: 0;
+        border-color: #fff;
+        transform: translate3d(0, 0, 0) rotate(45deg);
+    }
+    33% {
+        width: .4em;
+        height: 0;
+        transform: translate3d(0, 0, 0) rotate(45deg);
+    }
+    100% {
+        width: .4em;
+        height: .8em;
+        border-color: #fff;
+        transform: translate3d(0, -.8em, 0) rotate(45deg);
+    }
+}
+
+/* END ANIMATION */

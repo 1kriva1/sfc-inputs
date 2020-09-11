@@ -5,16 +5,16 @@
 
 /* VALID */
 
-:host-context(.sfc-input-dark-theme) .input-text-input.valid, :host-context(.sfc-input-dark-theme) .input-text-input.valid:focus {
+:host-context(.sfc-input-dark-theme) .sfc-input.valid, :host-context(.sfc-input-dark-theme) .sfc-input.valid:focus {
     border-bottom: 1px solid #A0D468;
     box-shadow: 0 1px 0 0 #A0D468;
 }
 
-:host-context(.sfc-input-dark-theme) .input-text-input.valid:focus+label {
+:host-context(.sfc-input-dark-theme) .sfc-input.valid:focus+label {
     color: #A0D468;
 }
 
-:host-context(.sfc-input-dark-theme) .input-text-input.valid~.helper-text {
+:host-context(.sfc-input-dark-theme) .sfc-input.valid~.helper-text {
     color: #A0D468;
 }
 
@@ -26,16 +26,16 @@
 
 /* INVALID */
 
-:host-context(.sfc-input-dark-theme) .input-text-input.invalid, :host-context(.sfc-input-dark-theme) .input-text-input.invalid:focus {
+:host-context(.sfc-input-dark-theme) .sfc-input.invalid, :host-context(.sfc-input-dark-theme) .sfc-input.invalid:focus {
     border-bottom: 1px solid #DA4453;
     box-shadow: 0 1px 0 0 #DA4453;
 }
 
-:host-context(.sfc-input-dark-theme) .input-text-input.invalid:focus+label {
+:host-context(.sfc-input-dark-theme) .sfc-input.invalid:focus+label {
     color: #DA4453;
 }
 
-:host-context(.sfc-input-dark-theme) .input-text-input.invalid~.helper-text {
+:host-context(.sfc-input-dark-theme) .sfc-input.invalid~.helper-text {
     color: #DA4453;
 }
 
@@ -69,6 +69,10 @@
 
 :host-context(.sfc-input-dark-theme) i.icon.active {
     color: #26a69a;
+}
+
+:host-context(.sfc-input-dark-theme) i.icon:not(.valid):not(.invalid):hover{
+    color: #AAB2BD;
 }
 
 /* ICON END */

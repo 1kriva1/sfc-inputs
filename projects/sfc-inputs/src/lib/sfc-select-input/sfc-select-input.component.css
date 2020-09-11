@@ -17,7 +17,7 @@
 
 /* TEXT INPUT */
 
-.select-wrapper input.input-select {
+.select-wrapper input.sfc-input {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
@@ -176,7 +176,7 @@
 
 /* DISABLED */
 
-.select-wrapper input.input-select:disabled {
+.select-wrapper input.sfc-input:disabled {
     cursor: default;
 }
 

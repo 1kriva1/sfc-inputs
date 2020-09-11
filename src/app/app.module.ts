@@ -9,14 +9,14 @@ import { TextInputAppComponent } from 'src/text-input-app/text-input.component';
 import { TextAreaAppComponent } from 'src/text-area-app/text-area.component';
 import { FileInputAppComponent } from 'src/file-input-app/file-input.component';
 import { SelectInputAppComponent } from 'src/select-input-app/select-input.component';
-import { LoaderService } from 'projects/sfc-inputs/src/lib/common/components/loader/base/sfc-loader.service';
 import { LoaderAppComponent } from 'src/loader-app/loader.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CheckboxInputAppComponent } from 'src/checkbox-input-app/checkbox-input.component';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,  HttpClientModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
-    declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent],
+    declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent, CheckboxInputAppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

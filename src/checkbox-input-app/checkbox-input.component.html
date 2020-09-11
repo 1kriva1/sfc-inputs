@@ -1,0 +1,178 @@
+<div class="demo-container">
+    <h1>CHECKBOX INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-empty" formControlName="inputCheckboxNull">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-label" formControlName="inputCheckboxLabel"
+                            label="label example">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-placeholder" formControlName="inputCheckboxPlaceholder"
+                            placeholder="placeholder example">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-placeholder-and-lable"
+                            formControlName="inputCheckboxPlaceholderAndLabel" label="label (and placeholder) example"
+                            placeholder="placeholder example">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-icon" formControlName="inputCheckboxIcon"
+                            icon="fa fa-star">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-icon-label" formControlName="inputCheckboxIconAndLabel"
+                            label="label (with icon) example" icon="fa fa-user">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-helper-text" formControlName="inputCheckboxHelperText"
+                            helper-text="Helper text example">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-helper-text-label"
+                            formControlName="inputCheckboxHelperTextLabel" label="label (with helper text) example"
+                            helper-text="Helper text label example">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-helper-text-label-icon"
+                            formControlName="inputCheckboxHelperTextLabelIcon"
+                            label="label (with helper text and icon) example"
+                            helper-text="Helper text label icon example" icon="fa fa-phone">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-disabled" formControlName="inputCheckboxDisabled">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-disabled-label"
+                            formControlName="inputCheckboxDisabledLabel" label="label disabled example">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-disabled-label-icon"
+                            formControlName="inputCheckboxDisabledLabelIcon" label="label icon helper disabled example"
+                            helper-text="Helper text label icon disabled example" icon="fa fa-automobile">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-value" formControlName="inputCheckboxValue">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-value-label" formControlName="inputCheckboxValueLabel"
+                            label="label with value example">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-value-label-icon"
+                            formControlName="inputCheckboxValueLabelIcon" label="label with value and icon example"
+                            icon="fa fa-ban" helper-text="Helper text label icon value example">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-required-true" formControlName="inputCheckboxRequiredTrue"
+                            label="required true validator" icon="fa fa-calculator"
+                            helper-text="Helper text required true validator">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-value-required-true"
+                            formControlName="inputCheckboxValueRequiredTrue"
+                            label="required true (with value) validator" icon="fa fa-bug"
+                            helper-text="Helper text (with value) required true validator">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-value-invalid-required-true"
+                            formControlName="inputCheckboxInvalidValueRequiredTrue"
+                            label="required true (with invalid value) validator" icon="fa fa-cog"
+                            helper-text="Helper text (with invalid value) required true validator">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-required-true-custom-message-invalid"
+                            formControlName="inputCheckboxValueInvalidMessageRequiredTrue"
+                            label="required true (invalid with custom message) validator" icon="fa fa-calculator"
+                            helper-text="Helper text (invalid with custom message) required true validator"
+                            [validations]="{required: 'Must be checked'}">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-required-true-custom-message-valid"
+                            formControlName="inputCheckboxValueValidMessageRequiredTrue"
+                            label="required true (valid with custom message) validator"
+                            helper-text="Helper text (valid with custom message) required true validator"
+                            [validations]="{required: 'Must be checked'}">
+                        </sfc-checkbox-input>
+                    </div>
+
+                    <div>
+                        <sfc-checkbox-input id="demo-checkbox-required-true-custom-message-invalid-emptyhelpertext"
+                            formControlName="inputCheckboxValueValidMessageRequiredTrueEmptyHelperText"
+                            label="required true (valid with custom message) validator"
+                            [validations]="{required: 'Must be checked'}">
+                        </sfc-checkbox-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

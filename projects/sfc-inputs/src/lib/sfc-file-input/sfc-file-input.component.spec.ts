@@ -154,7 +154,7 @@ describe('Component: FileInputComponent', () => {
     }));
 
     it("Text Input: permanent class value", () => {
-        expect(debugTextInputEl.nativeElement.classList.contains('file-path')).toBeTruthy();
+        expect(debugTextInputEl.nativeElement.classList.contains('sfc-input')).toBeTruthy();
         expect(debugTextInputEl.nativeElement.classList.contains('input-text-input')).toBeTruthy();
     });
 

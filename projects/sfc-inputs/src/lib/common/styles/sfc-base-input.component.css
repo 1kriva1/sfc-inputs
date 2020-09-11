@@ -1,4 +1,4 @@
-.input-container{
+.input-container {
     position: relative;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -30,16 +30,16 @@
 
 /* VALID */
 
-.input-text-input.valid, .input-text-input.valid:focus {
+.sfc-input.valid, .sfc-input.valid:focus {
     border-bottom: 1px solid #8CC152;
     box-shadow: 0 1px 0 0 #8CC152;
 }
 
-.input-text-input.valid:focus+label {
+.sfc-input.valid:focus+label {
     color: #8CC152;
 }
 
-.input-text-input.valid~.helper-text {
+.sfc-input.valid~.helper-text {
     color: #8CC152;
 }
 
@@ -51,16 +51,16 @@ i.icon.valid {
 
 /* INVALID */
 
-.input-text-input.invalid, .input-text-input.invalid:focus {
+.sfc-input.invalid, .sfc-input.invalid:focus {
     border-bottom: 1px solid #E9573F;
     box-shadow: 0 1px 0 0 #E9573F;
 }
 
-.input-text-input.invalid:focus+label {
+.sfc-input.invalid:focus+label {
     color: #E9573F;
 }
 
-.input-text-input.invalid~.helper-text {
+.sfc-input.invalid~.helper-text {
     color: #E9573F;
 }
 
@@ -162,6 +162,10 @@ i.icon {
     cursor: pointer;
 }
 
+i.icon:not(.valid):not(.invalid):hover {
+    color: #656D78;
+}
+
 i.icon~.input-text-input {
     width: calc(100% - 3rem);
 }
@@ -179,6 +183,11 @@ i.icon.active {
 }
 
 :host(.focus) i.icon {
+    pointer-events: none;
+}
+
+:host(.disabled) i.icon {
+    color: rgba(0, 0, 0, 0.42);
     pointer-events: none;
 }
 

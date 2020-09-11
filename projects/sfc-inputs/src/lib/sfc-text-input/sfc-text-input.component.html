@@ -1,6 +1,6 @@
 <div class="input-container">
     <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-    <input sfcinput id="sfc-{{id}}" [type]="type" class="input-text-input" 
+    <input sfcinput id="sfc-{{id}}" [type]="type" class="sfc-input input-text-input" 
         [placeholder]="placeholder" [value]="value" [disabled]="disabled"
         (input)="onChange($event.target.value)" (blur)="onBlur()">
     <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>

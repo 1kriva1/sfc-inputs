@@ -7,7 +7,7 @@
             (change)="emitFiles($event.target.files)">
         <div class="file-path-wrapper">
             <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
-            <input class="file-path input-text-input" value={{fileName}} type="text" [disabled]="disabled"
+            <input class="sfc-input input-text-input" value={{fileName}} type="text" [disabled]="disabled"
                 [placeholder]="placeholder" [ngClass]="validationClass">
             <label for="sfc-{{id}}" class="active">{{label}}</label>
             <span class="helper-text">{{helperText}}</span>

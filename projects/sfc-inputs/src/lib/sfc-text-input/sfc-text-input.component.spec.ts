@@ -127,7 +127,7 @@ describe('Component: TextInputComponent', () => {
     });
 
     it("Input: set input value", () => {
-        const assertValue = "test value";
+        const assertValue = 'test value';
         component.writeValue(assertValue);
         fixture.detectChanges();
 
