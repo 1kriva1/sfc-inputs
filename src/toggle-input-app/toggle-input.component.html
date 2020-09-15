@@ -1,0 +1,237 @@
+<div class="demo-container">
+    <h1>TOGGLE INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <div class="input-row">
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-empty" formControlName="inputToggleNull">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-label" formControlName="inputToggleLabel" label="with label">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-placeholder" formControlName="inputTogglePlaceholder"
+                            placeholder="with placeholder">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-label-placeholder"
+                            formControlName="inputToggleLabelAndPlaceholder" label="with label and placeholder"
+                            placeholder="with label and placeholder">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-icon" formControlName="inputToggleIcon" icon="fa fa-arrows">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-icon-label" formControlName="inputToggleIconAndLabel"
+                            icon="fa fa-arrows" label="with label and icon">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-icon-custom-positive"
+                            formControlName="inputToggleCustomNegativeIcon" label="with label and custom positive icon"
+                            positive-icon="fa fa-automobile" helper-text="with label and custom positive icon">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-icon-custom-negative"
+                            formControlName="inputToggleCustomNegativeIcon" label="with label and custom negative icon"
+                            negative-icon="fa fa-automobile" helper-text="with label and custom negative icon">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-icon-custom-icons" formControlName="inputToggleCustomIcons"
+                            label="with label and custom icons" negative-icon="fa fa-ban"
+                            positive-icon="fa fa-automobile" helper-text="with label and custom icons">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-custom-labels" formControlName="inputToggleCustomLabels"
+                            label="with label and custom labels"
+                            [label-config]="{negativeLabel: 'NO', positiveLabel: 'YES'}"
+                            helper-text="with label and custom labels">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-custom-labels-icon" formControlName="inputToggleCustomLabelsIcon"
+                            label="with label and custom labels and icon"
+                            [label-config]="{negativeLabel: 'NO', positiveLabel: 'YES'}"
+                            helper-text="with label and custom labels and icon" icon="fa fa-star">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-custom-labels-icon-disabled" formControlName="inputToggleCustomLabelsDisabled"
+                            label="with label and custom labels and icon DISABLED"
+                            [label-config]="{negativeLabel: 'NO', positiveLabel: 'YES'}"
+                            helper-text="with label and custom labels and icon DISABLED" icon="fa fa-star">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-helper" formControlName="inputToggleHelper"
+                            helper-text="with helper text">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-helper-label" formControlName="inputToggleHelperAndLabel"
+                            label="with helper text and label" helper-text="with helper text and label">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-helper-label-icon"
+                            formControlName="inputToggleHelperAndLabelAndIcon"
+                            label="with helper text and label and icon"
+                            helper-text="with helper text and label and icon" icon="fa fa-star">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-disabled" formControlName="inputToggleDisabled">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-disabled-label" formControlName="inputToggleDisabledAndLabel"
+                            label="disabled with label">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-disabled-label-icon"
+                            formControlName="inputToggleDisabledAndLabelAndIcon" label="disabled with label"
+                            icon="fa fa-user">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-value" formControlName="inputToggleValue">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-value-placeholder"
+                            formControlName="inputToggleValueAndPlaceholder" placeholder="value with placeholder">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-value-icon-label"
+                            formControlName="inputToggleValueAndIconLabel" label="value with label and icon and helper"
+                            helper-text="value with label and icon and helper" icon="fa fa-bath">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-required-true" formControlName="inputToggleRequiredTrue"
+                            label="required true with label and icon and helper"
+                            helper-text="required true with label and icon and helper" icon="fa fa-bath">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-required-true-valid"
+                            formControlName="inputToggleRequiredTrueValid" label="required true VALID"
+                            helper-text="required true VALID" icon="fa fa-bath">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-required-true-invalid"
+                            formControlName="inputToggleRequiredTrueInvalid" label="required true INVALID"
+                            helper-text="required true INVALID" icon="fa fa-bath">
+                        </sfc-toggle-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-required-true-custom-message-invalid"
+                            formControlName="inputToggleValueInvalidMessageRequiredTrue"
+                            label="required true (invalid with custom message)" icon="fa fa-calculator"
+                            helper-text="Helper text (invalid with custom message) required true"
+                            [validations]="{required: 'Must be checked'}">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-required-true-custom-message-valid"
+                            formControlName="inputToggleValueValidMessageRequiredTrue"
+                            label="required true (valid with custom message) validator"
+                            helper-text="Helper text (valid with custom message) required true validator"
+                            [validations]="{required: 'Must be checked'}">
+                        </sfc-toggle-input>
+                    </div>
+
+                    <div>
+                        <sfc-toggle-input id="demo-toggle-required-true-custom-message-invalid-emptyhelpertext"
+                            formControlName="inputToggleValueValidMessageRequiredTrueEmptyHelperText"
+                            label="required true (valid with custom message) validator"
+                            [validations]="{required: 'Must be checked'}">
+                        </sfc-toggle-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

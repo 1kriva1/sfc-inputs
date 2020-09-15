@@ -4,7 +4,7 @@
     color: #9e9e9e;
 }
 
-:host-context(.sfc-input-dark-theme) input[type='checkbox'].sfc-input+label>p:hover {
+:host-context(.sfc-input-dark-theme) input[type='checkbox'].sfc-input+label>p:hover, :host-context(.sfc-input-dark-theme) input[type='checkbox'].sfc-input:checked+label>p {
     color: white;
 }
 
@@ -22,6 +22,10 @@
 
 :host-context(.sfc-input-dark-theme) input[type='checkbox'].sfc-input:disabled+label>span {
     border-color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) input[type='checkbox'].sfc-input:disabled:checked+label>p {
+    color: #E6E9ED;
 }
 
 /* END DISABLED */

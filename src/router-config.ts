@@ -5,6 +5,7 @@ import { FileInputAppComponent } from './file-input-app/file-input.component';
 import { SelectInputAppComponent } from './select-input-app/select-input.component';
 import { LoaderAppComponent } from './loader-app/loader.component';
 import { CheckboxInputAppComponent } from './checkbox-input-app/checkbox-input.component';
+import { ToggleInputAppComponent } from './toggle-input-app/toggle-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -36,6 +37,10 @@ export const routeConfig = [
     {
         path: 'checkbox-input',
         component: CheckboxInputAppComponent
+    },
+    {
+        path: 'toggle-input',
+        component: ToggleInputAppComponent
     },
     {
         path: 'loader',

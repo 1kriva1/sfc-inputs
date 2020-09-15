@@ -58,6 +58,10 @@ input[type='checkbox'].sfc-input:checked+label>span {
     animation: shrink-bounce 200ms cubic-bezier(.4, .0, .23, 1);
 }
 
+input[type='checkbox'].sfc-input:checked+label>p {
+    color: #434A54;
+}
+
 input[type='checkbox'].sfc-input:checked+label>span:before {
     content: "";
     position: absolute;
@@ -91,7 +95,6 @@ input[type='checkbox'].sfc-input+label>p:hover {
 }
 
 /* END DISABLED */
-
 
 /* ANIMATION */
 

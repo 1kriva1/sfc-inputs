@@ -19,15 +19,16 @@ import { LoadMoreButtonComponent } from './common/components/load-more-button/sf
 import { ClickOutside } from './common/directives/clickoutside.directive';
 import HttpUtils from './common/utils/http-utils';
 import { CheckboxInputComponent } from './sfc-checkbox-input/sfc-checkbox-input.component';
+import { ToggleInputComponent } from './sfc-toggle-input/sfc-toggle-input.component';
 
 @NgModule({
   declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent, 
-    FileInputComponent, SelectInputComponent, CheckboxInputComponent, InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent],
+    FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, CircleLoaderComponent, 
+  exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, CircleLoaderComponent, 
     CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, InfiniteScrollerDirective],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },

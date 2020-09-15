@@ -1,0 +1,13 @@
+<div class="input-container input-toggle-container">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <input sfcinput id="sfc-{{id}}" type="checkbox" [disabled]="disabled" class="sfc-input"
+        [checked]="value" [value]="value" (input)="onChange($event.target.checked)">
+    <label *ngIf="labelConfig" for="sfc-{{id}}" class="display-label before-label">{{labelConfig.negativeLabel}}</label>
+    <label for="sfc-{{id}}" class="main-label">
+        <span class="toggle-handler">
+            <i [ngClass]="value ? positiveIcon: negativeIcon"></i>
+        </span>
+    </label>
+    <label for="sfc-{{id}}" class="display-label after-label">{{displayValue}}</label>
+    <span class="helper-text">{{helperText}}</span>
+</div>

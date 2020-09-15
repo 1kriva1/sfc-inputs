@@ -24,6 +24,11 @@ export enum ComponentSizeType {
     Large = 'large'
 };
 
+export enum IconType {
+    Negative = 'fa fa-times',
+    Positive = 'fa fa-check'
+}
+
 export class CommonConstants {
     static DEFAULT_ERROR_MESSAGE = 'Invalid value';
     static COMMON_TEXT_DELIMETER = '/';

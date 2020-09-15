@@ -12,11 +12,13 @@ import { SelectInputAppComponent } from 'src/select-input-app/select-input.compo
 import { LoaderAppComponent } from 'src/loader-app/loader.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CheckboxInputAppComponent } from 'src/checkbox-input-app/checkbox-input.component';
+import { ToggleInputAppComponent } from 'src/toggle-input-app/toggle-input.component';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,  HttpClientModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
-    declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent, CheckboxInputAppComponent],
+    declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent, CheckboxInputAppComponent,
+        ToggleInputAppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
