@@ -13,6 +13,16 @@ export enum FileInputType {
     Inline = 'inline'
 };
 
+export enum RadioButtonsInputLabelType {
+    Circle = 'circle',
+    Icons = 'icons'
+};
+
+export enum InputPosition {
+    Horizontal = 'horizontal',
+    Vertical = 'vertical'
+};
+
 export enum HttpMethod {
     GET = 'GET',
     POST = 'POST'

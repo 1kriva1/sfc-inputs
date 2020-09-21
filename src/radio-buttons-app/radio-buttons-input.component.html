@@ -1,0 +1,484 @@
+<div class="demo-container">
+    <h1>RADIO BUTTONS INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <hr>
+                <h3>Verical:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-empty" formControlName="inputRadioNull"
+                            [data]="data">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon" formControlName="inputRadioWithIcon"
+                            [data]="data" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper"
+                            formControlName="inputRadioWithIconHelper" [data]="data" icon="fa fa-star"
+                            helper-text="helper text as it">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-empty-disabled"
+                            formControlName="inputRadioNullDisabled" [data]="data">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-disabled"
+                            formControlName="inputRadioWithIconDisabled" [data]="data" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-disabled"
+                            formControlName="inputRadioWithIconHelperDisabled" [data]="data" icon="fa fa-star"
+                            helper-text="helper text as it DISABLED">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-empty-icons"
+                            formControlName="inputRadioNullIcons" [data]="dataIcons">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-icons"
+                            formControlName="inputRadioWithIconIcons" [data]="dataIcons" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-icons"
+                            formControlName="inputRadioWithIconHelperIcons" [data]="dataIcons" icon="fa fa-star"
+                            helper-text="helper text as it">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-empty-mix" formControlName="inputRadioNullMix"
+                            [data]="dataMix">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-mix"
+                            formControlName="inputRadioWithIconMix" [data]="dataMix" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-mix"
+                            formControlName="inputRadioWithIconHelperMix" [data]="dataMix" icon="fa fa-star"
+                            helper-text="helper text as it">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-empty-mix-disabled"
+                            formControlName="inputRadioNullMixDisabled" [data]="dataMix">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-mix-disabled"
+                            formControlName="inputRadioWithIconMixDisabled" [data]="dataMix" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-mix-disabled"
+                            formControlName="inputRadioWithIconHelperMixDisabled" [data]="dataMix" icon="fa fa-star"
+                            helper-text="helper text as it">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-item-disabled"
+                            formControlName="inputRadioItemDisabled" [data]="dataItemDisabled">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-mix-item-disabled"
+                            formControlName="inputRadioMixItemDisabled" [data]="dataMixItemDisabled" icon="fa fa-star"
+                            helper-text="helper text as it item DISABLED">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-mix-item-value-disabled"
+                            formControlName="inputRadioMixItemValueDisabled" [data]="dataMixItemDisabled"
+                            helper-text="helper text as it item DISABLED">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-item-default"
+                            formControlName="inputRadioItemDefault" [data]="dataItemDefault"
+                            helper-text="one item is DEFAULT">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-item-default-value"
+                            formControlName="inputRadioItemDefaultValue" [data]="dataItemDefault"
+                            helper-text="one item is DEFAULT (3) and defined value(2)">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-item-default-value-icon"
+                            formControlName="inputRadioItemDefaultValueIcon" [data]="dataItemDefault"
+                            helper-text="one item is DEFAULT (3) and defined value(3)" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-validation"
+                            formControlName="inputRadioValidation" [data]="data">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-validation"
+                            formControlName="inputRadioValueValidValidation" [data]="data" icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-validation"
+                            formControlName="inputRadioValueInvalidValidation" [data]="data" icon="fa fa-star"
+                            helper-text="helper text as it">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-validation-custom-msg"
+                            formControlName="inputRadioValidationCustomMessage" [data]="data"
+                            [validations]="{equalOrInclude: 'Value must be two(2).'}">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-validation-custom-msg"
+                            formControlName="inputRadioValueValidValidationCustomMessage" [data]="data"
+                            icon="fa fa-star" [validations]="{equalOrInclude: 'Value must be two(2).'}">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-validation-custom-msg"
+                            formControlName="inputRadioValueInvalidValidationCustomMessage" [data]="data"
+                            icon="fa fa-star" helper-text="helper text as it"
+                            [validations]="{equalOrInclude: 'Value must be two(2).'}">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <hr>
+                <h3>Horizontal:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal"
+                            formControlName="inputRadioHorizontal" [data]="data" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon"
+                            formControlName="inputRadioHorizontalIcon" [data]="data" position="horizontal"
+                            icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-helper"
+                            formControlName="inputRadioHorizontalIconHelper" [data]="data" position="horizontal"
+                            icon="fa fa-star" helper-text="helper text as it">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-disabled"
+                            formControlName="inputRadioHorizontalDisabled" [data]="data" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-disabled"
+                            formControlName="inputRadioHorizontalIconDisabled" [data]="data" position="horizontal"
+                            icon="fa fa-star">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-helper-disabled"
+                            formControlName="inputRadioHorizontalIconHelperDisabled" [data]="data" position="horizontal"
+                            icon="fa fa-star" helper-text="helper text as it Disabled">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-empty-icons"
+                            formControlName="inputRadioHorizontalNullIcons" [data]="dataIcons" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-icons"
+                            formControlName="inputRadioHorizontalWithIconIcons" [data]="dataIcons" icon="fa fa-star"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-helper-icons"
+                            formControlName="inputRadioHorizontalWithIconHelperIcons" [data]="dataIcons"
+                            icon="fa fa-star" helper-text="helper text as it" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-empty-mix"
+                            formControlName="inputRadioHorizontalNullMix" [data]="dataMix" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-horizontal-buttons-icon-mix"
+                            formControlName="inputRadioHorizontalWithIconMix" [data]="dataMix" icon="fa fa-star"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-horizontal-buttons-icon-helper-mix"
+                            formControlName="inputRadioHorizontalWithIconHelperMix" [data]="dataMix" icon="fa fa-star"
+                            helper-text="helper text as it" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-empty-mix-disabled"
+                            formControlName="inputRadioHorizontalNullMixDisabled" [data]="dataMix"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-mix-disabled"
+                            formControlName="inputRadioHorizontalWithIconMixDisabled" [data]="dataMix" icon="fa fa-star"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-icon-helper-mix-disabled"
+                            formControlName="inputRadioHorizontalWithIconHelperMixDisabled" [data]="dataMix"
+                            icon="fa fa-star" helper-text="helper text as it" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-item-disabled"
+                            formControlName="inputRadioHorizontalItemDisabled" [data]="dataItemDisabled"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-mix-item-disabled"
+                            formControlName="inputRadioHorizontalMixItemDisabled" [data]="dataMixItemDisabled"
+                            icon="fa fa-star" helper-text="helper text as it item DISABLED" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-horizontal-mix-item-value-disabled"
+                            formControlName="inputRadioHorizontalMixItemValueDisabled" [data]="dataMixItemDisabled"
+                            helper-text="helper text as it item DISABLED" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-horizontal-buttons-item-default"
+                            formControlName="inputRadioHorizontalItemDefault" [data]="dataItemDefault"
+                            helper-text="one item is DEFAULT" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-horizontal-buttons-item-default-value"
+                            formControlName="inputRadioHorizontalItemDefaultValue" [data]="dataItemDefault"
+                            helper-text="one item is DEFAULT (3) and defined value(2)" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-horizontal-buttons-item-default-value-icon"
+                            formControlName="inputRadioHorizontalItemDefaultValueIcon" [data]="dataItemDefault"
+                            helper-text="one item is DEFAULT (3) and defined value(3)" icon="fa fa-star"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-validation-horizontal"
+                            formControlName="inputRadioHorizontalValidation" [data]="data" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-validation-horizontal"
+                            formControlName="inputRadioHorizontalValueValidValidation" [data]="data" icon="fa fa-star"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-validation-horizontal"
+                            formControlName="inputRadioHorizontalValueInvalidValidation" [data]="data" icon="fa fa-star"
+                            helper-text="helper text as it" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-validation-custom-msg-horizontal"
+                            formControlName="inputRadioHorizontalValidationCustomMessage" [data]="data"
+                            [validations]="{equalOrInclude: 'Value must be two(2).'}" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-validation-custom-msg-horizontal"
+                            formControlName="inputRadioHorizontalValueValidValidationCustomMessage" [data]="data"
+                            icon="fa fa-star" [validations]="{equalOrInclude: 'Value must be two(2).'}"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-icon-helper-validation-custom-msg-horizontal"
+                            formControlName="inputRadioHorizontalValueInvalidValidationCustomMessage" [data]="data"
+                            icon="fa fa-star" helper-text="helper text as it"
+                            [validations]="{equalOrInclude: 'Value must be two(2).'}" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <hr>
+                <h3>Async data(observables):</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-observables"
+                            formControlName="inputRadioObservable" [data]="$httpData"
+                            helper-text="helper text async data without value" icon="fa fa-address-book-o">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-observables-value"
+                            formControlName="inputRadioObservableValue" [data]="$httpData"
+                            helper-text="helper text async data with value (5)" icon="fa fa-address-book-o">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-observables-validation"
+                            formControlName="inputRadioObservableValiadation" [data]="$httpData"
+                            helper-text="helper text async data validation - valid value - 4"
+                            icon="fa fa-address-book-o">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-observables-horizontal"
+                            formControlName="inputRadioObservableHorizontal" [data]="$httpData"
+                            helper-text="helper text async data without value" icon="fa fa-address-book-o"
+                            position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-observables-value-horizontal"
+                            formControlName="inputRadioObservableValueHorizontal" [data]="$httpData"
+                            helper-text="helper text async data with value (5)" icon="fa fa-address-book-o" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+
+                    <div>
+                        <sfc-radio-buttons-input id="demo-radio-buttons-observables-validation-horizontal"
+                            formControlName="inputRadioObservableValiadationHorizontal" [data]="$httpData"
+                            helper-text="helper text async data validation - valid value - 4"
+                            icon="fa fa-address-book-o" position="horizontal">
+                        </sfc-radio-buttons-input>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

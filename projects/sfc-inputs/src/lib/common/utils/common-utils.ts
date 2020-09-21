@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CommonUtils {
@@ -9,5 +10,9 @@ export class CommonUtils {
 
     public static isNullOrEmptyString<T>(value: string | undefined | null) {
         return !CommonUtils.isDefined(value) || value === '';
+    }
+
+    public static isAsyncData(data: any) {
+        return data instanceof Observable;
     }
 }

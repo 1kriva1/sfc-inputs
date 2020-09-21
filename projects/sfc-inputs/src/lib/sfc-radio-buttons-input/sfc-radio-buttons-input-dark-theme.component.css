@@ -1,0 +1,68 @@
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input+label .text {
+    color: #9e9e9e;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input+label .text:hover, :host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:checked+label .text {
+    color: white;
+}
+
+/* CIRCLE RADIO BUTTON */
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input+label .circle>div {
+    border-color: #9e9e9e;
+    background-color: transparent;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"]:checked.sfc-input+label .circle>div::before {
+    background: #9e9e9e;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:not(:disabled):hover+label .circle>div {
+    border-color: #00B285;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:not(:disabled):checked:hover+label .circle>div:before {
+    background: #00B285;
+}
+
+/* END CIRCLE RADIO BUTTON */
+
+/* ICON RADIO BUTTON */
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:checked+label .icons {
+    background-color: #00B285;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:not(:checked):not(:disabled):hover+label .icons>div {
+    color: #00B285;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:checked+label .icons>div {
+    color: white;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:not(:checked)+label .icons>div {
+    color: #9e9e9e;
+}
+
+/* END ICON RADIO BUTTON */
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) input[type='radio'].sfc-input:disabled+label .circle>div {
+    border-color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:disabled:checked+label .circle>div::before {
+    background: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:disabled+label .text {
+    color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="radio"].sfc-input:checked:disabled+label .text {
+    color: white;
+}
+
+/* END DISABLED */

@@ -13,12 +13,13 @@ import { LoaderAppComponent } from 'src/loader-app/loader.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CheckboxInputAppComponent } from 'src/checkbox-input-app/checkbox-input.component';
 import { ToggleInputAppComponent } from 'src/toggle-input-app/toggle-input.component';
+import { RadioButtonsInputAppComponent } from 'src/radio-buttons-app/radio-buttons-input.component';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,  HttpClientModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
     declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent, CheckboxInputAppComponent,
-        ToggleInputAppComponent],
+        ToggleInputAppComponent, RadioButtonsInputAppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

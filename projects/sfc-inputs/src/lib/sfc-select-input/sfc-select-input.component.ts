@@ -112,16 +112,12 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
         return CommonUtils.isDefined(this.localData) && CollectionUtils.any(this.localData.filter(i => !i.isDefault));
     }
 
-    private get isAsyncData() {
-        return this.data instanceof Observable;
-    }
-
     private get isPageableData() {
         return CommonUtils.isDefined(this.loader);
     }
 
     private get isLoadAsyncDataOnInit(): boolean {
-        return this.isAsyncData && this.isLoadDataOnInit;
+        return CommonUtils.isAsyncData(this.data) && this.isLoadDataOnInit;
     }
 
     // need load async data only if value defined or need load on init
@@ -316,7 +312,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
 
             if (this.isPageableData) {
                 this.infinityScroll.immediateCallback = !this.loadMoreButton;
-            } else if (this.isAsyncData) {
+            } else if (CommonUtils.isAsyncData(this.data)) {
                 this.loadAsyncData(this.data as Observable<ISelectData[] | ISelectDataGroup[]>);
             }
         }
@@ -327,7 +323,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
             this.loadAsyncData(this.data as Observable<ISelectData[] | ISelectDataGroup[]>);
         }
         else {
-            if (!this.isPageableData && !this.isAsyncData) { 
+            if (!this.isPageableData && !CommonUtils.isAsyncData(this.data)) { 
                 this.initData(this.data);
             }
         }

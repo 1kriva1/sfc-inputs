@@ -8,6 +8,7 @@ export * from './lib/sfc-file-input/sfc-file-input.component';
 export * from './lib/sfc-select-input/sfc-select-input.component';
 export * from './lib/sfc-checkbox-input/sfc-checkbox-input.component';
 export * from './lib/sfc-toggle-input/sfc-toggle-input.component';
+export * from './lib/sfc-radio-buttons-input/sfc-radio-buttons-input.component';
 export * from './lib/common/validators/sfc-input.validators';
 export * from './lib/sfc-inputs.module';
 
