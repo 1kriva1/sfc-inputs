@@ -7,6 +7,7 @@ import { LoaderAppComponent } from './loader-app/loader.component';
 import { CheckboxInputAppComponent } from './checkbox-input-app/checkbox-input.component';
 import { ToggleInputAppComponent } from './toggle-input-app/toggle-input.component';
 import { RadioButtonsInputAppComponent } from './radio-buttons-app/radio-buttons-input.component';
+import { TagsInputAppComponent } from './tags-input-app/tags-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -46,6 +47,10 @@ export const routeConfig = [
     {
         path: 'radio-buttons-input',
         component: RadioButtonsInputAppComponent
+    },
+    {
+        path: 'tags-input',
+        component: TagsInputAppComponent
     },
     {
         path: 'loader',

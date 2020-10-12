@@ -1,0 +1,11 @@
+<div class="input-container input-tags-container" (click)="onClick()" [ngClass]="containerClasses">
+    <sfc-tags-chip *ngFor="let item of value" [disabled]="disabled" display-value="{{item}}"
+        (removed)="onRemove($event)"></sfc-tags-chip>
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <input [value]="value">
+    <input sfcinput id="sfc-{{id}}" type="text" class="sfc-input input-text-input" [placeholder]="placeholder"
+        [disabled]="disabled" [value]="newTagValue" (input)="onNewTagInput($event.target.value)" (blur)="onBlur()"
+        (keyup.enter)="onEnter()">
+    <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+</div>
+<span class="helper-text">{{helperText}}</span>

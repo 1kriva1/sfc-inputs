@@ -25,4 +25,13 @@ export class CollectionUtils {
     public static any<T>(collection: Array<T>): boolean {
         return CommonUtils.isDefined(collection) && collection.length > 0;
     }
+
+    public static removeItem<T>(collection: Array<T>, predicate: (item: T) => boolean) {
+        var i = collection.length;
+        while (i--) {
+            if (predicate(collection[i])) {
+                collection.splice(i, 1);
+            }
+        }
+    }
 }

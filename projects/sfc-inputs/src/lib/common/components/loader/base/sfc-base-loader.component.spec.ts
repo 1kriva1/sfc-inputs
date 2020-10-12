@@ -193,7 +193,7 @@ describe('Component: Loader', () => {
         document.body.insertAdjacentHTML('beforeend', '<div style="height: 1500px;"></div>');
         window.scrollTo(0, document.body.scrollHeight);
         let documentScrollTop = document.documentElement.scrollTop,
-            documentScrollTopPx = UIUtils.getCssLikePx(-document.documentElement.scrollTop);
+            documentScrollTopPx = UIUtils.getCssLikePx(-document.documentElement.scrollTop.toFixed(1));
 
         registerAndShow();
         fixture.detectChanges();
@@ -209,8 +209,8 @@ describe('Component: Loader', () => {
         const preloaderAfterHideEl = fixture.nativeElement.querySelector('div.preloader.global');
         expect(preloaderAfterHideEl).toBeNull();
         expect(document.body.classList.contains(CommonConstants.CSS_CLASS_FIXED)).toBeFalsy();
-        expect(document.body.style.top).toEqual('');
-        expect(document.documentElement.scrollTop).toEqual(documentScrollTop);
+        expect(document.body.style.top).toEqual('');        
+        expect(Math.ceil(document.documentElement.scrollTop)).toEqual(Math.floor(documentScrollTop));
     }));
 
     it("Loader: show secondary(not global) loader", async(() => {

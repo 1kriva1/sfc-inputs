@@ -22,6 +22,10 @@ export class InputRefDirective {
         return this.ngControl && CommonUtils.isDefined(this.ngControl.value) && this.ngControl.value !== '';
     }
 
+    get value() {
+        return this.ngControl ? this.ngControl.value : null;
+    }
+
     get hasInvalidValue() {
         return this.hasValue && this.ngControl.invalid;
     }

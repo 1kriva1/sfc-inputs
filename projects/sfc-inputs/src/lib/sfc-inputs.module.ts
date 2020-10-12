@@ -21,17 +21,19 @@ import HttpUtils from './common/utils/http-utils';
 import { CheckboxInputComponent } from './sfc-checkbox-input/sfc-checkbox-input.component';
 import { ToggleInputComponent } from './sfc-toggle-input/sfc-toggle-input.component';
 import { RadioButtonsInputComponent } from './sfc-radio-buttons-input/sfc-radio-buttons-input.component';
+import { TagsInputComponent } from './sfc-tags-input/sfc-tags-input.component';
+import { TagsChipComponent } from './sfc-tags-input/sfc-chip/sfc-tags-chip.component';
 
 @NgModule({
   declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent,
-    FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, InfiniteScrollerDirective, ClickOutside, 
-    LoadMoreButtonComponent],
+    FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, TagsInputComponent, TagsChipComponent, 
+    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
   exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent,
-    CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, InfiniteScrollerDirective],
+    TagsInputComponent, TagsChipComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, InfiniteScrollerDirective],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => BaseInputComponent), multi: true },

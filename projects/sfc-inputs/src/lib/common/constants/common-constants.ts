@@ -4,7 +4,6 @@ export enum StyleClass {
     Invalid = 'invalid',
     Disabled = 'disabled',
     Selected = 'selected',
-    WithIcon = 'withIcon',
     Empty = 'empty'
 };
 
@@ -47,6 +46,8 @@ export class CommonConstants {
     static MAX_LENGTH_VALIDATOR_KEY = 'maxlength';
     static BASE_REQUIRED_VALIDATOR_KEY = 'required';
     static TEXT_AREA_REQUIRED_VALIDATOR_KEY = 'textAreaRequired';
+    static DUPLICATE_VALIDATOR_KEY = 'sfc-duplicate';
+    static EMPTY_VALIDATOR_KEY = 'sfc-empty';
 
     static CSS_PIXELS = 'px';
     static CSS_WIDTH = 'width';
@@ -70,5 +71,9 @@ export class CommonConstants {
         OPT_GROUP_CLASS: "optgroup",
 
         DEFAULT_OPTION_VALUE: "Choose your option"
+    }
+
+    static TAGS_INPUT = {
+        NEW_TAG_PLACEHOLDER_DEFAULT: '+ Tag'
     }
 }

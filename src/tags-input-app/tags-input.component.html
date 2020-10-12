@@ -1,0 +1,318 @@
+<div class="demo-container">
+    <h1>TAGS INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-empty" formControlName="inputTagsNull">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label" formControlName="inputTagsLabel" label="label test">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-placeholder" formControlName="inputTagsPlaceholder"
+                            placeholder="placeholder test">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-placeholder" formControlName="inputTagsLabelPlaceholder"
+                            label="label test" placeholder="placeholder test">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-new-tag-placeholder"
+                            formControlName="inputTagsLabelNewTagPlaceholder" label="cusom new tag placeholder"
+                            placeholder="placeholder" new-tag-placeholder="+new tag+">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-icon" formControlName="inputTagsIcon" icon="fa fa-star">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-icon-label" formControlName="inputTagsIconLabel"
+                            label="label test" icon="fa fa-star">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-icon-label-pleceholder"
+                            formControlName="inputTagsIconLabelPlaceholder" label="label test" icon="fa fa-star"
+                            placeholder="placeholder test">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-with-value" formControlName="inputTagsValue">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-with-value-label" formControlName="inputTagsValueLabel"
+                            label="label test">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-with-value-label-placeholder"
+                            formControlName="inputTagsValueLabelPlaceholder" label="label with placeholder"
+                            placeholder="placeholder test">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-with-value-label-placeholder-icon"
+                            formControlName="inputTagsValueLabelPlaceholderIcon" label="label with icon and helper"
+                            helper-text="helper is as test" icon="fa fa-star">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-helper" formControlName="inputTagsHelper"
+                            helper-text="helper is as">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-helper-label" formControlName="inputTagsHelperLabel"
+                            helper-text="helper is as" label="label and helper">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-helper-label-icon" formControlName="inputTagsHelperLabelIcon"
+                            helper-text="helper is as" label="label and helper" icon="fa fa-star">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-disabled" formControlName="inputTagsDisabled">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-disabled" formControlName="inputTagsLabelDisabled"
+                            label="label DISABLED">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-placeholder-disabled"
+                            formControlName="inputTagsLabelPlaceholderDisabled" label="label DISABLED"
+                            placeholder="placeholder DISABLED">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-placeholder-icon-disabled"
+                            formControlName="inputTagsLabelPlaceholderIconDisabled" label="label DISABLED"
+                            placeholder="placeholder DISABLED" icon="fa fa-star">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-placeholder-icon-helper-disabled"
+                            formControlName="inputTagsLabelPlaceholderIconHelperDisabled" label="label DISABLED"
+                            placeholder="DISABLED" icon="fa fa-star" helper-text="helper DISABLED">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-placeholder-icon-helper-value-disabled"
+                            formControlName="inputTagsLabelPlaceholderIconHelperValueDisabled" label="label DISABLED"
+                            placeholder="DISABLED" icon="fa fa-star" helper-text="helper DISABLED">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-validation" formControlName="inputTagsValidation">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-validation" formControlName="inputTagsLabelValidation"
+                            label="label valid (qwe, rty)">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-icon-helper-validation"
+                            formControlName="inputTagsLabelIconHelperValidation" label="label valid (qwe, rty)"
+                            icon="fa fa-star" helper-text="helper valid (qwe, rty)">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-validation-failed" formControlName="inputTagsValidationFailed">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-validation-failed"
+                            formControlName="inputTagsLabelValidationFailed" label="label valid (qwe, rty)">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-icon-helper-validation-failed"
+                            formControlName="inputTagsLabelIconHelperValidationFailed" label="label valid (qwe, rty)"
+                            icon="fa fa-star" helper-text="helper valid (qwe, rty)">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-validation-failed-cust-msg"
+                            formControlName="inputTagsValidationCustomMsgFailed"
+                            [validations]="{equalOrInclude: 'Include valid only (qwe or rty)'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-validation-failed-cust-msg"
+                            formControlName="inputTagsLabelValidationCustomMsgFailed" label="label valid (qwe, rty)"
+                            [validations]="{equalOrInclude: 'Include valid only (qwe or rty)'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-icon-helper-validation-failed-cust-msg"
+                            formControlName="inputTagsLabelIconHelperValidationCustomMsgFailed"
+                            label="label valid (qwe, rty)" icon="fa fa-star" helper-text="helper valid (qwe, rty)"
+                            [validations]="{equalOrInclude: 'Include valid only (qwe or rty)'}">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-validation-success" formControlName="inputTagsValidationSuccess">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-validation-success"
+                            formControlName="inputTagsLabelValidationSuccess" label="label valid (qwe, rty)">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-label-icon-helper-validation-success"
+                            formControlName="inputTagsLabelIconHelperValidationSuccess" label="label valid (qwe, rty)"
+                            icon="fa fa-star" helper-text="helper valid (qwe, rty)">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-max-length" formControlName="inputTagsMaxLength"
+                            label="label max length 3" icon="fa fa-star" helper-text="label max length 3"
+                            [validations]="{maxLength: 'No more than 3 tags'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-min-length" formControlName="inputTagsMinLength"
+                            label="label min length 1" icon="fa fa-star" helper-text="label min length 1"
+                            [validations]="{minLength: 'must be at least 1 tag'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-max-min-length" formControlName="inputTagsMaxMinLength"
+                            label="label max 3 and min 1 length" icon="fa fa-star" helper-text="max 3 and min 1 length"
+                            [validations]="{maxLength: 'No more than 3 tags', minLength: 'must be at least 1 tag'}">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-max-length-invalid" formControlName="inputTagsMaxLengthInvalid"
+                            label="label max length 3" icon="fa fa-star" helper-text="label max length 3"
+                            [validations]="{maxLength: 'No more than 3 tags'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-min-length-invalid" formControlName="inputTagsMinLengthInvalid"
+                            label="label min length 1" icon="fa fa-star" helper-text="label min length 1"
+                            [validations]="{minLength: 'must be at least 1 tag'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-max-min-length-invalid" formControlName="inputTagsMaxMinLengthInvalid"
+                            label="label max 3 and min 1 length" icon="fa fa-star" helper-text="max 3 and min 1 length"
+                            [validations]="{maxLength: 'No more than 3 tags', minLength: 'must be at least 1 tag'}">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-tags-input id="demo-tags-max-length-valid" formControlName="inputTagsMaxLengthValid"
+                            label="label max length 3" icon="fa fa-star" helper-text="label max length 3"
+                            [validations]="{maxLength: 'No more than 3 tags'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-min-length-valid" formControlName="inputTagsMinLengthValid"
+                            label="label min length 1" icon="fa fa-star" helper-text="label min length 1"
+                            [validations]="{minLength: 'must be at least 1 tag'}">
+                        </sfc-tags-input>
+                    </div>
+
+                    <div>
+                        <sfc-tags-input id="demo-tags-max-min-length-valid" formControlName="inputTagsMaxMinLengthValid"
+                            label="label max 3 and min 1 length" icon="fa fa-star" helper-text="max 3 and min 1 length"
+                            [validations]="{maxLength: 'No more than 3 tags', minLength: 'must be at least 1 tag'}">
+                        </sfc-tags-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

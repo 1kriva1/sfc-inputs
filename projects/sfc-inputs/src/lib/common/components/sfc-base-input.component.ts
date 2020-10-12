@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, AfterViewInit, Input, ViewChild, HostBinding, ElementRef, Renderer2 } from '@angular/core';
-import { NgControl, ControlValueAccessor } from '@angular/forms';
+import { NgControl, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import IValidation from '../interfaces/IValidation';
 import { InputRefDirective } from '../directives/input-ref.directive';
 import { CommonConstants, StyleClass } from '../constants/common-constants';
@@ -46,12 +46,27 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
 
     protected value: T = null;
 
+    /**
+     * input componnent validation flag
+     */
+    protected isInvalid: boolean = false;
+
+    /**
+     * input componnent validation errors
+     */
+    protected innerErrors: ValidationErrors = {};
+
     /*
     * Is input on focus
     */
     @HostBinding('class.focus')
     protected get isFocus() {
         return this.input ? this.input.isOnFocus : false;
+    }
+
+    @HostBinding('class.withIcon')
+    protected get withIcon() {
+        return !CommonUtils.isNullOrEmptyString(this.icon);
     }
 
     constructor(protected ngControl: NgControl, protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
@@ -100,14 +115,13 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     * 2. Invalid - 'invalid'
     */
     protected get validationClass() {
-
         if (this.input) {
 
             if (this.input.isDirty) {
-                return this.input.isValid ? StyleClass.Valid : StyleClass.Invalid;
+                return !this.input.isValid || this.isInvalid ? StyleClass.Invalid : StyleClass.Valid;
             }
 
-            if (this.input.hasInvalidValue) {
+            if (this.input.hasInvalidValue || this.isInvalid) {
                 return StyleClass.Invalid;
             }
         }
@@ -124,7 +138,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     * otherwise return first error message
     */
     protected get helperText() {
-        return this.input && this.input.isInvalid ? this.errorMessage : this._helperText;
+        return (this.input && this.input.isInvalid) || this.isInvalid ? this.errorMessage : this._helperText;
     }
 
     /*
@@ -136,9 +150,8 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
 
     private get validationMessages() {
         const messages = [];
-        const keys = Object.keys(this.validations);
 
-        keys.forEach(key => {
+        Object.keys(this.validations).forEach(key => {
             if (this.validationErrors[key]) {
                 messages.push(this.validations[key]);
             }
@@ -151,7 +164,9 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     * Return all input validation errors (ngControl errors)
     */
     protected get validationErrors() {
-        return this.input ? this.input.errors : null;
+        return this.input
+            ? CommonUtils.isDefined(this.input.errors) ? { ...this.input.errors, ...this.innerErrors } : this.innerErrors
+            : this.innerErrors
     }
 
     protected setOnFocusEvent(element: ElementRef) {
@@ -162,13 +177,18 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         }
     }
 
+    protected clearInnerErrors() {
+        this.innerErrors = {};
+        this.isInvalid = false;
+    }
+
     ngAfterViewInit(): void {
-        if(this.elementRefInput){
+        if (this.elementRefInput) {
             this.setOnFocusEvent(this.elementRef.nativeElement.querySelector('i.icon'));
         }
-        
+
         this.changeDetector.detectChanges();
-    }    
+    }
 
     /*
     * Write form value to the DOM element (model => view)

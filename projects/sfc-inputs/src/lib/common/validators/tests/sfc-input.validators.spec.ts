@@ -253,5 +253,54 @@ describe('Validators', () => {
             validationResult = SfcValidators.EqualOrInclude(includes)(new FormControl(testValue));
         expect(validationResult).toBeNull();
     });
-});
 
+    it('Validator: MaxLength validation failed', () => {
+        const value = ['test1', 'test2', 'test3'],
+            validationResult = SfcValidators.MaxLength(2)(new FormControl(value)),
+            expectedResult = { maxLength: { requiredLength: 2, actualLength: 3, value: value } };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: MaxLength validation success', () => {
+        const value = ['test1', 'test2'],
+            validationResult = SfcValidators.MaxLength(2)(new FormControl(value));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: MaxLength validation value is NULL', () => {
+        const value = null,
+            validationResult = SfcValidators.MaxLength(2)(new FormControl(value));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: MaxLength validation value is NOT array', () => {
+        const value = 'test',
+            validationResult = SfcValidators.MaxLength(2)(new FormControl(value));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: MinLength validation failed', () => {
+        const value = ['test1', 'test2', 'test3'],
+            validationResult = SfcValidators.MinLength(4)(new FormControl(value)),
+            expectedResult = { minLength: { requiredLength: 4, actualLength: 3, value: value } };
+        expect(validationResult).toEqual(expectedResult);
+    });
+
+    it('Validator: MinLength validation success', () => {
+        const value = ['test1', 'test2'],
+            validationResult = SfcValidators.MinLength(2)(new FormControl(value));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: MinLength validation value is NULL', () => {
+        const value = null,
+            validationResult = SfcValidators.MinLength(2)(new FormControl(value));
+        expect(validationResult).toBeNull();
+    });
+
+    it('Validator: MinLength validation value is NOT array', () => {
+        const value = 1,
+            validationResult = SfcValidators.MinLength(2)(new FormControl(value));
+        expect(validationResult).toBeNull();
+    });
+});

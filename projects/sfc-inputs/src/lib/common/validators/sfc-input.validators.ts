@@ -64,6 +64,7 @@ export default class SfcValidators {
         return SfcValidators.validation(validatorFn);
     }
 
+    /* FILE INPUT VALIDATIONS */
     static FileMaxSize(maxSize: number): ValidatorFn {
         const validatorFn = (file: File) => {
             if (file instanceof File && file.size > maxSize) {
@@ -103,6 +104,40 @@ export default class SfcValidators {
         };
         return SfcValidators.validation(validatorFn);
     }
+
+    /* END FILE INPUT VALIDATIONS */
+
+    /* ARRAY VALUE VALIDATIONS */
+
+    static MaxLength(maxLength: number): ValidatorFn {
+        const validatorFn = (value: Array<any>) => {
+            if (CommonUtils.isDefined(value) && value instanceof Array) {
+                if (value.length > maxLength) {
+                    return { maxLength: { requiredLength: maxLength, actualLength: value.length, value } };
+                }
+            }
+
+            return null;
+        };
+
+        return SfcValidators.validation(validatorFn);
+    }
+
+    static MinLength(minLength: number): ValidatorFn {
+        const validatorFn = (value: Array<any>) => {
+            if (CommonUtils.isDefined(value) && value instanceof Array) {
+                if (value.length < minLength) {
+                    return { minLength: { requiredLength: minLength, actualLength: value.length, value } };
+                }
+            }
+
+            return null;
+        };
+
+        return SfcValidators.validation(validatorFn);
+    }
+
+    /* END ARRAY VALUE VALIDATIONS */
 
     // Private methods
 
