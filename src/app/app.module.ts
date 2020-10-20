@@ -15,12 +15,14 @@ import { CheckboxInputAppComponent } from 'src/checkbox-input-app/checkbox-input
 import { ToggleInputAppComponent } from 'src/toggle-input-app/toggle-input.component';
 import { RadioButtonsInputAppComponent } from 'src/radio-buttons-app/radio-buttons-input.component';
 import { TagsInputAppComponent } from 'src/tags-input-app/tags-input.component';
+import { RangeInputAppComponent } from 'src/range-input-app/range-input.component';
+import { ToolTipAppComponent } from 'src/tooltip-app/tooltip.component';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,  HttpClientModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
     declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent, CheckboxInputAppComponent,
-        ToggleInputAppComponent, RadioButtonsInputAppComponent, TagsInputAppComponent],
+        ToggleInputAppComponent, RadioButtonsInputAppComponent, TagsInputAppComponent, RangeInputAppComponent, ToolTipAppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -53,7 +53,7 @@ export default class SfcValidators {
                     if (value instanceof Object) {
                         return JSON.stringify(includes) !== JSON.stringify(value) ? { equalOrInclude: true } : null;
                     } else {
-                        return value !== includes ? { equalOrInclude: true } : null;
+                        return value != includes ? { equalOrInclude: true } : null;
                     }
                 }
             }

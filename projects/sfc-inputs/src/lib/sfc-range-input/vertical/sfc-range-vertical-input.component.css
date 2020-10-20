@@ -1,0 +1,113 @@
+/* CONTAINER */
+
+.input-range-container {
+    align-items: center;
+}
+
+.vertical-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.vertical-wrapper-outer {
+    max-width: 35px;
+}
+
+.vertical-wrapper-inner {
+    writing-mode: tb-rl;
+    white-space: nowrap;
+    display: inline-block;
+    overflow: visible;
+    transform: rotate(-90deg) translateX(-100%);
+    transform-origin: top left;
+}
+
+/* END CONTAINER */
+
+/* TOOLTIP */
+
+.vertical-main-container .range-tooltip {
+    top: 25px;
+}
+
+.vertical-main-container .range-tooltip:before {
+    padding: 10px 5px;
+    transform: translate(-50%, -5px) scale(0.5);
+}
+
+.vertical-main-container .range-tooltip.showTooltip:before {
+    transform: translate(-50%, 4px) scale(1) !important;
+}
+
+/* END TOOLTIP */
+
+/* RANGE INPUT */
+
+.vertical-main-container input[type="range"].sfc-input {
+    width: initial;
+}
+
+/* END RANGE INPUT */
+
+/* LABELS */
+
+.vertical-main-container label.main-label {
+    left: initial;
+    width: 100%;
+    transform: none;
+    position: relative;
+    font-size: 13px;
+}
+
+:host(.focus) .vertical-main-container label.main-label {
+    color: #26a69a;
+}
+
+.vertical-main-container .display-label {
+    min-width: 35px;
+    text-align: center;
+    display: inline-block;
+    margin: 0;
+}
+
+/* END LABELS */
+
+/* HELPER TEXT */
+
+.vertical-main-container .helper-text {
+    max-width: 100px;
+    text-align: center;
+}
+
+.vertical-main-container .helper-text:empty {
+    visibility: hidden;
+    display: inherit;
+}
+
+/* END HELPER TEXT */
+
+/* ICON */
+
+.input-range-container i.icon {
+    width: auto;
+}
+
+/* END ICON */
+
+/* VALID */
+
+:host(.focus) .input-range-container.valid .vertical-main-container label.main-label {
+    color: #8CC152;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+:host(.focus) .input-range-container.invalid .vertical-main-container label.main-label {
+    color: #E9573F;
+}
+
+/* INVALID END */

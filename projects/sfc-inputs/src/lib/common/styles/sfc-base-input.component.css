@@ -111,8 +111,6 @@ i.icon.invalid {
     text-align: initial;
     -webkit-transform: translateY(12px);
     transform: translateY(12px);
-    /* for select input porpose  */
-    /* left: .75rem; */
     left: 0;
 }
 
@@ -166,7 +164,7 @@ i.icon:not(.valid):not(.invalid):hover {
     color: #656D78;
 }
 
-i.icon~.input-text-input {
+i.icon~.sfc-input {
     width: calc(100% - 3rem);
 }
 
@@ -174,7 +172,7 @@ i.icon~label {
     width: calc(100% - 3rem - 1.5rem);
 }
 
-i.icon~label, i.icon~span.helper-text, i.icon~.input-text-input {
+i.icon~label, i.icon~span.helper-text, i.icon~.sfc-input {
     margin-left: 3rem;
 }
 
@@ -195,7 +193,7 @@ i.icon.active {
 
 /* DISABLED */
 
-.input-text-input:disabled {
+.sfc-input:disabled {
     color: rgba(0, 0, 0, 0.42);
     border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
 }
@@ -210,7 +208,7 @@ i.icon.active {
     box-shadow: 0 1px 0 0 #26a69a;
 }
 
-.input-text-input:focus+label {
+.sfc-input:focus+label {
     color: #26a69a;
 }
 

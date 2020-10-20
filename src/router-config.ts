@@ -8,6 +8,8 @@ import { CheckboxInputAppComponent } from './checkbox-input-app/checkbox-input.c
 import { ToggleInputAppComponent } from './toggle-input-app/toggle-input.component';
 import { RadioButtonsInputAppComponent } from './radio-buttons-app/radio-buttons-input.component';
 import { TagsInputAppComponent } from './tags-input-app/tags-input.component';
+import { RangeInputAppComponent } from './range-input-app/range-input.component';
+import { ToolTipAppComponent } from './tooltip-app/tooltip.component';
 
 const indexRoute: Route = {
     path: "",
@@ -53,8 +55,16 @@ export const routeConfig = [
         component: TagsInputAppComponent
     },
     {
+        path: 'range-input',
+        component: RangeInputAppComponent
+    },
+    {
         path: 'loader',
         component: LoaderAppComponent
+    },
+    {
+        path: 'tooltip',
+        component: ToolTipAppComponent
     },
     fallbackRoute,
     indexRoute

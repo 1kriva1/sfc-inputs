@@ -4,7 +4,8 @@ export enum StyleClass {
     Invalid = 'invalid',
     Disabled = 'disabled',
     Selected = 'selected',
-    Empty = 'empty'
+    Empty = 'empty',
+    Focus = 'focus',
 };
 
 export enum FileInputType {
@@ -36,6 +37,11 @@ export enum ComponentSizeType {
 export enum IconType {
     Negative = 'fa fa-times',
     Positive = 'fa fa-check'
+}
+
+export enum TooltipType {
+    Hover = 'hover',
+    Click = 'click'
 }
 
 export class CommonConstants {

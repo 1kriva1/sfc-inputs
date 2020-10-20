@@ -1,0 +1,21 @@
+/* CONTAINER */
+
+.horizontal-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontal-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* END CONTAINER */
+
+/* LABELS */
+
+.input-range-container i.icon~.horizontal-main-container label.main-label {
+    margin-left: 3rem;
+}
+
+/* END LABELS */

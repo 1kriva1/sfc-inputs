@@ -1,0 +1,680 @@
+<div class="demo-container">
+    <h1>RANGE INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <hr>
+                <h3>Horizontal:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty" formControlName="inputRangeNull">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label" formControlName="inputRangeLabel" label="test label">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon" formControlName="inputRangeIcon" icon="fa fa-star">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper" formControlName="inputRangeHelper"
+                            helper-text="helper test">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon" formControlName="inputRangeLabelIcon"
+                            label="test label and icon" icon="fa fa-star">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper" formControlName="inputRangeLabelIconHelper"
+                            label="test label and icon and helper" icon="fa fa-star"
+                            helper-text="helper test and icon and helper">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty-limits" formControlName="inputRangeNullLimits"
+                            [show-limits]="true" max="10" min="2">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-limits" formControlName="inputRangeLabelLimits"
+                            label="test label limit 20-80" [show-limits]="true" max="80" min="20">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon-limits" formControlName="inputRangeIconLimits"
+                            icon="fa fa-star" [show-limits]="true" max="8000" min="200">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-limits" formControlName="inputRangeHelperLimits"
+                            [show-limits]="true" helper-text="helper test" max="10" min="0" step="2">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-limits" formControlName="inputRangeLabelIconLimits"
+                            [show-limits]="true" label="test label" icon="fa fa-star" max="100" min="1" step="2">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-limits"
+                            formControlName="inputRangeLabelIconHelperLimits" [show-limits]="true" label="test label"
+                            icon="fa fa-star" helper-text="helper test" max="12" min="8" step="1">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty-limit-icon" formControlName="inputRangeNullLimitIcons"
+                            [show-limits]="false" max="10" min="2" start-icon="fa fa-minus" finish-icon="fa fa-plus">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-limit-icon" formControlName="inputRangeLabelLimitIcons"
+                            label="test label limit 20-80" [show-limits]="false" max="80" min="20"
+                            start-icon="fa fa-minus" finish-icon="fa fa-plus">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon-limit-icon" formControlName="inputRangeIconLimitIcons"
+                            icon="fa fa-star" [show-limits]="false" max="8000" min="200" start-icon="fa fa-hand-o-left"
+                            finish-icon="fa fa-hand-o-right">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-limit-icon" formControlName="inputRangeHelperLimitIcons"
+                            [show-limits]="false" helper-text="helper test limit 0-10" max="10" min="0" step="2"
+                            start-icon="fa fa-taxi" finish-icon="fa fa-space-shuttle">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-limit-icon"
+                            formControlName="inputRangeLabelIconLimitIcons" [show-limits]="false"
+                            label="test label limit 1-100 without start" icon="fa fa-star" max="100" min="1" step="2"
+                            finish-icon="fa fa-plus">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-limit-icon"
+                            formControlName="inputRangeLabelIconHelperLimitIcons" [show-limits]="false"
+                            label="test label limit 8-12 without finish" icon="fa fa-star"
+                            helper-text="helper test limit 8-12" max="12" min="8" step="1" start-icon="fa fa-minus">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty-show-value" formControlName="inputRangeNullShowValue"
+                            [show-value]="true">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-show-value" formControlName="inputRangeLabelShowValue"
+                            label="test label" [show-value]="true">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon-show-value" formControlName="inputRangeIconShowValue"
+                            icon="fa fa-star" [show-value]="true">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-show-value" formControlName="inputRangeHelperShowValue"
+                            [show-value]="true" helper-text="helper test">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-show-value"
+                            formControlName="inputRangeLabelIconShowValue" [show-value]="true" label="test label"
+                            icon="fa fa-star">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-show-value"
+                            formControlName="inputRangeLabelIconHelperShowValue" [show-value]="true"
+                            label="test label limit" icon="fa fa-star" helper-text="helper test">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-without-tooltip"
+                            formControlName="inputRangeHelperWithoutTooltip" [tooltip]="false" [show-value]="true"
+                            helper-text="helper test without tooltip">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-without-tooltip"
+                            formControlName="inputRangeLabelIconWithoutTooltip" [tooltip]="false" [show-value]="true"
+                            label="test label without tooltip" icon="fa fa-star">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-without-tooltip"
+                            formControlName="inputRangeLabelIconHelperWithoutTooltip" [show-value]="true"
+                            [tooltip]="false" label="test label limit without tooltip" icon="fa fa-star"
+                            helper-text="helper test without tooltip">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty-disabled" formControlName="inputRangeNullDisabled">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-disabled" formControlName="inputRangeLabelDisabled" label="test label DISABLED" [show-value]="true">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon-disabled" formControlName="inputRangeIconDisabled" icon="fa fa-star" [show-limits]="true">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-disabled" formControlName="inputRangeHelperDisabled"
+                            helper-text="helper test DISABLED" start-icon="fa fa-taxi" finish-icon="fa fa-space-shuttle">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-disabled" formControlName="inputRangeLabelIconDisabled"
+                            label="test label and icon DISABLED" icon="fa fa-star">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-disabled" formControlName="inputRangeLabelIconHelperDisabled"
+                            label="test label and icon and helper" icon="fa fa-star"
+                            helper-text="helper test and icon and helper DISABLED">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty-validation" formControlName="inputRangeNullValidation"
+                            label="test label maximum 10">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-validation" formControlName="inputRangeLabelValidation"
+                            label="test label minimum 20" [show-value]="true">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon-validation" formControlName="inputRangeIconValidation"
+                            icon="fa fa-star" [show-limits]="true" label="test label equal 12">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-validation" formControlName="inputRangeHelperValidation"
+                            helper-text="helper test equal 100" start-icon="fa fa-taxi"
+                            finish-icon="fa fa-space-shuttle">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-validation"
+                            formControlName="inputRangeLabelIconValidation" label="test label and icon equal 1"
+                            icon="fa fa-star">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-validation"
+                            formControlName="inputRangeLabelIconHelperValidation" label="test label and icon and helper"
+                            icon="fa fa-star" helper-text="helper test and icon and helper minimum 100">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-empty-validation" formControlName="inputRangeNullValidationMessage"
+                            label="test label maximum 10" [validations]="{max: 'Value must be maximum 10.'}">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-validation" formControlName="inputRangeLabelValidationMessage"
+                            label="test label minimum 20" [show-value]="true" [validations]="{min: 'Value must be minimum 20'}">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-icon-validation" formControlName="inputRangeIconValidationMessage"
+                            icon="fa fa-star" [show-limits]="true" label="test label equal 12" [validations]="{equalOrInclude: 'Value must be equal 12.'}">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-helper-validation" formControlName="inputRangeHelperValidationMessage"
+                            helper-text="helper test equal 100" start-icon="fa fa-taxi"
+                            finish-icon="fa fa-space-shuttle" [validations]="{equalOrInclude: 'Value must be equal 100.'}">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-validation"
+                            formControlName="inputRangeLabelIconValidationMessage" label="test label and icon equal 1"
+                            icon="fa fa-star" [validations]="{equalOrInclude: 'Value must be equal 1.'}">
+                        </sfc-range-horizontal-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-horizontal-input id="demo-range-label-icon-helper-validation"
+                            formControlName="inputRangeLabelIconHelperValidationMessage" label="test label and icon and helper"
+                            icon="fa fa-star" helper-text="helper test and icon and helper minimum 100" [validations]="{min: 'Value must be minimum 100.'}">
+                        </sfc-range-horizontal-input>
+                    </div>
+                </div>
+
+                <hr>
+                <h3>Vertical:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-vertical" formControlName="inputRangeNullVertical">
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-vertical" formControlName="inputRangeLabelVertical"
+                            label="test label" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-vertical" formControlName="inputRangeIconVertical"
+                            icon="fa fa-star" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-vertical" formControlName="inputRangeHelperVertical"
+                            helper-text="helper test" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-vertical"
+                            formControlName="inputRangeLabelIconVertical" label="test label and icon" icon="fa fa-star"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-vertical"
+                            formControlName="inputRangeLabelIconHelperVertical" label="test label and icon and helper"
+                            icon="fa fa-star" helper-text="helper test and icon and helper" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-limits-vertical"
+                            formControlName="inputRangeNullLimitsVertical" [show-limits]="true" max="10" min="2"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-limits-vertical"
+                            formControlName="inputRangeLabelLimitsVertical" label="test label limit 20-80"
+                            [show-limits]="true" max="80" min="20" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-limits-vertical"
+                            formControlName="inputRangeIconLimitsVertical" icon="fa fa-star" [show-limits]="true"
+                            max="8000" min="200" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-limits-vertical"
+                            formControlName="inputRangeHelperLimitsVertical" [show-limits]="true"
+                            helper-text="helper test" max="10" min="0" step="2" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-limits-vertical"
+                            formControlName="inputRangeLabelIconLimitsVertical" [show-limits]="true" label="test label"
+                            icon="fa fa-star" max="100" min="1" step="2" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-limits-vertical"
+                            formControlName="inputRangeLabelIconHelperLimitsVertical" [show-limits]="true"
+                            label="test label" icon="fa fa-star" helper-text="helper test" max="12" min="8" step="1"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-limit-icon-vertical"
+                            formControlName="inputRangeNullLimitIconsVertical" [show-limits]="false" max="10" min="2"
+                            finish-icon="fa fa-minus" start-icon="fa fa-plus" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-limit-icon-vertical"
+                            formControlName="inputRangeLabelLimitIconsVertical" label="test label limit 20-80"
+                            [show-limits]="false" max="80" min="20" finish-icon="fa fa-minus" start-icon="fa fa-plus"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-limit-icon-vertical"
+                            formControlName="inputRangeIconLimitIconsVertical" icon="fa fa-star" [show-limits]="false"
+                            max="8000" min="200" finish-icon="fa fa-hand-o-left" start-icon="fa fa-hand-o-right"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-limit-icon-vertical"
+                            formControlName="inputRangeHelperLimitIconsVertical" [show-limits]="false"
+                            helper-text="helper test limit 0-10" max="10" min="0" step="2" finish-icon="fa fa-taxi"
+                            start-icon="fa fa-space-shuttle" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-limit-icon-vertical"
+                            formControlName="inputRangeLabelIconLimitIconsVertical" [show-limits]="false"
+                            label="test label limit 1-100 without finish" icon="fa fa-star" max="100" min="1" step="2"
+                            start-icon="fa fa-plus" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-limit-icon-vertical"
+                            formControlName="inputRangeLabelIconHelperLimitIconsVertical" [show-limits]="false"
+                            label="test label limit 8-12 without start" icon="fa fa-star"
+                            helper-text="helper test limit 8-12" max="12" min="8" step="1" finish-icon="fa fa-minus"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-show-value-vertical"
+                            formControlName="inputRangeNullShowValueVertical" [show-value]="true" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-show-value-vertical"
+                            formControlName="inputRangeLabelShowValueVertical" label="test label" [show-value]="true"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-show-value-vertical"
+                            formControlName="inputRangeIconShowValueVertical" icon="fa fa-star" [show-value]="true"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-show-value-vertical"
+                            formControlName="inputRangeHelperShowValueVertical" [show-value]="true"
+                            helper-text="helper test" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-show-value-vertical"
+                            formControlName="inputRangeLabelIconShowValueVertical" [show-value]="true"
+                            label="test label" icon="fa fa-star" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-show-value-vertical"
+                            formControlName="inputRangeLabelIconHelperShowValueVertical" [show-value]="true"
+                            label="test label limit" icon="fa fa-star" helper-text="helper test" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-without-tooltip-vertical"
+                            formControlName="inputRangeHelperWithoutTooltipVertical" [tooltip]="false"
+                            [show-value]="true" helper-text="helper test without tooltip" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-without-tooltip-vertical"
+                            formControlName="inputRangeLabelIconWithoutTooltipVertical" [tooltip]="false"
+                            [show-value]="true" label="test label without tooltip" icon="fa fa-star"
+                            >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-without-tooltip-vertical"
+                            formControlName="inputRangeLabelIconHelperWithoutTooltipVertical" [show-value]="true"
+                            [tooltip]="false" label="test label limit without tooltip" icon="fa fa-star"
+                            helper-text="helper test without tooltip" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-disabled-vertical" formControlName="inputRangeNullDisabledVertical" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-disabled-vertical" formControlName="inputRangeLabelDisabledVertical" label="test label DISABLED" [show-value]="true" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-disabled-vertical" formControlName="inputRangeIconDisabledVertical" icon="fa fa-star" [show-limits]="true" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-disabled-vertical" formControlName="inputRangeHelperDisabledVertical"
+                            helper-text="helper test DISABLED" start-icon="fa fa-taxi" finish-icon="fa fa-space-shuttle" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-disabled-vertical" formControlName="inputRangeLabelIconDisabledVertical"
+                            label="test label and icon DISABLED" icon="fa fa-star" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-disabled-vertical" formControlName="inputRangeLabelIconHelperDisabledVertical"
+                            label="test label and icon and helper" icon="fa fa-star"
+                            helper-text="helper test and icon and helper DISABLED" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-validation-vertical" formControlName="inputRangeNullValidationVertical"
+                            label="test label maximum 10" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-validation-vertical" formControlName="inputRangeLabelValidationVertical"
+                            label="test label minimum 20" [show-value]="true" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-validation-vertical" formControlName="inputRangeIconValidationVertical"
+                            icon="fa fa-star" [show-limits]="true" label="test label equal 12" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-validation-vertical" formControlName="inputRangeHelperValidationVertical"
+                            helper-text="helper test equal 100" start-icon="fa fa-taxi"
+                            finish-icon="fa fa-space-shuttle" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-validation-vertical"
+                            formControlName="inputRangeLabelIconValidationVertical" label="test label and icon equal 1"
+                            icon="fa fa-star" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-validation-vertical"
+                            formControlName="inputRangeLabelIconHelperValidationVertical" label="test label and icon and helper"
+                            icon="fa fa-star" helper-text="helper test and icon and helper minimum 100" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-empty-validation-vertical" formControlName="inputRangeNullValidationMessageVertical"
+                            label="test label maximum 10" [validations]="{max: 'Value must be maximum 10.'}" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-validation-vertical" formControlName="inputRangeLabelValidationMessageVertical"
+                            label="test label minimum 20" [show-value]="true" [validations]="{min: 'Value must be minimum 20'}" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-icon-validation-vertical" formControlName="inputRangeIconValidationMessageVertical"
+                            icon="fa fa-star" [show-limits]="true" label="test label equal 12" [validations]="{equalOrInclude: 'Value must be equal 12.'}" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-helper-validation-vertical" formControlName="inputRangeHelperValidationMessageVertical"
+                            helper-text="helper test equal 100" start-icon="fa fa-taxi"
+                            finish-icon="fa fa-space-shuttle" [validations]="{equalOrInclude: 'Value must be equal 100.'}" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-validation-vertical"
+                            formControlName="inputRangeLabelIconValidationMessageVertical" label="test label and icon equal 1"
+                            icon="fa fa-star" [validations]="{equalOrInclude: 'Value must be equal 1.'}" >
+                        </sfc-range-vertical-input>
+                    </div>
+
+                    <div>
+                        <sfc-range-vertical-input id="demo-range-label-icon-helper-validation-vertical"
+                            formControlName="inputRangeLabelIconHelperValidationMessageVertical" label="test label and icon and helper"
+                            icon="fa fa-star" helper-text="helper test and icon and helper minimum 100" [validations]="{min: 'Value must be minimum 100.'}" >
+                        </sfc-range-vertical-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

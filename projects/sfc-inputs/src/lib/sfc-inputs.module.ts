@@ -23,17 +23,22 @@ import { ToggleInputComponent } from './sfc-toggle-input/sfc-toggle-input.compon
 import { RadioButtonsInputComponent } from './sfc-radio-buttons-input/sfc-radio-buttons-input.component';
 import { TagsInputComponent } from './sfc-tags-input/sfc-tags-input.component';
 import { TagsChipComponent } from './sfc-tags-input/sfc-chip/sfc-tags-chip.component';
+import { TooltipComponent } from './common/components/tooltip/sfc-tooltip.component';
+import { RangeHorizontalInputComponent } from './sfc-range-input/horizontal/sfc-range-horizontal-input.component';
+import { RangeVerticalInputComponent } from './sfc-range-input/vertical/sfc-range-vertical-input.component';
 
 @NgModule({
   declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent,
     FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, TagsInputComponent, TagsChipComponent, 
-    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent],
+    RangeHorizontalInputComponent, RangeVerticalInputComponent,
+    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
   exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent,
-    TagsInputComponent, TagsChipComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, InfiniteScrollerDirective],
+    TagsInputComponent, TagsChipComponent, RangeHorizontalInputComponent, RangeVerticalInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, 
+    InfiniteScrollerDirective, TooltipComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => BaseInputComponent), multi: true },
