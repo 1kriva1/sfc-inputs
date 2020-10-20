@@ -107,6 +107,11 @@ input[type="range"]:not(.valid):not(.invalid)::-webkit-slider-thumb:active {
     max-width: 150px;
 }
 
+.helper-text:empty {
+    visibility: hidden;
+    display: inherit;
+}
+
 /* END HELPER TEXT */
 
 /* VALID */
