@@ -81,11 +81,6 @@
     text-align: center;
 }
 
-.vertical-main-container .helper-text:empty {
-    visibility: hidden;
-    display: inherit;
-}
-
 /* END HELPER TEXT */
 
 /* ICON */

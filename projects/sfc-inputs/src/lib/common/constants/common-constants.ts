@@ -44,6 +44,13 @@ export enum TooltipType {
     Click = 'click'
 }
 
+export enum LocationType {
+    Top = 'top',
+    Bottom = 'bottom',
+    Left = 'left',
+    Right = 'right'
+}
+
 export class CommonConstants {
     static DEFAULT_ERROR_MESSAGE = 'Invalid value';
     static COMMON_TEXT_DELIMETER = '/';
