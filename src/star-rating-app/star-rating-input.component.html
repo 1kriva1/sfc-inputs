@@ -1,0 +1,410 @@
+<div class="demo-container">
+    <h1>STAR RATING INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <hr>
+                <h3>Verical:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-empty" formControlName="inputStarRatingNull"
+                            [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-label" formControlName="inputStarRatingLabel"
+                            label="test label" [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-icon" formControlName="inputStarRatingIcon"
+                            icon="fa fa-phone" [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-helper" formControlName="inputStarRatingHelper"
+                            helper-text="helper test" [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-helper-label"
+                            formControlName="inputStarRatingHelperLabel" helper-text="helper test" label="test label"
+                            [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-helper-label-icon"
+                            formControlName="inputStarRatingHelperLabelIcon" helper-text="helper test"
+                            label="test label" icon="fa fa-phone" [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter" formControlName="inputStarRatingCounter"
+                            helper-text="helper test counter" label="test label counter" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-reset" formControlName="inputStarRatingResetButton"
+                            helper-text="helper test reset button" label="test label reset button" icon="fa fa-phone"
+                            [items]="data" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-reset"
+                            formControlName="inputStarRatingCounterResetButton"
+                            helper-text="helper test reset button and counter"
+                            label="test label reset button and counter" icon="fa fa-phone" [items]="data"
+                            [show-counter]="true" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-value"
+                            formControlName="inputStarRatingCounterValue" helper-text="helper test first selected"
+                            label="test label first selected" icon="fa fa-phone" [items]="data" [show-counter]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-reset-value"
+                            formControlName="inputStarRatingResetButtonValue" helper-text="helper test value=5"
+                            label="test label value=5" icon="fa fa-phone" [items]="data" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-reset-value"
+                            formControlName="inputStarRatingCounterResetButtonValue"
+                            helper-text="helper test last selected" label="test label last selected" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-disabled" formControlName="inputStarRatingDisabled"
+                            helper-text="helper test disabled" label="test label disabled" icon="fa fa-phone"
+                            [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-disabled-value"
+                            formControlName="inputStarRatingDisabledValue" helper-text="helper test disabled value=5"
+                            label="test label disabled value=5" icon="fa fa-phone" [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-disabled-value-actions"
+                            formControlName="inputStarRatingDisabledValueActions"
+                            helper-text="helper test disabled value=5" label="test label disabled value=5"
+                            icon="fa fa-phone" [items]="data" [show-counter]="true" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation"
+                            formControlName="inputStarRatingValidation" helper-text="helper test valid only 5"
+                            label="test label valid only 5" icon="fa fa-phone" [items]="data">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-actions"
+                            formControlName="inputStarRatingValidationActions" helper-text="valid only greater than 3"
+                            label="valid only greater than 3" icon="fa fa-phone" [items]="data" [show-counter]="true"
+                            [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-value"
+                            formControlName="inputStarRatingValidationValue" helper-text="valid only less than 4"
+                            label="valid only less than 4" icon="fa fa-phone" [items]="data" [show-counter]="true"
+                            [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-message"
+                            formControlName="inputStarRatingValidationMessage" helper-text="helper test valid only 5"
+                            label="test label valid only 5" icon="fa fa-phone" [items]="data"
+                            [validations]="{equalOrInclude: 'Value must be equal 5.'}">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-actions-message"
+                            formControlName="inputStarRatingValidationActionsMessage"
+                            helper-text="valid only greater than 3" label="valid only greater than 3" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true"
+                            [validations]="{min: 'Value must be greater than 3.'}">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-value-message"
+                            formControlName="inputStarRatingValidationValueMessage" helper-text="valid only less than 4"
+                            label="valid only less than 4" icon="fa fa-phone" [items]="data" [show-counter]="true"
+                            [show-reset]="true" [validations]="{max: 'Value must be less than 4.'}">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-10-star" formControlName="inputStarRating10Star"
+                            helper-text="helper test" label="label test" icon="fa fa-phone" [items]="data10"
+                            [show-counter]="true" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-2-star" formControlName="inputStarRating2Star"
+                            helper-text="helper test" label="test label" icon="fa fa-phone" [items]="data2"
+                            [show-counter]="true" [show-reset]="true">
+                        </sfc-star-rating-input>
+                    </div>
+
+
+                </div>
+
+                <hr>
+                <h3>Horizontal:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-empty-vertical"
+                            formControlName="inputStarRatingNullVertical" [items]="data" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-label-vertical"
+                            formControlName="inputStarRatingLabelVertical" label="test label" [items]="data"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-icon-vertical"
+                            formControlName="inputStarRatingIconVertical" icon="fa fa-phone" [items]="data"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-helper-vertical"
+                            formControlName="inputStarRatingHelperVertical" helper-text="helper test" [items]="data"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-helper-label-vertical"
+                            formControlName="inputStarRatingHelperLabelVertical" helper-text="helper test"
+                            label="test label" [items]="data" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-helper-label-icon-vertical"
+                            formControlName="inputStarRatingHelperLabelIconVertical" helper-text="helper test"
+                            label="test label" icon="fa fa-phone" [items]="data" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-vertical"
+                            formControlName="inputStarRatingCounterVertical" helper-text="helper test counter"
+                            label="test label counter" icon="fa fa-phone" [items]="data" [show-counter]="true"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-reset-vertical"
+                            formControlName="inputStarRatingResetButtonVertical" helper-text="helper test reset button"
+                            label="test label reset button" icon="fa fa-phone" [items]="data" [show-reset]="true"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-reset-vertical"
+                            formControlName="inputStarRatingCounterResetButtonVertical"
+                            helper-text="helper test reset button and counter"
+                            label="test label reset button and counter" icon="fa fa-phone" [items]="data"
+                            [show-counter]="true" [show-reset]="true" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-value-vertical"
+                            formControlName="inputStarRatingCounterValueVertical"
+                            helper-text="helper test first selected" label="test label first selected"
+                            icon="fa fa-phone" [items]="data" [show-counter]="true" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-reset-value-vertical"
+                            formControlName="inputStarRatingResetButtonValueVertical" helper-text="helper test value=5"
+                            label="test label value=5" icon="fa fa-phone" [items]="data" [show-reset]="true"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-counter-reset-value-vertical"
+                            formControlName="inputStarRatingCounterResetButtonValueVertical"
+                            helper-text="helper test last selected" label="test label last selected" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-disabled-vertical"
+                            formControlName="inputStarRatingDisabledVertical" helper-text="helper test disabled"
+                            label="test label disabled" icon="fa fa-phone" [items]="data" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-disabled-value-vertical"
+                            formControlName="inputStarRatingDisabledValueVertical"
+                            helper-text="helper test disabled value=5" label="test label disabled value=5"
+                            icon="fa fa-phone" [items]="data" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-disabled-value-actions-vertical"
+                            formControlName="inputStarRatingDisabledValueActionsVertical"
+                            helper-text="helper test disabled value=5" label="test label disabled value=5"
+                            icon="fa fa-phone" [items]="data" [show-counter]="true" [show-reset]="true"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-vertical"
+                            formControlName="inputStarRatingValidationVertical" helper-text="helper test valid only 5"
+                            label="test label valid only 5" icon="fa fa-phone" [items]="data" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-actions-vertical"
+                            formControlName="inputStarRatingValidationActionsVertical"
+                            helper-text="valid only greater than 3" label="valid only greater than 3" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-value-vertical"
+                            formControlName="inputStarRatingValidationValueVertical"
+                            helper-text="valid only less than 4" label="valid only less than 4" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-message-vertical"
+                            formControlName="inputStarRatingValidationMessageVertical"
+                            helper-text="helper test valid only 5" label="test label valid only 5" icon="fa fa-phone"
+                            [items]="data" [validations]="{equalOrInclude: 'Value must be equal 5.'}"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-actions-message-vertical"
+                            formControlName="inputStarRatingValidationActionsMessageVertical"
+                            helper-text="valid only greater than 3" label="valid only greater than 3" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true"
+                            [validations]="{min: 'Value must be greater than 3.'}" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-validation-value-message-vertical"
+                            formControlName="inputStarRatingValidationValueMessageVertical"
+                            helper-text="valid only less than 4" label="valid only less than 4" icon="fa fa-phone"
+                            [items]="data" [show-counter]="true" [show-reset]="true"
+                            [validations]="{max: 'Value must be less than 4.'}" position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-10-star-vertical"
+                            formControlName="inputStarRating10StarVertical" helper-text="helper test" label="label test"
+                            icon="fa fa-phone" [items]="data10" [show-counter]="true" [show-reset]="true"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+
+                    <div>
+                        <sfc-star-rating-input id="demo-star-rating-2-star-vertical"
+                            formControlName="inputStarRating2Star" helper-text="helper test" label="test label"
+                            icon="fa fa-phone" [items]="data2" [show-counter]="true" [show-reset]="true"
+                            position="vertical">
+                        </sfc-star-rating-input>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

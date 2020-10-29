@@ -4,16 +4,13 @@ import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SfcInputsModule } from '../../sfc-inputs.module';
 import { TagsChipComponent } from './sfc-tags-chip.component';
-import { CommonConstants, StyleClass } from '../../common/constants/common-constants';
+import { StyleClass } from '../../common/constants/common-constants';
 
 describe('Component: TagsChipComponent', () => {
 
     let component: TagsChipComponent;
     let fixture: ComponentFixture<TagsChipComponent>;
     let el: DebugElement;
-    let labelEl: any;
-    let textInputEl: any;
-    let debugTextInputEl: DebugElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

@@ -1,0 +1,27 @@
+<div class="input-container input-star-rating-container" [ngClass]="containerClass">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <div class="main-star-container">
+        <input sfcinput id="sfc-{{id}}" type="number" class="sfc-input" [value]="value" [disabled]="disabled">
+        <label for="sfc-{{id}}" class="main-label" [ngClass]="labelClass">{{label}}</label>
+        <div class="stars-container">
+            <sfc-star *ngFor="let item of items" id="sfc-{{id}}-{{item}}" [value]="item" [disabled]="disabled"
+                (checked)="onChecked($event)" [highlighted]="isHighlighted(item)" [highlighted-max]="isHighlightedMax"
+                [highlighted-min]="isHighlightedMin(item)">
+            </sfc-star>
+        </div>
+        <div class="helper-container">
+            <span class="helper-text">{{helperText}}</span>
+            <div class="action-container" [ngClass]="actionClass">
+                <ng-container *ngIf="showCounter">
+                    <div class="counter-container">
+                        <span *ngFor="let index of [value]" @counterAnimation>{{starsIndex}}</span>
+                        <span>/{{starsCount}}</span>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="showReset && !disabled">
+                    <span class="reset-button" (click)="onReset()">reset</span>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

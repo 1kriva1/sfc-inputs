@@ -20,11 +20,7 @@ export class CollectionUtils {
         }
 
         return null;
-    }
-
-    public static any<T>(collection: Array<T>): boolean {
-        return CommonUtils.isDefined(collection) && collection.length > 0;
-    }
+    }    
 
     public static removeItem<T>(collection: Array<T>, predicate: (item: T) => boolean) {
         var i = collection.length;
@@ -33,5 +29,25 @@ export class CollectionUtils {
                 collection.splice(i, 1);
             }
         }
+    }
+
+    public static any<T>(collection: Array<T>): boolean {
+        return CommonUtils.isDefined(collection) && collection.length > 0;
+    }
+
+    public static firstItem<T>(collection: Array<T>): T {
+        if(CommonUtils.isDefined(collection) && collection.length > 0){
+            return collection[0];
+        }
+
+        return null;
+    }
+
+    public static lastItem<T>(collection: Array<T>): T {
+        if(CommonUtils.isDefined(collection) && collection.length > 0){
+            return collection[collection.length - 1];
+        }
+
+        return null;
     }
 }

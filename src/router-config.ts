@@ -10,6 +10,7 @@ import { RadioButtonsInputAppComponent } from './radio-buttons-app/radio-buttons
 import { TagsInputAppComponent } from './tags-input-app/tags-input.component';
 import { RangeInputAppComponent } from './range-input-app/range-input.component';
 import { ToolTipAppComponent } from './tooltip-app/tooltip.component';
+import { StarRatingInputAppComponent } from './star-rating-app/star-rating-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -57,6 +58,10 @@ export const routeConfig = [
     {
         path: 'range-input',
         component: RangeInputAppComponent
+    },
+    {
+        path: 'star-rating-input',
+        component: StarRatingInputAppComponent
     },
     {
         path: 'loader',

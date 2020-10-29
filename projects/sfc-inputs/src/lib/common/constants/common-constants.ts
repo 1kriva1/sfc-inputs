@@ -51,6 +51,12 @@ export enum LocationType {
     Right = 'right'
 }
 
+export enum StarType {
+    Highlighted='highlighted',
+    HighlightedMax='highlighted-max',
+    HighlightedMin='highlighted-min'
+}
+
 export class CommonConstants {
     static DEFAULT_ERROR_MESSAGE = 'Invalid value';
     static COMMON_TEXT_DELIMETER = '/';

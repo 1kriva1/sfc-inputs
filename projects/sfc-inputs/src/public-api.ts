@@ -12,6 +12,7 @@ export * from './lib/sfc-radio-buttons-input/sfc-radio-buttons-input.component';
 export * from './lib/sfc-tags-input/sfc-tags-input.component';
 export * from './lib/sfc-range-input/horizontal/sfc-range-horizontal-input.component';
 export * from './lib/sfc-range-input/vertical/sfc-range-vertical-input.component';
+export * from './lib/sfc-star-rating-input/sfc-star-rating-input.component';
 export * from './lib/common/validators/sfc-input.validators';
 export * from './lib/sfc-inputs.module';
 
