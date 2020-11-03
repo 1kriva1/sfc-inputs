@@ -11,6 +11,7 @@ import { TagsInputAppComponent } from './tags-input-app/tags-input.component';
 import { RangeInputAppComponent } from './range-input-app/range-input.component';
 import { ToolTipAppComponent } from './tooltip-app/tooltip.component';
 import { StarRatingInputAppComponent } from './star-rating-app/star-rating-input.component';
+import { NumberSpinnerInputAppComponent } from './number-spinner-app/number-spinner-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -62,6 +63,10 @@ export const routeConfig = [
     {
         path: 'star-rating-input',
         component: StarRatingInputAppComponent
+    },
+    {
+        path: 'number-spinner-input',
+        component: NumberSpinnerInputAppComponent
     },
     {
         path: 'loader',

@@ -13,6 +13,7 @@ export * from './lib/sfc-tags-input/sfc-tags-input.component';
 export * from './lib/sfc-range-input/horizontal/sfc-range-horizontal-input.component';
 export * from './lib/sfc-range-input/vertical/sfc-range-vertical-input.component';
 export * from './lib/sfc-star-rating-input/sfc-star-rating-input.component';
+export * from './lib/sfc-number-spinner-input/sfc-number-spinner-input.component';
 export * from './lib/common/validators/sfc-input.validators';
 export * from './lib/sfc-inputs.module';
 

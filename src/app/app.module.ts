@@ -18,12 +18,14 @@ import { TagsInputAppComponent } from 'src/tags-input-app/tags-input.component';
 import { RangeInputAppComponent } from 'src/range-input-app/range-input.component';
 import { ToolTipAppComponent } from 'src/tooltip-app/tooltip.component';
 import { StarRatingInputAppComponent } from 'src/star-rating-app/star-rating-input.component';
+import { NumberSpinnerInputAppComponent } from 'src/number-spinner-app/number-spinner-input.component';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule,  HttpClientModule, RouterModule.forRoot(routeConfig), SfcInputsModule],
     declarations: [AppComponent, TextInputAppComponent, TextAreaAppComponent, FileInputAppComponent, SelectInputAppComponent, LoaderAppComponent, CheckboxInputAppComponent,
-        ToggleInputAppComponent, RadioButtonsInputAppComponent, TagsInputAppComponent, RangeInputAppComponent, ToolTipAppComponent, StarRatingInputAppComponent],
+        ToggleInputAppComponent, RadioButtonsInputAppComponent, TagsInputAppComponent, RangeInputAppComponent, ToolTipAppComponent, StarRatingInputAppComponent,
+        NumberSpinnerInputAppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

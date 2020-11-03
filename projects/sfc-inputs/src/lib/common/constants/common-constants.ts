@@ -67,6 +67,8 @@ export class CommonConstants {
     static TEXT_AREA_REQUIRED_VALIDATOR_KEY = 'textAreaRequired';
     static DUPLICATE_VALIDATOR_KEY = 'sfc-duplicate';
     static EMPTY_VALIDATOR_KEY = 'sfc-empty';
+    static MAX_VALIDATOR_KEY = 'sfc-max';
+    static MIN_VALIDATOR_KEY = 'sfc-min';
 
     static CSS_PIXELS = 'px';
     static CSS_WIDTH = 'width';

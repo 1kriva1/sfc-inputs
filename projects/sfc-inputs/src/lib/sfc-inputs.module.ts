@@ -29,12 +29,13 @@ import { RangeVerticalInputComponent } from './sfc-range-input/vertical/sfc-rang
 import { StarRatingInputComponent } from './sfc-star-rating-input/sfc-star-rating-input.component';
 import { StarComponent } from './sfc-star-rating-input/sfc-star/sfc-star.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { NumberSpinnerInputComponent } from './sfc-number-spinner-input/sfc-number-spinner-input.component';
 
 @NgModule({
   declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent,
     FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, TagsInputComponent, TagsChipComponent, 
     RangeHorizontalInputComponent, RangeVerticalInputComponent, StarRatingInputComponent, StarComponent,
-    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent],
+    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent, NumberSpinnerInputComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -42,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent,
     TagsInputComponent, TagsChipComponent, RangeHorizontalInputComponent, RangeVerticalInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, 
-    InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent],
+    InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent, NumberSpinnerInputComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => BaseInputComponent), multi: true },

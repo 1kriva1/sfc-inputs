@@ -1,0 +1,224 @@
+<div class="demo-container">
+    <h1>NUMBER SPINNER INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-empty" formControlName="inputNumberNull">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-label" formControlName="inputNumberLabel"
+                            label="test label">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-icon" formControlName="inputNumberIcon"
+                            icon="fa fa-star">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-helper" formControlName="inputNumberHelper"
+                            helper-text="helper test">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-label-helper" formControlName="inputNumberLabelHelper"
+                            label="test label" helper-text="helper test">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-label-icon-helper"
+                            formControlName="inputNumberLabelIconHelper" label="test label" icon="fa fa-star">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-custom-next" formControlName="inputNumberCustomNext"
+                            label="test label" icon="fa fa-star" helper-text="helper test"
+                            next-icon="fa fa-plus-circle">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-custom-prev" formControlName="inputNumberCustomPrev"
+                            label="test label" icon="fa fa-star" helper-text="helper test"
+                            prev-icon="fa fa-minus-circle">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-custom-next-prev"
+                            formControlName="inputNumberCustomNextPrev" label="test label" icon="fa fa-star"
+                            helper-text="helper test" next-icon="fa fa-plus-circle" prev-icon="fa fa-minus-circle">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-max" formControlName="inputNumberMax"
+                            label="test label max 3 limit" icon="fa fa-star" helper-text="helper test max 3 limit"
+                            [max]="3">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-min" formControlName="inputNumberMin"
+                            label="test label min 0 limit" icon="fa fa-star" helper-text="helper test min 0 limit"
+                            [min]="0">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-max-min" formControlName="inputNumberMaxMin"
+                            label="test label from 0 to 3 limit" icon="fa fa-star" helper-text="helper test from 0 to 3"
+                            [min]="0" [max]="3">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-max-step" formControlName="inputNumberMaxStep"
+                            label="test label max 3 limit step 2" icon="fa fa-star"
+                            helper-text="helper test max 3 limit step 2" [max]="3" [step]="2">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-min-step" formControlName="inputNumberMinStep"
+                            label="test label min 0 limit step 2" icon="fa fa-star"
+                            helper-text="helper test min 0 limit step 2" [min]="0" [step]="2">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-max-min-step" formControlName="inputNumberMaxMinStep"
+                            label="test label from 0 to 3 limit step 2" icon="fa fa-star"
+                            helper-text="helper test from 0 to 3 step 2" [min]="0" [max]="3" [step]="2">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-fixed" formControlName="inputNumberFixed"
+                            label="test label fixed" icon="fa fa-star" helper-text="helper test fixed" [fixed]="true">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-fixed-actions"
+                            formControlName="inputNumberFixedActions" label="test label fixed actions" icon="fa fa-star"
+                            helper-text="helper test fixed actions" [fixed-actions]="true">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-fixed-all" formControlName="inputNumberFixedAll"
+                            label="test label fixed all" icon="fa fa-star" helper-text="helper test fixed all"
+                            [fixed]="true" [fixed-actions]="true">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-disabled" formControlName="inputNumberDisabled"
+                            label="test label disabled" icon="fa fa-star" helper-text="helper test disabled">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-fixed-disabled"
+                            formControlName="inputNumberFixedDisabled" label="test label disabled fixed"
+                            icon="fa fa-star" helper-text="helper test disabled fixed" [fixed]="true">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-fixed-all-disabled"
+                            formControlName="inputNumberFixedAllDisabled" label="test label disabled fixed all"
+                            icon="fa fa-star" helper-text="helper test disabled fixed all" [fixed]="true"
+                            [fixed-actions]="true">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-validation" formControlName="inputNumberValidation"
+                            label="test label valid when value is 1" icon="fa fa-star"
+                            helper-text="helper test  valid when value is 1">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-validation-label"
+                            formControlName="inputNumberValidationLabel"
+                            label="test label valid when value less than 3">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-validation-icon"
+                            formControlName="inputNumberValidationIcon" icon="fa fa-star"
+                            label="test label valid when value more than 3">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-validation-message"
+                            formControlName="inputNumberValidationMessage" label="test label valid when value is 1"
+                            icon="fa fa-star" helper-text="helper test  valid when value is 1"
+                            [validations]="{equalOrInclude: 'Value must be equal 1.'}">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-validation-label-message"
+                            formControlName="inputNumberValidationLabelMessage"
+                            label="test label valid when value less than 3"
+                            [validations]="{max: 'Value must be less than 3.'}">
+                        </sfc-number-spinner-input>
+                    </div>
+
+                    <div>
+                        <sfc-number-spinner-input id="demo-number-validation-icon-message"
+                            formControlName="inputNumberValidationIconMessage" icon="fa fa-star"
+                            label="test label valid when value more than 3"
+                            [validations]="{min: 'Value must be greater than 3.'}">
+                        </sfc-number-spinner-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>
