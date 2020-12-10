@@ -181,6 +181,16 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         this.innerErrors = {};
         this.isInvalid = false;
     }
+    
+    protected toggleInnerErrors(validationKey: string, isInvalid: boolean) {
+        this.isInvalid = isInvalid;
+
+        if (isInvalid) {
+            this.innerErrors = CommonUtils.addPropertyToObject(this.innerErrors, validationKey, true);
+        } else {
+            CommonUtils.removePropertyFromObject(this.innerErrors, validationKey);
+        }
+    }    
 
     ngAfterViewInit(): void {
         if (this.elementRefInput) {

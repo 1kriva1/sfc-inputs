@@ -5,11 +5,12 @@ import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import { SfcInputsModule } from '../../../sfc-inputs.module';
 import { InfiniteScrollerDirective } from './sfc-infinite-scroll.directive';
 import ISelectData from '../../interfaces/select-input/ISelectData';
+import { componentFactoryName } from '@angular/compiler';
 
 @Component({
     template: `
     <ul #scrollContainer [infinite-scroller]='showInfiniteScroller' [scrollPercent]='scrollPercent'
-        [immediateCallback]='isImmediateCallback' [loader]='loader' (scrolled)='onLoadMore()'
+        [immediateCallback]='isImmediateCallback' [has-more]='hasNext' [loader]='loader' (scrolled)='onLoadMore()'
         (updated)='updateData($event)'>
         <li *ngFor='let item of data'>   
             {{item}}         
@@ -25,6 +26,7 @@ export class InfiniteScrollerTestComponent {
     scrollPercent: number = 100;
     loader: any;
     data: Array<string>;
+    hasNext:boolean;
 
     @ViewChild('scrollContainer', { static: false, read: InfiniteScrollerDirective })
     infinityScroll: InfiniteScrollerDirective;
@@ -33,7 +35,7 @@ export class InfiniteScrollerTestComponent {
     myScrollContainer: ElementRef;
 
     mockLoader = (hasNext: boolean): () => Observable<ILoadMoreData<ISelectData>> => {
-
+        this.hasNext = hasNext;
         return (): Observable<ILoadMoreData<ISelectData>> => {
             const testData: ILoadMoreData<ISelectData> = { HasNext: hasNext, Items: [{ key: 1, value: 'test_1' }, { key: 2, value: 'test_2' }] }
             return Observable.of<ILoadMoreData<ISelectData>>(testData);
@@ -118,7 +120,7 @@ describe('Directive: InfiniteScroller', () => {
         fixture.detectChanges();
         enableInfinityScroller();
 
-        expect(component.infinityScroll['setUpScrollProcess']).not.toHaveBeenCalledTimes(1);
+        expect(component.infinityScroll['setUpScrollProcess']).toHaveBeenCalled();
     }));
 
     it('Immediate callback is FALSE', async(() => {
@@ -265,12 +267,14 @@ describe('Directive: InfiniteScroller', () => {
 
         // request for new data when scrolled to middle of ul
         component.scrollPercent = 50;
-        component.loader = component.mockLoader(false);
+        component.loader = component.mockLoader(true);
         enableInfinityScroller();
 
         // scroll to middle
         scroll(50);
 
+        component.loader = component.mockLoader(false);
+        fixture.detectChanges();
         // scroll to bottom
         scroll();
 

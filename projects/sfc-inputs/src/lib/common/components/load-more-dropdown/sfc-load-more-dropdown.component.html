@@ -1,0 +1,17 @@
+<div class="select-dropdown-container">
+    <div [ngClass]="_open && hasItems ? 'loaded' : ''">
+        <app-bounce-loader [id]="loaderId" [size]="'small'" [background]="true">
+        </app-bounce-loader>
+        
+        <ul #dropdown class="select-dropdown" [infinite-scroller]="!loadMoreButton"
+            scrollPercent="100" [loader]="_loadFunction" (scrolled)="onLoadMore()" (updated)="updateData($event)"
+            [has-more]="showLoadMore">
+
+            <ng-content></ng-content>
+            
+            <load-more-button *ngIf="loadMoreButton && showLoadMore" [loader]="_loadFunction" (clicked)="onLoadMore()"
+                (updated)="updateData($event)" [has-more]="showLoadMore">
+            </load-more-button>
+        </ul>
+    </div>
+</div>

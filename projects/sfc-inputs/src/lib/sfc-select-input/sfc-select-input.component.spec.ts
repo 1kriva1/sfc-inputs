@@ -12,6 +12,7 @@ import { LoaderService } from '../common/components/loader/base/sfc-loader.servi
 import { ILoadMoreData } from '../common/interfaces/ILoadMoreData';
 import HttpUtils from '../common/utils/http-utils';
 import { HttpConfig } from '../common/utils/http-config';
+import ValidationConstants from '../common/constants/validation-constants';
 
 
 describe('Component: SelectInputComponent', () => {
@@ -22,7 +23,6 @@ describe('Component: SelectInputComponent', () => {
     let debugTextInputEl: DebugElement;
     let labelEl: HTMLLabelElement;
 
-    let loaderServiceInjectedSpy: LoaderService;
     let httpUtilsServiceInjectedSpy: HttpUtils;
 
     beforeEach(async(() => {
@@ -35,12 +35,8 @@ describe('Component: SelectInputComponent', () => {
             component = el.componentInstance;
             debugTextInputEl = el.query(By.css('input.sfc-input.input-text-input'));
             labelEl = fixture.nativeElement.querySelector('div.select-wrapper > label');
-            loaderServiceInjectedSpy = fixture.debugElement.injector.get(LoaderService);
             httpUtilsServiceInjectedSpy = fixture.debugElement.injector.get(HttpUtils);
             fixture.detectChanges();
-
-            spyOn(loaderServiceInjectedSpy, 'showLoader').and.callThrough();
-            spyOn(loaderServiceInjectedSpy, 'hideLoader').and.callThrough();
         });
     }));
 
@@ -86,7 +82,7 @@ describe('Component: SelectInputComponent', () => {
 
         component.icon = 'fa fa-user';
         fixture.detectChanges();
-        
+
         component.ngAfterViewInit();
         fixture.detectChanges();
 
@@ -100,12 +96,12 @@ describe('Component: SelectInputComponent', () => {
     it('Icon: click event (focus manualy)', async(() => {
         component.icon = 'fa fa-user';
         fixture.detectChanges();
-        
+
         component.ngAfterViewInit();
         fixture.detectChanges();
 
         let iconEl = fixture.nativeElement.querySelector('i.icon');
-        focusTextInput();       
+        focusTextInput();
 
         let dropdownStyles = getComputedStyle(el.query(By.css('ul.select-dropdown')).nativeElement);
         expect(iconEl.classList.contains(StyleClass.Active)).toBeTruthy();
@@ -126,19 +122,23 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it('Text Input: value defined', async(() => {
-        setOptionData('2');
+        setValue(2);
+        setStaticData();
+
         expect(debugTextInputEl.nativeElement.value).toEqual('option 2');
     }));
 
     it('Text Input: Multiple - value defined', async(() => {
         component.multiple = true;
-        setOptionData(['1', '2']);
+        setValue([1, 2]);
+        setStaticData();
 
         expect(debugTextInputEl.nativeElement.value).toEqual('option 1, option 2');
     }));
 
     it('Text Input: OptGroup - value defined', async(() => {
-        setOptGroupOptionData({ key: 1, groupKey: 2 });
+        setValue({ key: 1, groupKey: 2 });
+        setOptGroupStaticData();
 
         expect(debugTextInputEl.nativeElement.value).toEqual('option 1 2');
     }));
@@ -156,10 +156,14 @@ describe('Component: SelectInputComponent', () => {
 
     it('Text Input: focus', async(() => {
         spyOn<any>(component, 'openDropdown').and.callThrough();
-        setOptGroupOptionData();
+        setOptGroupStaticData();
         focusTextInput();
 
         expect(component['openDropdown']).toHaveBeenCalledTimes(1);
+    }));
+
+    it('Text Input: readonly always', async(() => {
+        expect(debugTextInputEl.nativeElement.getAttribute('readonly')).toBeTruthy();
     }));
 
     it('Placeholder: empty value', async(() => {
@@ -225,7 +229,7 @@ describe('Component: SelectInputComponent', () => {
     }));
 
     it('Label: CSS classes with defined value', async(() => {
-        setOptionData('2');
+        setValue(2);
         expect(labelEl.className).toEqual(StyleClass.Active);
     }));
 
@@ -276,762 +280,686 @@ describe('Component: SelectInputComponent', () => {
         expect(fixture.nativeElement.querySelector('span.helper-text').innerText).toEqual(helperTextAssertValue);
     });
 
-    it('Ul-Dropdown container: should create element', async(() => {
-        let dropdownEl = el.queryAll(By.css('div.select-dropdown-container'));
-        expect(dropdownEl).toBeTruthy();
+    it('Load more dropdown: default class', async(() => {
+        expect(el.query(By.css('load-more-dropdown.uppon'))).toBeTruthy();
     }));
 
-    it('Ul-Dropdown: li - multiple', async(() => {
-        component.multiple = true;
-        setOptionData();
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li div.multiple')),
-            liDisabledElements = el.queryAll(By.css('ul.select-dropdown li.disabled'));
-
-        expect(liElements.length).toEqual(3);
-        expect(liDisabledElements.length).toEqual(0);
-    }));
-
-    it('Ul-Dropdown: li - opt group', async(() => {
-        component.multiple = true;
-        setOptGroupOptionData();
-
-        let liOptGroupOptionsElements = el.queryAll(By.css('ul.select-dropdown li.optgroup-option')),
-            liOptGroupElements = el.queryAll(By.css('ul.select-dropdown li.optgroup'));
-
-        expect(liOptGroupOptionsElements.length).toEqual(4);
-        expect(liOptGroupElements.length).toEqual(2);
-    }));
-
-    it('Ul-Dropdown: li - value is undefined', async(() => {
-        let liElements = el.queryAll(By.css('ul.select-dropdown li.selected'));
-        expect(liElements.length).toEqual(0);
-    }));
-
-    it('Ul-Dropdown: li - value is defined', async(() => {
-        setOptionData('2');
-        let liElements = el.queryAll(By.css('ul.select-dropdown li.selected'));
-
-        expect(liElements.length).toEqual(1);
-    }));
-
-    it('Ul-Dropdown: Multiple - li - value is defined', async(() => {
-        component.multiple = true;
-        setOptionData(['1', '2']);
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li.selected')),
-            liDisabledElements = el.queryAll(By.css('ul.select-dropdown li.disabled'));
-
-        expect(liElements.length).toEqual(2);
-        expect(liDisabledElements.length).toEqual(1);
-    }));
-
-    it('Ul-Dropdown: OptGroup - li - value is defined', async(() => {
-        setOptGroupOptionData({ key: 1, groupKey: 2 });
-        let liElements = el.queryAll(By.css('ul.select-dropdown li.selected'));
-
-        expect(liElements.length).toEqual(1);
-    }));
-
-    it('Ul-Dropdown: li - set option value', async(() => {
-        setOptionData();
+    it('Load more dropdown: scrollToSelected function not called without defined value', async(() => {
+        spyOn<any>(component, 'scrollToSelected').and.callThrough();
+        setStaticData();
         focusTextInput();
 
-        let liElements = el.queryAll(By.css('ul.select-dropdown li')),
-            secondOption = liElements[2],
-            selectEl = el.query(By.css('select'));
-        secondOption.triggerEventHandler('mousedown', { target: secondOption.nativeElement });
-        fixture.detectChanges();
+        expect(component['scrollToSelected']).not.toHaveBeenCalled();
+    }));
+
+    it('Load more dropdown: scrollToSelected function was called when value defined', async(() => {
+        spyOn<any>(component, 'scrollToSelected').and.callThrough();
+        setStaticData();
+        setValue(2);
+        focusTextInput();
+
+        expect(component['scrollToSelected']).toHaveBeenCalled();
+    }));
+
+    it('Load more dropdown: scrollToSelected function was called only once after was executed', async(() => {
+        spyOn<any>(component, 'scrollToSelected').and.callThrough();
+        setValue(2);
+        setStaticData();
+        focusTextInput();        
+
+        expect(component['scrollToSelected']).toHaveBeenCalledTimes(1);
+
+        selectItem(1);
+        focusTextInput();
+
+        expect(component['scrollToSelected']).toHaveBeenCalledTimes(1);
+    }));
+
+    it('Load more dropdown: load data only when load-on-init is true', async(() => {
+        setStaticData();
+
+        expectItems(1);
+    }));
+
+    it('Load more dropdown: data only loaded when open dropdown', async(() => {
+        setStaticData();
+        expectItems(1);
+        focusTextInput();
+
+        expectItems(3);
+    }));
+
+    it('Load more dropdown: data loaded on init', async(() => {
+        component.isLoadOnInit = true;
+        setStaticData();
+
+        expectItems(3);
+    }));
+
+    it('Load more dropdown: data loaded on init when value defined', async(() => {
+        setValue(2);
+        setStaticData();
+
+        expectItems(3);
+    }));
+
+    it('Load more dropdown: data loaded on init when multiple value defined', async(() => {
+        component.multiple = true;
+        setValue([1, 2]);
+        setStaticData();
+
+        expectItems(3);
+    }));
+
+    it('Load more dropdown: data not loaded on init when multiple value is empty array', async(() => {
+        component.multiple = true;
+        setValue([]);
+        setStaticData();
+
+        expectItems(1);
+    }));
+
+    it('Select items: multiple', async(() => {
+        component.multiple = true;
+        setStaticData();
+        focusTextInput();
+
+        expectItems(3);
+    }));
+
+    it('Select items: opt group', async(() => {
+        component.multiple = true;
+        setOptGroupStaticData();
+        focusTextInput();
+
+        expectItems(7);
+    }));
+
+    it('Select items: set option value', async(() => {
+        spyOn<any>(component, 'onChange').and.callThrough();
+        setStaticData();
+        focusTextInput();
+
+        selectItem(2);
 
         expect(debugTextInputEl.nativeElement.value).toEqual('option 2');
-        expect(selectEl.nativeElement.value).toEqual('2');
+        expect(component['onChange']).toHaveBeenCalledWith(2);
     }));
 
-    it('Ul-Dropdown: Multiple - li - set option value', async(() => {
+    it('Select items: Multiple - set option value', async(() => {
+        spyOn<any>(component, 'onChange').and.callThrough();
         component.multiple = true;
-        setOptionData(['-1']);
+        setStaticData();
         focusTextInput();
 
-        let liElements = el.queryAll(By.css('ul.select-dropdown li')),
-            firstOption = liElements[1],
-            secondOption = liElements[2];
-
-        firstOption.triggerEventHandler('mousedown', { target: firstOption.nativeElement });
-        secondOption.triggerEventHandler('mousedown', { target: secondOption.nativeElement });
-        fixture.detectChanges();
-
-        let liDisabledElements = el.queryAll(By.css('ul.select-dropdown li.disabled')),
-            selectEl = el.queryAll(By.css('select option')).filter(m => m.attributes['selected'] === 'selected');
+        selectItem(1);
+        selectItem(2);
 
         expect(debugTextInputEl.nativeElement.value).toEqual('option 1, option 2');
-        expect(selectEl.length).toEqual(2);
-        expect(liDisabledElements.length).toEqual(1);
+        expect(component['onChange']).toHaveBeenCalledTimes(2);
+        expect(component['onChange']).toHaveBeenCalledWith([1]);
+        expect(component['onChange']).toHaveBeenCalledWith([1, 2]);
     }));
 
-    it('Ul-Dropdown: OptGroup - li - set option value', async(() => {
-        setOptGroupOptionData();
+    it('Select items: OptGroup - set option value', async(() => {
+        spyOn<any>(component, 'onChange').and.callThrough();
+        setOptGroupStaticData();
         focusTextInput();
 
-        let liElements = el.queryAll(By.css('ul.select-dropdown li')),
-            firstOption = liElements[2];
-
-        firstOption.triggerEventHandler('mousedown', { target: firstOption.nativeElement });
-        fixture.detectChanges();
-
-        let selectEl = el.queryAll(By.css('select option')).filter(m => m.attributes['selected'] === 'selected');
+        selectItem(2);
 
         expect(debugTextInputEl.nativeElement.value).toEqual('option 1 2');
-        expect(selectEl.length).toEqual(1);
+        expect(component['onChange']).toHaveBeenCalledWith({ key: 1, groupKey: 1 });
     }));
 
-    it('Ul-Dropdown: li - setActiveOption function not called', async(() => {
-        spyOn<any>(component, 'setActiveOption').and.callThrough();
-        setOptionData();
-        fixture.detectChanges();
-
-        expect(component['setActiveOption']).not.toHaveBeenCalled();
-    }));
-
-    it('Ul-Dropdown: li - setActiveOption function was called after select option', async(() => {
-        spyOn<any>(component, 'setActiveOption').and.callThrough();
-        setOptionData('2');
-        fixture.detectChanges();
-
-        expect(component['setActiveOption']).toHaveBeenCalled();
-    }));
-
-    it('Ul-Dropdown: li - setSelectedScroll function not called', async(() => {
-        spyOn<any>(component, 'setSelectedScroll').and.callThrough();
-        setOptionData();
-        fixture.detectChanges();
-
-        expect(component['setSelectedScroll']).not.toHaveBeenCalled();
-    }));
-
-    it('Ul-Dropdown: li - setSelectedScroll function was called after select option', async(() => {
-        spyOn<any>(component, 'setSelectedScroll').and.callThrough();
-        setOptionData('2');
-        fixture.detectChanges();
-
-        expect(component['setSelectedScroll']).toHaveBeenCalled();
-    }));
-
-    it('Ul-Dropdown: li - setSelectedScroll function was called only once after it was executed', async(() => {
-        spyOn<any>(component, 'setSelectedScroll').and.callThrough();
-        setOptionData();
+    it('Select items: with default item', async(() => {
+        setStaticData(0);
         focusTextInput();
 
-        let liElements = el.queryAll(By.css('ul.select-dropdown li')),
-            secondOption = liElements[2];
+        expectItems(1);
+    }));
 
-        secondOption.triggerEventHandler('mousedown', { target: secondOption.nativeElement });
-        fixture.detectChanges();
-
-        expect(component['setSelectedScroll']).toHaveBeenCalledTimes(1);
-
-        debugTextInputEl.triggerEventHandler('blur', { target: debugTextInputEl.nativeElement });
-        fixture.detectChanges();
-
+    it('Select items: without default item', async(() => {
+        component.showDefaultOption = false;
+        setStaticData(0);
         focusTextInput();
-        secondOption.triggerEventHandler('mousedown', { target: secondOption.nativeElement });
-        fixture.detectChanges();
 
-        expect(component['setSelectedScroll']).toHaveBeenCalledTimes(1);
+        expectItems(0);
     }));
 
-    it('Ul-Dropdown: IMG - not defined', async(() => {
-        let imgElements = el.queryAll(By.css('ul.select-dropdown li img'));
-        expect(imgElements.length).toEqual(0);
+    it('Select items: default item display value', async(() => {
+        setStaticData(0);
+        focusTextInput();
+        selectItem(0);
+
+        expect(debugTextInputEl.nativeElement.value).toEqual(CommonConstants.SELECT_INPUT.DEFAULT_OPTION_VALUE);
     }));
 
-    it('Ul-Dropdown: IMG - defined', async(() => {
-        setOptionData('2', { HasNext: true, Items: [{ key: 1, value: 'option 1', imagePath: 'testImg.jpg' }, { key: 2, value: 'option 2' }] });
+    it('Select items: default item value', async(() => {
+        spyOn<any>(component, 'onChange').and.callThrough();
+        setStaticData(0);
+        focusTextInput();
+        selectItem(0);
 
-        let imgElements = el.queryAll(By.css('ul.select-dropdown li img'));
-        expect(imgElements.length).toEqual(1);
-        expect(imgElements[0].nativeElement.src.indexOf('testImg.jpg')).not.toEqual(-1);
+        expect(component['onChange']).toHaveBeenCalledWith(-1);
     }));
 
-    it('Ul-Dropdown: li - default  text', async(() => {
-        let liSpanEl = el.queryAll(By.css('ul.select-dropdown li span span')),
-            expectedValue = 'Choose your option';
-        expect(liSpanEl.length).toEqual(1);
-        expect(liSpanEl[0].nativeElement.innerText).toEqual(expectedValue);
-    }));
+    it('Select items: with custom default item', async(() => {
+        spyOn<any>(component, 'onChange').and.callThrough();
+        component.defaultDisplayValue = { key: 100, value: 'custom default' }
+        setStaticData(0);
+        focusTextInput();
+        selectItem(0);
 
-    it('Ul-Dropdown: infinity scroll default attributes', async(() => {
-        let dropdownEl = el.query(By.css('ul.select-dropdown'));
-
-        expect(dropdownEl).toBeTruthy();
-        expect(dropdownEl.attributes['ng-reflect-infinite-scroller']).toEqual('true');
-        expect(dropdownEl.attributes['ng-reflect-loader']).toBeNull();
-        expect(dropdownEl.attributes['ng-reflect-immediate-callback']).toEqual('false');
-        expect(dropdownEl.attributes['scrollPercent']).toEqual('100');
-    }));
-
-    it('Ul-Dropdown: infinity scroll attribute - scroll attr equals false', async(() => {
-        component.loadMoreButton = true;
-        fixture.detectChanges();
-
-        let dropdownEl = el.query(By.css('ul.select-dropdown'));
-
-        expect(dropdownEl).toBeTruthy();
-        expect(dropdownEl.attributes['ng-reflect-infinite-scroller']).toEqual('false');
-    }));
-
-    it('Ul-Dropdown: infinity scroll attribute - loader attr to be defined defined', async(() => {
-        component.loader = mockLoader(false);
-        fixture.detectChanges();
-
-        let dropdownEl = el.query(By.css('ul.select-dropdown'));
-
-        expect(dropdownEl).toBeTruthy();
-        expect(dropdownEl.attributes['ng-reflect-loader']).toBeDefined();
-    }));
-
-    it('Ul-Dropdown: infinity scroll attribute - immediate callback equals true', async(() => {
-        component.loader = mockLoader(false);
-        component.isLoadOnInit = true;
-        fixture.detectChanges();
-
-        let dropdownEl = el.query(By.css('ul.select-dropdown'));
-
-        expect(dropdownEl).toBeTruthy();
-        expect(dropdownEl.attributes['ng-reflect-immediate-callback']).toEqual('true');
-    }));
-
-    it('Bounce-loader: should create element', async(() => {
-        let loader = el.query(By.css('app-bounce-loader'));
-        expect(loader).toBeTruthy();
-    }));
-
-    it('Bounce-loader: default attributes', async(() => {
-        const expectedId = 'test-id';
-        component.id = expectedId;
-        fixture.detectChanges();
-
-        let loader = el.query(By.css('app-bounce-loader'));
-        expect(loader.attributes['ng-reflect-background']).toEqual('true');
-        expect(loader.attributes['ng-reflect-size']).toEqual('small');
-        expect(loader.attributes['ng-reflect-id']).toEqual(expectedId);
-        expect(loader.properties['hidden']).toBeTruthy();
-    }));
-
-    it('Bounce-loader: when loading', fakeAsync(() => {
-        const expectedId = 'test-id';
-        component.id = expectedId;
-        component.onLoadMore();
-        tick(0);
-        fixture.detectChanges();
-
-        let loader = el.query(By.css('app-bounce-loader'));
-
-        expect(loader.attributes['ng-reflect-id']).toEqual(expectedId);
-        expect(loader.properties['hidden']).toBeFalsy();
-    }));
-
-    it('Load-more button: should not create element', async(() => {
-        let loadMoreButttonEl = el.query(By.css('load-more-button'));
-        expect(loadMoreButttonEl).toBeFalsy();
-    }));
-
-    it('Load-more button: should not create element when loader is not defined', async(() => {
-        component.loadMoreButton = true;
-        fixture.detectChanges();
-
-        let loadMoreButttonEl = el.query(By.css('load-more-button'));
-        expect(loadMoreButttonEl).toBeFalsy();
-    }));
-
-    it('Load-more button: should not create element when loadMoreButton is false', async(() => {
-        component.loader = mockLoader(false);
-        component.loadMoreButton = false;
-        fixture.detectChanges();
-
-        let loadMoreButttonEl = el.query(By.css('load-more-button'));
-        expect(loadMoreButttonEl).toBeFalsy();
-    }));
-
-    it('Load-more button: should create element', async(() => {
-        component.loader = mockLoader(false);
-        component.loadMoreButton = true;
-        fixture.detectChanges();
-
-        let loadMoreButttonEl = el.query(By.css('load-more-button'));
-        expect(loadMoreButttonEl).toBeTruthy();
-    }));
-
-    it('Load-more button: default attributes', async(() => {
-        component.loader = mockLoader(false);
-        component.loadMoreButton = true;
-        fixture.detectChanges();
-
-        let loadMoreButttonEl = el.query(By.css('load-more-button'));
-        expect(loadMoreButttonEl).toBeTruthy();
-        expect(loadMoreButttonEl.attributes['ng-reflect-immediate-callback']).toEqual('false');
-        expect(loadMoreButttonEl.attributes['ng-reflect-loader']).toBeDefined();
-    }));
-
-    it('Load-more button: immediate-callback attributes is true', async(() => {
-        component.loader = mockLoader(false);
-        component.isLoadOnInit = true;
-        component.loadMoreButton = true;
-        component.ngAfterViewInit();
-
-        let loadMoreButttonEl = el.query(By.css('load-more-button'));
-        expect(loadMoreButttonEl).toBeTruthy();
-        expect(loadMoreButttonEl.attributes['ng-reflect-immediate-callback']).toEqual('true');
+        expectItems(1);
+        expect(component['onChange']).toHaveBeenCalledWith(100);
+        expect(debugTextInputEl.nativeElement.value).toEqual('custom default');
     }));
 
     it('Caret: should create element', async(() => {
-        let caretEl = el.query(By.css('i.caret.fa.fa-caret-down'));
-        expect(caretEl).toBeTruthy();
+        expect(el.query(By.css('i.caret.fa.fa-caret-down'))).toBeTruthy();
     }));
 
-    it('Select: should create element', async(() => {
-        let selectEl = el.query(By.css('select'));
-        expect(selectEl).toBeTruthy();
-    }));
+    it('Data: check when data empty with default', async(() => {
+        spyDataHandlers();
+        focusTextInput();
 
-    it('Select: check id value', async(() => {
-        component.id = 'test-id';
-        fixture.detectChanges();
-        let selectEl = el.query(By.css('select')),
-            expectedValue = 'sfc-test-id';
-
-        expect(selectEl.nativeElement.id).toEqual(expectedValue)
-    }));
-
-    it('Select: check value', async(() => {
-        setOptionData('2');
-        let selectEl = el.query(By.css('select'));
-
-        expect(selectEl.nativeElement.value).toEqual('2')
-    }));
-
-    it('Select: multiple attribute fefault', async(() => {
-        setOptionData();
-        let selectEl = el.query(By.css('select'));
-
-        expect(selectEl.attributes['multiple']).toBeNull();
-    }));
-
-    it('Select: multiple attribute', async(() => {
-        component.multiple = true;
-        setOptionData();
-        let selectEl = el.query(By.css('select'));
-
-        expect(selectEl.attributes['multiple']).toBeDefined();
-    }));
-
-    it('Select: option attributes', async(() => {
-        setOptionData();
-        let optionsElements = el.queryAll(By.css('select option')),
-            expectedValue = 'Choose your option';
-
-        expect(optionsElements.length).toBeGreaterThan(0);
-        expect(optionsElements[0].nativeElement.value).toEqual('-1');
-        expect(optionsElements[0].nativeElement.innerText).toEqual(expectedValue);
-    }));
-
-    it('Data: check if data empty with default', async(() => {
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(1);
-        expect(optionsElements.length).toEqual(1);
+        expectItems(1);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
     }));
 
     it('Data: check if data empty without default', async(() => {
+        spyDataHandlers();
         component.showDefaultOption = false;
-        component.ngOnInit();
-        fixture.detectChanges();
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(0);
-        expect(optionsElements.length).toEqual(0);
-    }));
-
-    it('Data: check if data NOT empty with default option', async(() => {
-        component.data = [{ key: 1, value: 'test_1' }, { key: 2, value: 'test_2' }];
-        component.ngOnInit();
-        fixture.detectChanges();
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(3);
-        expect(optionsElements.length).toEqual(3);
-    }));
-
-    it('Data: check data with only custom default option', async(() => {
-        let defaultOptionValue = 'Choose your custom option';
-        component.defaultDisplayValue = { value: defaultOptionValue, key: -2 };
-        component.ngOnInit();
-        fixture.detectChanges();
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(1);
-        expect(liElements[0].nativeElement.innerText).toEqual(defaultOptionValue);
-
-        expect(optionsElements.length).toEqual(1);
-        expect(optionsElements[0].nativeElement.innerText).toEqual(defaultOptionValue);
-    }));
-
-    it('Data: with observable and loadOnInit = TRUE', async(() => {
-        component.isLoadOnInit = true;
-        component.data = mockObservable();
-        component.ngOnInit();
-        fixture.detectChanges();
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(3);
-        expect(optionsElements.length).toEqual(3);
-        expect(optionsElements[1].nativeElement.text).toEqual('test_1');
-        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
-        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
-    }));
-
-    it('Data: with observable and loadOnInit = FALSE', async(() => {
-        component.data = mockObservable();
-        component.ngOnInit();
-        fixture.detectChanges();
-
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(1);
-        expect(optionsElements.length).toEqual(1);
-        expect(loaderServiceInjectedSpy.showLoader).not.toHaveBeenCalled();
-        expect(loaderServiceInjectedSpy.hideLoader).not.toHaveBeenCalled();
-    }));
-
-    it('Data: with observable and loadOnInit = FALSE. Open dropdown.', async(() => {
-        component.data = mockObservable();
         component.ngOnInit();
         focusTextInput();
 
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(3);
-        expect(optionsElements.length).toEqual(3);
-        expect(optionsElements[1].nativeElement.text).toEqual('test_1');
-        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
-        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expectItems(0);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
     }));
 
-    it('Data: with observable and loadOnInit = FALSE with defined value.', async(() => {
-        component.data = mockObservable();
-        component.writeValue('2');
-        component.ngOnInit();
+    it('Data: check if data NOT empty with default option', async(() => {
+        spyDataHandlers();
+        setStaticData();
+        focusTextInput();
+
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
+    }));
+
+    it('Data: error while fetch data', fakeAsync(() => {
+        spyOn<any>(component, 'handleSuccess').and.callThrough();
+        spyOn<any>(component, 'handleError').and.callThrough();
+        spyOn<any>(component, 'toggleInnerErrors').and.callThrough();
+        component.data = Observable.create(observer => observer.error());
         fixture.detectChanges();
 
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
+        focusTextInput();
 
-        expect(liElements.length).toEqual(3);
-        expect(optionsElements.length).toEqual(3);
-        expect(optionsElements[1].nativeElement.text).toEqual('test_1');
-        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(1);
-        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(1);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
+        expect(component['handleError']).toHaveBeenCalledTimes(1);
+        expect(component['toggleInnerErrors']).toHaveBeenCalledWith(CommonConstants.DATA_VALIDATOR_KEY, true);
+        expect(fixture.nativeElement.querySelector('span.helper-text').innerText).toEqual(ValidationConstants.DATA_VALIDATION["sfc-data"]);
     }));
 
-    it('Data: with pageable(infinity scroll) observable and loadOnInit = TRUE', fakeAsync(() => {
-        initPageableDataTest(true);
+    it('Data (static): loadOnInit = true', async(() => {
+        spyDataHandlers();
+        component.isLoadOnInit = true;
+        setStaticData();
 
-        expectPageableData(3, 1, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(infinity scroll) observable and loadOnInit = FALSE', fakeAsync(() => {
-        initPageableDataTest(false);
+    it('Data (static): loadOnInit = false', async(() => {
+        spyDataHandlers();
+        setStaticData();
 
-        expectPageableData(1, 0, 0);
+        expectItems(1);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(infinity scroll) observable and loadOnInit = FALSE. Open dropdown.', fakeAsync(() => {
-        initPageableDataTest(false, null, false, true);
+    it('Data (static): loadOnInit = false and than open dropdown', async(() => {
+        spyDataHandlers();
+        setStaticData();
+        focusTextInput();
 
-        expectPageableData(3, 1, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(infinity scroll) observable and loadOnInit = FALSE with defined value', fakeAsync(() => {
-        initPageableDataTest(false, '2');
+    it('Data (static): loadOnInit = false with defined value', async(() => {
+        spyDataHandlers();
+        setValue(2);
+        setStaticData();
 
-        expectPageableData(3, 1, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(infinity scroll) observable. Load more than one time.', fakeAsync(() => {
-        initPageableDataTest(true, null, true, true, true, 8);
+    it('Data (observable): loadOnInit = true', async(() => {
+        spyDataHandlers();
+        component.isLoadOnInit = true;
+        setObservableData();
 
-        expectPageableData(17, 2, 2);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(infinity scroll) observable. Try to load more, but data is full.', fakeAsync(() => {
-        initPageableDataTest(true, null, false, true, true, 8);
+    it('Data (observable): loadOnInit = false', async(() => {
+        spyDataHandlers();
+        setObservableData();
 
-        expectPageableData(9, 1, 1);
+        expectItems(1);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(show more button) observable and loadOnInit = TRUE', fakeAsync(() => {
-        initPageableShowMoreBtnDataTest(true);
+    it('Data (observable): loadOnInit = false and than open dropdown', async(() => {
+        spyDataHandlers();
+        setObservableData();
+        focusTextInput();
 
-        const moreButtonEl = el.query(By.css('load-more-button'));
-        expect(moreButtonEl).toBeTruthy();
-        expectPageableData(3, 1, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(show more button) observable and loadOnInit = FALSE', fakeAsync(() => {
-        initPageableShowMoreBtnDataTest(false);
+    it('Data (observable): loadOnInit = false with defined value', async(() => {
+        spyDataHandlers();
+        setValue(2);
+        setObservableData();
 
-        const moreButtonEl = el.query(By.css('load-more-button'));
-        expect(moreButtonEl).toBeTruthy();
-        expectPageableData(1, 0, 0);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(show more button) observable and loadOnInit = FALSE. Click show more button.', fakeAsync(() => {
-        initPageableShowMoreBtnDataTest(false, null, false, true);
+    it('Data (loader): loadOnInit = true', async(() => {
+        spyDataHandlers();
+        component.isLoadOnInit = true;
+        setLoaderData();
 
-        expectPageableData(3, 1, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(show more button) observable and loadOnInit = FALSE and defined value', fakeAsync(() => {
-        initPageableShowMoreBtnDataTest(false, '2');
+    it('Data (loader): loadOnInit = false', async(() => {
+        spyDataHandlers();
+        setLoaderData();
 
-        const moreButtonEl = el.query(By.css('load-more-button'));
-        expect(moreButtonEl).toBeTruthy();
-        expectPageableData(3, 1, 1);
+        expectItems(1);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(show more button) observable. Load more than one time.', fakeAsync(() => {
-        initPageableShowMoreBtnDataTest(true, null, true, true, 8);
+    it('Data (loader): loadOnInit = false and than open dropdown', async(() => {
+        spyDataHandlers();
+        setLoaderData();
+        focusTextInput();
 
-        expectPageableData(17, 2, 2);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with pageable(show more button) observable. Try to load more, but data is full.', fakeAsync(() => {
-        initPageableShowMoreBtnDataTest(true, null, false, true, 8);
+    it('Data (loader): loadOnInit = false with defined value', async(() => {
+        spyDataHandlers();
+        setValue(2);
+        setLoaderData();
 
-        const moreButtonEl = el.query(By.css('load-more-button div.btn div'));
-        expect(moreButtonEl).toBeFalsy();
-        expectPageableData(9, 1, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with http config (infinity scroll) and loadOnInit = TRUE', fakeAsync(() => {
-        initHttpConfigDataTest(false, true);
+    it('Data (loader - infinity scroll): load more data', async(() => {
+        spyDataHandlers();
+        setLoaderData(true, 8);
+        focusTextInput();
 
-        expectPageableData(3, 1, 0, 1);
+        loadMoreWithInfinityScroll();
+
+        expectItems(17);
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
     }));
 
-    it('Data: with http config (infinity scroll) and loadOnInit = FALSE', fakeAsync(() => {
-        initHttpConfigDataTest(false, false);
+    it('Data (loader - infinity scroll): try to load more, but data is full', async(() => {
+        spyDataHandlers();
+        setLoaderData(false, 8);
+        focusTextInput();
 
-        expectPageableData(1, 0, 0, 1);
+        loadMoreWithInfinityScroll();
+
+        expectItems(9);
+        expectSuccessHandlerResult(1, false, 1, 8);
+        expectUpdateHandlerResult(0);
     }));
 
-    it('Data: with http config (infinity scroll) and loadOnInit = FALSE. Open dropdown.', fakeAsync(() => {
-        initHttpConfigDataTest(false, false, null, true);
+    it('Data (loader - infinity scroll): scroll when scroll only to half of dropdown', fakeAsync(() => {
+        spyDataHandlers();
+        setLoaderData(true, 8);
+        focusTextInput();
 
-        expectPageableData(3, 1, 0, 1);
+        loadMoreWithInfinityScroll(50);
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(0);
+
+        expectItems(9);
     }));
 
-    it('Data: with http config (infinity scroll) and loadOnInit = FALSE with defined value.', fakeAsync(() => {
-        initHttpConfigDataTest(false, false, '2');
+    it('Data (loader - infinity scroll): scroll only to half of dropdown and than to the end', fakeAsync(() => {
+        spyDataHandlers();
+        setLoaderData(true, 8);
+        focusTextInput();
 
-        expectPageableData(3, 1, 0, 1);
+        loadMoreWithInfinityScroll(50);
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(0);
+
+        loadMoreWithInfinityScroll(100);
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+
+        expectItems(17);
     }));
 
-    it('Data: with http config (infinity scroll) observable. Load more than one time.', fakeAsync(() => {
-        initHttpConfigDataTest(false, true, null, true, true, true, true, 8);
+    it('Data (loader - infinity scroll): load more data twice', async(() => {
+        spyDataHandlers();
+        setLoaderData(true, 8);
+        focusTextInput();
 
-        expectPageableData(17, 2, 2, 2);
+        loadMoreWithInfinityScroll();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+
+        setLoaderData(false, 1);
+        loadMoreWithInfinityScroll();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(2, false, 1, 1);
+
+        expectItems(18);
     }));
 
-    it('Data: with http config (infinity scroll) observable. Try to load more, but data is full.', fakeAsync(() => {
-        initHttpConfigDataTest(false, true, null, true, true, true, false, 8);
+    it('Data (loader - load more button): load more data', async(() => {
+        component.loadMoreButton = true;
+        spyDataHandlers();
+        setLoaderData(true, 8);
+        focusTextInput();
 
-        expectPageableData(9, 1, 1, 1);
+        loadMoreWithLoadMoreButton();
+
+        expectItems(17);
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
     }));
 
-    it('Data: with http config (load more button) and loadOnInit = TRUE', fakeAsync(() => {
-        initHttpConfigDataTest(true, true);
+    it('Data (loader - load more button): try to load more, but data is full', async(() => {
+        component.loadMoreButton = true;
+        spyDataHandlers();
+        setLoaderData(false, 8);
+        focusTextInput();
 
-        expectPageableData(3, 1, 0, 1);
+        loadMoreWithLoadMoreButton();
+
+        expectItems(9);
+        expectSuccessHandlerResult(1, false, 1, 8);
+        expectUpdateHandlerResult(0);
+    }));    
+
+    it('Data (loader - load more button): load more data twice', async(() => {
+        component.loadMoreButton = true;
+        spyDataHandlers();
+        setLoaderData(true, 8);
+        focusTextInput();
+
+        loadMoreWithLoadMoreButton();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+
+        setLoaderData(false, 1);
+        loadMoreWithLoadMoreButton();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(2, false, 1, 1);
+
+        expectItems(18);
     }));
 
-    it('Data: with http config (load more button) and loadOnInit = FALSE', fakeAsync(() => {
-        initHttpConfigDataTest(true, false);
+    it('Data (config): loadOnInit = true', async(() => {
+        spyDataHandlers();
+        component.isLoadOnInit = true;
+        setConfigData();
 
-        expectPageableData(1, 0, 0, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with http config (load more button) and loadOnInit = FALSE. Click show more button.', fakeAsync(() => {
-        initHttpConfigDataTest(true, false, null, true, false, true, false, 2, 1);
+    it('Data (config): loadOnInit = false', async(() => {
+        spyDataHandlers();
+        setConfigData();
 
-        const moreButtonEl = el.query(By.css('load-more-button'));
-        expect(moreButtonEl).toBeTruthy();
-        expectPageableData(3, 1, 1, 1);
+        expectItems(1);
+        expect(component['handleSuccess']).not.toHaveBeenCalled();
     }));
 
-    it('Data: with http config (load more button) and loadOnInit = FALSE with defined value.', fakeAsync(() => {
-        initHttpConfigDataTest(true, false, '2');
+    it('Data (config): loadOnInit = false and than open dropdown', async(() => {
+        spyDataHandlers();
+        setConfigData();
+        focusTextInput();
 
-        expectPageableData(3, 1, 0, 1);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with http config (load more button) observable. Load more than one time.', fakeAsync(() => {
-        initHttpConfigDataTest(true, false, null, true, false, true, true, 8, 2);
+    it('Data (config): loadOnInit = false with defined value', async(() => {
+        spyDataHandlers();
+        setValue(2);
+        setConfigData();
 
-        const moreButtonEl = el.query(By.css('load-more-button'));
-        expect(moreButtonEl).toBeTruthy();
-        expectPageableData(17, 2, 2, 2);
+        expectItems(3);
+        expect(component['handleSuccess']).toHaveBeenCalled();
     }));
 
-    it('Data: with http config (load more button) observable. Try to load more, but data is full.', fakeAsync(() => {
-        initHttpConfigDataTest(true, false, null, true, false, true, false, 8, 2);
+    it('Data (config - infinity scroll): load more data', async(() => {
+        spyDataHandlers();
+        setConfigData(true, 8);
+        focusTextInput();
 
-        const moreButtonEl = el.query(By.css('load-more-button'));
-        expect(moreButtonEl).toBeTruthy();
-        expectPageableData(9, 1, 1, 1);
+        loadMoreWithInfinityScroll();
+
+        expectItems(17);
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+    }));
+
+    it('Data (config - infinity scroll): try to load more, but data is full', async(() => {
+        spyDataHandlers();
+        setConfigData(false, 8);
+        focusTextInput();
+
+        loadMoreWithInfinityScroll();
+
+        expectItems(9);
+        expectSuccessHandlerResult(1, false, 1, 8);
+        expectUpdateHandlerResult(0);
+    }));
+
+    it('Data (config - infinity scroll): scroll when scroll only to half of dropdown', fakeAsync(() => {
+        spyDataHandlers();
+        setConfigData(true, 8);
+        focusTextInput();
+
+        loadMoreWithInfinityScroll(50);
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(0);
+
+        expectItems(9);
+    }));
+
+    it('Data (config - infinity scroll): scroll only to half of dropdown and than to the end', fakeAsync(() => {
+        spyDataHandlers();
+        setConfigData(true, 8);
+        focusTextInput();
+
+        loadMoreWithInfinityScroll(50);
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(0);
+
+        loadMoreWithInfinityScroll(100);
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+
+        expectItems(17);
+    }));
+
+    it('Data (config - infinity scroll): load more data twice', async(() => {
+        let configSpy = spyOn(httpUtilsServiceInjectedSpy, 'getDataByConfig').and.returnValue(mockObservable(true, 8));
+        spyDataHandlers();
+        setConfigData(true, 8, configSpy);
+        focusTextInput();
+
+        loadMoreWithInfinityScroll();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+
+        setConfigData(false, 1, configSpy);
+        loadMoreWithInfinityScroll();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(2, false, 1, 1);
+
+        expectItems(18);
+    }));
+
+    it('Data (config - load more button): load more data', async(() => {
+        component.loadMoreButton = true;
+        spyDataHandlers();
+        setConfigData(true, 8);
+        focusTextInput();
+
+        loadMoreWithLoadMoreButton();
+
+        expectItems(17);
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+    }));
+
+    it('Data (config - load more button): try to load more, but data is full', async(() => {
+        component.loadMoreButton = true;
+        spyDataHandlers();
+        setConfigData(false, 8);
+        focusTextInput();
+
+        loadMoreWithLoadMoreButton();
+
+        expectItems(9);
+        expectSuccessHandlerResult(1, false, 1, 8);
+        expectUpdateHandlerResult(0);
+    }));    
+
+    it('Data (config - load more button): load more data twice', async(() => {
+        let configSpy = spyOn(httpUtilsServiceInjectedSpy, 'getDataByConfig').and.returnValue(mockObservable(true, 8));
+        component.loadMoreButton = true;
+        spyDataHandlers();
+        setConfigData(true, 8, configSpy);
+        focusTextInput();
+
+        loadMoreWithLoadMoreButton();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(1, true, 1, 8);
+
+        setConfigData(false, 1, configSpy);
+        loadMoreWithLoadMoreButton();
+
+        expectSuccessHandlerResult(1, true, 1, 8);
+        expectUpdateHandlerResult(2, false, 1, 1);
+
+        expectItems(18);
     }));
 
     // Private functions
 
-    function initPageableDataTest(isLoadOnInit: boolean, value: any = null, hasNext: boolean = false,
-        focus: boolean = false, needScroll: boolean = false, loaderCount?: number) {
-        spyOn(component, 'onLoadMore').and.callThrough();
-        spyOn(component, 'updateData').and.callThrough();
-        spyOn(httpUtilsServiceInjectedSpy, 'getDataByConfig');
-
-        if (value) {
-            component.writeValue(value);
-        }
-
-        component.isLoadOnInit = isLoadOnInit;
-        component.loader = mockLoader(hasNext, loaderCount);
-        component.ngOnInit();
-        fixture.detectChanges();
-
-        if (focus) {
-            focusTextInput();
-        }
-
-        if (needScroll) {
-            scroll();
-            fixture.detectChanges();
-        }
-
-        tick(0); // showLoader called in setTimeout
+    function expectItems(count: number){
+        const itemsEl = el.queryAll(By.css('sfc-select-item'));
+        expect(itemsEl.length).toEqual(count);
     }
 
-    function initPageableShowMoreBtnDataTest(isLoadOnInit: boolean, value: any = null, hasNext: boolean = false,
-        needClick: boolean = false, loaderCount?: number) {
-        spyOn(component, 'onLoadMore').and.callThrough();
-        spyOn(component, 'updateData').and.callThrough();
-        spyOn(httpUtilsServiceInjectedSpy, 'getDataByConfig');
-
-        if (value) {
-            component.writeValue(value);
+    function expectSuccessHandlerResult(times: number, hasNext: boolean = false, from: number = 0, to: number = 0) {
+        expect(component['handleSuccess']).toHaveBeenCalledTimes(times);
+        if (times > 0) {
+            expect(component['handleSuccess']).toHaveBeenCalledWith({
+                HasNext: hasNext, Items: getDataByLimits(from, to)
+            });
         }
+    }
 
-        component.loader = mockLoader(hasNext, loaderCount);
-        component.loadMoreButton = true;
-        component.isLoadOnInit = isLoadOnInit;
+    function expectUpdateHandlerResult(times: number, hasNext: boolean = false, from: number = 0, to: number = 0) {
+        expect(component['handleUpdate']).toHaveBeenCalledTimes(times);
+
+        if (times > 0) {
+            expect(component['handleUpdate']).toHaveBeenCalledWith({
+                HasNext: hasNext, Items: getDataByLimits(from, to)
+            });
+        }
+    }
+
+    function spyDataHandlers() {
+        spyOn<any>(component, 'handleSuccess').and.callThrough();
+        spyOn<any>(component, 'handleUpdate').and.callThrough();
+    }
+
+    function setValue(value?: any | Array<any>) {
+        component.writeValue(value);
+        fixture.detectChanges();
+    }
+
+    function setStaticData(count: number = 2) {
+        component.data = getDataByLimits(1, count);
+        fixture.detectChanges();
+
         component.ngAfterViewInit();
         fixture.detectChanges();
-
-        if (needClick) {
-            const moreButtonEl = el.query(By.css('load-more-button div.btn div'));
-
-            if (moreButtonEl) {
-                moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
-                fixture.detectChanges();
-            }
-
-            tick(0);
-        } else {
-            tick(0);
-        }
     }
 
-    function initHttpConfigDataTest(isLoadMoreButton:boolean, isLoadOnInit: boolean, value: any = null, focus: boolean = false, needScroll: boolean = false,
-        loadMoreConfig: boolean = false, hasNext: boolean = false, loaderCount?: number, needClickShowMoreBtnTimes: number = 0) {
-        spyOn(component, 'onLoadMore').and.callThrough();
-        spyOn(component, 'updateData').and.callThrough();
-
-        let dataByConfig = loadMoreConfig ? mockLoader(hasNext, loaderCount)() : mockObservable();
-
-        spyOn(httpUtilsServiceInjectedSpy, 'getDataByConfig').and.returnValue(dataByConfig);
-
-        component.loadMoreButton = isLoadMoreButton;
-
-        if (value) {
-            component.writeValue(value);
-        }
-
-        component.isLoadOnInit = isLoadOnInit;
-        component.httpConfig = loadMoreConfig ? mockLoadMoreConfig() : mockConfig();
-        component.ngOnInit();
+    function setObservableData(count: number = 2) {
+        component.data = mockObservable(false, count);
         fixture.detectChanges();
 
-        if (focus) {
-            focusTextInput();
-        }
-
-        if (needScroll) {
-            scroll();
-            fixture.detectChanges();
-        }        
-
-        if(needClickShowMoreBtnTimes > 0){
-            const moreButtonEl = el.query(By.css('load-more-button div.btn div'));
-            if (moreButtonEl) {
-                for (let index = 0; index < needClickShowMoreBtnTimes; index++) {
-                    moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
-                    fixture.detectChanges();
-                }
-            }            
-        }
-
-        tick(0); // showLoader called in setTimeout
-    }
-
-
-    function expectPageableData(expectedEl: number, expectedLoaderCalledTimes: number, expectedUpdaterCalledTimes: number, expectedConfigCalledTimes: number = 0) {
-        let liElements = el.queryAll(By.css('ul.select-dropdown li'));
-        let optionsElements = el.queryAll(By.css('select option'));
-
-        expect(liElements.length).toEqual(expectedEl);
-        expect(optionsElements.length).toEqual(expectedEl);
-
-        if (expectedEl > 1) {
-            expect(optionsElements[1].nativeElement.text).toEqual('test_1');
-        }
-
-        expect(loaderServiceInjectedSpy.showLoader).toHaveBeenCalledTimes(expectedLoaderCalledTimes);
-        expect(loaderServiceInjectedSpy.hideLoader).toHaveBeenCalledTimes(expectedLoaderCalledTimes);
-        expect(component.onLoadMore).toHaveBeenCalledTimes(expectedUpdaterCalledTimes);
-        expect(component.updateData).toHaveBeenCalledTimes(expectedUpdaterCalledTimes);
-        expect(httpUtilsServiceInjectedSpy.getDataByConfig).toHaveBeenCalledTimes(expectedConfigCalledTimes);
-    }
-
-    function setOptionData(value?: any | Array<any>, data?: ILoadMoreData<ISelectData>) {
-        component.updateData(data || { HasNext: true, Items: [{ key: '1', value: 'option 1' }, { key: '2', value: 'option 2' }] });
-
-        if (value) {
-            component.writeValue(value);
-        }
-
+        component.ngAfterViewInit();
         fixture.detectChanges();
     }
 
-    function setOptGroupOptionData(value?: any) {
+    function setLoaderData(hasNext: boolean = false, count: number = 2) {
+        component.loader = mockLoader(hasNext, count);
+        fixture.detectChanges();
+
+        component.ngAfterViewInit();
+        fixture.detectChanges();
+    }
+
+    function setConfigData(hasNext: boolean = false, count: number = 2, configSpy: any = null) {   
+        
+        if(configSpy){
+            configSpy.and.returnValue(mockObservable(hasNext, count));
+        }else{
+            spyOn(httpUtilsServiceInjectedSpy, 'getDataByConfig').and.returnValue(mockObservable(hasNext, count));
+        }
+
+        component.httpConfig = mockConfig();
+        fixture.detectChanges();
+
+        component.ngAfterViewInit();
+        fixture.detectChanges();
+    }
+
+    function setOptGroupStaticData() {
         const mockData = [
             {
                 key: 1,
@@ -1058,13 +986,42 @@ describe('Component: SelectInputComponent', () => {
                 }]
             }
         ]
-        component.initData(mockData);
 
-        if (value != null && value != undefined) {
-            component.writeValue(value);
+        component.data = mockData;
+        fixture.detectChanges();
+
+        component.ngAfterViewInit();
+        fixture.detectChanges();
+    }
+
+    function mockObservable(hasNext: boolean, count: number) {
+        const testData: ISelectData[] = getDataByLimits(1, count);
+        return Observable.of<ILoadMoreData<ISelectData>>({ HasNext: hasNext, Items: testData });
+    }
+
+    function getDataByLimits(from: number, to: number) {
+        let data = [];
+
+        for (let index = from; index <= to; index++) {
+            data.push({ key: index, value: 'option ' + index });
         }
 
-        fixture.detectChanges();
+        return data;
+    }
+
+    function mockLoader(hasNext, count: number = 2) {
+        return (): Observable<any> => {
+            return mockObservable(hasNext, count);
+        };
+    }
+
+    function mockConfig() {
+        let config = new HttpConfig<ILoadMoreData<ISelectData>>('http://test')
+            .setMapper(site => {
+                return { Items: site.Items.map((s: any) => { return { key: s.Id, value: s.Value } }), HasNext: site.HasNext };
+            });
+
+        return config;
     }
 
     function focusTextInput() {
@@ -1072,42 +1029,26 @@ describe('Component: SelectInputComponent', () => {
         fixture.detectChanges();
     }
 
-    function mockObservable() {
-        const testData: ISelectData[] = [{ key: 1, value: 'test_1' }, { key: 2, value: 'test_2' }];
-        return Observable.of<ISelectData[]>(testData);
-    }
+    function selectItem(itemIndex: number) {
+        let liElements = el.queryAll(By.css('sfc-select-item')),
+            firstOption = liElements[itemIndex].children[0];
 
-    function mockLoader(hasNext, count: number = 2) {
+        firstOption.triggerEventHandler('mousedown', { target: firstOption.nativeElement });
+        fixture.detectChanges();
+    }    
 
-        let data = [];
+    function loadMoreWithLoadMoreButton() {
+        const moreButtonEl = el.query(By.css('load-more-button div.btn div'));
 
-        for (let index = 1; index <= count; index++) {
-            data.push({ key: index, value: 'test_' + index });
+        if (moreButtonEl) {
+            moreButtonEl.nativeElement.dispatchEvent(new MouseEvent('click', {}));
+            fixture.detectChanges();
         }
-
-        return (): Observable<any> => {
-            const testData: any = { HasNext: hasNext, Items: data }
-            return Observable.of<any>(testData);
-        };
     }
 
-    function mockConfig() {
-        let config = new HttpConfig<ISelectData[]>('http://test')
-            .setMapper(site => {
-                return site.map((s: any) => { return { key: s.Id, value: s.Value } });
-            });
-
-        return config;
-    }
-
-    function mockLoadMoreConfig() {
-        let config = new HttpConfig<ILoadMoreData<ISelectData>>('http://test', true)
-            .setMapper(resp => {
-                return { Items: resp.Items.map((s: any) => { return { key: s.Id, value: s.Value } }), HasNext: resp.HasNext };
-            })
-            .setUpdater(resp => { });
-
-        return config;
+    function loadMoreWithInfinityScroll(scrollTopPosition = null) {
+        scroll(scrollTopPosition);
+        fixture.detectChanges();
     }
 
     function scroll(scrollTopPosition = null) {
@@ -1126,5 +1067,4 @@ describe('Component: SelectInputComponent', () => {
     }
 
     // END Private functions
-
 });

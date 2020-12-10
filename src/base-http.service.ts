@@ -29,6 +29,6 @@ export default abstract class BaseHttpService {
 
     /** Log a HeroService message with the MessageService */
     protected log(message: string) {
-        console.log(`SelectService: ${message}`);
+        console.log(`HTTP Service: ${message}`);
     }
 }

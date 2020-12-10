@@ -1,14 +1,13 @@
 import { Component, AfterViewInit, ElementRef, Input, Output, ViewChild, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import { EventEmitter } from '@angular/core';
-import { CollectionUtils } from '../../utils/collection-utils';
+import { CommonUtils } from '../../utils/common-utils';
 
 @Component({
     selector: 'load-more-button',
     templateUrl: './sfc-load-more-button.component.html',
-    styleUrls: ['./sfc-load-more-button.component.css']
+    styleUrls: ['./sfc-load-more-button.component.css', './sfc-load-more-button-dark-theme.component.css']
 })
 export class LoadMoreButtonComponent implements AfterViewInit {
 
@@ -18,11 +17,14 @@ export class LoadMoreButtonComponent implements AfterViewInit {
     @Input('load-on-init')
     immediateCallback;
 
+    @Input('has-more')
+    hasMore = true;
+
     /**
      * Loader function (return Observable)
      */
     @Input()
-    loader: () => Observable<ILoadMoreData<any>>;
+    loader: (parameters?: any) => Observable<ILoadMoreData<any>>;
 
     /**
      * Called when button was clicked(before load data)
@@ -36,16 +38,6 @@ export class LoadMoreButtonComponent implements AfterViewInit {
     @Output()
     updated: EventEmitter<any> = new EventEmitter<any>();
 
-    /**
-     * If ILoadMoreData HasNext is false it means that we need hide load more button
-     */
-    private isSourceEmpty = false;
-
-    /**
-     * TODO? move hr deliminator to parent components
-     */
-    private hasData = false;
-
     @ViewChild('showMoreButton', { static: false })
     private showMoreButton: ElementRef;
 
@@ -57,34 +49,31 @@ export class LoadMoreButtonComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
 
-        let mouseDownEvent$ = Observable.fromEvent(this.showMoreButton.nativeElement, 'mousedown');
+        if (CommonUtils.isDefined(this.showMoreButton)) {
+            let mouseDownEvent$ = Observable.fromEvent(this.showMoreButton.nativeElement, 'click');
 
-        if (this.immediateCallback)
-            mouseDownEvent$ = mouseDownEvent$.startWith(true);
+            if (this.immediateCallback)
+                mouseDownEvent$ = mouseDownEvent$.startWith(true);
 
-        mouseDownEvent$
-            .filter(_ => !this.isSourceEmpty)
-            .exhaustMap(() => {
-                if (this.loader) {
+            mouseDownEvent$
+                .filter(_ => this.hasMore)
+                .exhaustMap(() => {
+                    if (this.loader) {
 
-                    if (this.clicked)
-                        this.clicked.emit();
+                        if (this.clicked)
+                            this.clicked.emit();
 
-                    const $loadObs = this.loader();
+                        const $loadObs = this.loader();
 
-                    return $loadObs ? $loadObs : Observable.empty();
-                }
+                        return $loadObs ? $loadObs : Observable.empty();
+                    }
 
-                return Observable.empty();
-            })
-            .pipe(
-                tap((data: ILoadMoreData<any>) => {
-                    this.isSourceEmpty = data ? !data.HasNext : this.isSourceEmpty;
-                    this.hasData = data ? !this.isSourceEmpty && CollectionUtils.any(data.Items) : false;
-                }))
-            .subscribe((data: ILoadMoreData<any>) => {
-                if (this.updated)
-                    this.updated.emit(data);
-            });
+                    return Observable.empty();
+                })
+                .subscribe((data: ILoadMoreData<any>) => {
+                    if (this.updated)
+                        this.updated.emit(data);
+                });
+        }
     }
 }

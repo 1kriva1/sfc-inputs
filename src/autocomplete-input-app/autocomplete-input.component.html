@@ -1,0 +1,358 @@
+<div class="demo-container">
+    <h1>AUTO COMPLETE INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <h3>Static data</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-empty" formControlName="inputAutoCompleteNull"
+                            [data]="data">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-label" formControlName="inputAutoCompleteLabel"
+                            [data]="data" label="label test">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-placeholder"
+                            formControlName="inputAutoCompletePlaceholder" [data]="data" placeholder="placeholder test">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-label-placeholder"
+                            formControlName="inputAutoCompleteLabelPlaceholder" [data]="data" label="label test"
+                            placeholder="placeholder test">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-icon" formControlName="inputAutoCompleteIcon"
+                            [data]="data" icon="fa fa-star">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-icon-label-placeholder"
+                            formControlName="inputAutoCompleteLabelPlaceholderIcon" [data]="data" label="label test"
+                            placeholder="placeholder test" icon="fa fa-star">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-helper" formControlName="inputAutoCompleteHelper"
+                            [data]="data" helper-text="test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-helper-icon"
+                            formControlName="inputAutoCompleteHelperIcon" [data]="data" helper-text="test helper"
+                            icon="fa fa-star">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-helper-label-placeholder"
+                            formControlName="inputAutoCompleteHelperLabelPlaceholder" [data]="data"
+                            helper-text="test helper" label="label test" placeholder="placeholder test">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-disabled"
+                            formControlName="inputAutoCompleteDisabled" [data]="data">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-disabled-label"
+                            formControlName="inputAutoCompleteDisabledLabel" [data]="data" label="disabled test lable">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-disabled-all"
+                            formControlName="inputAutoCompleteDisabledAll" [data]="data" label="disabled label test"
+                            placeholder="disabled placeholder test" icon="fa fa-star"
+                            helper-text="disabled test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-validation"
+                            formControlName="inputAutoCompleteValidation" [data]="data" label="validation label test"
+                            placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-validation-failed"
+                            formControlName="inputAutoCompleteValidationFailed" [data]="data"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-validation-success"
+                            formControlName="inputAutoCompleteValidationSuccess" [data]="data"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-validation-msg"
+                            formControlName="inputAutoCompleteValidationMessage" [data]="data"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper"
+                            [validations]="{equalOrInclude: 'Include invalid (must be anita 3)'}">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-validation-failed-msg"
+                            formControlName="inputAutoCompleteValidationFailedMessage" [data]="data"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper"
+                            [validations]="{equalOrInclude: 'Include invalid (must be anita 3)'}">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-validation-success-msg"
+                            formControlName="inputAutoCompleteValidationSuccessMessage" [data]="data"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper"
+                            [validations]="{equalOrInclude: 'Include invalid (must be anita 3)'}">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <h3>Async data</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-data-paged-validation"
+                            formControlName="inputAutoCompleteObservableDataValidation"
+                            [data]="getAutocompleteObservables('inputAutoCompleteObservableDataValidation')"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-data-paged-validation-failed"
+                            formControlName="inputAutoCompleteObservableDataValidationFailed"
+                            [data]="getAutocompleteObservables('inputAutoCompleteObservableDataValidationFailed')"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-data-async-paged-validation-success"
+                            formControlName="inputAutoCompleteObservableDataValidationSuccess"
+                            [data]="getAutocompleteObservables('inputAutoCompleteObservableDataValidationSuccess')"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <h3>Async loader data</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-data"
+                            formControlName="inputAutoCompleteObservable" [loader]="loaderFullData">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-data-label"
+                            formControlName="inputAutoCompleteObservableLabel" [loader]="loaderFullData"
+                            label="label test">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-data-placeholder"
+                            formControlName="inputAutoCompleteObservablePlaceholder" [loader]="loaderFullData"
+                            placeholder="placeholder test">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-label-placeholder"
+                            formControlName="inputAutoCompleteObservableIconPlaceholder" [loader]="loaderFullData"
+                            icon="fa fa-star" placeholder="placeholder test">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-helper-label-placeholder"
+                            formControlName="inputAutoCompleteObservableHelperLabelPlaceholder"
+                            [loader]="loaderFullData" icon="fa fa-star" helper-text="test helper" label="label test"
+                            placeholder="placeholder test">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-disabled-all"
+                            formControlName="inputAutoCompleteObservableDisabledAll" [loader]="loaderFullData"
+                            label="disabled label test" placeholder="disabled placeholder test" icon="fa fa-star"
+                            helper-text="disabled test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-validation"
+                            formControlName="inputAutoCompleteObservableValidation" [loader]="loaderFullData"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-validation-failed"
+                            formControlName="inputAutoCompleteObservableValidationFailed" [loader]="loaderFullData"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-validation-success"
+                            formControlName="inputAutoCompleteObservableValidationSuccess" [loader]="loaderFullData"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-debounce-time-low"
+                            formControlName="inputAutoCompleteObservableDebounceLow" [loader]="loaderFullData"
+                            label="debounce 100 label test" placeholder="debounce 100 placeholder test"
+                            [debounce-time]="100" helper-text="debounce 100 test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-debounce-time-high"
+                            formControlName="inputAutoCompleteObservableDebounceHigh" [loader]="loaderFullData"
+                            label="debounce 2000 label test" placeholder="debounce 2000 placeholder test"
+                            [debounce-time]="2000" helper-text="debounce 2000 test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-chars-to-load"
+                            formControlName="inputAutoCompleteObservableCharsToLoad" [loader]="loaderFullData"
+                            label="chars to load 3 label test" placeholder="chars to load 3 placeholder test"
+                            [chars-to-call]="3" helper-text="chars to load 3 test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <h3>Async paged (load more button) data</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-paged-validation"
+                            formControlName="inputAutoCompleteObservablePagedValidation" [loader]="loader"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-paged-validation-failed"
+                            formControlName="inputAutoCompleteObservablePagedValidationFailed" [loader]="loader"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-paged-validation-success"
+                            formControlName="inputAutoCompleteObservablePagedValidationSuccess" [loader]="loader"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+                <h3>Async paged (infinity scroll) data</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-paged-scroll-validation"
+                            formControlName="inputAutoCompleteObservablePagedScrollValidation" [loader]="loader"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper" [load-more-button]="false">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-paged-scroll-validation-failed"
+                            formControlName="inputAutoCompleteObservablePagedScrollValidationFailed" [loader]="loader"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper" [load-more-button]="false">
+                        </sfc-autocomplete-input>
+                    </div>
+
+                    <div>
+                        <sfc-autocomplete-input id="demo-autocomplete-async-paged-scroll-validation-success"
+                            formControlName="inputAutoCompleteObservablePagedScrollValidationSuccess" [loader]="loader"
+                            label="validation label test" placeholder="validation placeholder test" icon="fa fa-star"
+                            helper-text="validation test helper" [load-more-button]="false">
+                        </sfc-autocomplete-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

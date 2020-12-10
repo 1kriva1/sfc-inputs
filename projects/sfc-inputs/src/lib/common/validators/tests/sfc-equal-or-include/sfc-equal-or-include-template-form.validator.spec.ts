@@ -8,7 +8,6 @@ import ISelectData from '../../../interfaces/select-input/ISelectData';
 import ISelectDataGroup from '../../../interfaces/select-input/ISelectDataGroup';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @Component({
     template: `
       <form>
@@ -127,7 +126,7 @@ describe('Validators: SelectInput - Template form', () => {
 
             fixture.detectChanges();
 
-            debugSelectInputEl = el.query(By.css('#sfc-select-input'));
+            debugSelectInputEl = el.query(By.css('#select-input'));
             debugSelectOptGroupInputEl = el.query(By.css('#select-input-opt-group'));
             form = el.children[0].injector.get(NgForm);
         });

@@ -1,6 +1,5 @@
-export default interface ISelectData {
-    key: any;
-    value: string;
-    imagePath?: string;
+import { ILoadMoreDataItem } from '../ILoadMoreDataItem';
+
+export default interface ISelectData extends ILoadMoreDataItem {
     isDefault?: boolean;
 }

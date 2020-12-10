@@ -34,18 +34,18 @@ export class SelectInputAppComponent extends BaseAppInputComponent {
     private data: ISelectData[];
 
     // async data
-    private $httpData: Observable<ISelectData[]>;
+    private $httpData: Observable<any>;
 
     // opt group data
     private datagroup: ISelectDataGroup[];
 
     // opt group async data
-    private $httpDataGroup: Observable<ISelectDataGroup[]>;
-    
+    private $httpDataGroup: Observable<any>;
+
     // full data http configuration
-    private httpConfig: HttpConfig<ISelectData> = new HttpConfig<ISelectData>(this.FULL_DATA_CONFIG_URL)
+    private httpConfig: HttpConfig<any> = new HttpConfig<any>(this.FULL_DATA_CONFIG_URL)
         .setMapper(site => {
-            return site.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } });
+            return { Items: site.map((s: any) => { return { key: s.Id, value: s.Value } }), HasNext: false };
         });
 
     // load more by scrolling configs
@@ -312,11 +312,11 @@ export class SelectInputAppComponent extends BaseAppInputComponent {
 
     private getSelectObservables(): void {
         this.$httpData = this.selectService.getSelects().pipe(map(site => {
-            return site.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } });
+            return { Items: site.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }), HasNext: false }
         }));
 
         this.$httpDataGroup = this.selectService.getGroupSelects().pipe(map(site => {
-            return site.map((s: ISelectGroupModel) => { return { key: s.GroupId, value: s.GroupValue, options: s.Options.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }) } });
+            return { Items: site.map((s: ISelectGroupModel) => { return { key: s.GroupId, value: s.GroupValue, options: s.Options.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }) } }), HasNext: false };
         }));
     }
 

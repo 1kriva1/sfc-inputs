@@ -1,5 +1,5 @@
 import { Input, HostBinding, OnInit, Renderer2 } from '@angular/core';
-import { ComponentSizeType, CommonConstants } from '../../../constants/common-constants';
+import { ComponentSizeType, CommonConstants, StyleClass } from '../../../constants/common-constants';
 import ISize from '../../../interfaces/ISize';
 import { LoaderService } from './sfc-loader.service';
 import ILoader from '../../../interfaces/ILoader';
@@ -42,7 +42,7 @@ export default abstract class BaseLoaderComponent implements OnInit {
   }
 
   // Indicate show or hide loader (and set class to host element)
-  @HostBinding('class.loading')
+  @HostBinding('class.' + StyleClass.Loading)
   private show: boolean = false;
 
   public ngOnInit(): void {

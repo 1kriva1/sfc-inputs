@@ -14,6 +14,15 @@ export class CommonUtils {
         return !CommonUtils.isDefined(value) || value === '';
     }
 
+    public static contains<T>(value: string | undefined | null, includeValue: string) {
+        if (CommonUtils.isDefined(value) && !this.isNullOrEmptyString(includeValue)) {
+            const valueLower = value.toLowerCase();
+            return valueLower.includes(includeValue.toLowerCase());
+        }
+
+        return false;
+    }
+
     public static trim<T>(value: string) {
         return this.isNullOrEmptyString(value) ? value : value.replace(CommonUtils.STRING_SPACE_REGEX, '')
     }

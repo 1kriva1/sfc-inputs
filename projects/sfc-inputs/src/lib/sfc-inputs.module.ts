@@ -30,12 +30,17 @@ import { StarRatingInputComponent } from './sfc-star-rating-input/sfc-star-ratin
 import { StarComponent } from './sfc-star-rating-input/sfc-star/sfc-star.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { NumberSpinnerInputComponent } from './sfc-number-spinner-input/sfc-number-spinner-input.component';
+import { AutoCompleteInputComponent } from './sfc-autocomplete-input/sfc-autocomplete-input.component';
+import { LoadMoreDropDownComponent } from './common/components/load-more-dropdown/sfc-load-more-dropdown.component';
+import { SelectItemComponent } from './sfc-select-input/select-item/sfc-select-item.component';
+import { AutocompleteItemComponent } from './sfc-autocomplete-input/autocomplete-item/sfc-autocomplete-item.component';
 
 @NgModule({
   declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent,
     FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, TagsInputComponent, TagsChipComponent, 
     RangeHorizontalInputComponent, RangeVerticalInputComponent, StarRatingInputComponent, StarComponent,
-    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent, NumberSpinnerInputComponent],
+    InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent, 
+    SelectItemComponent, AutocompleteItemComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,7 +48,7 @@ import { NumberSpinnerInputComponent } from './sfc-number-spinner-input/sfc-numb
   ],
   exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent,
     TagsInputComponent, TagsChipComponent, RangeHorizontalInputComponent, RangeVerticalInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, 
-    InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent, NumberSpinnerInputComponent],
+    InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => BaseInputComponent), multi: true },

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { CommonConstants } from '../constants/common-constants';
+import { CommonUtils } from './common-utils';
 
 @Injectable()
 export class UIUtils {
@@ -10,5 +11,17 @@ export class UIUtils {
 
     public static getValueFromCssLikePx(value: string): number {
         return +value.replace(CommonConstants.CSS_PIXELS, '');
+    }
+
+    public static addClasses(element: HTMLElement, ...classNames: Array<string>): void {
+        if (CommonUtils.isDefined(element)) {
+            classNames.forEach((className) => element.classList.add(className));
+        }
+    }
+
+    public static removeClasses(element: HTMLElement, ...classNames: Array<string>): void {
+        if (CommonUtils.isDefined(element)) {
+            classNames.forEach((className) => element.classList.remove(className));
+        }
     }
 }

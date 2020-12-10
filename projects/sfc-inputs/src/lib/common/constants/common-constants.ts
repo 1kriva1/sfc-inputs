@@ -6,6 +6,8 @@ export enum StyleClass {
     Selected = 'selected',
     Empty = 'empty',
     Focus = 'focus',
+    Open = 'open',
+    Loading = 'loading'
 };
 
 export enum FileInputType {
@@ -21,6 +23,11 @@ export enum RadioButtonsInputLabelType {
 export enum InputPosition {
     Horizontal = 'horizontal',
     Vertical = 'vertical'
+};
+
+export enum LoadDropdownPosition {
+    Uppon = 'uppon',
+    Below = 'below'
 };
 
 export enum HttpMethod {
@@ -69,6 +76,7 @@ export class CommonConstants {
     static EMPTY_VALIDATOR_KEY = 'sfc-empty';
     static MAX_VALIDATOR_KEY = 'sfc-max';
     static MIN_VALIDATOR_KEY = 'sfc-min';
+    static DATA_VALIDATOR_KEY = 'sfc-data';
 
     static CSS_PIXELS = 'px';
     static CSS_WIDTH = 'width';
@@ -83,6 +91,8 @@ export class CommonConstants {
 
     static ENTER_KEY_CODE = 13;
     static BACKSPACE_KEY_CODE = 8;
+
+    static DEFAULT_PAGE_SIZE = 5;
 
     static SELECT_INPUT = {
         // class name for group option

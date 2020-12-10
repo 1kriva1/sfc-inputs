@@ -12,6 +12,7 @@ import { RangeInputAppComponent } from './range-input-app/range-input.component'
 import { ToolTipAppComponent } from './tooltip-app/tooltip.component';
 import { StarRatingInputAppComponent } from './star-rating-app/star-rating-input.component';
 import { NumberSpinnerInputAppComponent } from './number-spinner-app/number-spinner-input.component';
+import { AutoCompleteInputAppComponent } from './autocomplete-input-app/autocomplete-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -67,6 +68,10 @@ export const routeConfig = [
     {
         path: 'number-spinner-input',
         component: NumberSpinnerInputAppComponent
+    },
+    {
+        path: 'autocomplete-input',
+        component: AutoCompleteInputAppComponent
     },
     {
         path: 'loader',

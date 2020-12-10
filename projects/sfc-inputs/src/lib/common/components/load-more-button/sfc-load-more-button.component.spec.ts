@@ -40,7 +40,7 @@ describe('Component: LoadMoreButtonComponent', () => {
 
     it('Delimeter should NOT exist by DEFAULT', async(() => {
         const delimeterEl = el.query(By.css('hr.main-hr'));
-        expect(delimeterEl).toBeFalsy();
+        expect(delimeterEl).toBeDefined();
     }));
 
     it('Delimeter should exist if data not empty', async(() => {
@@ -56,6 +56,7 @@ describe('Component: LoadMoreButtonComponent', () => {
         const delimeterBeforeEl = el.query(By.css('hr.main-hr'));
         expect(delimeterBeforeEl).toBeTruthy();
 
+        component.hasMore = false;
         component.loader = mockLoader(false);
         dispatchShowMoreButtonClick();
 
@@ -82,7 +83,7 @@ describe('Component: LoadMoreButtonComponent', () => {
         expect(buttonSpanEl.nativeElement.innerText).toEqual('SHOW MORE');
     }));
 
-    it('Click(mouseDown) event: clicked was emited', async(() => {
+    it('Click event: clicked was emited', async(() => {
         component.clicked = new EventEmitter();
         spyOn(component.clicked, 'emit');
 
@@ -144,11 +145,14 @@ describe('Component: LoadMoreButtonComponent', () => {
         expect(buttonEl).toBeTruthy();
     }));
 
-    it('Data has NOT next page', async(() => {
+    it('Data has NOT next page', async(() => {        
         component.loader = mockLoader(false);
         fixture.detectChanges();
 
         dispatchShowMoreButtonClick();
+
+        component.hasMore = false;
+        fixture.detectChanges();
 
         const buttonEl = el.query(By.css('div.btn'));
         expect(buttonEl).toBeFalsy();
@@ -156,7 +160,7 @@ describe('Component: LoadMoreButtonComponent', () => {
     
     function dispatchShowMoreButtonClick(){
         const showMoreButtonEl = fixture.debugElement.query(By.css('div.btn div'));
-        showMoreButtonEl.nativeElement.dispatchEvent(new MouseEvent('mousedown', {}));
+        showMoreButtonEl.nativeElement.dispatchEvent(new MouseEvent('click', {}));
         fixture.detectChanges();
     }
 });

@@ -43,7 +43,8 @@ export class InfiniteScrollerDirective implements AfterViewInit {
     /**
      * If ILoadMoreData HasNext is false it means that we need stop load data on scroll
      */
-    private isSourceEmpty = false;
+    @Input('has-more')
+    hasMore = true;
 
     /**
      * Http request on scroll subscription (need for unsubscribe)
@@ -54,7 +55,7 @@ export class InfiniteScrollerDirective implements AfterViewInit {
      * Loader function (return Observable)
      */
     @Input()
-    loader: () => Observable<ILoadMoreData<any>>;
+    loader: (parameters?: any) => Observable<ILoadMoreData<any>>;
 
     /**
      * Start load data after such value(70 by default persentage) 
@@ -63,10 +64,52 @@ export class InfiniteScrollerDirective implements AfterViewInit {
     scrollPercent = 70;
 
     /**
-     * If True subscribe to scolling and load data on init
+     * If True subscribe to scrolling and load data on init
     */
+    _infiniteScroller = true;
+
     @Input('infinite-scroller')
-    infiniteScroller = true;
+    set infiniteScroller(value: boolean) {
+
+        if (value) {
+            if (CommonUtils.isDefined(this.requestOnScrollSubscription) && CommonUtils.isDefined(this.loader)) {
+                this.requestOnScrollSubscription.unsubscribe();
+                this.requestCallbackOnScroll(true);
+            } else {
+                this.setUpScrollProcess();
+            }
+        }
+
+        this._infiniteScroller = value;
+    }
+
+    get infiniteScroller() {
+        return this._infiniteScroller;
+    }
+
+    /**
+     * Start request for data immediately
+     */
+    _immediateCallback = false;
+
+    @Input()
+    set immediateCallback(value: boolean) {
+
+        if (value && this.infiniteScroller) {
+            if (CommonUtils.isDefined(this.requestOnScrollSubscription) && CommonUtils.isDefined(this.loader)) {
+                this.requestOnScrollSubscription.unsubscribe();
+                this.requestCallbackOnScroll(true);
+            } else {
+                this.setUpScrollProcess();
+            }
+        }
+
+        this._immediateCallback = value;
+    }
+
+    get immediateCallback() {
+        return this._immediateCallback;
+    }
 
     /**
      * Called when scrolled(before load data)
@@ -83,39 +126,9 @@ export class InfiniteScrollerDirective implements AfterViewInit {
     constructor(private element: ElementRef) { }
 
     ngAfterViewInit() {
-        if (this.isNeedInitStreams) {
+        if (this.infiniteScroller && !CommonUtils.isDefined(this.requestOnScrollSubscription)) {
             this.setUpScrollProcess();
         }
-    }
-
-    /**
-     * Start request for data immediately
-     */
-    _immediateCallback = false;
-
-    @Input()
-    set immediateCallback(value: boolean) {
-
-        if (!this._immediateCallback && value) {
-            if (this.isNeedInitStreams) {
-                this.setUpScrollProcess(true);
-            } else {
-                if (this.requestOnScrollSubscription) {
-                    this.requestOnScrollSubscription.unsubscribe();
-                    this.requestCallbackOnScroll(true);
-                }
-            }
-        }
-
-        this._immediateCallback = value;
-    }
-
-    get immediateCallback() {
-        return this._immediateCallback;
-    }
-
-    private get isNeedInitStreams() {
-        return this.infiniteScroller && CommonUtils.isDefined(this.loader) && !CommonUtils.isDefined(this.userScrolledDown$);
     }
 
     /**
@@ -150,7 +163,9 @@ export class InfiniteScrollerDirective implements AfterViewInit {
                 cH: e.target.clientHeight
             }))
             .pairwise()
-            .filter(positions => !this.isSourceEmpty && this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1]));
+            .filter(positions => {
+                return this.hasMore && this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1])
+            });
     }
 
     /**
@@ -180,10 +195,6 @@ export class InfiniteScrollerDirective implements AfterViewInit {
 
                 return Observable.empty();
             })
-            .pipe(
-                tap((data: ILoadMoreData<any>) => {
-                    this.isSourceEmpty = data ? !data.HasNext : this.isSourceEmpty;
-                }))
             .subscribe(
                 (data: ILoadMoreData<any>) => {
                     if (this.updated)
@@ -205,6 +216,6 @@ export class InfiniteScrollerDirective implements AfterViewInit {
      * @param position - positions of current and previus scroll events
      */
     private isScrollExpectedPercent = (position) => {
-        return ((position.sT + position.cH) / position.sH) >= (this.scrollPercent / 100);
+        return Number(((position.sT + position.cH) / position.sH).toFixed(2)) >= (this.scrollPercent / 100);
     }
 }

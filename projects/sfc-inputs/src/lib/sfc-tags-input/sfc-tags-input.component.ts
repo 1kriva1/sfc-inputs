@@ -81,11 +81,11 @@ export class TagsInputComponent extends BaseInputComponent<string[]> implements 
                 this.addNewTag();
             } else {
                 // add inner validation error (duplicate value)
-                this.toggleValidationError(CommonConstants.DUPLICATE_VALIDATOR_KEY, true);
+                this.toggleInnerErrors(CommonConstants.DUPLICATE_VALIDATOR_KEY, true);
             }
         } else {
             // add inner validation error (empty value)
-            this.toggleValidationError(CommonConstants.EMPTY_VALIDATOR_KEY, true);
+            this.toggleInnerErrors(CommonConstants.EMPTY_VALIDATOR_KEY, true);
         }
     }
 
@@ -109,18 +109,8 @@ export class TagsInputComponent extends BaseInputComponent<string[]> implements 
         this.newTagValue = null;
     }
 
-    private toggleValidationError(validationKey: string, isInvalid: boolean) {
-        this.isInvalid = isInvalid;
-
-        if (isInvalid) {
-            this.innerErrors = CommonUtils.addPropertyToObject(this.innerErrors, validationKey, true);
-        } else {
-            CommonUtils.removePropertyFromObject(this.innerErrors, validationKey);
-        }
-    }
-
     private clearInnerValidation() {
-        this.toggleValidationError(CommonConstants.DUPLICATE_VALIDATOR_KEY, false);
-        this.toggleValidationError(CommonConstants.EMPTY_VALIDATOR_KEY, false);
+        this.toggleInnerErrors(CommonConstants.DUPLICATE_VALIDATOR_KEY, false);
+        this.toggleInnerErrors(CommonConstants.EMPTY_VALIDATOR_KEY, false);
     }
 }

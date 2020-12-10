@@ -1,35 +1,3 @@
-:host-context(.sfc-input-dark-theme) .select-dropdown {
-    background-color: #343940;
-}
-
-:host-context(.sfc-input-dark-theme) .select-dropdown li>span {
-    color: #ffcf54e0;
-}
-
-:host-context(.sfc-input-dark-theme) .hasItems ::ng-deep .preloader.background {
-    background-color: #2f3338e5;
-}
-
-:host-context(.sfc-input-dark-theme) .select-dropdown li.selected {
-    background-color: rgba(0, 0, 0, 0.15);
-}
-
-/* OPT GROUP */
-
-:host-context(.sfc-input-dark-theme) .select-dropdown li~li.optgroup:not(:nth-child(2)) {
-    border-color: #9e9e9e91;
-}
-
-/* END OPT GROUP */
-
-/* MULTIPLE */
-
-:host-context(.sfc-input-dark-theme) .select-dropdown .multiple label span {
-    border-color: #9e9e9e91;
-}
-
-/* END MULTIPLE */
-
 /* CARET */
 
 :host-context(.sfc-input-dark-theme) .select-wrapper .caret, :host-context(.sfc-input-dark-theme) .select-wrapper input.sfc-input:disabled~.caret {
@@ -37,19 +5,3 @@
 }
 
 /* END CARET */
-
-/**  SCROLL BAR */
-
-:host-context(.sfc-input-dark-theme) ::-webkit-scrollbar-thumb {
-    background: rgb(100%, 81%, 33%, 0.6);
-}
-
-:host-context(.sfc-input-dark-theme) ::-webkit-scrollbar-thumb:hover {
-    background: rgb(100%, 81%, 33%, 0.7);
-}
-
-:host-context(.sfc-input-dark-theme) ::-webkit-scrollbar-thumb:active {
-    background: rgb(100%, 81%, 33%, 0.8);
-}
-
-/** END  SCROLL BAR */
