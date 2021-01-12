@@ -1,0 +1,129 @@
+.dtp-picker-datetime {
+    width: 58.5%;
+    margin: 0 auto;
+}
+
+/* MERIDIENT */
+
+.dtp-actual-meridien .clearfix {
+    clear: both;
+}
+
+.dtp-actual-meridien a {
+    position: relative;
+    top: 10px;
+    color: #212121;
+    font-weight: 500;
+    padding: 0.7em 0.5em;
+    border-radius: 50%!important;
+    text-decoration: none;
+    background: #eee;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.dtp-actual-meridien a.selected {
+    background: #2bbbad;
+    color: #fff;
+}
+
+.dtp-actual-meridien a.disabled {
+    color: #BDBDBD;
+    pointer-events: none;
+}
+
+.meridien-handler {
+    width: 20%;
+    display: inline-block;
+}
+
+.meridien-handler.left {
+    float: left;
+}
+
+.meridien-handler.right {
+    float: right;
+}
+
+.dtp-actual-time {
+    font-weight: 500;
+    text-align: center;
+    width: 60%;
+    display: inline-block;
+}
+
+/* END MERIDIENT */
+
+/* CLOCK */
+
+.clock-circle {
+    fill: #eee;
+    stroke: #5c5c5c;
+    stroke-width: 3;
+}
+
+.minute-hand {
+    stroke: #bdbdbd;
+    stroke-width: 2;
+}
+
+.hour-hand {
+    stroke: #bdbdbd;
+    stroke-width: 8;
+}
+
+.minute-hand.active, .hour-hand.active {
+    stroke: #2bbbad;
+}
+
+.clock-point {
+    fill: #757575;
+}
+
+circle.dtp-select-hour, circle.dtp-select-minute {
+    fill: transparent;
+    cursor: pointer;
+}
+
+circle.dtp-select-hour.selected, circle.dtp-select-minute.selected {
+    fill: #2bbbad !important;
+}
+
+circle.dtp-select-hour.disabled, circle.dtp-select-minute.disabled {
+    color: #BDBDBD;
+    pointer-events: none;
+}
+
+text.dtp-select-hour-text, text.dtp-select-minute-text {
+    fill: rgb(48, 48, 48);
+    cursor: pointer;
+    text-anchor: middle;
+    font-weight: bold;
+}
+
+text.dtp-select-hour-text {
+    font-size: 23px;
+}
+
+text.dtp-select-minute-text {
+    font-size: 18px;
+}
+
+text.dtp-select-hour-text.selected, text.dtp-select-minute-text.selected {
+    fill: #fff;
+}
+
+text.dtp-select-hour-text.disabled, text.dtp-select-minute-text.disabled {
+    fill: #BDBDBD;
+    pointer-events: none;
+}
+
+circle.dtp-select-minute.point {
+    fill: rgb(48, 48, 48);
+}
+
+circle.dtp-select-minute.point.disabled {
+    fill: #b3b3b0;
+}
+
+/* END CLOCK */

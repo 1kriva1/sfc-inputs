@@ -6,7 +6,6 @@ import { CollectionUtils } from '../../utils/collection-utils';
 import { IPageable } from '../../interfaces/IPageable';
 import { LoaderService } from '../loader/base/sfc-loader.service';
 import { CommonUtils } from '../../utils/common-utils';
-import { LoadMoreUtils } from '../../utils/load-more-utils';
 import { StyleClass } from '../../constants/common-constants';
 import { HttpConfig } from '../../utils/http-config';
 import HttpUtils from '../../utils/http-utils';
@@ -17,7 +16,8 @@ import { UIUtils } from '../../utils/ui-utils';
 @Component({
     selector: 'load-more-dropdown',
     templateUrl: './sfc-load-more-dropdown.component.html',
-    styleUrls: ['./sfc-load-more-dropdown.component.css', './sfc-load-more-dropdown-dark-theme.component.css']
+    styleUrls: ['../../styles/sfc-base-input.component.css', '../../styles/sfc-base-input-dark-theme.component.css',
+    './sfc-load-more-dropdown.component.css', './sfc-load-more-dropdown-dark-theme.component.css']
 })
 export class LoadMoreDropDownComponent implements OnInit, IPageable<ILoadMoreData<any>>{
 

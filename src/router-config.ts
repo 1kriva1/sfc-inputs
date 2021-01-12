@@ -13,6 +13,7 @@ import { ToolTipAppComponent } from './tooltip-app/tooltip.component';
 import { StarRatingInputAppComponent } from './star-rating-app/star-rating-input.component';
 import { NumberSpinnerInputAppComponent } from './number-spinner-app/number-spinner-input.component';
 import { AutoCompleteInputAppComponent } from './autocomplete-input-app/autocomplete-input.component';
+import { DateTimeInputAppComponent } from './date-time-app/date-time-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -72,6 +73,10 @@ export const routeConfig = [
     {
         path: 'autocomplete-input',
         component: AutoCompleteInputAppComponent
+    },
+    {
+        path: 'date-time-input',
+        component: DateTimeInputAppComponent
     },
     {
         path: 'loader',

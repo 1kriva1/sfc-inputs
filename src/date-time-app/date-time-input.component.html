@@ -1,0 +1,399 @@
+<div class="demo-container">
+    <h1>DATE/TIME INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <h3>Date:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-empty" formControlName="inputDateNull" [time]="false">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-label" formControlName="inputDateLabel" [time]="false"
+                            label="test label">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-icon" formControlName="inputDateIcon" [time]="false"
+                            icon="fa fa-star">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-helper" formControlName="inputDateHelper" [time]="false"
+                            helper-text="test helper text">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-disabled" formControlName="inputDateDisabled" [time]="false"
+                            helper-text="test helper text" icon="fa fa-star" label="test label">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-value" formControlName="inputDateValue" [time]="false"
+                            icon="fa fa-star" label="test label">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-validation" formControlName="inputDateValidation"
+                            [time]="false" icon="fa fa-star" helper-text="valid only 1/12/2020">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-valid" formControlName="inputDateValid" [time]="false"
+                            label="valid value" helper-text="valid only 1/12/2020">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-invalid" formControlName="inputDateInValid" [time]="false"
+                            icon="fa fa-star" label="invalid value" helper-text="valid only 1/12/2020">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-week-start" formControlName="inputDateWeekStart"
+                            [time]="false" icon="fa fa-star" label="sunday start" helper-text="week start from sunday"
+                            [week-start]="0">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-all-buttons" formControlName="inputDateAllButtons"
+                            [time]="false" icon="fa fa-star" label="all buttons" helper-text="+ clear and now button"
+                            [clear-button]="true" [now-button]="true">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-switch-on-click" formControlName="inputDateSwithcOnClick"
+                            [time]="false" icon="fa fa-star" label="+ switch" helper-text="switch on click"
+                            [clear-button]="true" [now-button]="true" [switch-on-click]="true">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-min-date" formControlName="inputDateMin" [time]="false"
+                            icon="fa fa-star" label="min now" helper-text="allow only more than now"
+                            [min-date]="minDate" [max-date]="tempDate">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-max-date" formControlName="inputDateMax" [time]="false"
+                            icon="fa fa-star" label="max now" helper-text="allow only less than now"
+                            [max-date]="maxDate">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-disabled-day" formControlName="inputDateDisabledDay"
+                            [time]="false" icon="fa fa-star" label="now is disabled" helper-text="disabled now"
+                            [disabled-days]="disabledDates">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-format" formControlName="inputDateFormat1" [time]="false"
+                            icon="fa fa-star" label="Jun 15, 2015" helper-text="format: Jun 15, 2015" format="MMM d, y">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <h3>Time:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-time-empty" formControlName="inputTimeNull" [date]="false">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-label" formControlName="inputTimeLabel" [date]="false"
+                            label="test label">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-icon" formControlName="inputTimeIcon" [date]="false"
+                            icon="fa fa-star">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-time-helper" formControlName="inputTimeHelper" [date]="false"
+                            helper-text="test helper text">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-disabled" formControlName="inputTimeDisabled" [date]="false"
+                            helper-text="test helper text" icon="fa fa-star" label="test label">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-value" formControlName="inputTimeValue" [date]="false"
+                            icon="fa fa-star" label="test label">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-time-validation" formControlName="inputTimeValidation"
+                            [date]="false" icon="fa fa-star" helper-text="valid only 15:15">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-valid" formControlName="inputTimeValid" [date]="false"
+                            label="valid value" helper-text="valid only 15:15">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-invalid" formControlName="inputTimeInValid" [date]="false"
+                            icon="fa fa-star" label="invalid value" helper-text="valid only 15:15">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-time-short" formControlName="inputTimeShort" [date]="false"
+                            icon="fa fa-star" label="short time" helper-text="with short time" [short-time]="true">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-all-buttons" formControlName="inputTimeAllButtons"
+                            [date]="false" icon="fa fa-star" label="all buttons" helper-text="+ clear and now button"
+                            [clear-button]="true" [now-button]="true">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-switch-on-click" formControlName="inputTimeSwithcOnClick"
+                            [date]="false" icon="fa fa-star" label="+ switch" helper-text="switch on click"
+                            [clear-button]="true" [now-button]="true" [switch-on-click]="true">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-time-min-date" formControlName="inputTimeMin" [date]="false"
+                            icon="fa fa-star" label="min now" helper-text="allow only more than now"
+                            [min-date]="minDate" [max-date]="tempDate">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-max-date" formControlName="inputTimeMax" [date]="false"
+                            icon="fa fa-star" label="max now" helper-text="allow only less than now"
+                            [max-date]="maxDate">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-short-min-max" formControlName="inputTimeShortMinMax"
+                            [date]="false" icon="fa fa-star" label="short time max and min"
+                            helper-text="allow only 3 hours ahead" [short-time]="true" [max-date]="tempTime"
+                            [min-date]="minDate">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-time-format" formControlName="inputTimeFormat" [date]="false"
+                            icon="fa fa-star" label="15:03:01" helper-text="format: 15:03:01" format="HH:mm:ss">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-time-short-format" formControlName="inputTimeShortFormat"
+                            [date]="false" icon="fa fa-star" label="9:03:01" helper-text="format: 9:03:01 AM"
+                            format="h:mm:ss a">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <h3>DateTime:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-empty" formControlName="inputDateTimeNull">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-label" formControlName="inputDateTimeLabel"
+                            label="test label">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-icon" formControlName="inputDateTimeIcon"
+                            icon="fa fa-star">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-helper" formControlName="inputDateTimeHelper"
+                            helper-text="test helper text">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-disabled" formControlName="inputDateTimeDisabled"
+                            helper-text="test helper text" icon="fa fa-star" label="test label">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-value" formControlName="inputDateTimeValue"
+                            icon="fa fa-star" label="test label">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-validation" formControlName="inputDateTimeValidation"
+                            icon="fa fa-star" helper-text="valid only 1/12/2020 15:15">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-valid" formControlName="inputDateTimeValid"
+                            label="valid value" helper-text="valid only 1/12/2020 15:15">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-invalid" formControlName="inputDateTimeInValid"
+                            icon="fa fa-star" label="invalid value" helper-text="valid only 1/12/2020 15:15">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-week-start" formControlName="inputDateTimeWeekStart"
+                            icon="fa fa-star" label="sunday start" helper-text="week start from sunday"
+                            [week-start]="0">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-all-buttons" formControlName="inputDateTimeAllButtons"
+                            icon="fa fa-star" label="all buttons" helper-text="+ clear and now button"
+                            [clear-button]="true" [now-button]="true">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-switch-on-click"
+                            formControlName="inputDateTimeSwithcOnClick" icon="fa fa-star" label="+ switch"
+                            helper-text="switch on click" [clear-button]="true" [now-button]="true"
+                            [switch-on-click]="true">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-min-date" formControlName="inputDateTimeMin"
+                            icon="fa fa-star" label="min now"
+                            helper-text="allow only more than now and less than 7 days ahead" [min-date]="minDate"
+                            [max-date]="tempDate">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-max-date" formControlName="inputDateTimeMax"
+                            icon="fa fa-star" label="max now" helper-text="allow only less than now"
+                            [max-date]="maxDate">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-disabled-day" formControlName="inputDateTimeDisabledDay"
+                            icon="fa fa-star" label="now is disabled" helper-text="disabled now"
+                            [disabled-days]="disabledDates">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-format" formControlName="inputDateTimeFormat"
+                            icon="fa fa-star" label="Jun 15, 2015, 19:03:01"
+                            helper-text="format: Jun 15, 2015, 19:03:01" format="MMM d, y, HH:mm:ss">
+                        </sfc-date-time-input>
+                    </div>
+
+                    <div>
+                        <sfc-date-time-input id="demo-date-time-short-format" formControlName="inputDateTimeShortFormat"
+                            icon="fa fa-star" label="Jun 15, 2015, 9:03:01 AM"
+                            helper-text="format: Jun 15, 2015, 9:03:01 AM" [short-time]="true"
+                            format="MMM d, y, h:mm:ss a">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+                <h3>Year:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-date-time-input id="demo-year" formControlName="inputYear" icon="fa fa-star"
+                            label="only year" [date]="false" [time]="false" helper-text="only year show">
+                        </sfc-date-time-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

@@ -59,9 +59,16 @@ export enum LocationType {
 }
 
 export enum StarType {
-    Highlighted='highlighted',
-    HighlightedMax='highlighted-max',
-    HighlightedMin='highlighted-min'
+    Highlighted = 'highlighted',
+    HighlightedMax = 'highlighted-max',
+    HighlightedMin = 'highlighted-min'
+}
+
+export enum DateTimeViewTypes {
+    Calendar = 0,
+    Hours = 1,
+    Minutes = 2,
+    Years = 3
 }
 
 export class CommonConstants {
@@ -93,6 +100,12 @@ export class CommonConstants {
     static BACKSPACE_KEY_CODE = 8;
 
     static DEFAULT_PAGE_SIZE = 5;
+
+    static DAYS_IN_WEEK = 7;
+    static HOURS_IN_SHORT_TIME = 12;
+    static MINUTES_IN_HOUR = 60;
+    static DAYS_OF_WEEK = ["S", "M", "T", "W", "T", "F", "S"];
+    static DAYS_OF_WEEK_3 = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
     static SELECT_INPUT = {
         // class name for group option

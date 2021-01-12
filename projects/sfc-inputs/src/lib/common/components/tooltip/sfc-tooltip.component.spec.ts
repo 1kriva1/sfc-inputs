@@ -26,7 +26,7 @@ class TestTooltipComponent {
     showTooltip: boolean;
 }
 
-describe('Component: BaseInputComponent', () => {
+describe('Component: TooltipComponent', () => {
 
     let component: TestTooltipComponent;
     let fixture: ComponentFixture<TestTooltipComponent>;

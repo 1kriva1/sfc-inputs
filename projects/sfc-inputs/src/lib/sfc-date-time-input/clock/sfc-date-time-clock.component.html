@@ -1,0 +1,58 @@
+<div *ngIf="currentDate" class="dtp-picker-datetime">
+    <div class="dtp-actual-meridien">
+        <div class="meridien-handler left">
+            <a *ngIf="shortTime" [class.selected]="!isPM" [class.disabled]="isDisabledAM"
+                (mouse-down-left)="onAM($event)">AM</a>
+        </div>
+        <div class="dtp-actual-time">{{displayTime}}</div>
+        <div class="meridien-handler right">
+            <a *ngIf="shortTime" [class.selected]="isPM" [class.disabled]="isDisabledPM"
+                (mouse-down-left)="onPM($event)">PM</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div>
+        <svg class="svg-clock" viewBox="0,0,400,400">
+            <g transform="translate(200,200)">
+                <circle class="clock-circle" r="192"></circle>
+                <line class="minute-hand" x1="0" y1="0" x2="0" y2="-150"
+                    [class.active]="currentView !== DateTimeViewType.Hours" [ngStyle]="minutesHandStyle"></line>
+                <line class="hour-hand" x1="0" y1="0" x2="0" y2="-90"
+                    [class.active]="currentView === DateTimeViewType.Hours" [ngStyle]="hoursHandStyle">
+                </line>
+                <circle class="clock-point" r="15"></circle>
+
+                <ng-container [ngSwitch]="currentView">
+                    <ng-container *ngSwitchCase="DateTimeViewType.Hours">
+                        <ng-container *ngFor="let hour of clock.hours">
+                            <circle class="dtp-select-hour" r="20" [attr.cx]="hour.circle.cx" [attr.cy]="hour.circle.cy"
+                                [ngClass]="hourClasses(hour.value)" (mouse-down-left)="onSelectHour(hour.value)">
+                            </circle>
+                            <text class="dtp-select-hour-text" [attr.x]="hour.text.x" [attr.y]="hour.text.y"
+                                [ngClass]="hourClasses(hour.value)" (mouse-down-left)="onSelectHour(hour.value)">
+                                {{hour.text.displayValue}}
+                            </text>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="DateTimeViewType.Minutes">
+                        <ng-container *ngFor="let minute of clock.minutes">
+                            <circle class="dtp-select-minute" [attr.r]="minute.circle.r" [attr.cx]="minute.circle.cx"
+                                [attr.cy]="minute.circle.cy" [class.point]="!minute.text" [ngClass]="minuteClasses(minute.value)">
+                            </circle>
+                            <circle *ngIf="!minute.text" class="dtp-select-minute" [attr.r]="12" [attr.cx]="minute.circle.cx"
+                                [attr.cy]="minute.circle.cy" [class.disabled]="isDisabledMinute(minute.value)"
+                                (mouse-down-left)="onSelectMinute($event, minute.value)">
+                            </circle>
+                            <text *ngIf="minute.text" class="dtp-select-minute-text" [attr.x]="minute.text.x"
+                                [attr.y]="minute.text.y" [ngClass]="minuteClasses(minute.value)"
+                                (mouse-down-left)="onSelectMinute($event, minute.value)">
+                                {{minute.value}}
+                            </text>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </g>
+        </svg>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+.hbtn {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    padding: 4px 10px;
+    text-align: center;
+    border: solid 2px#AAB2BD;
+    text-decoration: none;
+    color: #AAB2BD;
+    white-space: nowrap;
+    z-index: 0;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    border-radius: 50px;
+}
+
+.hbtn:hover {
+    border-color: #2bbbad;
+    color: #2bbbad;
+}
+
+:host(.disabled) {
+    pointer-events: none;
+}
+
+:host(.disabled) .hbtn {
+    color: white;
+    border-color: #BDBDBD;
+    background: #BDBDBD;
+}

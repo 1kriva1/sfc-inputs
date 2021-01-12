@@ -13,6 +13,10 @@ export class CollectionUtils {
         return this.any(collection) && collection.findIndex(i => i === value) !== CommonConstants.NOT_FOUND_INDEX;
     }
 
+    public static hasItemByPredicate<T>(collection: Array<T>, predicate: (item: T) => boolean): boolean {
+        return this.any(collection) && collection.findIndex(predicate) !== CommonConstants.NOT_FOUND_INDEX;
+    }
+
     public static getItem<T>(collection: Array<T>, predicate: (item: T) => boolean): T {
         if (CollectionUtils.any(collection)) {
             let value = collection.find(predicate);

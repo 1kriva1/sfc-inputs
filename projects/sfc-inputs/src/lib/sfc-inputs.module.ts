@@ -34,13 +34,20 @@ import { AutoCompleteInputComponent } from './sfc-autocomplete-input/sfc-autocom
 import { LoadMoreDropDownComponent } from './common/components/load-more-dropdown/sfc-load-more-dropdown.component';
 import { SelectItemComponent } from './sfc-select-input/select-item/sfc-select-item.component';
 import { AutocompleteItemComponent } from './sfc-autocomplete-input/autocomplete-item/sfc-autocomplete-item.component';
+import { DateTimeInputComponent } from './sfc-date-time-input/sfc-date-time-input.component';
+import { MouseDownDirective } from './common/directives/mouse-down.directive';
+import { ButtonComponent } from './common/components/button/sfc-button.component';
+import { DateTimeCalendarComponent } from './sfc-date-time-input/calendar/sfc-date-time-calendar.component';
+import { DateTimeClockComponent } from './sfc-date-time-input/clock/sfc-date-time-clock.component';
+import { DateTimeYearComponent } from './sfc-date-time-input/year-picker/sfc-date-time-year.component';
 
 @NgModule({
-  declarations: [InputRefDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, TextInputComponent, TextAreaInputComponent,
+  declarations: [InputRefDirective, MouseDownDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, ButtonComponent, TextInputComponent, 
+    TextAreaInputComponent,
     FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, TagsInputComponent, TagsChipComponent, 
     RangeHorizontalInputComponent, RangeVerticalInputComponent, StarRatingInputComponent, StarComponent,
     InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent, 
-    SelectItemComponent, AutocompleteItemComponent],
+    SelectItemComponent, AutocompleteItemComponent, DateTimeInputComponent, DateTimeCalendarComponent, DateTimeClockComponent, DateTimeYearComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -48,7 +55,8 @@ import { AutocompleteItemComponent } from './sfc-autocomplete-input/autocomplete
   ],
   exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent,
     TagsInputComponent, TagsChipComponent, RangeHorizontalInputComponent, RangeVerticalInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, 
-    InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent],
+    InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent,
+    DateTimeInputComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => BaseInputComponent), multi: true },
