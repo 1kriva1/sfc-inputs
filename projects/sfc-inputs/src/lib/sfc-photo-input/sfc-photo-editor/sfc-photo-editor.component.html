@@ -1,0 +1,16 @@
+<div class="photo-editor-container">
+    <div>
+        <img #image crossorigin class="photo-editor-image" *ngIf="url" [src]="url" (load)="onImageLoad(image)">
+    </div>
+</div>
+<div class="photo-editor-actions-container">
+    <i (click)="crop()" class="fa fa-crop" [class.active]="dragMode == CropperDragModes.Crop"></i>
+    <i (click)="move()" class="fa fa-arrows-alt" [class.active]="dragMode != CropperDragModes.Crop"></i>
+    <i (click)="zoomIn()" class="fa fa-search-plus"></i>
+    <i (click)="zoomOut()" class="fa fa-search-minus"></i>
+    <i (click)="flipV()" class="fa fa-arrows-v"></i>
+    <i (click)="flipH()" class="fa fa-arrows-h"></i>
+    <i (click)="rotateLeft()" class="fa fa-rotate-left"></i>
+    <i (click)="rotateRight()" class="fa fa-rotate-right"></i>
+    <i (click)="reset()" class="fa fa-refresh"></i>
+</div>

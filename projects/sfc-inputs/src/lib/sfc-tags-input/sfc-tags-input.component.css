@@ -1,0 +1,135 @@
+/* MAIN CONTAINER */
+
+.input-tags-container {
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.input-tags-container:hover {
+    cursor: text;
+}
+
+:host(.withIcon) .input-tags-container {
+    margin-left: 3.5em;
+}
+
+:host(.focus) .input-tags-container:not(.valid):not(.invalid) {
+    border-bottom: 1px solid #26a69a;
+    -webkit-box-shadow: 0 1px 0 0 #26a69a;
+    box-shadow: 0 1px 0 0 #26a69a;
+}
+
+/* END MAIN CONTAINER */
+
+/* VALID */
+
+.input-tags-container.valid {
+    border-bottom: 1px solid #8CC152;
+    box-shadow: 0 1px 0 0 #8CC152;
+}
+
+:host(.focus) .input-tags-container.valid label {
+    color: #8CC152;
+}
+
+.input-tags-container.valid~.helper-text {
+    color: #8CC152;
+}
+
+/* END VALID */
+
+/* INVALID */
+
+.input-tags-container.invalid {
+    border-bottom: 1px solid #E9573F;
+    box-shadow: 0 1px 0 0 #E9573F;
+}
+
+:host(.focus) .input-tags-container.invalid label {
+    color: #E9573F;
+}
+
+.input-tags-container.invalid~.helper-text {
+    color: #E9573F;
+}
+
+/* END INVALID */
+
+/* ICON */
+
+.input-tags-container i.icon {
+    width: initial;
+    left: -1.5em;
+}
+
+.input-tags-container i.icon~.input-text-input, .input-tags-container i.icon~label {
+    margin-left: 0;
+}
+
+/* END ICON */
+
+/* INPUTS */
+
+input:not([type]) {
+    display: none;
+}
+
+.input-tags-container .input-text-input {
+    background: none;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: rgba(0, 0, 0, 0.6);
+    display: inline-block;
+    font-size: 16px;
+    height: 3rem;
+    line-height: 32px;
+    outline: 0;
+    margin: 0;
+    padding: 0 !important;
+    width: 120px !important;
+}
+
+.input-tags-container input[type='text'].sfc-input:focus {
+    border-bottom: none;
+    box-shadow: none;
+}
+
+/* END INPUTS */
+
+/* LABEL */
+
+.input-tags-container .input-text-input+label.active {
+    transform: translateY(-20px) scale(0.8);
+}
+
+/* END LABEL */
+
+/* HELPER TEXT */
+
+.input-tags-container~.helper-text {
+    margin-bottom: 1em;
+    margin-left: 0.75rem;
+    top: -15px;
+    display: initial;
+}
+
+:host(.withIcon) .input-tags-container~.helper-text {
+    margin-left: 4.5em;
+}
+
+/* HELPER TEXT END */
+
+/* DISABLED */
+
+:host(.disabled) .input-tags-container {
+    color: rgba(0, 0, 0, 0.42);
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
+    cursor: default;
+}
+
+/* DISABLED END */

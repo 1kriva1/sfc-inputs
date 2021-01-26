@@ -1,0 +1,236 @@
+<div class="demo-container">
+    <h1>FILE INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <hr>
+                <h3>Input:</h3>
+                <hr>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-file-input id="demo-file" formControlName="inputFileNull"></sfc-file-input>
+                    </div>
+                    <div>
+                        <sfc-file-input id="demo-file-label" formControlName="inputFileLabel" label="With label">
+                        </sfc-file-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-file-input id="demo-file-placeholder" formControlName="inputFilePlaceholder"
+                            placeholder="With placeholder">
+                        </sfc-file-input>
+                    </div>
+                    <div>
+                        <sfc-file-input id="demo-file-labplace" formControlName="inputFileLabPlace" label="With label"
+                            placeholder="With placeholder"></sfc-file-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-dis" formControlName="inputFileDisabled" label="Disabled label"
+                            placeholder="Disabled placeholder"></sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-icon" formControlName="inputFileIcon" label="Icon label"
+                            placeholder="Icon placeholder" icon="fa fa-user">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-helper" formControlName="inputFileHelper" label="Helper label"
+                            placeholder="Helper placeholder" helper-text="Demo helper"></sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-validundef" formControlName="inputFileValidationUndefined"
+                            label="Validation undefined label" placeholder="Validation undefined placeholder" helper-text="Demo Validation undefined">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-validdef" formControlName="inputFileWithValue"
+                            label="With value label" placeholder="With value placeholder" helper-text="Demo With value">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-validdef" formControlName="inputFileValidationDefined"
+                            label="Validation defined label" placeholder="Validation defined placeholder" helper-text="Demo Validation defined"
+                            [validations]="{required: 'File is required', fileMaxSize: 'Max length is not valid'}">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-validdef" formControlName="inputFileWithValueInvalid"
+                            label="With invalid value label" placeholder="With invalid value placeholder" helper-text="Demo With invalid value"
+                            [validations]="{required: 'File is required', fileMaxSize: 'Max length is not valid'}">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <hr>
+                <h3>Inline:</h3>
+                <hr>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline" fileInputType="inline" formControlName="inlineFileNull">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-label" fileInputType="inline"
+                            formControlName="inlineFileLabel" label="Label inline">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-placeholder" fileInputType="inline"
+                            formControlName="inlineFilePlaceholder" label="Label inline"
+                            placeholder="Placeholder inline">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-icon" fileInputType="inline"
+                            formControlName="inlineFileIcon" placeholder="Icon inline" icon="fa fa-user">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-helper" fileInputType="inline"
+                            formControlName="inlineFileHelper" label="Helper inline" helper-text="helper text">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-default-icon" fileInputType="inline"
+                            formControlName="inlineFileDefaultIcon" label="DefaultIcon inline"
+                            placeholder="DefaultIcon inline" helper-text="helper text use default icon"
+                            [useDefaultIcon]="true">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-file-name" fileInputType="inline"
+                            formControlName="inlineFileFileName" label="FileName inline" placeholder="FileName inline"
+                            helper-text="helper FileName = NULL" [showFileName]="false">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-file-name-icon" fileInputType="inline"
+                            formControlName="inlineFileFileNameIcon" label="FileName icon inline" icon="fa fa-user"
+                            placeholder="FileName icon inline" helper-text="helper icon FileName"
+                            [showFileName]="false">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-clear-false" fileInputType="inline"
+                            formControlName="inlineFileClearFalse" label="ClearFalse inline"
+                            placeholder="ClearFalse inline" helper-text="helper ClearFalse" [showFileName]="false"
+                            [showClearButton]="false">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-disabled" fileInputType="inline"
+                            formControlName="inlineFileDisabled" label="Disabled inline" placeholder="Disabled inline"
+                            helper-text="helper text Disabled">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-undef" fileInputType="inline"
+                            formControlName="inlineFileValUndf" label="ValUndf inline" placeholder="ValUndf inline"
+                            helper-text="helper text ValUndf">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-def" fileInputType="inline"
+                            formControlName="inlineFileValDef" label="ValDef inline" placeholder="ValDef inline"
+                            helper-text="helper text ValDef"
+                            [validations]="{required: 'First name is required', fileExtension: 'Invalid extension'}">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-has-value" fileInputType="inline"
+                            formControlName="inlineFileHasValue" label="Has value inline" placeholder="Has value inline"
+                            helper-text="helper text Has value">
+                        </sfc-file-input>
+                    </div>
+
+                    <div>
+                        <sfc-file-input id="demo-file-inline-validation-has-value-invalid" fileInputType="inline"
+                            formControlName="inlineFileHasValueInvalid" label="Has value inline invalid"
+                            placeholder="Has value inline invalid" helper-text="helper text Has value invalid"
+                            [validations]="{required: 'First name is required', fileExtension: 'Invalid extension'}">
+                        </sfc-file-input>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <pre><code>{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="input-container input-number-spinner-container" [ngClass]="containerClass">
+    <div class="main-container">
+        <input sfcinput id="sfc-{{id}}" type="number" class="sfc-input" [value]="value" [disabled]="disabled">
+        <label for="sfc-{{id}}" class="main-label" [ngClass]="labelClass">{{label}}</label>
+        <div>
+            <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+            <div class="spinner-container">
+                <span *ngIf="showIncrement" class="lever next" (click)="increment()">
+                    <i [ngClass]="nextIcon"></i>
+                </span>
+                <span *ngIf="showDecrement" class="lever prev" (click)="decrement()">
+                    <i [ngClass]="prevIcon"></i>
+                </span>
+                <div class="spinner-value">
+                    <span>{{value}}</span>
+                </div>
+            </div>
+        </div>
+        <span class="helper-text">{{helperText}}</span>
+    </div>
+</div>

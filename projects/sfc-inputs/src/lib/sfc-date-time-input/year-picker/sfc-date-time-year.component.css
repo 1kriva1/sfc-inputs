@@ -1,0 +1,47 @@
+.dtp-picker-year {
+    margin-bottom: 1px;
+}
+
+.year-handler {
+    display: flex;
+}
+
+.year-handler:last-child {
+    margin-top: 5px;
+}
+
+.dtp-select-year-range {
+    text-align: center;
+    width: 100%;
+}
+
+.year-picker-item {
+    text-align: center;
+    padding-top: 5px;
+    font-size: large;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.year-picker-item.active {
+    color: #2bbbad;
+    font-weight: bold;
+}
+
+.year-picker-item.disabled {
+    color: #BDBDBD;
+    pointer-events: none;
+}
+
+.year-picker-item:hover {
+    color: #2bbbad;
+}
+
+::ng-deep .dtp-picker-year sfc-button a {
+    width: 100%;
+    border-color: transparent !important;
+}
+
+::ng-deep .dtp-picker-year sfc-button a:hover {
+    border-color: #2bbbad !important;
+}

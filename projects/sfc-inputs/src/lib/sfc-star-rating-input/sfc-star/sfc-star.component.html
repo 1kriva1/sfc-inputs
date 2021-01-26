@@ -1,0 +1,4 @@
+<div class="star-container" [ngClass]="starClasses">
+    <input class="star" id="sfc-star-{{id}}" type="radio" name="star" (click)="onChecked()" [disabled]="disabled" />
+    <label class="star" for="sfc-star-{{id}}"></label>
+</div>

@@ -1,0 +1,12 @@
+<li *ngIf="item" (mousedown)="setOptionValue($event)" [ngClass]="optionClasses">
+    <img *ngIf="item.imagePath" [src]="item.imagePath">
+    <span>
+        <span *ngIf="!multiple">{{item.value}}</span>
+        <label *ngIf="multiple">
+            <div class="multiple">
+                <input type="checkbox" name="{{item.key}}" value="{{item.key}}" />
+                <label for="{{item.key}}"><span></span>{{item.value}}</label>
+            </div>
+        </label>
+    </span>
+</li>

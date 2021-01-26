@@ -1,0 +1,257 @@
+.input-file-container {
+    margin: 1rem .75rem;
+    padding: 0 0;
+}
+
+.file-path-wrapper {
+    overflow: hidden;
+    padding-left: 10px;
+}
+
+input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 50px 0 0 0;
+    font-size: 0px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    box-sizing: border-box;
+}
+
+.inline-input-container {
+    text-align: center;
+}
+
+/* FILE CLEAR BUTTON */
+
+.clear-button {
+    visibility: hidden;
+    position: absolute;
+    right: 5px;
+    top: 20%;
+    padding: 0 8px;
+    font-style: normal;
+    font-size: 1.2em;
+    user-select: none;
+    cursor: pointer;
+    color: #656D78;
+    opacity: 0;
+    z-index: 999;
+}
+
+.clear-button:hover {
+    color: #ED5565;
+}
+
+.input-file-container:hover .clear-button {
+    visibility: visible;
+    transition: opacity 1s ease-out;
+    opacity: 1;
+}
+
+.inline-input-container .clear-button {
+    right: unset;
+    top: unset;
+    font-size: 14px;
+}
+
+/* END FILE CLEAR BUTTON */
+
+/* FILE BUTTON */
+
+.file-button {
+    border: none;
+    border-radius: 2px;
+    height: 3rem;
+    line-height: 3rem;
+    padding: 0 16px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    outline: 0;
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+}
+
+.file-button:focus {
+    background-color: #1d7d74
+}
+
+.input-file-container:hover .file-button:not([disabled]) {
+    background-color: #2bbbad
+}
+
+.file-button[disabled] {
+    background-color: rgba(0, 0, 0, 0.42);
+}
+
+/* END FILE BUTTON */
+
+/* FILE LABEL */
+
+.sfc-input+label.active {
+    transform: translateY(-14px) translateX(72px) scale(0.8);
+}
+
+i.icon~.sfc-input+label {
+    transform: translateY(-14px) translateX(10px) scale(0.8);
+}
+
+/* END FILE LABEL */
+
+/* ICON */
+
+i.icon, i.icon.active {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+/* ICON END */
+
+/* CHARACTERS COUNT */
+
+.character-counter {
+    user-select: none;
+    float: right;
+    font-size: 12px;
+    min-height: 18px;
+    position: relative;
+    top: 5px;
+}
+
+/* CHARACTERS COUNT END */
+
+/* VALID */
+
+.inline-file-input.valid, .inline-file-input.valid:focus {
+    border-bottom: 1px solid #8CC152;
+    box-shadow: 0 1px 0 0 #8CC152;
+}
+
+.inline-file-input.valid:focus+label {
+    color: #8CC152;
+}
+
+.inline-file-input.valid~.helper-text {
+    color: #8CC152;
+}
+
+.inline-file-input.valid+label, .inline-file-input.valid+label i.file-icon {
+    color: #8CC152;
+}
+
+.inline-file-input.valid+label:hover {
+    color: #8CC152;
+}
+
+.file-button.valid {
+    background-color: #8CC152;
+}
+
+.input-file-container:hover .file-button.valid {
+    background-color: #8CC152;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+.inline-file-input.invalid, .inline-file-input.invalid:focus {
+    border-bottom: 1px solid #E9573F;
+    box-shadow: 0 1px 0 0 #E9573F;
+}
+
+.inline-file-input.invalid:focus+label {
+    color: #E9573F;
+}
+
+.inline-file-input.invalid~.helper-text {
+    color: #E9573F;
+}
+
+.inline-file-input.invalid+label, .inline-file-input.invalid+label i.file-icon {
+    color: #E9573F;
+}
+
+.inline-file-input.invalid+label:hover {
+    color: #E9573F;
+}
+
+.file-button.invalid {
+    background-color: #E9573F;
+}
+
+.input-file-container:hover .file-button.invalid {
+    background-color: #E9573F;
+}
+
+/* INVALID END */
+
+/* INLINE */
+
+.inline-input-container .inline-file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inline-input-container label {
+    color: black;
+    max-width: 50%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.625rem 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.inline-input-container label {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.inline-input-container label .file-icon {
+    color: rgba(0, 0, 0, 0.54);
+    position: relative;
+    bottom: 5px;
+}
+
+.inline-file-input+label:hover, .inline-input-container label:hover .file-icon {
+    color: #434A54;
+}
+
+.inline-input-container input:disabled+label {
+    color: rgba(0, 0, 0, 0.42);
+}
+
+.inline-input-container label span:not(:empty) {
+    padding-left: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50%;
+    display: inline-block;
+}
+
+.inline-input-container .helper-text {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    text-align: center;
+}
+
+/* INLINE END */

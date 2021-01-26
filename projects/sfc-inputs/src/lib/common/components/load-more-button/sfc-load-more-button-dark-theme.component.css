@@ -1,0 +1,11 @@
+/* BUTTON */
+
+:host-context(.sfc-input-dark-theme) .btn {
+    color: #c3c3c3;
+}
+
+:host-context(.sfc-input-dark-theme) .btn:hover .text, :host-context(.sfc-input-dark-theme) .btn:hover .show-more-icon {
+    color: #F5F7FA;
+}
+
+/* BUTTON END */

@@ -1,0 +1,7 @@
+:host-context(.sfc-input-dark-theme) .select-dropdown {
+    background-color: #343940;
+}
+
+:host-context(.sfc-input-dark-theme) .loaded ::ng-deep .preloader.background {
+    background-color: #2f3338e5 !important;
+}

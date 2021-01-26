@@ -1,0 +1,17 @@
+<div *ngIf="isDateDefined" class="dtp-picker-year">
+    <div class="year-handler">
+        <sfc-button class="dtp-select-year-range" icon="fa fa-chevron-up" (mouse-down-left)="onYearRangeBefore()">
+        </sfc-button>
+    </div>
+
+    <div class="year-picker-item" *ngFor="let year of years" [class.active]="isCurrentYear(year)"
+        [class.disabled]="isDisabled(year)" (mouse-down-left)="onSelectYear(year)">
+        {{year}}
+    </div>
+
+    <div class="year-handler">
+        <sfc-button class="dtp-select-year-range" icon="fa fa-chevron-down"
+            (mouse-down-left)="onYearRangeAfter()">
+        </sfc-button>
+    </div>
+</div>

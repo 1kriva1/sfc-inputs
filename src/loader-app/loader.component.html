@@ -1,0 +1,277 @@
+<div class="demo-container">
+    <h1>LOADER</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+        <app-circle-loader [id]="'global'"></app-circle-loader>
+        <button id="globalButton" (click)="showLoader()">Show global loader</button>
+
+        <div class="input-container">
+            <div class="input-row input-row-loader">
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('small1')">Show</button>
+                    <button (click)="hideLoader('small1')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'small1'" [size]="'small'" [start]="true"></app-circle-loader>
+                        small circle loader with start=true
+                    </div>
+
+                </div>
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('small2')">Show</button>
+                    <button (click)="hideLoader('small2')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'small2'" [size]="'small'" [customSize]="customSize">
+                        </app-circle-loader>
+                        small circle loader with custom size
+                    </div>
+
+                </div>
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('small3')">Show</button>
+                    <button (click)="hideLoader('small3')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'small3'" [size]="'small'" [start]="true" [background]="false">
+                        </app-circle-loader>
+                        small circle loader with start=true and backfround=false
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="input-row input-row-loader">
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('smallFaiding1')">Show</button>
+                    <button (click)="hideLoader('smallFaiding1')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'smallFaiding1'" [size]="'small'" [start]="true">
+                        </app-circle-fading-loader>
+                        small circle-faiding with start=true
+                    </div>
+
+                </div>
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('smallFaiding2')">Show</button>
+                    <button (click)="hideLoader('smallFaiding2')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'smallFaiding2'" [size]="'small'" [customSize]="customSize">
+                        </app-circle-fading-loader>
+                        small circle-faiding with custom size
+                    </div>
+
+                </div>
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('smallFaiding3')">Show</button>
+                    <button (click)="hideLoader('smallFaiding3')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'smallFaiding3'" [size]="'small'" [start]="true"
+                            [background]="false">
+                        </app-circle-fading-loader>
+                        small circle-faiding with start=true and backfround=false
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-row input-row-loader">
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('smallBounce1')">Show</button>
+                    <button (click)="hideLoader('smallBounce1')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'smallBounce1'" [size]="'small'" [start]="true"></app-bounce-loader>
+                        small bounce loader with start=true
+                    </div>
+
+                </div>
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('smallBounce2')">Show</button>
+                    <button (click)="hideLoader('smallBounce2')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'smallBounce2'" [size]="'small'"
+                            [customSize]="{height: 30, width: 30}"></app-bounce-loader>
+                        small bounce loader with custom size
+                    </div>
+
+                </div>
+
+                <div class="loader-container small">
+
+                    <button (click)="showLoader('smallBounce3')">Show</button>
+                    <button (click)="hideLoader('smallBounce3')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'smallBounce3'" [size]="'small'" [start]="true" [background]="false">
+                        </app-bounce-loader>
+                        small bounce loader with start=true and backfround=false
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-row input-row-loader">
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('medium1')">Show</button>
+                    <button (click)="hideLoader('medium1')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'medium1'" [size]="'small'"></app-circle-loader>
+                        small circle-loader
+                    </div>
+
+                </div>
+
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('medium2')">Show</button>
+                    <button (click)="hideLoader('medium2')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'medium2'" [size]="'medium'"></app-circle-loader>
+                        medium circle-loader
+                    </div>
+
+                </div>
+
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('medium3')">Show</button>
+                    <button (click)="hideLoader('medium3')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'medium3'" [size]="'large'"></app-circle-loader>
+                        large circle-loader
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="input-row input-row-loader">
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('mediumFaiding1')">Show</button>
+                    <button (click)="hideLoader('mediumFaiding1')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'mediumFaiding1'" [size]="'small'"></app-circle-fading-loader>
+                        small circle-fading-loader
+                    </div>
+
+                </div>
+
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('mediumFaiding2')">Show</button>
+                    <button (click)="hideLoader('mediumFaiding2')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'mediumFaiding2'" [size]="'medium'"></app-circle-fading-loader>
+                        medium circle-fading-loader
+                    </div>
+
+                </div>
+
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('mediumFaiding3')">Show</button>
+                    <button (click)="hideLoader('mediumFaiding3')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'mediumFaiding3'" [size]="'large'"></app-circle-fading-loader>
+                        large circle-fading-loader
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="input-row input-row-loader">
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('mediumBounce1')">Show</button>
+                    <button (click)="hideLoader('mediumBounce1')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'mediumBounce1'" [size]="'small'"></app-bounce-loader>
+                        small bounce-loader
+                    </div>
+
+                </div>
+
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('mediumBounce2')">Show</button>
+                    <button (click)="hideLoader('mediumBounce2')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'mediumBounce2'" [size]="'medium'"></app-bounce-loader>
+                        medium bounce-loader
+                    </div>
+
+                </div>
+
+                <div class="loader-container medium">
+
+                    <button (click)="showLoader('mediumBounce3')">Show</button>
+                    <button (click)="hideLoader('mediumBounce3')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'mediumBounce3'" [size]="'large'"></app-bounce-loader>
+                        large bounce-loader
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="input-row input-row-loader">
+                <div class="loader-container medium round">
+
+                    Need additional CSS rules (::ng-deep)
+
+                    <button (click)="showLoader('round1')">Show</button>
+                    <button (click)="hideLoader('round1')">Hide</button>
+                    <div class="content">
+                        <app-circle-loader [id]="'round1'"></app-circle-loader>
+                        round circle-loader
+                    </div>
+
+                </div>
+                <div class="loader-container medium round">
+
+                    Need additional CSS rules (::ng-deep)
+
+                    <button (click)="showLoader('roundFading1')">Show</button>
+                    <button (click)="hideLoader('roundFading1')">Hide</button>
+                    <div class="content">
+                        <app-circle-fading-loader [id]="'roundFading1'"></app-circle-fading-loader>
+                        round circle-fading-loader
+                    </div>
+
+                </div>
+                <div class="loader-container medium round">
+
+                    Need additional CSS rules (::ng-deep)
+
+                    <button (click)="showLoader('roundBounce1')">Show</button>
+                    <button (click)="hideLoader('roundBounce1')">Hide</button>
+                    <div class="content">
+                        <app-bounce-loader [id]="'roundBounce1'"></app-bounce-loader>
+                        round bounce-loader
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

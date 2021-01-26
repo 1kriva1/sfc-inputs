@@ -1,0 +1,24 @@
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) .input-range-container.disabled label.display-label {
+    color: #9e9e9e;
+}
+
+/* END DISABLED */
+
+/* VALID */
+
+:host-context(.sfc-input-dark-theme) .input-range-container.valid.focus .vertical-main-container label.main-label {
+    color: #A0D468;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+:host-context(.sfc-input-dark-theme) .input-range-container.invalid.focus .vertical-main-container label.main-label {
+    color: #DA4453;
+}
+
+/* INVALID END */

@@ -1,0 +1,20 @@
+<div class="dtp-picker-calendar">
+    <div class="dtp-picker-month">{{calendarMonth}}</div>
+    <table class="dtp-picker-days">
+        <thead>
+            <tr>
+                <th *ngFor="let dayIndex of calendar.weekDays">
+                    {{dayOfWeekAsString(dayIndex)}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let week of calendar.weeks">
+                <td *ngFor="let date of week">
+                    <a *ngIf="date" [ngClass]="getDateClasses(date)" class="dtp-select-day"
+                        (mouse-down-left)="onSelectDate($event, date)">{{getDateNumber(date)}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

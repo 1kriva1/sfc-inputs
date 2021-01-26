@@ -1,0 +1,27 @@
+:host-context(.sfc-input-dark-theme) li>span {
+    color: #ffcf54e0;
+}
+
+:host-context(.sfc-input-dark-theme) li.selected {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* OPTGROUP */
+
+:host-context(.sfc-input-dark-theme) li.optgroup {
+    border-color: #9e9e9e91;
+}
+
+:host-context(.sfc-input-dark-theme) li.optgroup>span {
+    color: #9e9e9e;
+}
+
+/* END OPTGROUP */
+
+/* MULTIPLE */
+
+:host-context(.sfc-input-dark-theme) .multiple label span {
+    border-color: #9e9e9e91;
+}
+
+/* END MULTIPLE */

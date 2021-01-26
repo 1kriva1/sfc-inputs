@@ -1,0 +1,19 @@
+<div class="input-container input-autocomplete-container">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <input sfcinput id="sfc-{{id}}" [readonly]="isReadOnly" [disabled]="disabled" type="text"
+        [ngClass]="validationClass" class="sfc-input input-text-input" [placeholder]="placeholder"
+        [value]="displayValue">
+    <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+    <span *ngIf="!isFocus || !hasItems" class="helper-text">{{helperText}}</span>
+
+    <load-more-dropdown #dropdown [id]="id" [ngClass]="isFocus && hasItems ? '':'uppon'" [open]="isFocus"
+        [load-more-button]="loadMoreButton" [loader]="loaderWithParameters"
+        [data]="data" (handle-error)="handleError()" (handle-success)="handleSuccess($event)"
+        (handle-update)="handleUpdate($event)">
+
+        <sfc-autocomplete-item *ngFor="let item of localData" [item]="item" (selected)="setOptionValue($event)">
+        </sfc-autocomplete-item>
+
+    </load-more-dropdown>
+
+</div>

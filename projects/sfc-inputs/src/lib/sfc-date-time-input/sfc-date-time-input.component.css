@@ -1,0 +1,178 @@
+.sfc-input, .sfc-input+label {
+    cursor: pointer;
+}
+
+/* CONTAINERS */
+
+.input-date-time-container {
+    min-width: 300px;
+}
+
+.datetime-container {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    min-height: 50px;
+    z-index: 9999;
+}
+
+:host(.focus) .datetime-container {
+    width: 100%;
+}
+
+:host(.focus) i.icon~.datetime-container {
+    margin-left: 3rem;
+    width: calc(100% - 3rem) !important;
+}
+
+/* END CONTAINERS */
+
+/* DATETIME POPUP */
+
+.dtp {
+    z-index: 2000;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.dtp>.dtp-content {
+    background: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* HEADER */
+
+header.dtp-header {
+    background: #26a69a;
+    color: #fff;
+    text-align: center;
+    padding: 0.3em;
+    min-height: 15px;
+}
+
+/* CLOSE ICON */
+
+header.dtp-header .dtp-close {
+    position: absolute;
+    top: 0.35em;
+    right: 1em;
+}
+
+header.dtp-header .dtp-close>a {
+    color: #fff;
+    cursor: pointer;
+}
+
+header.dtp-header .dtp-close>a>i {
+    font-size: 1em;
+}
+
+.dtp-date, .dtp-time {
+    background: #2bbbad;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+}
+
+.dtp-date .invisible {
+    visibility: hidden;
+}
+
+.dtp-date .clearfix {
+    clear: both;
+}
+
+.dtp-date>div {
+    padding: 0;
+    margin: 0;
+}
+
+.dtp-date .dtp-select-period-handler {
+    text-align: center;
+    width: 10%;
+}
+
+.dtp-date .dtp-select-period-handler.before {
+    float: left;
+}
+
+.dtp-date .dtp-select-period-handler.after {
+    float: right;
+}
+
+.dtp-date a {
+    color: white;
+    text-decoration: none;
+    transition: color .2s ease-in;
+    cursor: pointer;
+}
+
+.dtp-date a:hover {
+    color: #26a69a;
+}
+
+.dtp-date .dtp-actual-month {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    width: 80%;
+    display: inline-block;
+}
+
+.dtp-date .dtp-actual-num {
+    font-size: 3em;
+    line-height: 0.9;
+}
+
+.dtp-date .dtp-actual-year {
+    font-size: 1.5em;
+    width: 80%;
+    color: #dbfffc;
+    display: inline-block;
+}
+
+.dtp-date .dtp-actual-year:hover {
+    cursor: pointer;
+}
+
+.dtp-date .dtp-actual-year.disabled {
+    pointer-events: none;
+}
+
+.dtp-date .dtp-actual-year.disabled:hover {
+    cursor: inherit;
+}
+
+.dtp-time .dtp-actual-maxtime {
+    font-size: 3em;
+    line-height: 0.9;
+}
+
+.dtp div.dtp-picker {
+    padding: 1em;
+    text-align: center;
+}
+
+/* END DATETIME POPUP */
+
+/* BUTTONS */
+
+.dtp-buttons {
+    padding: 0 1em 1em 1em;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+sfc-button {
+    padding: 0 5px;
+}
+
+::ng-deep sfc-button a {
+    min-width: 80px;
+}
+
+/* END BUTTONS */

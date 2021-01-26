@@ -1,0 +1,26 @@
+<div class="input-container input-range-container" [ngClass]="containerClasses">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <div class="vertical-main-container">
+        <label for="sfc-{{id}}" class="main-label" [ngClass]="labelClass">{{label}}</label>
+        <label *ngIf="showBeforeLabel" class="display-label before-label">
+            <span *ngIf="!startIcon">{{max}}</span>
+            <i *ngIf="startIcon" [ngClass]="startIcon"></i>
+        </label>
+        <div #verticalContainer class="vertical-wrapper-outer" [ngStyle]="{'height': containerHeight}">
+            <div class="vertical-wrapper-inner">
+                <span *ngIf="tooltip" class="range-tooltip" [ngStyle]="{'left': tooltipLeftPosition}" [sfc-tooltip]="value"
+                    sfc-tooltip-location="bottom" [sfc-show-tooltip]="showTooltip"></span>
+                <input sfcinput id="sfc-{{id}}" type="range" min="{{min}}" max="{{max}}" step="{{step}}"
+                    class="sfc-input" [value]="value" [disabled]="disabled" (input)="onChange($event.target.value)"
+                    (mousedown)="onHover(true)" (mouseup)="onHover(false)" (blur)="onBlur()">
+            </div>
+        </div>
+        <label *ngIf="showAfterLabel" class="display-label after-label">
+            <span *ngIf="!finishIcon">{{showValue ? value : min}}</span>
+            <i *ngIf="finishIcon" [ngClass]="finishIcon"></i>
+        </label>
+        <span class="helper-text">{{helperText}}</span>
+        
+    </div>
+    
+</div>

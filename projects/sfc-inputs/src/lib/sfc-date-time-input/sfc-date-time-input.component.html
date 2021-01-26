@@ -1,0 +1,83 @@
+<div class="input-container input-date-time-container">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <input sfcinput id="sfc-{{id}}" [disabled]="disabled" type="text" [ngClass]="validationClass"
+        class="sfc-input input-text-input" [placeholder]="placeholder" [value]="displayValue"
+        (mouse-down-left)="$event">
+    <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
+    <span class="helper-text">{{helperText}}</span>
+
+    <div class="datetime-container">
+        <div class="dtp" [hidden]="!isFocus" (mousedown)="$event.preventDefault()">
+            <div class="dtp-content">
+                <div class="dtp-date-view">
+                    <header class="dtp-header">
+                        <div class="dtp-actual-day">{{displayDay}}</div>
+                        <div class="dtp-close" (mouse-down-left)="onClose($event)">
+                            <a><i class="fa fa-times"></i></a>
+                        </div>
+                    </header>
+                    <div class="dtp-date" *ngIf="(year && !time) || date">
+                        <div class="month-handlers" *ngIf="date">
+                            <div class="dtp-select-period-handler before">
+                                <a [class.invisible]="!isShowMonthBefore" (mouse-down-left)="onMonthBefore()">
+                                    <i class="fa fa-chevron-left"></i>
+                                </a>
+                            </div>
+                            <div class="dtp-actual-month">{{displayMonth}}</div>
+                            <div class="dtp-select-period-handler after">
+                                <a [class.invisible]="!isShowMonthAfter" (mouse-down-left)="onMonthAfter()">
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div *ngIf="date" class="dtp-actual-num">{{displayDayNumber}}</div>
+                        <div class="year-handlers">
+                            <div class="dtp-select-period-handler before">
+                                <a [class.invisible]="!isShowYearBefore" (mouse-down-left)="onYearBefore()">
+                                    <i class="fa fa-chevron-left"></i>
+                                </a>
+                            </div>
+                            <div class="dtp-actual-year" [class.disabled]="!year"
+                                (mouse-down-left)="showYearsList()">{{displayYear}}</div>
+                            <div class="dtp-select-period-handler after">
+                                <a [class.invisible]="!isShowYearAfter" (mouse-down-left)="onYearAfter()">
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="dtp-time" *ngIf="!date && time">
+                        <div class="dtp-actual-maxtime">{{displayTime}}</div>
+                    </div>
+                    <div class="dtp-picker">
+                        <sfc-date-time-calendar [hidden]="!showCalendar" [min-date]="minDate" [max-date]="maxDate"
+                            [disabled-days]="disabledDays" [week-start]="weekStart" [current-date]="currentDate"
+                            [locale]="locale" (selected)="onSelectDate($event)">
+                        </sfc-date-time-calendar>
+
+                        <sfc-date-time-clock [hidden]="!showClock" [short-time]="shortTime" [min-date]="minDate"
+                            [max-date]="maxDate" [current-date]="currentDate" [view]="currentView" [locale]="locale"
+                            (hour-selected)="onSelectHour($event)" (minute-selected)="onSelectMinute($event)">
+                        </sfc-date-time-clock>
+
+                        <sfc-date-time-year [hidden]="!showYears" [current-date]="currentDate" [locale]="locale"
+                            [min-date]="minDate" [max-date]="maxDate" (selected)="onSelectYear($event)">
+                        </sfc-date-time-year>
+                    </div>
+                </div>
+                <div class="dtp-buttons">
+                    <sfc-button *ngIf="showNowButton" class="button-now" text="Now" (mouse-down-left)="onNow()">
+                    </sfc-button>
+                    <sfc-button *ngIf="showClearButton" class="button-clear" text="Clear"
+                        (mouse-down-left)="onClear($event)">
+                    </sfc-button>
+                    <sfc-button class="button-cancel" text="Cancel" (mouse-down-left)="onCancel($event)"></sfc-button>
+                    <sfc-button class="button-ok" [disabled]="isDisabled" text="Ok" (mouse-down-left)="onOk($event)">
+                    </sfc-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

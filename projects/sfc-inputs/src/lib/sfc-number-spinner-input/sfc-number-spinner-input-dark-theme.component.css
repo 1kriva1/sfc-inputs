@@ -1,0 +1,55 @@
+/* VALID */
+
+:host-context(.sfc-input-dark-theme) .input-number-spinner-container:hover .sfc-input.valid~label.main-label {
+    color: #A0D468;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+:host-context(.sfc-input-dark-theme) .input-number-spinner-container:hover .sfc-input.invalid~label.main-label {
+    color: #DA4453;
+}
+
+/* INVALID END */
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) .spinner-container{
+    border-color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) .input-number-spinner-container.disabled .spinner-value span {
+    color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) .input-number-spinner-container.disabled .spinner-container .lever {
+    color: #656D78;
+}
+
+/* END DISABLED */
+
+/* LEVERS */
+
+:host-context(.sfc-input-dark-theme) .spinner-container .lever {
+    color: #AAB2BD;
+}
+
+:host-context(.sfc-input-dark-theme) .spinner-container .lever:hover {
+    color: #CCD1D9;
+}
+
+/* END LEVERS */
+
+/* SPINNER VALUE */
+
+:host-context(.sfc-input-dark-theme) .spinner-value span {
+    color: #CCD1D9;
+}
+
+:host-context(.sfc-input-dark-theme) .input-number-spinner-container:not(.disabled) .spinner-container:hover .spinner-value span {
+    color: #E6E9ED;
+}
+
+/* END SPINNER VALUE */

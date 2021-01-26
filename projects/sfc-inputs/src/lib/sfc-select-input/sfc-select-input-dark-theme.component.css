@@ -1,0 +1,7 @@
+/* CARET */
+
+:host-context(.sfc-input-dark-theme) .select-wrapper .caret, :host-context(.sfc-input-dark-theme) .select-wrapper input.sfc-input:disabled~.caret {
+    color: #9e9e9e;
+}
+
+/* END CARET */

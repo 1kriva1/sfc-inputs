@@ -1,0 +1,23 @@
+<div class="input-container input-radio-buttons-container">
+    <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
+    <div class="radio-buttons-wrapper" [ngClass]="position" *ngIf="data$ | async as dataObs; else loading">
+        <div class="radio-container" *ngFor="let item of dataObs; let last = last;">
+            <input type="radio" sfcinput id="sfc-{{id}}-{{item.key}}" [checked]="isCheckedItem(item)"
+                [disabled]="disabled || item.isDisabled" class="sfc-input" [value]="item.key"
+                (input)="onChange(item.key)">
+            <label for="sfc-{{id}}-{{item.key}}">
+                <div [ngClass]="radioButtonLabelClass(item)">
+                    <div [ngClass]="item.icon"></div>
+                </div>
+                <span class=text>{{item.value}}</span>
+            </label>
+            <span *ngIf="last" class="helper-text">{{helperText}}</span>
+        </div>
+    </div>
+
+    <ng-template #loading>
+        <!-- start="{{true}}" -->
+        <app-bounce-loader [id]="id" size="small" start="true"> 
+        </app-bounce-loader>
+    </ng-template>
+</div>

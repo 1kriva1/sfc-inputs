@@ -1,0 +1,31 @@
+/* LABEL */
+
+:host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input~.display-label {
+    color: #9e9e9e;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input~.display-label:hover, :host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input:checked~.after-label, :host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input:not(:checked)~.before-label {
+    color: white;
+}
+
+:host-context(.sfc-input-dark-theme) input[type='checkbox']+label>span {
+    background: #434A54;
+}
+
+/* END LABEL */
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) input[type='checkbox'].sfc-input:disabled~label.main-label {
+    background: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input:disabled~.display-label {
+    color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input:checked:disabled~.after-label, :host-context(.sfc-input-dark-theme) input[type="checkbox"].sfc-input:disabled:not(:checked)~.before-label {
+    color: #E6E9ED;
+}
+
+/* END DISABLED */

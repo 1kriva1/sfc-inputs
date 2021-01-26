@@ -1,0 +1,125 @@
+.input-toggle-container {
+    display: inline-block;
+}
+
+/* ICON */
+
+.input-toggle-container i.icon {
+    top: 0;
+}
+
+/* END ICON */
+
+/* CHECKBOX */
+
+input[type="checkbox"].sfc-input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    display: none;
+}
+
+/* END CHECKBOX */
+
+/* LABEL */
+
+input[type="checkbox"].sfc-input~.display-label {
+    color: rgba(0, 0, 0, 0.54);
+    white-space: nowrap;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+
+input[type="checkbox"].sfc-input~.display-label:hover {
+    color: #434A54;
+}
+
+.before-label {
+    margin-right: 1em;
+}
+
+input[type="checkbox"].sfc-input:not(:checked)~.before-label {
+    color: #434A54;
+}
+
+.before-label~span.helper-text {
+    text-align: center;
+}
+
+input[type="checkbox"].sfc-input:checked~.after-label {
+    color: #434A54;
+}
+
+i.icon~.before-label~label.main-label, i.icon~label.after-label {
+    margin-left: 0;
+}
+
+input[type='checkbox'].sfc-input~label.main-label {
+    display: inline-flex;
+    align-items: center;
+    width: 4.1em;
+    height: 32px;
+    background: #2c3e50;
+    border-radius: 2.5em;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    margin-right: 1em;
+    margin-bottom: 2px;
+}
+
+input[type="checkbox"].sfc-input:checked~.main-label {
+    background: #16a085;
+}
+
+.toggle-handler {
+    display: flex;
+    margin-left: 0.5em;
+    justify-content: center;
+    align-items: center;
+    width: 1.7em;
+    height: 1.7em;
+    background: #34495e;
+    border-radius: 50%;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-handler>i {
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+input[type="checkbox"].sfc-input:checked~.main-label>.toggle-handler {
+    margin-left: 50%;
+    background: #1abc9c;
+}
+
+/* END LABEL */
+
+/* HELPER TEXT */
+
+.helper-text {
+    display: block;
+}
+
+/* END HELPER TEXT */
+
+/* DISABLED */
+
+:host(.disabled) input[type='checkbox'].sfc-input~label.main-label {
+    background: rgba(0, 0, 0, 0.42);
+}
+
+:host(.disabled) input[type='checkbox'].sfc-input~label.main-label>.toggle-handler {
+    background: rgba(0, 0, 0, 0.42);
+}
+
+:host(.disabled) input[type="checkbox"].sfc-input~.display-label {
+    color: rgba(0, 0, 0, 0.42);
+}
+
+/* END DISABLED */

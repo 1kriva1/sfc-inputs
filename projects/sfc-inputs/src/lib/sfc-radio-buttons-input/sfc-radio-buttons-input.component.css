@@ -1,0 +1,204 @@
+.input-radio-buttons-container {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* ICON */
+
+.input-radio-buttons-container>i.icon {
+    position: initial;
+}
+
+/* END ICON */
+
+/* WRAPPER */
+
+.radio-buttons-wrapper.horizontal {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.radio-container {
+    margin: 5px 0;
+    display: flex;
+    flex: 1;
+}
+
+/* END WRAPPER */
+
+/* INPUT */
+
+input[type="radio"].sfc-input {
+    display: none;
+}
+
+input[type="radio"].sfc-input+label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="radio"].sfc-input+label .text {
+    margin-left: 1em;
+    color: rgba(0, 0, 0, 0.54);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+
+input[type="radio"].sfc-input:checked+label .text {
+    color: #434A54;
+}
+
+input[type="radio"].sfc-input+label:hover .text {
+    color: #434A54;
+}
+
+.radio-buttons-wrapper.horizontal input[type="radio"].sfc-input+label .text {
+    margin-left: 0.5em;
+}
+
+input[type="radio"].sfc-input:not(:disabled):hover+label .circle>div {
+    border-color: #00B285;
+}
+
+input[type="radio"].sfc-input:checked+label .circle>div:before {
+    background: #385053;
+}
+
+input[type="radio"].sfc-input:not(:disabled):checked:hover+label .circle>div:before {
+    background: #00B285;
+}
+
+/* END INPUT */
+
+/* RADIO BUTTON */
+
+/* circle */
+
+input[type="radio"].sfc-input+label .circle>div {
+    transition: border-color 0.25s linear;
+    -webkit-transition: border-color 0.25s linear;
+    -moz-transition: border-color 0.25s linear;
+    -o-transition: border-color 0.25s linear;
+    -ms--transition: border-color 0.25s linear;
+    content: '';
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border-radius: 50%;
+    border-color: #314547;
+    border-style: solid;
+    border-width: 3px;
+    margin-left: 5px;
+}
+
+input[type="radio"].sfc-input+label .circle>div:before {
+    transition: background 0.25s linear;
+    -webkit-transition: background 0.25s linear;
+    -moz-transition: background 0.25s linear;
+    -o-transition: background 0.25s linear;
+    -ms--transition: background 0.25s linear;
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: 10px;
+    width: 10px;
+    content: '';
+    background: transparent;
+    border-radius: 50%;
+}
+
+/* icons */
+
+input[type="radio"].sfc-input+label .icons {
+    border-radius: 50%;
+    background: #fff;
+    border: solid 2px transparent;
+    background-color: transparent;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="radio"].sfc-input+label .icons>div {
+    color: #314547;
+    min-width: 12px;
+    min-height: 16px;
+    transition: color 0.25s linear;
+    -webkit-transition: color 0.25s linear;
+    -moz-transition: color 0.25s linear;
+    -o-transition: color 0.25s linear;
+    -ms--transition: color 0.25s linear;
+}
+
+input[type="radio"].sfc-input:checked+label .icons {
+    background-color: #00B285;
+}
+
+input[type="radio"].sfc-input:checked+label .icons>div {
+    color: white;
+}
+
+input[type="radio"].sfc-input:not(:checked):not(:disabled):hover+label .icons>div {
+    color: #00B285;
+}
+
+/* END RADIO BUTTON */
+
+/* HELPER TEXT */
+
+.radio-buttons-wrapper .helper-text {
+    position: absolute;
+    bottom: -17px;
+    white-space: nowrap;
+}
+
+.radio-buttons-wrapper.horizontal .helper-text {
+    left: 0;
+}
+
+.input-radio-buttons-container>i.icon~.radio-buttons-wrapper.horizontal .helper-text {
+    left: 3.5em;
+}
+
+/* END HELPER TEXT */
+
+/* DISABLED */
+
+input[type='radio'].sfc-input:disabled+label>div+span.text {
+    color: rgba(0, 0, 0, 0.42);
+}
+
+input[type='radio'].sfc-input:disabled+label>.circle>div {
+    border-color: rgba(0, 0, 0, 0.42);
+}
+
+input[type='radio'].sfc-input:checked:disabled+label>.circle>div::before {
+    background: rgba(0, 0, 0, 0.42);
+}
+
+input[type="radio"].sfc-input:disabled:checked+label .icons {
+    background-color: rgba(0, 0, 0, 0.42);
+}
+
+input[type="radio"].sfc-input:not(:checked):disabled+label .icons>div {
+    color: rgba(0, 0, 0, 0.42);
+}
+
+/* END DISABLED */

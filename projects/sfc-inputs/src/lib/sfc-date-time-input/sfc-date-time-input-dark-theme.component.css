@@ -1,0 +1,9 @@
+:host-context(.sfc-input-dark-theme) ::ng-deep .hbtn {
+    border-color: #545e61 !important;
+    color: #545e61 !important;
+}
+
+:host-context(.sfc-input-dark-theme) ::ng-deep .hbtn:hover {
+    border-color: #2bbbad!important;
+    color: #2bbbad!important;
+}

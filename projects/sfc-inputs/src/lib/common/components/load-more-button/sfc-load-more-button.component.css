@@ -1,0 +1,59 @@
+:host>div{
+    min-height: inherit;
+}
+
+/* DELIMETER */
+
+.main-hr {
+    width: 90%;
+    border: none;
+    border-top: 1px solid #c3c3c3;
+    margin: 5px auto 0 auto;
+}
+
+/* DELIMETER END */
+
+/* BUTTON */
+
+.btn {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    color: #8d99ae;
+    min-height: inherit;
+}
+
+/* BUTTON END */
+
+/* BUTTON TEXT */
+
+.btn .text {
+    transition: color 0.5s;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* BUTTON TEXT END */
+
+/* BUTTON ICON */
+
+.btn .show-more-icon {
+    transition: color 0.5s;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+/* BUTTON ICON END */
+
+.btn:hover .text, .btn:hover .show-more-icon {
+    color: #656D78;
+}

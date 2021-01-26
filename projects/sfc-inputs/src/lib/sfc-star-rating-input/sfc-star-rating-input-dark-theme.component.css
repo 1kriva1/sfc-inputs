@@ -1,0 +1,23 @@
+/* VALID */
+
+:host-context(.sfc-input-dark-theme) .input-star-rating-container.valid .helper-text, :host-context(.sfc-input-dark-theme) .input-star-rating-container.valid .main-star-container:hover label.main-label {
+    color: #A0D468;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+:host-context(.sfc-input-dark-theme) .input-star-rating-container.invalid .helper-text, :host-context(.sfc-input-dark-theme) .input-star-rating-container.invalid .main-star-container:hover label.main-label {
+    color: #DA4453;
+}
+
+/* INVALID END */
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) input.sfc-input:disabled~.helper-container .action-container {
+    color: #bdc3c7;
+}
+
+/* END DISABLED */

@@ -1,0 +1,24 @@
+<div class="modal-overlay">
+    <div class="modal">
+
+        <div class="modal-header">
+            <ng-content select="[header]"></ng-content>
+            <i class="button-close fa fa-times" (click)="onClose()"></i>
+        </div>
+
+        <div class="modal-body">
+            <ng-content select="[body]"></ng-content>
+        </div>
+
+        <div class="modal-footer">
+            <ng-content select="[footer]"></ng-content>
+            <div class="buttons-container">
+                <sfc-button class="button-calcel" text="Cancel" (click)="onClose()">
+                </sfc-button>
+                <sfc-button class="button-ok" text="Ok" (click)="onOk()">
+                </sfc-button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,127 @@
+<div class="demo-container">
+    <h1>TOOLTIP</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']">
+
+        <div class="input-container">
+            <div class="input-row">
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip">
+                        top tooltip paragraph
+                    </p>
+                </div>
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip" sfc-tooltip-location="left">
+                        left tooltip paragraph
+                    </p>
+                </div>
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip" sfc-tooltip-location="right">
+                        right tooltip paragraph
+                    </p>
+                </div>
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip" sfc-tooltip-location="bottom">
+                        bottom tooltip paragraph
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="input-row">
+
+                <div>
+                    <a href="#" sfc-tooltip="link tooltip">
+                        top tooltip link
+                    </a>
+                </div>
+
+                <div>
+                    <a href="#" sfc-tooltip="link tooltip" sfc-tooltip-location="left">
+                        left tooltip link
+                    </a>
+                </div>
+
+                <div>
+                    <a href="#" sfc-tooltip="link tooltip" sfc-tooltip-location="right">
+                        right tooltip link
+                    </a>
+                </div>
+
+                <div>
+                    <a href="#" sfc-tooltip="link tooltip" sfc-tooltip-location="bottom">
+                        bottom tooltip link
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="input-row">
+
+                <div>
+                    <button sfc-tooltip="button tooltip">
+                        top tooltip button
+                    </button>
+                </div>
+
+                <div>
+                    <button sfc-tooltip="button tooltip" sfc-tooltip-location="left">
+                        left tooltip button
+                    </button>
+                </div>
+
+                <div>
+                    <button sfc-tooltip="button tooltip" sfc-tooltip-location="right">
+                        right tooltip button
+                    </button>
+                </div>
+
+                <div>
+                    <button sfc-tooltip="button tooltip" sfc-tooltip-location="bottom">
+                        bottom tooltip button
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="input-row">
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip click type" sfc-tooltip-type="click">
+                        top tooltip paragraph click type
+                    </p>
+                </div>
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip click type" sfc-tooltip-location="left" sfc-tooltip-type="click">
+                        left tooltip paragraph click type
+                    </p>
+                </div>
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip click type" sfc-tooltip-location="right" sfc-tooltip-type="click">
+                        right tooltip paragraph click type
+                    </p>
+                </div>
+
+                <div>
+                    <p sfc-tooltip="paragraph tooltip click type" sfc-tooltip-location="bottom"
+                        sfc-tooltip-type="click">
+                        bottom tooltip paragraph click type
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

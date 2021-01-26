@@ -1,0 +1,15 @@
+.input-autocomplete-container {
+    width: -webkit-fill-available;
+}
+
+/* DROPDOWN */
+
+::ng-deep i.icon~load-more-dropdown>.select-dropdown-container {
+    margin-left: 3rem;
+}
+
+::ng-deep i.icon~load-more-dropdown.loading>.select-dropdown-container, ::ng-deep i.icon~load-more-dropdown.open>.select-dropdown-container {
+    width: calc(100% - 3rem) !important;
+}
+
+/* END DROPDOWN */

@@ -1,0 +1,65 @@
+.select-wrapper {
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    /* need to align select wrapper width by input width */
+}
+
+/* TEXT INPUT */
+
+.select-wrapper input.sfc-input {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* END TEXT INPUT */
+
+/* LABEL */
+
+.input-text-input+label {
+    cursor: pointer;
+}
+
+:host(.focus) .select-wrapper>label {
+    pointer-events: none;
+}
+
+/* END LABEL */
+
+/* DROPDOWN */
+
+::ng-deep i.icon~load-more-dropdown>.select-dropdown-container {
+    margin-left: 3rem;
+}
+
+::ng-deep i.icon~load-more-dropdown.loading>.select-dropdown-container, ::ng-deep i.icon~load-more-dropdown.open>.select-dropdown-container {
+    width: calc(100% - 3rem) !important;
+}
+
+/* END DROPDOWN */
+
+/* CARET */
+
+.select-wrapper .caret {
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    margin: auto 0;
+    fill: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    height: min-content;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* END CARET */
+
+/* DISABLED */
+
+.select-wrapper input.sfc-input:disabled {
+    cursor: default;
+}
+
+/* DISABLED END */

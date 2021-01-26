@@ -1,22 +1,29 @@
-import { Component, OnInit, Input, ContentChild, AfterContentInit, HostBinding } from '@angular/core';
+import { Component, Self, Optional, ChangeDetectorRef, Input, ElementRef, Renderer2, OnInit } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import BaseTextInputComponent from '../common/components/sfc-base-text-input.component';
 
 @Component({
     selector: 'sfc-text-input',
     templateUrl: './sfc-text-input.component.html',
-    styleUrls: ['./sfc-text-input.component.css']
+    styleUrls: ['../common/styles/sfc-base-input.component.css', '../common/styles/sfc-base-input-dark-theme.component.css', './sfc-text-input.component.css']
 })
-export class TextInputComponent implements OnInit, AfterContentInit {
+export class TextInputComponent extends BaseTextInputComponent implements OnInit{
 
+    @Input()
+    type: string = 'text';
 
-    constructor() {
+    showPasswordEye: boolean;
 
+    constructor(@Self() @Optional() protected ngControl: NgControl,
+        protected changeDetector: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
+            super(ngControl, changeDetector, renderer, elementRef);
     }
 
-    ngOnInit(): void {
-
+    ngOnInit(){
+        this.showPasswordEye = this.type == "password";
     }
 
-    ngAfterContentInit(): void {
-
+    onShowPasswordClick(){
+        this.type = this.type == "password" ? 'text' : 'password';
     }
 }

@@ -1,0 +1,19 @@
+/* COLORS */
+
+:host-context(.sfc-input-dark-theme) .star-container.highlighted-min label.star:before {
+    color: #da634a;
+}
+
+/* END COLORS */
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) .star-container.disabled label.star {
+    color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) .star-container.disabled.highlighted label.star:before {
+    color: #656D78;
+}
+
+/* END DISABLED */

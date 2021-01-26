@@ -1,0 +1,115 @@
+<div class="demo-container">
+    <h1>PHOTO INPUT</h1>
+    <div class="theme-switcher">
+        <button (click)="changeTheme('common')">Common</button>
+        <button (click)="changeTheme('dark')">Dark</button>
+    </div>
+
+    <div class="background"
+        [ngClass]="(theme=='common')?'default-background':['sfc-input-dark-theme', 'dark-background']"
+        *ngIf='customInputForm'>
+        <form [formGroup]="customInputForm" autocomplete="off">
+
+            <div class="input-container">
+
+                <div class="input-row">
+                    <div>
+                        <sfc-photo-input id="demo-photo-empty" formControlName="inputPhotoNull"></sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-label" formControlName="inputPhotoLabel" label="Change photo">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-icon" formControlName="inputPhotoLabel" icon="fa fa-star"
+                            label="Change photo"></sfc-photo-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-photo-input id="demo-photo-default-photo-empty"
+                            formControlName="inputPhotoEmptyDefaultPhoto" [show-default-photo]="false"
+                            label="Without default">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-default-photo-custom"
+                            formControlName="inputPhotoCustomDefaultPhoto" [default-photo]="defaultPhoto"
+                            label="With custom default photo">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-helper-text" formControlName="inputPhotoHelperText"
+                            helper-text="helper text" label="With helper text">
+                        </sfc-photo-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-photo-input id="demo-photo-hide-icon" formControlName="inputPhotoHideIcon"
+                            [show-icon]="false">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-disabled" formControlName="inputPhotoDisabled"
+                            label="Disabled not visible">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-value" formControlName="inputPhotoValue" label="Defined value">
+                        </sfc-photo-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-photo-input id="demo-photo-without-clear-btn" formControlName="inputPhotoWithotClearButton"
+                            [clear-button]="false" label="Without clear-button">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-invalid-value" formControlName="inputPhotoInvalidValue"
+                            label="Invalid file">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-validation-success"
+                            formControlName="inputPhotoValidationSuccess" label="Validation Success">
+                        </sfc-photo-input>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <sfc-photo-input id="demo-photo-validation-failed" formControlName="inputPhotoValidationFailed"
+                            label="Validation Failed">
+                        </sfc-photo-input>
+                    </div>
+
+                    <div>
+                        <sfc-photo-input id="demo-photo-validation-failed-msg"
+                            formControlName="inputPhotoValidationFailedMessage" label="Validation Failed message"
+                            [validations]="{required: 'Photo is required', fileMaxSize: 'File too big'}">
+                        </sfc-photo-input>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="customInputForm">
+        <pre><code >{{ customInputForm.value | json }}</code></pre>
+        <h1>Valid: {{customInputForm.valid}}</h1>
+    </div>
+</div>

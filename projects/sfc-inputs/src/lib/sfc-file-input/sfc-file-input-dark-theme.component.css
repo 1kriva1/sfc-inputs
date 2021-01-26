@@ -1,0 +1,95 @@
+/* VALID */
+
+:host-context(.sfc-input-dark-theme) .file-button.valid {
+    background-color: #A0D468;
+}
+
+:host-context(.sfc-input-dark-theme) .input-file-container:hover .file-button.valid {
+    background-color: #A0D468;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.valid+label span {
+    color: #A0D468;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.valid+label .file-icon {
+    color: #A0D468;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.valid+label:hover span, :host-context(.sfc-input-dark-theme) .inline-file-input.valid+label:hover .file-icon {
+    color: #A0D468;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.valid~.helper-text {
+    color: #A0D468;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+:host-context(.sfc-input-dark-theme) .file-button.invalid {
+    background-color: #DA4453;
+}
+
+:host-context(.sfc-input-dark-theme) .input-file-container:hover .file-button.invalid {
+    background-color: #DA4453;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.invalid+label span {
+    color: #DA4453;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.invalid+label .file-icon {
+    color: #DA4453;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.invalid+label:hover span, :host-context(.sfc-input-dark-theme) .inline-file-input.invalid+label:hover .file-icon {
+    color: #DA4453;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input.invalid~.helper-text {
+    color: #DA4453;
+}
+
+/* INVALID END */
+
+/* DISABLED */
+
+:host-context(.sfc-input-dark-theme) .file-button[disabled] {
+    background-color: #656D78;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-input-container input:disabled+label span {
+    color: #656D78;
+}
+
+/* DISABLED END */
+
+/* ICON */
+
+:host-context(.sfc-input-dark-theme) i.icon.active {
+    color: #9e9e9e;
+}
+
+/* ICON END */
+
+/* INLINE */
+
+:host-context(.sfc-input-dark-theme) .inline-input-container label {
+    color: #9e9e9e;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-input-container label span {
+    color: #9e9e9e;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input+label .file-icon {
+    color: #9e9e9e;
+}
+
+:host-context(.sfc-input-dark-theme) .inline-file-input+label:hover span, :host-context(.sfc-input-dark-theme) .inline-file-input+label:hover .file-icon {
+    color: white;
+}
+
+/* INLINE END */
