@@ -44,7 +44,7 @@ export class SelectItemComponent {
         return this.multiple ? CollectionUtils.any(this.value) : CommonUtils.isDefined(this.value);
     }
 
-    private setOptionValue(event: MouseEvent): void {
+    setOptionValue(event: MouseEvent): void {
         if (event.stopPropagation)
             event.stopPropagation();
 
@@ -98,7 +98,7 @@ export class SelectItemComponent {
     }
 
     // css classes for dropdown options
-    private get optionClasses() {
+    get optionClasses() {
         const classes = {};
 
         if (this.isItemSelected(this.item)) {

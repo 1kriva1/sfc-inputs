@@ -7,8 +7,8 @@
     <span *ngIf="!isFocus || !hasItems" class="helper-text">{{helperText}}</span>
 
     <load-more-dropdown #dropdown [id]="id" [ngClass]="isFocus && hasItems ? '':'uppon'" [open]="isFocus"
-        [load-more-button]="loadMoreButton" [http-data-config]="httpConfig" [loader]="loaderWithParameters"
-        [data]="data" (handle-error)="handleError($event)" (handle-success)="handleSuccess($event)"
+        [load-more-button]="loadMoreButton" [loader]="loaderWithParameters"
+        [data]="data" (handle-error)="handleError()" (handle-success)="handleSuccess($event)"
         (handle-update)="handleUpdate($event)">
 
         <sfc-autocomplete-item *ngFor="let item of localData" [item]="item" (selected)="setOptionValue($event)">

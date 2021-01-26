@@ -1,0 +1,16 @@
+:host-context(.sfc-input-dark-theme) .modal {
+    background-color: #394144;
+}
+
+:host-context(.sfc-input-dark-theme) .modal .modal-header {
+    color: #F5F7FA;
+    border-color: #F5F7FA;
+}
+
+:host-context(.sfc-input-dark-theme) .modal-header .button-close {
+    color: #F5F7FA;
+}
+
+:host-context(.sfc-input-dark-theme) .modal-header .button-close:hover {
+    color: #fff;
+}

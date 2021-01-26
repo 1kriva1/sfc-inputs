@@ -24,13 +24,13 @@ export class TextAreaInputComponent extends BaseTextInputComponent {
         super.ngAfterViewInit();
     }
 
-    protected get charCounterValue(): string {
+    get charCounterValue(): string {
         //Think about this:  this.value.replace(/\r?\n/g, "");
-        const requiredCounter = super.charCounterValue;
+        const requiredCounter = super.getCharCounterValue();
         return requiredCounter ? requiredCounter :  this.value.length ? this.value.length.toString() : '';
     }
 
-    private onKeyUp(event: KeyboardEvent) {
+    onKeyUp(event: KeyboardEvent) {
         if(event.keyCode === CommonConstants.ENTER_KEY_CODE || event.keyCode === CommonConstants.BACKSPACE_KEY_CODE)
             this.alignTextAreHeight();
     }

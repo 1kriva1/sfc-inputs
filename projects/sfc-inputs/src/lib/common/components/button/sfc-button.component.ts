@@ -4,7 +4,7 @@ import { StyleClass } from '../../constants/common-constants';
 @Component({
     selector: 'sfc-button',
     templateUrl: './sfc-button.component.html',
-    styleUrls: ['./sfc-button.component.css']
+    styleUrls: ['./sfc-button.component.css', './sfc-button-dark-theme.component.css']
 })
 export class ButtonComponent {
     @Input()
@@ -15,9 +15,9 @@ export class ButtonComponent {
 
     @Input()
     @HostBinding('class.' + StyleClass.Disabled)
-    disabled:boolean;
+    disabled: boolean;
 
-    protected get iconClass() {
+    get iconClass() {
         const classes = {};
 
         if (this.icon) {

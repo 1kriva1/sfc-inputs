@@ -2,12 +2,12 @@
     <div class="select-wrapper">
         <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
         <input sfcinput type="text" class="sfc-input input-text-input" value={{displayValue}}
-            [placeholder]="placeholder" [disabled]="disabled" readonly="true" (focus)="openDropdown($event)">
+            [placeholder]="placeholder" [disabled]="disabled" readonly="true" (focus)="openDropdown()">
         <label #labelFocused for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>
         <span class="helper-text">{{helperText}}</span>
 
         <load-more-dropdown #dropdown [id]="id" class="uppon" [open]="isFocus" [load-more-button]="loadMoreButton"
-            [loader]="loader" [data]="data" [http-data-config]="httpConfig" (handle-error)="handleError($event)"
+            [loader]="loader" [data]="data" [http-data-config]="httpConfig" (handle-error)="handleError()"
             (handle-success)="handleSuccess($event)" (handle-update)="handleUpdate($event)">
 
             <sfc-select-item #items *ngFor="let item of localData" [item]="item" [value]="value" [multiple]="multiple"

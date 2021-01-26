@@ -76,7 +76,7 @@ export class StarComponent {
      * classes for star (highlighted, max and min)
      * p.s. can't do it  by host-binding
      */
-    private get starClasses() {
+    get starClasses() {
         const clasess = {};
 
         if (this.disabled)

@@ -71,6 +71,13 @@ export enum DateTimeViewTypes {
     Years = 3
 }
 
+export type ImageFormat = 'gif' | 'jpeg' | 'jpg' | 'tiff' | 'png' | 'webp' | 'bmp';
+
+export enum CropperDragModes {
+    Crop = 'crop',
+    Move = 'move'
+}
+
 export class CommonConstants {
     static DEFAULT_ERROR_MESSAGE = 'Invalid value';
     static COMMON_TEXT_DELIMETER = '/';
@@ -84,6 +91,7 @@ export class CommonConstants {
     static MAX_VALIDATOR_KEY = 'sfc-max';
     static MIN_VALIDATOR_KEY = 'sfc-min';
     static DATA_VALIDATOR_KEY = 'sfc-data';
+    static FORMAT_VALIDATOR_KEY = 'sfc-format';
 
     static CSS_PIXELS = 'px';
     static CSS_WIDTH = 'width';
@@ -119,5 +127,14 @@ export class CommonConstants {
 
     static TAGS_INPUT = {
         NEW_TAG_PLACEHOLDER_DEFAULT: '+ Tag'
+    }
+
+    static PHOTO_INPUT = {
+        DEFAULT_ICON: 'fa fa-user-circle-o',
+        DEFAULT_PHOTO_IMAGE: '../../assets/5c5efa98-f863-4fcd-877d-68eaf11927d1.png',
+        DEFAULT_FORMAT: 'png',
+        DEFAULT_IMAGE_QUALITY: 90,
+        IMAGE_ROTATE_ANGLE: 45,
+        ZOOM_VALUE: 0.1
     }
 }

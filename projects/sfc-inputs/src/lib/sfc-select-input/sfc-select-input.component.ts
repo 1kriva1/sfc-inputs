@@ -62,7 +62,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
     private dropdownItems: QueryList<any>;
 
     // local variable to store data
-    private localData: any[];
+    localData: any[];
 
     // check if data was loaded initialy
     private isLoadedData: boolean = false;
@@ -109,12 +109,12 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
     }
 
     // check if component must behave as group select
-    private get isOptGroup(): boolean {
+    get isOptGroup(): boolean {
         return CollectionUtils.hasObjectItem(this.localData, 'isOptGroup', true);
     }
 
     // get value to display (single, multiple and grouped)
-    private get displayValue(): string {
+    get displayValue(): string {
         if (this.isOptGroup) {
             return this.getDisplayValue((item: IOptGroupOption) => {
                 let optGroupValue = this.value as IOptGroupValue;
@@ -129,14 +129,14 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
         }
     }
 
-    private get defaultDisplayKey() {
+    get defaultDisplayKey() {
         return CommonUtils.isDefined(this.defaultDisplayValue) ? this.defaultDisplayValue.key : null;
     }
 
     /**
      * open dropdown handler
      */
-    private openDropdown() {
+    openDropdown() {
         if (!this.isLoadDataOnInit && !this.isLoadedData) {
             this.loadMoreDropdown.loadData();
         }
@@ -160,7 +160,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
      * handle full data load
      * @param result ILoadMoreData entity
      */
-    private handleSuccess(result: ILoadMoreData<ISelectData | ISelectDataGroup>) {
+    handleSuccess(result: ILoadMoreData<ISelectData | ISelectDataGroup>) {
         this.toggleInnerErrors(CommonConstants.DATA_VALIDATOR_KEY, false);
         this.initData(result.Items);
         this.isLoadedData = true;
@@ -169,7 +169,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
     /**
      * handle load data error
      */
-    private handleError() {
+    handleError() {
         // add inner validation error (data error)
         this.toggleInnerErrors(CommonConstants.DATA_VALIDATOR_KEY, true);
     }
@@ -178,7 +178,7 @@ export class SelectInputComponent extends BaseInputComponent<string | Array<stri
      * handle load more action
      * @param result ILoadMoreData entity
      */
-    private handleUpdate(result: ILoadMoreData<ISelectData | ISelectDataGroup>) {
+    handleUpdate(result: ILoadMoreData<ISelectData | ISelectDataGroup>) {
         this.localData = this.localData.concat(result.Items);
     }
 

@@ -30,7 +30,7 @@ export default abstract class BaseRangeInputComponent extends BaseInputComponent
     @Input("finish-icon")
     finishIcon: string;
 
-    private showTooltip: boolean = false;
+    showTooltip: boolean = false;
 
     /**
      * Posible values: Vertical and Horizontal
@@ -61,16 +61,16 @@ export default abstract class BaseRangeInputComponent extends BaseInputComponent
         super.ngAfterViewInit();
     }
 
-    private get tooltipLeftPosition() {
+    get tooltipLeftPosition() {
         const newValue = Number((this.value - this.min) * 100 / (this.max - this.min));
         return this.calculateLeftPosition(newValue);
     };
 
-    private get showBeforeLabel() {
+    get showBeforeLabel() {
         return this.showLimits || !CommonUtils.isNullOrEmptyString(this.startIcon);
     }
 
-    private get showAfterLabel() {
+    get showAfterLabel() {
         return this.showLimits || !CommonUtils.isNullOrEmptyString(this.finishIcon) || this.showValue;
     }
 

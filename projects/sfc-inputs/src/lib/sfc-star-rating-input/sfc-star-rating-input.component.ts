@@ -62,7 +62,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
     /**
      * show/hide counter/reset-button when star was selected
      */
-    private get actionClass() {
+    get actionClass() {
         const classes = {}
 
         if ((this.showReset || this.showCounter) && this.isValueDefined) {
@@ -75,7 +75,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
     /**
      * show/hide counter/reset-button when star was selected
      */
-    private get containerClass() {
+    get containerClass() {
         const classes = {}
 
         if (this.validationClass)
@@ -90,14 +90,14 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
      * parse newValue to number type
      * @param newValue new value from star
      */
-    private onChecked(newValue: number) {
+    onChecked(newValue: number) {
         this.onChange(+newValue);
     }
 
     /**
      * reset value to NULL
      */
-    private onReset() {
+    onReset() {
         this.onChange(null);
     }
 
@@ -105,7 +105,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
      * highlight before selected stars
      * @param item star item
      */
-    private isHighlighted(item: number) {
+    isHighlighted(item: number) {
         return this.isValueDefined
             && this.value >= item;
     }
@@ -113,7 +113,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
     /**
      * highlight if selected last star
      */
-    private get isHighlightedMax() {
+    get isHighlightedMax() {
         return this.isValueDefined
             && CollectionUtils.any(this.items)
             && CollectionUtils.lastItem(this.items) === this.value;
@@ -123,7 +123,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
      * highlight if selected first star
      * @param item star item
      */
-    private isHighlightedMin(item: number) {
+    isHighlightedMin(item: number) {
         return this.isValueDefined
             && CollectionUtils.any(this.items)
             && CollectionUtils.firstItem(this.items) === item
@@ -133,7 +133,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
     /**
      * selected star index
      */
-    private get starsIndex() {
+    get starsIndex() {
         return this.isValueDefined && CollectionUtils.any(this.items)
             ? this.items.indexOf(this.value) + 1
             : null;
@@ -142,7 +142,7 @@ export class StarRatingInputComponent extends BaseInputComponent<number> impleme
     /**
      * count of stars
      */
-    private get starsCount() {
+    get starsCount() {
         return CollectionUtils.any(this.items) ? this.items.length : 0;
     }
 }

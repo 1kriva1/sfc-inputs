@@ -8,11 +8,10 @@ import { StyleClass, CommonConstants } from '../common/constants/common-constant
 import ISelectData from '../common/interfaces/select-input/ISelectData';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LoaderService } from '../common/components/loader/base/sfc-loader.service';
 import { ILoadMoreData } from '../common/interfaces/ILoadMoreData';
-import HttpUtils from '../common/utils/http-utils';
 import { HttpConfig } from '../common/utils/http-config';
 import ValidationConstants from '../common/constants/validation-constants';
+import { HttpUtils } from '../common/utils/http-utils';
 
 
 describe('Component: SelectInputComponent', () => {

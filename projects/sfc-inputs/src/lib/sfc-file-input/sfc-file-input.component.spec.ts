@@ -66,7 +66,8 @@ describe('Component: FileInputComponent', () => {
 
         debugFileInputEl.triggerEventHandler('change', {
             target: {
-                target: debugFileInputEl.nativeElement, files: {
+                target: debugFileInputEl.nativeElement, 
+                files: {
                     item: function () {
                         return testFile;
                     }

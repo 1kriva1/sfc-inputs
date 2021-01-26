@@ -1,3 +1,25 @@
+.input-text-container{
+    position: relative;
+}
+
+.password-eye{
+    position: absolute;
+    right: 5px;
+    top: 13px;  
+    font-size: 20px;
+    color: #9e9e9e;
+    cursor: pointer;
+}
+
+.password-eye:hover{
+    color: #656D78;
+}
+
+input[type="password"]{
+    padding-right: 25px;
+    width: calc(100% - 25px);
+}
+
 /* CHARACTERS COUNT */
 
 .character-counter {

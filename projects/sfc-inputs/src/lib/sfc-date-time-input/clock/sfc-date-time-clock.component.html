@@ -2,12 +2,12 @@
     <div class="dtp-actual-meridien">
         <div class="meridien-handler left">
             <a *ngIf="shortTime" [class.selected]="!isPM" [class.disabled]="isDisabledAM"
-                (mouse-down-left)="onAM($event)">AM</a>
+                (mouse-down-left)="onAM()">AM</a>
         </div>
         <div class="dtp-actual-time">{{displayTime}}</div>
         <div class="meridien-handler right">
             <a *ngIf="shortTime" [class.selected]="isPM" [class.disabled]="isDisabledPM"
-                (mouse-down-left)="onPM($event)">PM</a>
+                (mouse-down-left)="onPM()">PM</a>
         </div>
         <div class="clearfix"></div>
     </div>

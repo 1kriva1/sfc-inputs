@@ -17,7 +17,6 @@ import { BounceLoaderComponent } from './common/components/loader/bounce/sfc-bou
 import { InfiniteScrollerDirective } from './common/directives/infinite-scroll/sfc-infinite-scroll.directive';
 import { LoadMoreButtonComponent } from './common/components/load-more-button/sfc-load-more-button.component';
 import { ClickOutside } from './common/directives/clickoutside.directive';
-import HttpUtils from './common/utils/http-utils';
 import { CheckboxInputComponent } from './sfc-checkbox-input/sfc-checkbox-input.component';
 import { ToggleInputComponent } from './sfc-toggle-input/sfc-toggle-input.component';
 import { RadioButtonsInputComponent } from './sfc-radio-buttons-input/sfc-radio-buttons-input.component';
@@ -40,14 +39,17 @@ import { ButtonComponent } from './common/components/button/sfc-button.component
 import { DateTimeCalendarComponent } from './sfc-date-time-input/calendar/sfc-date-time-calendar.component';
 import { DateTimeClockComponent } from './sfc-date-time-input/clock/sfc-date-time-clock.component';
 import { DateTimeYearComponent } from './sfc-date-time-input/year-picker/sfc-date-time-year.component';
+import { PhotoInputComponent } from './sfc-photo-input/sfc-photo-input.component';
+import { InputModalComponent } from './common/components/modal/sfc-modal.component';
+import { PhotoEditorComponent } from './sfc-photo-input/sfc-photo-editor/sfc-photo-editor.component';
 
 @NgModule({
-  declarations: [InputRefDirective, MouseDownDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, ButtonComponent, TextInputComponent, 
-    TextAreaInputComponent,
-    FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, TagsInputComponent, TagsChipComponent, 
-    RangeHorizontalInputComponent, RangeVerticalInputComponent, StarRatingInputComponent, StarComponent,
+  declarations: [InputRefDirective, MouseDownDirective, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, ButtonComponent, InputModalComponent, 
+    PhotoEditorComponent,
+    TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent, 
+    TagsInputComponent, TagsChipComponent, RangeHorizontalInputComponent, RangeVerticalInputComponent, StarRatingInputComponent, StarComponent,
     InfiniteScrollerDirective, ClickOutside, LoadMoreButtonComponent, TooltipComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent, 
-    SelectItemComponent, AutocompleteItemComponent, DateTimeInputComponent, DateTimeCalendarComponent, DateTimeClockComponent, DateTimeYearComponent],
+    SelectItemComponent, AutocompleteItemComponent, DateTimeInputComponent, DateTimeCalendarComponent, DateTimeClockComponent, DateTimeYearComponent, PhotoInputComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -56,15 +58,12 @@ import { DateTimeYearComponent } from './sfc-date-time-input/year-picker/sfc-dat
   exports: [TextInputComponent, TextAreaInputComponent, FileInputComponent, SelectInputComponent, CheckboxInputComponent, ToggleInputComponent, RadioButtonsInputComponent,
     TagsInputComponent, TagsChipComponent, RangeHorizontalInputComponent, RangeVerticalInputComponent, CircleLoaderComponent, CircleFadingLoaderComponent, BounceLoaderComponent, LoadMoreButtonComponent, 
     InfiniteScrollerDirective, TooltipComponent, StarRatingInputComponent, StarComponent, NumberSpinnerInputComponent, AutoCompleteInputComponent, LoadMoreDropDownComponent,
-    DateTimeInputComponent],
+    DateTimeInputComponent, PhotoInputComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BaseInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => BaseInputComponent), multi: true },
-    FileUtils,
-    CollectionUtils,
-    UIUtils,
-    HttpUtils,
-    LoaderService
+    // HttpUtils,
+    // LoaderService
   ]
 })
 export class SfcInputsModule { }

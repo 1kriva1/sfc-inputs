@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class CircleLoaderComponent extends BaseLoaderComponent {
 
-  constructor(@Inject(DOCUMENT) protected document: Document,
+  constructor(@Inject(DOCUMENT) protected document: any,
     protected renderer: Renderer2, protected loaderService: LoaderService) {
     super(document, renderer, loaderService);
   }

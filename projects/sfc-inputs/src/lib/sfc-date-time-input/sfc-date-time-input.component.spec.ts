@@ -773,7 +773,7 @@ describe('Component: DateTimeInputComponent', () => {
         yearEl.triggerEventHandler('mousedown', event);
         fixture.detectChanges();
 
-        expect(component['onSelectYear']).toHaveBeenCalledWith(2018, true);
+        expect(component['onSelectYear']).toHaveBeenCalledWith(2018);
         expect(el.query(By.css('sfc-date-time-year')).properties.hidden).toBeTruthy();
         expect(el.query(By.css('sfc-date-time-calendar')).properties.hidden).toBeFalsy();
     });
@@ -847,7 +847,7 @@ describe('Component: DateTimeInputComponent', () => {
         const now = new Date();
 
         expect(el.query(By.css('div.dtp-actual-maxtime')).nativeElement.innerText)
-            .toEqual(`${formatDate(now, 'HH', component.locale)}:${formatDate(now, 'm', component.locale)}`);
+            .toEqual(`${formatDate(now, 'HH', component.locale)}:${formatDate(now, 'mm', component.locale)}`);
     });
 
     it("Now button: click now on year picker", () => {

@@ -1,0 +1,28 @@
+<div class="input-container input-photo-container" [ngClass]="validationClass" [class.disabled]="disabled">
+    <div class="photo-container">
+        <div *ngIf="url" class="photo" [ngStyle]="{'background-image': 'url('+url+')'}"></div>
+        <div class="change-link">
+            <input sfcinput id="sfc-{{id}}" type="file" hidden="true" [disabled]="disabled"
+                (change)="emitFiles($event.target.files)" (click)="onClick()" />
+            <label for="sfc-{{id}}">
+                <i *ngIf="icon" [ngClass]="iconClass"></i>
+                <span *ngIf="label">{{label}}</span>
+            </label>
+            <i class="fa fa-times clear-button" *ngIf="value && showClearButton" (click)="clearData()"></i>
+        </div>
+
+        <div class="overlay"></div>
+    </div>
+    <span class="helper-text">{{helperText}}</span>
+</div>
+
+<sfc-modal [show]="showEditor" (closed)="onClose()" (ok)="onOk()">
+    <div header>
+        <i *ngIf="icon" class="modal-header-icon" [ngClass]="iconClass"></i>
+        <span *ngIf="label" class="modal-header-label">{{label}}</span>
+    </div>
+    <div body>
+        <sfc-photo-editor [image-file]="imageFile" (cropped)="onCropped($event)" [crop-area]="0.5" [view-mode]="1">
+        </sfc-photo-editor>
+    </div>
+</sfc-modal>

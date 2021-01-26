@@ -10,11 +10,7 @@ export default abstract class BaseTextInputComponent extends BaseInputComponent<
         this.value = '';
     }
 
-    protected get isValueDefined() {
-        return super.isValueDefined && this.value !== '';
-    }
-
-    protected get requiredLengthValue(): number {
+    get requiredLengthValue(): number {
         let requiredLength = null;
 
         if (this.validationErrors) {
@@ -33,7 +29,7 @@ export default abstract class BaseTextInputComponent extends BaseInputComponent<
         return requiredLength;
     }
 
-    protected get charCounterValue(): string {
+    getCharCounterValue(): string {
         return this.requiredLengthValue
             ? this.value.length + CommonConstants.COMMON_TEXT_DELIMETER + this.requiredLengthValue
             : null;

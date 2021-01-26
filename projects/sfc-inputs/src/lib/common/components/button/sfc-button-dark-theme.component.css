@@ -1,0 +1,9 @@
+:host-context(.sfc-input-dark-theme) .hbtn {
+    border-color: #F5F7FA;
+    color: #F5F7FA;
+}
+
+:host-context(.sfc-input-dark-theme) .hbtn:hover {
+    border-color: #2bbbad;
+    color: #2bbbad;
+}

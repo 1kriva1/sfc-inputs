@@ -25,7 +25,7 @@ export class RangeVerticalInputComponent extends BaseRangeInputComponent {
         super(ngControl, changeDetector, renderer, elementRef);
     }
 
-    private get containerHeight(): string {
+    get containerHeight(): string {
         if (this.verticalContainer) {
             const rangeInputEl = this.verticalContainer.nativeElement.querySelector("input");
             return rangeInputEl
@@ -36,7 +36,7 @@ export class RangeVerticalInputComponent extends BaseRangeInputComponent {
         return null;
     }
 
-    private get containerClasses() {
+    get containerClasses() {
         const classes = {};
 
         if (this.validationClass)

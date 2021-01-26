@@ -17,7 +17,7 @@ export class TagsInputComponent extends BaseInputComponent<string[]> implements 
     @Input('new-tag-placeholder')
     newTagPlaceholder: string = CommonConstants.TAGS_INPUT.NEW_TAG_PLACEHOLDER_DEFAULT;
 
-    private newTagValue: string = null;
+    newTagValue: string = null;
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef,
@@ -32,23 +32,23 @@ export class TagsInputComponent extends BaseInputComponent<string[]> implements 
         this.value = this.value || [];
     }
 
-    protected get placeholder() {
+    get tagPlaceholder() {
         if (CollectionUtils.any(this.value)) {
-            return this.newTagPlaceholder && !this.isFocus ? this.newTagPlaceholder : super.placeholder;
+            return this.newTagPlaceholder && !this.isFocus ? this.newTagPlaceholder : this.placeholder;
         }
 
-        return super.placeholder;
+        return this.placeholder;
     }
 
-    protected get labelClass(): any {
+    get labelClass(): any {
         return this._placeholder || this.isFocus || CollectionUtils.any(this.value) || !CommonUtils.isNullOrEmptyString(this.newTagValue) ? StyleClass.Active : '';
     }
 
-    private get containerClasses(): any {
+    get containerClasses(): any {
         let classes = {};
 
-        if (super.validationClass)
-            classes[super.validationClass] = true;
+        if (this.validationClass)
+            classes[this.validationClass] = true;
 
         if (this.disabled)
             classes[StyleClass.Disabled] = true;
@@ -56,7 +56,7 @@ export class TagsInputComponent extends BaseInputComponent<string[]> implements 
         return classes;
     }
 
-    protected onBlur() {
+    onBlur() {
         this.clearInnerErrors();
         super.onBlur();
     }

@@ -17,13 +17,14 @@ export class CheckboxInputComponent extends BaseInputComponent<boolean> {
         protected renderer: Renderer2,
         protected elementRef: ElementRef) {
         super(ngControl, changeDetector, renderer, elementRef);
+        this.value = false;
     }
 
-    protected get labelClass(): any {
+    get labelClass(): any {
         return CommonUtils.isNullOrEmptyString(this.displayValue) ? StyleClass.Empty : '';
     }
 
-    private get displayValue(): string {
+    get displayValue(): string {
         return this.label || this._placeholder;
     }
 }

@@ -5,5 +5,8 @@
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14",
     "rxjs": "~6.4.0"
+  },
+  "dependencies": {
+    "cropperjs": ">=1.5.7"
   }
 }

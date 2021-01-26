@@ -5,7 +5,6 @@ import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { DateTimeViewTypes } from '../common/constants/common-constants';
 import { CommonUtils } from '../common/utils/common-utils';
 import { DateUtils } from '../common/utils/date-utils';
-import { DateTimeYearComponent } from './year-picker/sfc-date-time-year.component';
 
 @Component({
     selector: 'sfc-date-time-input',
@@ -103,10 +102,10 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
     @Input('switch-on-click')
     switchOnClick: boolean = false;
 
-    private currentDate: any = null;
+    currentDate: any = null;
 
     // current component view (calendar, hours picker or minutes picker)
-    private currentView: DateTimeViewTypes;
+    currentView: DateTimeViewTypes;
 
     // previous view (for years picker)
     private prevView: DateTimeViewTypes;
@@ -139,23 +138,23 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
         return 'full'; // Monday, June 15, 2015 at 9:03:01 AM GMT+01:00
     }
 
-    private get showClock() {
+    get showClock() {
         return this.currentView === DateTimeViewTypes.Hours || this.currentView === DateTimeViewTypes.Minutes;
     };
 
-    private get showCalendar() {
+    get showCalendar() {
         return this.currentView === DateTimeViewTypes.Calendar;
     };
 
-    private get showYears() {
+    get showYears() {
         return this.currentView === DateTimeViewTypes.Years;
     };
 
-    private get displayValue() {
+    get displayValue() {
         return CommonUtils.isDefined(this.value) ? formatDate(this.value, this.format, this.locale) : '';
     }
 
-    private get displayDay() {
+    get displayDay() {
         return this.date
             ? formatDate(this.currentDate, 'EEEE', this.locale)
             : this.time
@@ -163,19 +162,19 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
                 : formatDate(this.currentDate, this.format, this.locale);
     };
 
-    private get displayMonth() {
+    get displayMonth() {
         return formatDate(this.currentDate, 'LLL', this.locale);
     };
 
-    private get displayDayNumber() {
+    get displayDayNumber() {
         return formatDate(this.currentDate, 'd', this.locale);
     };
 
-    private get displayYear() {
+    get displayYear() {
         return formatDate(this.currentDate, 'y', this.locale);
     };
 
-    private get displayTime() {
+    get displayTime() {
         const minutesValue = formatDate(this.currentDate, 'm', this.locale),
             hours = this.shortTime ? formatDate(this.currentDate, 'h', this.locale) : formatDate(this.currentDate, 'HH', this.locale),
             minutes = minutesValue.length === 2 ? minutesValue : '0' + minutesValue,
@@ -184,7 +183,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
         return `${hours}:${minutes}${period}`;
     };
 
-    private get isShowMonthBefore() {
+    get isShowMonthBefore() {
         if (this.minDate) {
             const firstDayOfMonth = DateUtils.getFirstDayOfMonth(this.currentDate);
             return DateUtils.isDateGreatOrEqual(firstDayOfMonth, this.minDate);
@@ -193,7 +192,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
         return true;
     }
 
-    private get isShowMonthAfter() {
+    get isShowMonthAfter() {
         if (this.maxDate) {
             const lastDayOfMonth = DateUtils.getLastDayOfMonth(this.currentDate);
             return !DateUtils.isDateGreatOrEqual(lastDayOfMonth, this.maxDate);
@@ -202,7 +201,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
         return true;
     }
 
-    private get isShowYearBefore() {
+    get isShowYearBefore() {
         if (this.minDate) {
             const firstDayOfYear = DateUtils.getFirstDayOfYear(this.currentDate);
             return DateUtils.isDateGreatOrEqual(firstDayOfYear, this.minDate);
@@ -211,7 +210,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
         return true;
     }
 
-    private get isShowYearAfter() {
+    get isShowYearAfter() {
         if (this.maxDate) {
             const lastDayOfYear = DateUtils.getLastDayOfYear(this.currentDate);
             return !DateUtils.isDateGreatOrEqual(lastDayOfYear, this.maxDate);
@@ -220,7 +219,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
         return true;
     }
 
-    private get isDisabled() {
+    get isDisabled() {
         if ((this.currentView === DateTimeViewTypes.Calendar && !this.time) || this.currentView === DateTimeViewTypes.Minutes) {
             let isDisabledByMin = false,
                 isDisabledByMax = false;
@@ -260,7 +259,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
 
     // CALENDAR
 
-    private onSelectDate(parameters: any) {
+    onSelectDate(parameters: any) {
         this.currentDate = this.time
             ? new Date(parameters.date.getFullYear(), parameters.date.getMonth(), parameters.date.getDate(), this.currentDate.getHours(), this.currentDate.getMinutes())
             : new Date(parameters.date.getFullYear(), parameters.date.getMonth(), parameters.date.getDate());
@@ -273,13 +272,13 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
 
     // CLOCK
 
-    private onSelectHour(hour: number) {
+    onSelectHour(hour: number) {
         this.currentDate = DateUtils.setHours(this.currentDate, hour);
         if (this.switchOnClick)
             this.currentView = DateTimeViewTypes.Minutes;
     }
 
-    private onSelectMinute(parameters: any) {
+    onSelectMinute(parameters: any) {
         this.currentDate = DateUtils.setMinutes(this.currentDate, parameters.value);
         if (this.switchOnClick)
             this.onOk(parameters.event);
@@ -289,14 +288,14 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
 
     // YEARS
 
-    private showYearsList() {
+    showYearsList() {
         if(this.currentView != DateTimeViewTypes.Years){
             this.prevView = this.currentView;
             this.currentView = DateTimeViewTypes.Years;
         }        
     }
 
-    private onSelectYear(year: number) {
+    onSelectYear(year: number) {
         this.currentDate = DateUtils.setYear(this.currentDate, year);
         this.currentView = this.prevView;
     }
@@ -306,7 +305,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
     // BUTTON EVENTS
 
     // click OK button handler
-    private onOk(event: MouseEvent) {
+    onOk(event: MouseEvent) {
         if (this.currentView === DateTimeViewTypes.Calendar) {
             if (this.time) {
                 this.currentView = DateTimeViewTypes.Hours;
@@ -326,7 +325,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
     }
 
     // click Cancel button handler
-    private onCancel(event: MouseEvent) {
+    onCancel(event: MouseEvent) {
         if (this.currentView === DateTimeViewTypes.Calendar) {
             this.hide(event);
         } else if (this.currentView === DateTimeViewTypes.Hours) {
@@ -345,12 +344,12 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
     }
 
     // click Now button handler
-    private onNow() {
+    onNow() {
         this.currentDate = new Date();
     }
 
     // click Clear button handler
-    private onClear(event: MouseEvent) {
+    onClear(event: MouseEvent) {
         this.setValueAndHide(event, null);
     }
 
@@ -368,26 +367,26 @@ export class DateTimeInputComponent extends BaseInputComponent<Date> implements 
 
     // YEAR AND MONTH HANDLERS
 
-    private onYearAfter() {
+    onYearAfter() {
         this.currentDate = DateUtils.getNextYear(this.currentDate);
     }
 
-    private onYearBefore() {
+    onYearBefore() {
         this.currentDate = DateUtils.getPreviousYear(this.currentDate);
     }
 
-    private onMonthBefore() {
+    onMonthBefore() {
         this.currentDate = DateUtils.getPreviousMonth(this.currentDate);
     }
 
-    private onMonthAfter() {
+    onMonthAfter() {
         this.currentDate = DateUtils.getNextMonth(this.currentDate);
     }
 
     // END YEAR AND MONTH HANDLERS
 
     // click close handler
-    private onClose(event: MouseEvent) {
+    onClose(event: MouseEvent) {
         this.hide(event);
     }
 }

@@ -26,9 +26,10 @@ export class ToggleInputComponent extends BaseInputComponent<boolean> {
         protected renderer: Renderer2,
         protected elementRef: ElementRef) {
         super(ngControl, changeDetector, renderer, elementRef);
+        this.value = false;
     }
 
-    private get displayValue(): string {
+    get displayValue(): string {
         return this.labelConfig ? this.labelConfig.positiveLabel : this.label || this._placeholder;
     }
 }

@@ -84,21 +84,21 @@ export class NumberSpinnerInputComponent extends BaseInputComponent<number> impl
     /**
      * Show next button when have limit of max or value is less then max
      */
-    private get showIncrement() {
+    get showIncrement() {
         return !CommonUtils.isDefined(this.max) || this.nextValue <= this.max;
     }
 
     /**
      * Show prev button when have limit of min or value is more then min
      */
-    private get showDecrement() {
+    get showDecrement() {
         return !CommonUtils.isDefined(this.min) || this.prevValue >= this.min;
     }
 
     /**
      * need for dark mode theme
      */
-    private get containerClass() {
+    get containerClass() {
         const classes = {}
 
         if (this.disabled)

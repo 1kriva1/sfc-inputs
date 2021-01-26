@@ -3,7 +3,7 @@
         (removed)="onRemove($event)"></sfc-tags-chip>
     <i *ngIf="icon" class="icon" [ngClass]="iconClass"></i>
     <input [value]="value">
-    <input sfcinput id="sfc-{{id}}" type="text" class="sfc-input input-text-input" [placeholder]="placeholder"
+    <input sfcinput id="sfc-{{id}}" type="text" class="sfc-input input-text-input" [placeholder]="tagPlaceholder"
         [disabled]="disabled" [value]="newTagValue" (input)="onNewTagInput($event.target.value)" (blur)="onBlur()"
         (keyup.enter)="onEnter()">
     <label for="sfc-{{id}}" [ngClass]="labelClass">{{label}}</label>

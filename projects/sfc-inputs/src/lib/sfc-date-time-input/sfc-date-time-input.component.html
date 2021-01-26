@@ -19,13 +19,13 @@
                     <div class="dtp-date" *ngIf="(year && !time) || date">
                         <div class="month-handlers" *ngIf="date">
                             <div class="dtp-select-period-handler before">
-                                <a [class.invisible]="!isShowMonthBefore" (mouse-down-left)="onMonthBefore($event)">
+                                <a [class.invisible]="!isShowMonthBefore" (mouse-down-left)="onMonthBefore()">
                                     <i class="fa fa-chevron-left"></i>
                                 </a>
                             </div>
                             <div class="dtp-actual-month">{{displayMonth}}</div>
                             <div class="dtp-select-period-handler after">
-                                <a [class.invisible]="!isShowMonthAfter" (mouse-down-left)="onMonthAfter($event)">
+                                <a [class.invisible]="!isShowMonthAfter" (mouse-down-left)="onMonthAfter()">
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                             </div>
@@ -34,14 +34,14 @@
                         <div *ngIf="date" class="dtp-actual-num">{{displayDayNumber}}</div>
                         <div class="year-handlers">
                             <div class="dtp-select-period-handler before">
-                                <a [class.invisible]="!isShowYearBefore" (mouse-down-left)="onYearBefore($event)">
+                                <a [class.invisible]="!isShowYearBefore" (mouse-down-left)="onYearBefore()">
                                     <i class="fa fa-chevron-left"></i>
                                 </a>
                             </div>
                             <div class="dtp-actual-year" [class.disabled]="!year"
-                                (mouse-down-left)="showYearsList($event)">{{displayYear}}</div>
+                                (mouse-down-left)="showYearsList()">{{displayYear}}</div>
                             <div class="dtp-select-period-handler after">
-                                <a [class.invisible]="!isShowYearAfter" (mouse-down-left)="onYearAfter($event)">
+                                <a [class.invisible]="!isShowYearAfter" (mouse-down-left)="onYearAfter()">
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                             </div>
@@ -54,7 +54,7 @@
                     <div class="dtp-picker">
                         <sfc-date-time-calendar [hidden]="!showCalendar" [min-date]="minDate" [max-date]="maxDate"
                             [disabled-days]="disabledDays" [week-start]="weekStart" [current-date]="currentDate"
-                            [locale]="locale" (selected)="onSelectDate($event, date)">
+                            [locale]="locale" (selected)="onSelectDate($event)">
                         </sfc-date-time-calendar>
 
                         <sfc-date-time-clock [hidden]="!showClock" [short-time]="shortTime" [min-date]="minDate"
@@ -63,12 +63,12 @@
                         </sfc-date-time-clock>
 
                         <sfc-date-time-year [hidden]="!showYears" [current-date]="currentDate" [locale]="locale"
-                            [min-date]="minDate" [max-date]="maxDate" (selected)="onSelectYear($event, year)">
+                            [min-date]="minDate" [max-date]="maxDate" (selected)="onSelectYear($event)">
                         </sfc-date-time-year>
                     </div>
                 </div>
                 <div class="dtp-buttons">
-                    <sfc-button *ngIf="showNowButton" class="button-now" text="Now" (mouse-down-left)="onNow($event)">
+                    <sfc-button *ngIf="showNowButton" class="button-now" text="Now" (mouse-down-left)="onNow()">
                     </sfc-button>
                     <sfc-button *ngIf="showClearButton" class="button-clear" text="Clear"
                         (mouse-down-left)="onClear($event)">

@@ -82,7 +82,7 @@ describe('Component: ToggleInputComponent', () => {
     });
 
     it("Input: default input value", () => {
-        expect(inputEl.value).toEqual('');
+        expect(inputEl.value).toEqual('false');
     });
 
     it("Input: set input value", () => {

@@ -25,7 +25,7 @@ export class RadioButtonsInputComponent extends BaseInputComponent<number | stri
     @Input()
     data: IRadioButtonsData[] | Observable<IRadioButtonsData[]>;
 
-    private data$: Observable<IRadioButtonsData[]>;
+    data$: Observable<IRadioButtonsData[]>;
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef,
@@ -39,11 +39,11 @@ export class RadioButtonsInputComponent extends BaseInputComponent<number | stri
         this.setValueFromDefault();
     }
 
-    private radioButtonLabelClass(item: IRadioButtonsData) {
+    radioButtonLabelClass(item: IRadioButtonsData) {
         return CommonUtils.isNullOrEmptyString(item.icon) ? RadioButtonsInputLabelType.Circle : RadioButtonsInputLabelType.Icons;
     }
 
-    private isCheckedItem(item: IRadioButtonsData) {
+    isCheckedItem(item: IRadioButtonsData) {
         return CommonUtils.isDefined(this.value) ? this.value === item.key : item.isDefault;
     }
 

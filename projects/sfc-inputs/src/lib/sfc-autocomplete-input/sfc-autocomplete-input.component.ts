@@ -63,18 +63,18 @@ export class AutoCompleteInputComponent extends BaseInputComponent<IAutoComplete
     /**
      * detect if if items exist for entire value
      */
-    private hasItems: boolean = false;
+    hasItems: boolean = false;
 
     // data items
-    private localData: any[];
+    localData: any[];
 
     // parameterezied loader function
-    private loaderWithParameters: (parameters: IAutoCompleteParameters) => Observable<ILoadMoreData<IAutoCompleteData>>;
+    loaderWithParameters: (parameters: IAutoCompleteParameters) => Observable<ILoadMoreData<IAutoCompleteData>>;
 
     /**
      * text input value
      */
-    private displayValue: string = '';
+    displayValue: string = '';
 
     constructor(@Self() @Optional() protected ngControl: NgControl,
         protected changeDetector: ChangeDetectorRef,
@@ -99,12 +99,12 @@ export class AutoCompleteInputComponent extends BaseInputComponent<IAutoComplete
         super.ngAfterViewInit();
     }
 
-    protected get labelClass(): any {
+    get labelClass(): any {
         return this._placeholder || this.isFocus
             || this.value.key || this.value.displayValue ? StyleClass.Active : '';
     }
 
-    private get isReadOnly() {
+    get isReadOnly() {
         return CommonUtils.isDefined(this.loadMoreDropdown) ? this.loadMoreDropdown.isLoadingData : false;
     }
 
@@ -142,12 +142,12 @@ export class AutoCompleteInputComponent extends BaseInputComponent<IAutoComplete
         this.onChangeValue(newValue, null);
     }
 
-    private handleError() {
+    handleError() {
         // add inner validation error (data error)
         this.toggleInnerErrors(CommonConstants.DATA_VALIDATOR_KEY, true);
     }
 
-    private handleSuccess(result: ILoadMoreData<IAutoCompleteData>) {
+    handleSuccess(result: ILoadMoreData<IAutoCompleteData>) {
         this.toggleInnerErrors(CommonConstants.DATA_VALIDATOR_KEY, false);
         this.localData = result.Items;
         this.hasItems = CollectionUtils.any(result.Items);
@@ -155,11 +155,11 @@ export class AutoCompleteInputComponent extends BaseInputComponent<IAutoComplete
         this.setValueWhenValueFit(result.Items);
     }
 
-    private handleUpdate(result: ILoadMoreData<IAutoCompleteData>) {
+    handleUpdate(result: ILoadMoreData<IAutoCompleteData>) {
         this.localData = this.localData.concat(result.Items);
     }
 
-    private setOptionValue(item: IAutoCompleteData): void {
+    setOptionValue(item: IAutoCompleteData): void {
         this.displayValue = item.value;
         this.onChangeValue(item.value, item.key);
     }

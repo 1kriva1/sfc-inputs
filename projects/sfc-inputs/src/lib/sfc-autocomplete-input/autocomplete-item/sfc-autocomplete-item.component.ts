@@ -14,7 +14,7 @@ export class AutocompleteItemComponent {
     @Output('selected')
     selected: EventEmitter<any> = new EventEmitter<any>();
 
-    private selectedHandler(): void {
+    selectedHandler(): void {
         if (this.selected)
             this.selected.emit(this.item);
     }

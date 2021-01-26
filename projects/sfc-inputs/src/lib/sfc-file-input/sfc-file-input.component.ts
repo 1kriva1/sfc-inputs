@@ -11,7 +11,7 @@ import { FileUtils } from '../common/utils/file-utils';
 })
 export class FileInputComponent extends BaseInputComponent<File> implements OnInit {
 
-    private FileInputType = FileInputType;
+    FileInputType = FileInputType;
 
     /**
     * Default icon for inline file input
@@ -47,7 +47,8 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
     @Input()
     showClearButton = true;
 
-    @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
+    @HostListener('change', ['$event.target.files']) 
+    emitFiles(event: FileList) {
         const file = event && event.item(0);
         this.onChange(file);
     }
@@ -64,19 +65,19 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
         }
     }    
 
-    protected get placeholder() {
+    get placeholder() {
         return this._placeholder || '';
     }
 
-    private get fileName() {
+    get fileName() {
         return this.value ? this.value.name : null;
     }
 
-    private get fileSize() {
+    get fileSize() {
         return this.value ? FileUtils.parseFileSize(this.value.size) : null;
     }
 
-    private get inlineValueText() {
+    get inlineValueText() {
         if (this.showFileName) {
             return this.fileName
                 ? this.fileName
@@ -89,7 +90,7 @@ export class FileInputComponent extends BaseInputComponent<File> implements OnIn
     /**
     * Clear button handler
     */
-    private clearData(event: Event): void {
+    clearData(event: Event): void {
         event.preventDefault();
         this.elementRefInput.nativeElement.value = null;
         this.onChange(null);

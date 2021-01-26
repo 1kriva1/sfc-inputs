@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+// @dynamic
 @Injectable()
 export class CommonUtils {
-
-    private static readonly STRING_SPACE_REGEX = /\s/g;
 
     public static isDefined<T>(value: T | undefined | null): value is T {
         return <T>value !== undefined && <T>value !== null;
@@ -24,7 +23,7 @@ export class CommonUtils {
     }
 
     public static trim<T>(value: string) {
-        return this.isNullOrEmptyString(value) ? value : value.replace(CommonUtils.STRING_SPACE_REGEX, '')
+        return this.isNullOrEmptyString(value) ? value : value.replace(/\s/g, '')
     }
 
     public static isAsyncData(data: any) {

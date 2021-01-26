@@ -1,6 +1,6 @@
 <div *ngIf="isDateDefined" class="dtp-picker-year">
     <div class="year-handler">
-        <sfc-button class="dtp-select-year-range" icon="fa fa-chevron-up" (mouse-down-left)="onYearRangeBefore($event)">
+        <sfc-button class="dtp-select-year-range" icon="fa fa-chevron-up" (mouse-down-left)="onYearRangeBefore()">
         </sfc-button>
     </div>
 
@@ -11,7 +11,7 @@
 
     <div class="year-handler">
         <sfc-button class="dtp-select-year-range" icon="fa fa-chevron-down"
-            (mouse-down-left)="onYearRangeAfter($event)">
+            (mouse-down-left)="onYearRangeAfter()">
         </sfc-button>
     </div>
 </div>

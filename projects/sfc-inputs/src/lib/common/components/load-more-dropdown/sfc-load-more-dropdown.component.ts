@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Output, ViewChild, HostBinding, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, Output, ViewChild, HostBinding, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import { EventEmitter } from '@angular/core';
@@ -8,10 +8,10 @@ import { LoaderService } from '../loader/base/sfc-loader.service';
 import { CommonUtils } from '../../utils/common-utils';
 import { StyleClass } from '../../constants/common-constants';
 import { HttpConfig } from '../../utils/http-config';
-import HttpUtils from '../../utils/http-utils';
 import { ILoadParameters } from '../../interfaces/ILoadParameters';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UIUtils } from '../../utils/ui-utils';
+import { HttpUtils } from '../../utils/http-utils';
 
 @Component({
     selector: 'load-more-dropdown',
@@ -32,7 +32,7 @@ export class LoadMoreDropDownComponent implements OnInit, IPageable<ILoadMoreDat
     // show/hide loader dropdown
     @Input('open')
     @HostBinding('class.' + StyleClass.Open)
-    private _open: boolean = false;
+    _open: boolean = false;
 
     _data = null;
 
@@ -104,13 +104,13 @@ export class LoadMoreDropDownComponent implements OnInit, IPageable<ILoadMoreDat
     /**
      * detect if if items exist for entire value
      */
-    private hasItems: boolean = false;
+    hasItems: boolean = false;
 
     // indicate that has more data
-    private showLoadMore: boolean = false;
+    showLoadMore: boolean = false;
 
     // inner loader
-    private _loadFunction: (parameters: ILoadParameters) => Observable<ILoadMoreData<any>>;
+    _loadFunction: (parameters: ILoadParameters) => Observable<ILoadMoreData<any>>;
 
     constructor(private loaderService: LoaderService, private httpUtils: HttpUtils) { }
 

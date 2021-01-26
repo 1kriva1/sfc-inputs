@@ -64,10 +64,10 @@ export class DateTimeClockComponent implements OnInit {
     minuteSelected: EventEmitter<any> = new EventEmitter<any>();
 
     // enum for view
-    private DateTimeViewType = DateTimeViewTypes;
+    DateTimeViewType = DateTimeViewTypes;
 
     // clock configuration
-    private clock: IClock;
+    clock: IClock;
 
     constructor() {
         this.clock = {
@@ -80,12 +80,12 @@ export class DateTimeClockComponent implements OnInit {
         this.setClock();
     }
 
-    private get isPM() {
+    get isPM() {
         const hour = +formatDate(this.currentDate, 'H', this.locale);
         return this.shortTime && hour >= CommonConstants.HOURS_IN_SHORT_TIME;
     }
 
-    private get displayTime() {
+    get displayTime() {
         const minutesValue = formatDate(this.currentDate, 'm', this.locale),
             hours = this.shortTime ? formatDate(this.currentDate, 'h', this.locale) : formatDate(this.currentDate, 'HH', this.locale),
             minutes = minutesValue.length === 2 ? minutesValue : '0' + minutesValue,
@@ -94,14 +94,14 @@ export class DateTimeClockComponent implements OnInit {
         return `${hours}:${minutes}${period}`;
     };
 
-    private get minutesHandStyle() {
+    get minutesHandStyle() {
         const M = +formatDate(this.currentDate, 'm', this.locale);
         return {
             transform: 'rotate(' + 360 * M / CommonConstants.MINUTES_IN_HOUR + 'deg)'
         };
     }
 
-    private get hoursHandStyle() {
+    get hoursHandStyle() {
         const H = +formatDate(this.currentDate, 'H', this.locale);
         return {
             transform: 'rotate(' + 360 * H / CommonConstants.HOURS_IN_SHORT_TIME + 'deg)'
@@ -172,7 +172,7 @@ export class DateTimeClockComponent implements OnInit {
         return { x: x, y: y + 7 };
     }
 
-    private hourClasses(value: number) {
+    hourClasses(value: number) {
         const classes = {};
 
         if (this.isDisabledHour(value)) {
@@ -211,7 +211,7 @@ export class DateTimeClockComponent implements OnInit {
         return false;
     }
 
-    private onSelectHour(value: number) {
+    onSelectHour(value: number) {
         if (!this.isHourSelected(value)) {
             this.hourSelected.emit(this.hourFormatedValue(value));
         }
@@ -225,7 +225,7 @@ export class DateTimeClockComponent implements OnInit {
         return this.isPM ? value + CommonConstants.HOURS_IN_SHORT_TIME : value;
     }
 
-    private minuteClasses(value: number) {
+    minuteClasses(value: number) {
         const classes = {};
 
         if (this.isDisabledMinute(value)) {
@@ -243,7 +243,7 @@ export class DateTimeClockComponent implements OnInit {
         return +formatDate(this.currentDate, 'm', this.locale) == value;
     }
 
-    private isDisabledMinute(value: number) {
+    isDisabledMinute(value: number) {
         const itemDateMinute = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), this.currentDate.getHours(), value);
 
         if (this.minDate) {
@@ -265,13 +265,13 @@ export class DateTimeClockComponent implements OnInit {
         return false
     }
 
-    private onSelectMinute(event: MouseEvent, value: number) {
+    onSelectMinute(event: MouseEvent, value: number) {
         if (!this.isMinuteSelected(value)) {
             this.minuteSelected.emit({ event, value });
         }
     }
 
-    private get isDisabledAM() {
+    get isDisabledAM() {
         const itemDateHour = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), this.currentDate.getHours() - CommonConstants.HOURS_IN_SHORT_TIME);
         if (this.minDate) {
             const minDateHour = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate(), +formatDate(this.minDate, 'H', this.locale));
@@ -283,7 +283,7 @@ export class DateTimeClockComponent implements OnInit {
         return false;
     }
 
-    private get isDisabledPM() {
+    get isDisabledPM() {
         const itemDateHour = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), this.currentDate.getHours() - CommonConstants.HOURS_IN_SHORT_TIME);
         if (this.maxDate) {
             const minDateHour = new Date(this.maxDate.getFullYear(), this.maxDate.getMonth(), this.maxDate.getDate(), +formatDate(this.maxDate, 'H', this.locale));
@@ -295,13 +295,13 @@ export class DateTimeClockComponent implements OnInit {
         return false;
     }
 
-    private onAM() {
+    onAM() {
         if (this.isPM) {
             this.hourSelected.emit(this.currentDate.getHours() - CommonConstants.HOURS_IN_SHORT_TIME);
         }
     }
 
-    private onPM() {
+    onPM() {
         if (!this.isPM) {
             this.hourSelected.emit(this.currentDate.getHours() + CommonConstants.HOURS_IN_SHORT_TIME);
         }

@@ -1,4 +1,4 @@
-import { ComponentFixture, async, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -6,13 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoadMoreDropDownComponent } from './sfc-load-more-dropdown.component';
 import { LoaderService } from '../loader/base/sfc-loader.service';
-import HttpUtils from '../../utils/http-utils';
 import { SfcInputsModule } from '../../../sfc-inputs.module';
 import { HttpConfig } from '../../utils/http-config';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
-import { map } from 'rxjs/operators';
-import { ILoadParameters } from '../../interfaces/ILoadParameters';
 import { StyleClass } from '../../constants/common-constants';
+import { HttpUtils } from '../../utils/http-utils';
 
 
 describe('Component: LoadMoreDropDownComponent', () => {
@@ -74,7 +72,7 @@ describe('Component: LoadMoreDropDownComponent', () => {
         fixture.detectChanges();
 
         let loader = el.query(By.css('app-bounce-loader'));
-        expect(loader.attributes['ng-reflect-background']).toEqual('true');
+        // expect(loader.attributes['ng-reflect-background']).toEqual('true');
         expect(loader.attributes['ng-reflect-size']).toEqual('small');
         expect(loader.attributes['ng-reflect-id']).toEqual(expectedId);
     }));

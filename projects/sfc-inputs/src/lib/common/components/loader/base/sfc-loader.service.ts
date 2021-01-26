@@ -6,7 +6,7 @@ import { CollectionUtils } from '../../../utils/collection-utils';
 import { CommonConstants } from '../../../constants/common-constants';
 import ILoader from '../../../interfaces/ILoader';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class LoaderService {
 
   private subject: BehaviorSubject<ILoader[]> = new BehaviorSubject<ILoader[]>([]);
@@ -15,7 +15,6 @@ export class LoaderService {
 
   /**
    * Show loader
-   * @param {string} id
    */
   public showLoader(id: string = CommonConstants.GLOBAL_LOADER_ID, register: boolean = false): void {
     this.setLoaderStatus(id, true, register);
@@ -23,7 +22,6 @@ export class LoaderService {
 
   /**
    * Hide loader
-   * @param {string} id
    */
   public hideLoader(id: string = CommonConstants.GLOBAL_LOADER_ID): void {
     this.setLoaderStatus(id, false);
@@ -31,7 +29,6 @@ export class LoaderService {
 
   /**
    * Register loader
-   * @param {ILoader} loader
    */
   public registerLoader(loader: ILoader): Observable<ILoader> {
 
@@ -47,7 +44,6 @@ export class LoaderService {
 
   /**
    * Unregister loader
-   * @param {ILoader} loader
    */
   public removeLoader(id: string = CommonConstants.GLOBAL_LOADER_ID): void {
     const loaders = this.subject.getValue(),

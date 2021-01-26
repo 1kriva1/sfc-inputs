@@ -2,6 +2,7 @@ import { ElementRef, Injectable } from '@angular/core';
 import { CommonConstants } from '../constants/common-constants';
 import { CommonUtils } from './common-utils';
 
+// @dynamic
 @Injectable()
 export class DateUtils {
 

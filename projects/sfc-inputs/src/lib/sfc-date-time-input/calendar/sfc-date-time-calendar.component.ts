@@ -65,7 +65,7 @@ export class DateTimeCalendarComponent implements OnInit {
     selected: EventEmitter<any> = new EventEmitter<any>();
 
     // calendar configuration
-    private calendar: ICalendar;
+    calendar: ICalendar;
 
     constructor() {
         this.calendar = {
@@ -78,15 +78,15 @@ export class DateTimeCalendarComponent implements OnInit {
         this.setDate();
     }
 
-    private get calendarMonth() {
+    get calendarMonth() {
         return CommonUtils.isDefined(this.currentDate) ? formatDate(this.currentDate, 'MMMM y', this.locale) : '';
     }
 
-    private dayOfWeekAsString(dayIndex: number) {
+    dayOfWeekAsString(dayIndex: number) {
         return CommonConstants.DAYS_OF_WEEK_3[dayIndex] || '';
     }
 
-    private getDateClasses(date: Date) {
+    getDateClasses(date: Date) {
         const isDisabled = this.isDisabled(date);
         return {
             disabled: isDisabled,
@@ -94,7 +94,7 @@ export class DateTimeCalendarComponent implements OnInit {
         };
     }
 
-    private isDisabled(date: Date) {
+    isDisabled(date: Date) {
         let isDisabledMinDate = false,
             isDisabledMaxDate = false,
             isDisabledDate = false;
@@ -116,7 +116,7 @@ export class DateTimeCalendarComponent implements OnInit {
         return isDisabledMinDate || isDisabledMaxDate || isDisabledDate;
     }
 
-    private getDateNumber(date: Date) {
+    getDateNumber(date: Date) {
         return formatDate(date, 'dd', this.locale);
     }
 
@@ -173,7 +173,7 @@ export class DateTimeCalendarComponent implements OnInit {
         return days;
     }
 
-    private onSelectDate(event: MouseEvent, date: Date) {
+    onSelectDate(event: MouseEvent, date: Date) {
         if (!this.isCurrentDate(date)) {
             this.selected.emit({ event, date });
         }

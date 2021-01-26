@@ -1,4 +1,4 @@
-<li *ngIf="item" (mousedown)="selectedHandler($event)">
+<li *ngIf="item" (mousedown)="selectedHandler()">
     <img *ngIf="item.imagePath" [src]="item.imagePath">
     <span>
         <span>{{item.value}}</span>

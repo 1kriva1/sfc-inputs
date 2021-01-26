@@ -5,9 +5,8 @@ import { catchError, map, tap, distinctUntilChanged, retry } from 'rxjs/operator
 import { HttpConfig } from './http-config';
 import { CommonUtils } from './common-utils';
 
-
-@Injectable({ providedIn: 'root' })
-export default class HttpUtils {
+@Injectable({providedIn: 'root'})
+export class HttpUtils {
 
     /**
      * Default http header for all requests

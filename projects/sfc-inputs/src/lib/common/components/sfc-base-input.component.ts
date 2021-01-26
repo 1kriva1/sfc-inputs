@@ -44,7 +44,13 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     @ViewChild(InputRefDirective, { static: false, read: ElementRef })
     protected elementRefInput: ElementRef;
 
-    protected value: T = null;
+    _value: T;
+    set value(value: T) {
+        this._value = value;
+    }
+    get value(): T {
+        return this._value;
+    }
 
     /**
      * input componnent validation flag
@@ -60,7 +66,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     * Is input on focus
     */
     @HostBinding('class.focus')
-    protected get isFocus() {
+    get isFocus() {
         return this.input ? this.input.isOnFocus : false;
     }
 
@@ -84,19 +90,15 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         return CommonUtils.isDefined(this.value);
     }
 
-    protected get labelClass(): any {
+    get labelClass(): any {
         return this._placeholder || this.isFocus || this.value ? StyleClass.Active : '';
     }
 
-    protected get iconClass() {
+    get iconClass() {
         const classes = {},
             validationClass = this.validationClass;
 
-        if (this.icon) {
-            // example: fa fa-star
-            const iconParts = this.icon.split(' ');
-            iconParts.forEach(part => classes[part] = true)
-        }
+        this.setIconClasses(classes);
 
         if (validationClass) {
             classes[validationClass] = true;
@@ -114,7 +116,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     * 1. Valid - 'valid'
     * 2. Invalid - 'invalid'
     */
-    protected get validationClass() {
+    get validationClass() {
         if (this.input) {
 
             if (this.input.isDirty) {
@@ -129,7 +131,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         return null;
     }
 
-    protected get placeholder() {
+    get placeholder() {
         return this._placeholder && !this.isFocus ? this._placeholder : '';
     }
 
@@ -137,7 +139,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
     * Return helper text if input has NOT error, 
     * otherwise return first error message
     */
-    protected get helperText() {
+    get helperText() {
         return (this.input && this.input.isInvalid) || this.isInvalid ? this.errorMessage : this._helperText;
     }
 
@@ -181,7 +183,7 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         this.innerErrors = {};
         this.isInvalid = false;
     }
-    
+
     protected toggleInnerErrors(validationKey: string, isInvalid: boolean) {
         this.isInvalid = isInvalid;
 
@@ -190,7 +192,15 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         } else {
             CommonUtils.removePropertyFromObject(this.innerErrors, validationKey);
         }
-    }    
+    }
+
+    protected setIconClasses(classes: object) {
+        if (this.icon) {
+            // example: fa fa-star
+            const iconParts = this.icon.split(' ');
+            iconParts.forEach(part => classes[part] = true)
+        }
+    }
 
     ngAfterViewInit(): void {
         if (this.elementRefInput) {
@@ -230,12 +240,12 @@ export default abstract class BaseInputComponent<T> implements ControlValueAcces
         this.propagateBlur = fn;
     }
 
-    protected onChange(newValue: T) {
+    onChange(newValue: T) {
         this.value = newValue;
         this.propagateChange(this.value);
     }
 
-    protected onBlur() {
+    onBlur() {
         this.propagateBlur();
     }
 

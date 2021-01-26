@@ -142,13 +142,15 @@ export default class SfcValidators {
     // Private methods
 
     private static validation(validatorFn: (any) => null | object): ValidatorFn {
-        return (formControl: AbstractControl) => {
+        let validator : ValidatorFn = (formControl: AbstractControl) => {
             return CommonUtils.isDefined(formControl) ? validatorFn(formControl.value) : null;
         };
+
+        return validator;
     }
 
     private static validationMultiple(validatorFn: (any) => null | object): ValidatorFn {
-        return (formControl: AbstractControl) => {
+        let validator : ValidatorFn =  (formControl: AbstractControl) => {
             if (!formControl.value) {
                 return null;
             }
@@ -165,6 +167,8 @@ export default class SfcValidators {
 
             return null;
         };
+
+        return validator;
     }
 
     private static equalOrIncludeArrayOfValues(element: any, includes: Array<any>) {

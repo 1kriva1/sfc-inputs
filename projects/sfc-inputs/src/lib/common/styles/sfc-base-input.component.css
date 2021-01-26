@@ -168,6 +168,10 @@ i.icon~.sfc-input {
     width: calc(100% - 3rem);
 }
 
+i.icon~.sfc-input[type="password"] {
+    width: calc(100% - 3rem - 25px);
+}
+
 i.icon~label {
     width: calc(100% - 3rem - 1.5rem);
 }

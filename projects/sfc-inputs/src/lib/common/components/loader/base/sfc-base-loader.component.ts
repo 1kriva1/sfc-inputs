@@ -11,25 +11,25 @@ export default abstract class BaseLoaderComponent implements OnInit {
    * Loader identificator (global by default)
    */
   @Input()
-  public id: string = CommonConstants.GLOBAL_LOADER_ID;
+  id: string = CommonConstants.GLOBAL_LOADER_ID;
 
   /**
    * Is start on init (loader register with show = True)
    */
   @Input()
-  public start: boolean = false;
+  start: boolean = false;
 
   /**
    * Loader when active(show) has background(low opacity)
    */
   @Input()
-  public background: boolean = true;
+  background: boolean = true;
 
   /**
    * Predefined loader sizes(small, medium and large)
    */
   @Input()
-  public size: ComponentSizeType = ComponentSizeType.Medium;
+  size: ComponentSizeType = ComponentSizeType.Medium;
 
   /**
    * Loader can has custom size (width aand height)
@@ -43,7 +43,7 @@ export default abstract class BaseLoaderComponent implements OnInit {
 
   // Indicate show or hide loader (and set class to host element)
   @HostBinding('class.' + StyleClass.Loading)
-  private show: boolean = false;
+  show: boolean = false;
 
   public ngOnInit(): void {
 
@@ -55,7 +55,7 @@ export default abstract class BaseLoaderComponent implements OnInit {
     });
   }
 
-  private get preLoaderClass() {
+  get preLoaderClass() {
     let classes = {};
 
     if (this.id === CommonConstants.GLOBAL_LOADER_ID)
@@ -68,7 +68,7 @@ export default abstract class BaseLoaderComponent implements OnInit {
     return classes;
   }
 
-  private get loaderClass() {
+  get loaderClass() {
     if (this.customSize)
       return null;
 
@@ -78,7 +78,7 @@ export default abstract class BaseLoaderComponent implements OnInit {
     return classes;
   }
 
-  private get loaderStyle() {
+  get loaderStyle() {
     return this.customSize ?
       {
         width: UIUtils.getCssLikePx(this.customSize.width),

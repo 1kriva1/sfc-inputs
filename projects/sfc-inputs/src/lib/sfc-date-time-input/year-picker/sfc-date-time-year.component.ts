@@ -50,7 +50,7 @@ export class DateTimeYearComponent implements OnInit {
     @Output()
     selected: EventEmitter<any> = new EventEmitter<any>();
 
-    private years: number[];
+    years: number[];
 
     constructor() {
         this.years = [];
@@ -70,15 +70,15 @@ export class DateTimeYearComponent implements OnInit {
         }
     }
 
-    private isCurrentYear(year: number) {
+    isCurrentYear(year: number) {
         return +formatDate(this.currentDate, 'yyyy', this.locale) === year;
     }
 
-    private get isDateDefined() {
+    get isDateDefined() {
         return CommonUtils.isDefined(this.currentDate);
     }
 
-    private isDisabled(year: number) {
+    isDisabled(year: number) {
         let isDisabledByMinDate = false,
             isDisabledByMaxDate = false;
 
@@ -93,11 +93,11 @@ export class DateTimeYearComponent implements OnInit {
         return isDisabledByMinDate || isDisabledByMaxDate;
     }
 
-    private onYearRangeBefore() {
+    onYearRangeBefore() {
         this.setYearsList(false);
     }
 
-    private onYearRangeAfter() {
+    onYearRangeAfter() {
         this.setYearsList(true);
     }
 
@@ -117,7 +117,7 @@ export class DateTimeYearComponent implements OnInit {
         }
     }
 
-    private onSelectYear(year: number) {
+    onSelectYear(year: number) {
         if (this.selected) {
             this.selected.emit(year);
         }

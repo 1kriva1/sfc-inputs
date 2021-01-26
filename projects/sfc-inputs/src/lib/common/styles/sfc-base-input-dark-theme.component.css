@@ -85,6 +85,14 @@
 
 /* CHARACTERS COUNT END */
 
+/* PASSWORD */
+
+:host-context(.sfc-input-dark-theme) .password-eye:hover{
+    color: #AAB2BD;
+}
+
+/* PASSWORD END */
+
 /* DISABLED */
 
 :host-context(.sfc-input-dark-theme) .input-text-input:disabled {

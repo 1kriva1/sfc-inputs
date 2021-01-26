@@ -14,6 +14,7 @@ import { StarRatingInputAppComponent } from './star-rating-app/star-rating-input
 import { NumberSpinnerInputAppComponent } from './number-spinner-app/number-spinner-input.component';
 import { AutoCompleteInputAppComponent } from './autocomplete-input-app/autocomplete-input.component';
 import { DateTimeInputAppComponent } from './date-time-app/date-time-input.component';
+import { PhotoInputAppComponent } from './photo-input-app/photo-input.component';
 
 const indexRoute: Route = {
     path: "",
@@ -77,6 +78,10 @@ export const routeConfig = [
     {
         path: 'date-time-input',
         component: DateTimeInputAppComponent
+    },
+    {
+        path: 'photo-input',
+        component: PhotoInputAppComponent
     },
     {
         path: 'loader',

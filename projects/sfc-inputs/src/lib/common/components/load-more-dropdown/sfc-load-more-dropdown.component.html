@@ -1,6 +1,6 @@
 <div class="select-dropdown-container">
     <div [ngClass]="_open && hasItems ? 'loaded' : ''">
-        <app-bounce-loader [id]="loaderId" [size]="'small'" [background]="true">
+        <app-bounce-loader [id]="loaderId" size="small">
         </app-bounce-loader>
         
         <ul #dropdown class="select-dropdown" [infinite-scroller]="!loadMoreButton"

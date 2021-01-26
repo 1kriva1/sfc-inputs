@@ -1,0 +1,7 @@
+.sfc-input-dark-theme .photo-editor-actions-container {
+    color: #F5F7FA;
+}
+
+.sfc-input-dark-theme .photo-editor-actions-container>i:not(.active):hover {
+    color: #fff;
+}

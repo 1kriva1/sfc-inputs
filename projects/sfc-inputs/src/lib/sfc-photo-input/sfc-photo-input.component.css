@@ -1,0 +1,145 @@
+:host {
+    display: inline-block;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.input-photo-container {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-container {
+    height: 201px;
+    width: 200px;
+    border: 4px solid #AAB2BD;
+    color: #AAB2BD;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.input-photo-container:not(.disabled) .photo-container:hover {
+    border-color: #656D78;
+}
+
+/* PHOTO */
+
+.photo {
+    background-size: 100%;
+    background-size: cover;
+    background-position: 50%;
+    border-radius: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transition: opacity 0.5s;
+}
+
+/* LINK */
+
+.change-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    height: 25%;
+    width: 100%;
+    z-index: 11;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s;
+    flex-direction: column;
+}
+
+.input-photo-container:not(.disabled) .photo-container:hover .change-link {
+    opacity: 1;
+}
+
+.change-link label {
+    overflow: hidden;
+    opacity: 1;
+    font-size: 12px;
+    font-weight: bold;
+    user-select: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.input-photo-container:not(.disabled) .change-link label {
+    cursor: pointer;
+}
+
+.change-link label>span {
+    margin-left: 5px;
+}
+
+/* PHOTO OVERLAY */
+
+.photo-container .overlay {
+    color: white;
+    background-color: #656D78;
+    height: 25%;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 10;
+}
+
+.input-photo-container:not(.disabled) .photo-container:hover .overlay {
+    opacity: 0.3;
+}
+
+/* CLEAR BUTTON */
+
+.clear-button {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    color: #ED5565;
+}
+
+/* MODAL HEADER */
+
+.modal-header-icon {
+    padding-right: 0.5em;
+    font-size: 24px;
+}
+
+/* HELPER TEXT */
+
+.helper-text {
+    margin-top: 5px;
+}
+
+/* VALID */
+
+.input-photo-container.valid .helper-text {
+    color: #8CC152;
+}
+
+/* VALID END */
+
+/* INVALID */
+
+.input-photo-container.invalid .helper-text {
+    color: #E9573F;
+}
+
+/* INVALID END */

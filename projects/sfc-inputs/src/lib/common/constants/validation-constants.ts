@@ -4,4 +4,5 @@ export default class ValidationConstants {
     static MAX_VALIDATION = { 'sfc-max': 'Invalid value' };
     static MIN_VALIDATION = { 'sfc-min': 'Invalid value' };
     static DATA_VALIDATION = { 'sfc-data': 'Error when try to fetch data' };
+    static FORMAT_VALIDATION = { 'sfc-format': 'Invalid file format' };
 }
