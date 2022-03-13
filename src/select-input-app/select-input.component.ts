@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
 import { Observable } from 'rxjs';
-import ISelectData from 'projects/sfc-inputs/src/lib/common/interfaces/select-input/ISelectData';
-import ISelectDataGroup from 'projects/sfc-inputs/src/lib/common/interfaces/select-input/ISelectDataGroup';
 import SelectService from './select.service';
 import { map, tap } from 'rxjs/operators';
 import ISelectModel from './select.model';
 import ISelectGroupModel from './select-group.model';
 import ISelectPagedModel from './select-paged.model';
-import { HttpConfig } from 'projects/sfc-inputs/src/lib/common/utils/http-config';
-import { ILoadMoreData } from 'projects/sfc-inputs/src/lib/common/interfaces/ILoadMoreData';
 import BaseAppInputComponent from 'src/base-app-input.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SfcValidators } from 'sfc-inputs';
 
 @Component({
     selector: 'select-input-app',
@@ -24,49 +20,50 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SelectInputAppComponent extends BaseAppInputComponent {
 
-    private defaultDisplayValue: ISelectData = { value: "Choose customdefault option", key: -10, isDefault: true };
+    public defaultDisplayValue: any = { value: "Choose customdefault option", key: -10, isDefault: true };
 
     private readonly FULL_DATA_CONFIG_URL = 'http://sfc.mock.com:88/values/sleep/1000';
 
     private readonly PAGEABLE_DATA_CONFIG_URL = 'http://sfc.mock.com:88/values/pagination';
 
     // static data
-    private data: ISelectData[];
+    public data: any[];
 
     // async data
-    private $httpData: Observable<any>;
+    public $httpData: Observable<any>;
 
     // opt group data
-    private datagroup: ISelectDataGroup[];
+    public datagroup: any[];
 
     // opt group async data
-    private $httpDataGroup: Observable<any>;
+    public $httpDataGroup: Observable<any>;
 
     // full data http configuration
-    private httpConfig: HttpConfig<any> = new HttpConfig<any>(this.FULL_DATA_CONFIG_URL)
-        .setMapper(site => {
-            return { Items: site.map((s: any) => { return { key: s.Id, value: s.Value } }), HasNext: false };
-        });
+    public httpConfig: any = null;
+    // new HttpConfig<any>(this.FULL_DATA_CONFIG_URL)
+    //     .setMapper(site => {
+    //         return { Items: site.map((s: any) => { return { key: s.Id, value: s.Value } }), HasNext: false };
+    //     });
 
     // load more by scrolling configs
-    private httpLoadMoreConfig = this.getConfig();
-    private httpLoadMoreConfig1 = this.getConfig();
-    private httpLoadMoreConfig2 = this.getConfig();
+    public httpLoadMoreConfig = this.getConfig();
+    public httpLoadMoreConfig1 = this.getConfig();
+    public httpLoadMoreConfig2 = this.getConfig();
 
     // load more by button configs
-    private httpLoadMoreButtonConfig = this.getConfig();
-    private httpLoadMoreButtonConfig1 = this.getConfig();
-    private httpLoadMoreButtonConfig2 = this.getConfig();
+    public httpLoadMoreButtonConfig = this.getConfig();
+    public httpLoadMoreButtonConfig1 = this.getConfig();
+    public httpLoadMoreButtonConfig2 = this.getConfig();
 
     // loader function for scrolling
-    private loadFuncScroll = this.getLoadFunction(this.selectService);
-    private loadFuncScroll1 = this.getLoadFunction(this.selectService);
-    private loadFuncScroll2 = this.getLoadFunction(this.selectService);
+    public loadFuncScroll = this.getLoadFunction(this.selectService);
+    public loadFuncScroll1 = this.getLoadFunction(this.selectService);
+    public loadFuncScroll2 = this.getLoadFunction(this.selectService);
 
     // loader function for load more button
-    private loadFuncButton = this.getLoadFunction(this.selectService);
-    private loadFuncButton1 = this.getLoadFunction(this.selectService);
-    private loadFuncButton2 = this.getLoadFunction(this.selectService);
+    public loadFuncButton = this.getLoadFunction(this.selectService);
+    public loadFuncButton1 = this.getLoadFunction(this.selectService);
+    public loadFuncButton2 = this.getLoadFunction(this.selectService);
 
     constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute, private selectService: SelectService) {
         super(formBuilder, router, activatedRoute);
@@ -321,21 +318,22 @@ export class SelectInputAppComponent extends BaseAppInputComponent {
     }
 
     private getConfig() {
-        let config = new HttpConfig<ILoadMoreData<ISelectData>>(this.PAGEABLE_DATA_CONFIG_URL, true)
-            .setParams([{ paramName: "PageNumber", paramValue: 1 }, { paramName: "PageSize", paramValue: 25 }, { paramName: "sleep", paramValue: 1500 }])
-            .setMapper((resp: ISelectPagedModel) => {
-                return {
-                    Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }),
-                    HasNext: resp.HasNext
-                }
-            })
-            .setUpdater((resp: ISelectPagedModel) => {
-                updater(resp);
-            });
+        let config = null;
+        // new HttpConfig<ILoadMoreData<ISelectData>>(this.PAGEABLE_DATA_CONFIG_URL, true)
+        //     .setParams([{ paramName: "PageNumber", paramValue: 1 }, { paramName: "PageSize", paramValue: 25 }, { paramName: "sleep", paramValue: 1500 }])
+        //     .setMapper((resp: ISelectPagedModel) => {
+        //         return {
+        //             Items: resp.Items.map((s: ISelectModel) => { return { key: s.Id, value: s.Value } }),
+        //             HasNext: resp.HasNext
+        //         }
+        //     })
+        //     .setUpdater((resp: ISelectPagedModel) => {
+        //         updater(resp);
+        //     });
 
-        let updater = (resp: ISelectPagedModel) => {
-            config.updateParam('PageNumber', ++resp.CurrentPage);
-        };
+        // let updater = (resp: ISelectPagedModel) => {
+        //     config.updateParam('PageNumber', ++resp.CurrentPage);
+        // };
 
         return config;
     }

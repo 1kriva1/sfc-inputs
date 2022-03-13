@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import BaseAppInputComponent from 'src/base-app-input.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import ITagsData from 'projects/sfc-inputs/src/lib/common/interfaces/tags-input/ITagsData';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
+import { SfcValidators } from 'sfc-inputs';
 
 @Component({
     selector: 'tags-input-app',

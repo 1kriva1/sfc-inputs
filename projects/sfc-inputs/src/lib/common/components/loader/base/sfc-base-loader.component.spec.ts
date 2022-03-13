@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { SfcInputsModule } from 'projects/sfc-inputs/src/lib/sfc-inputs.module';
 import { CircleLoaderComponent } from '../circle/sfc-circle-loader.component';
 import { ComponentSizeType, CommonConstants } from '../../../constants/common-constants';
 import { LoaderService } from './sfc-loader.service';
 import { UIUtils } from '../../../utils/ui-utils';
+import { SfcInputsModule } from '../../../../sfc-inputs.module';
 
 describe('Component: Loader', () => {
 

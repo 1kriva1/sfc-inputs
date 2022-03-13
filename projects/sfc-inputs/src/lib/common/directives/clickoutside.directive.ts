@@ -1,9 +1,6 @@
 import { Directive, OnInit, OnDestroy, Output, EventEmitter, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/do';
-import { Subscription } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 
 @Directive({
     selector: '[click-outside]'
@@ -21,14 +18,14 @@ export class ClickOutside implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.globalClick = Observable
-            .fromEvent(document, 'click')
-            .delay(1)
-            .do(() => {
-                this.listening = true;
-            }).subscribe((event: MouseEvent) => {
-                this.onGlobalClick(event);
-            });
+        this.globalClick = fromEvent(document, 'click')
+            .pipe(
+                delay(1),
+                tap(() => {
+                    this.listening = true;
+                })).subscribe((event: MouseEvent) => {
+                    this.onGlobalClick(event);
+                });
     }
 
     ngOnDestroy() {

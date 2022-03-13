@@ -3,7 +3,7 @@ import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { CommonUtils } from '../common/utils/common-utils';
 import { CommonConstants, StyleClass } from '../common/constants/common-constants';
-import { Observable } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, filter, map, tap } from 'rxjs/operators';
 import IAutoCompleteData from '../common/interfaces/autocomplete-input/IAutoCompleteData';
 import { ILoadMoreData } from '../common/interfaces/ILoadMoreData';
@@ -117,7 +117,7 @@ export class AutoCompleteInputComponent extends BaseInputComponent<IAutoComplete
     }
 
     private initInputEvent() {
-        const autoCompleteInputEvent$ = Observable.fromEvent(this.elementRefInput.nativeElement, 'input')
+        const autoCompleteInputEvent$ = fromEvent(this.elementRefInput.nativeElement, 'input')
             .pipe(
                 // get value
                 map((event: any) => {

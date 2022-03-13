@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, AfterViewInit, Input, ViewChild, HostBinding, ElementRef, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, AfterViewInit, Input, ViewChild, HostBinding, ElementRef, Renderer2, Directive } from '@angular/core';
 import { NgControl, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import IValidation from '../interfaces/IValidation';
 import { InputRefDirective } from '../directives/input-ref.directive';
 import { CommonConstants, StyleClass } from '../constants/common-constants';
 import { CommonUtils } from '../utils/common-utils';
 
+@Directive()
 export default abstract class BaseInputComponent<T> implements ControlValueAccessor, AfterViewInit {
 
     @Input()

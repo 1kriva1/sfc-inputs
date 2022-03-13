@@ -2,8 +2,10 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { FileUtils } from '../utils/file-utils';
 import { CommonUtils } from '../utils/common-utils';
 import { CollectionUtils } from '../utils/collection-utils';
+import { Directive, Injectable } from '@angular/core';
 
-export default class SfcValidators {
+@Directive()
+export class SfcValidators {
     static TextAreaRequired() {
         const validatorFn: ValidatorFn = (value: any) => {
 

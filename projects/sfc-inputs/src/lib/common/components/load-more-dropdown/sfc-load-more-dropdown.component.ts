@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, Output, ViewChild, HostBinding, OnInit, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import { EventEmitter } from '@angular/core';
 import { CollectionUtils } from '../../utils/collection-utils';
@@ -12,12 +12,13 @@ import { ILoadParameters } from '../../interfaces/ILoadParameters';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UIUtils } from '../../utils/ui-utils';
 import { HttpUtils } from '../../utils/http-utils';
+import { exhaustMap } from 'rxjs/operators';
 
 @Component({
     selector: 'load-more-dropdown',
     templateUrl: './sfc-load-more-dropdown.component.html',
     styleUrls: ['../../styles/sfc-base-input.component.css', '../../styles/sfc-base-input-dark-theme.component.css',
-    './sfc-load-more-dropdown.component.css', './sfc-load-more-dropdown-dark-theme.component.css']
+        './sfc-load-more-dropdown.component.css', './sfc-load-more-dropdown-dark-theme.component.css']
 })
 export class LoadMoreDropDownComponent implements OnInit, IPageable<ILoadMoreData<any>>{
 
@@ -154,10 +155,12 @@ export class LoadMoreDropDownComponent implements OnInit, IPageable<ILoadMoreDat
     public exhaust(observable: Observable<any>) {
         if (CommonUtils.isDefined(observable)) {
             let exhaustedObservable = observable
-                .exhaustMap((parameters: ILoadParameters) => {
-                    this.toggleLoading(true);
-                    return CommonUtils.isDefined(this._loadFunction) ? this._loadFunction(parameters) : Observable.empty();
-                });
+                .pipe(
+                    exhaustMap((parameters: ILoadParameters) => {
+                        this.toggleLoading(true);
+                        return CommonUtils.isDefined(this._loadFunction) ? this._loadFunction(parameters) : EMPTY;
+                    })
+                );
 
             this.subscribe(exhaustedObservable);
         }
@@ -190,8 +193,8 @@ export class LoadMoreDropDownComponent implements OnInit, IPageable<ILoadMoreDat
                 this._loadFunction = () => this.httpUtils.getDataByConfig<any>(this.httpConfig);
             }
             // 3. static data
-            else if(CommonUtils.isDefined(this.data)){
-                this._loadFunction = () => Observable.of({ Items: Object.assign([], this.data), HasNext: false });
+            else if (CommonUtils.isDefined(this.data)) {
+                this._loadFunction = () => of({ Items: Object.assign([], this.data), HasNext: false });
             }
         } else {
             this._loadFunction = this.loader;

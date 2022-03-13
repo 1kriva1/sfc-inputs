@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
 import BaseAppInputComponent from 'src/base-app-input.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { combineLatest } from 'rxjs';
+import { SfcValidators } from 'sfc-inputs'
 
 @Component({
     selector: 'photo-input-app',
@@ -17,7 +17,7 @@ import { combineLatest } from 'rxjs';
 export class PhotoInputAppComponent extends BaseAppInputComponent {
 
     private httpClient: HttpClient;
-    private defaultPhoto = '../assets/barack-obama.png';
+    public defaultPhoto = '../assets/barack-obama.png';
     private imageValue: any;
     private invalidValue: any;
 

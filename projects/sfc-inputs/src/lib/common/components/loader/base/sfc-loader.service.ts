@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { filter, map, distinctUntilChanged } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CollectionUtils } from '../../../utils/collection-utils';
 import { CommonConstants } from '../../../constants/common-constants';
 import ILoader from '../../../interfaces/ILoader';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class LoaderService {

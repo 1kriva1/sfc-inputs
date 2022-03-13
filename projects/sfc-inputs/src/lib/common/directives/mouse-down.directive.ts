@@ -1,9 +1,5 @@
 import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
 
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/do';
-
 @Directive({
     selector: '[mouse-down-left]'
 })

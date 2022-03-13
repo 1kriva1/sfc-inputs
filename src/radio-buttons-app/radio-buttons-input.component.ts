@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import BaseAppInputComponent from 'src/base-app-input.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import IRadioButtonsData from 'projects/sfc-inputs/src/lib/common/interfaces/radio-buttons/IRadioButtonsData';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
 import RadioButtonService from './radio-button.service';
 import IRadioButtonModel from './radio-button.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { SfcValidators } from 'sfc-inputs';
 
 @Component({
     selector: 'radio-buttons-input-app',
@@ -19,20 +18,20 @@ import { Observable } from 'rxjs';
 })
 export class RadioButtonsInputAppComponent extends BaseAppInputComponent {
     // static data
-    private data: IRadioButtonsData[];
+    public data: any[];
 
-    private dataIcons: IRadioButtonsData[];
+    public dataIcons: any[];
 
-    private dataMix: IRadioButtonsData[];
+    public dataMix: any[];
 
-    private dataItemDisabled: IRadioButtonsData[];
+    public dataItemDisabled: any[];
 
-    private dataMixItemDisabled: IRadioButtonsData[];
+    public dataMixItemDisabled: any[];
 
-    private dataItemDefault: IRadioButtonsData[];
+    public dataItemDefault: any[];
 
     // async data
-    private $httpData: Observable<IRadioButtonsData[]>;
+    public $httpData: Observable<any[]>;
 
     constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute, private radioButtonService: RadioButtonService) {
         super(formBuilder, router, activatedRoute);

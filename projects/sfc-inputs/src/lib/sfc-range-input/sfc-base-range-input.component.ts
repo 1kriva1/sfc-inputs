@@ -1,9 +1,10 @@
-import { Self, Optional, ChangeDetectorRef, ElementRef, Renderer2, Input, AfterViewInit } from '@angular/core';
+import { Self, Optional, ChangeDetectorRef, ElementRef, Renderer2, Input, AfterViewInit, Directive } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import BaseInputComponent from '../common/components/sfc-base-input.component';
 import { InputPosition } from '../common/constants/common-constants';
 import { CommonUtils } from '../common/utils/common-utils';
 
+@Directive()
 export default abstract class BaseRangeInputComponent extends BaseInputComponent<number> implements AfterViewInit {
 
     @Input()

@@ -1,15 +1,9 @@
 import { Directive, AfterViewInit, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/pairwise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/exhaustMap';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/startWith';
-import { tap, distinctUntilChanged } from 'rxjs/operators';
 import { ILoadMoreData } from '../../interfaces/ILoadMoreData';
 import IScrollPosition from './IScrollPosition';
 import { CommonUtils } from '../../utils/common-utils';
+import { EMPTY, fromEvent, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, exhaustMap, filter, map, pairwise, startWith } from 'rxjs/operators';
 
 @Directive({
     selector: '[infinite-scroller]'
@@ -146,7 +140,7 @@ export class InfiniteScrollerDirective implements AfterViewInit {
      * Register scroll event
      */
     private registerScrollEvent() {
-        this.scrollEvent$ = Observable.fromEvent(this.element.nativeElement, 'scroll', {});
+        this.scrollEvent$ = fromEvent(this.element.nativeElement, 'scroll', {});
     }
 
     /**
@@ -156,16 +150,17 @@ export class InfiniteScrollerDirective implements AfterViewInit {
      */
     private streamScrollEvents() {
         this.userScrolledDown$ = this.scrollEvent$
-            .pipe(distinctUntilChanged())
-            .map((e: any): IScrollPosition => ({
-                sH: e.target.scrollHeight,
-                sT: e.target.scrollTop,
-                cH: e.target.clientHeight
-            }))
-            .pairwise()
-            .filter(positions => {
-                return this.hasMore && this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1])
-            });
+            .pipe(
+                distinctUntilChanged(),
+                map((e: any): IScrollPosition => ({
+                    sH: e.target.scrollHeight,
+                    sT: e.target.scrollTop,
+                    cH: e.target.clientHeight
+                })),
+                pairwise(),
+                filter(positions => {
+                    return this.hasMore && this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1])
+                }));
     }
 
     /**
@@ -177,25 +172,27 @@ export class InfiniteScrollerDirective implements AfterViewInit {
         this.requestOnScroll$ = this.userScrolledDown$;
 
         if (this.immediateCallback || lateBinding) {
-            this.requestOnScroll$ = this.requestOnScroll$
-                .startWith([this.DEFAULT_SCROLL_POSITION, this.DEFAULT_SCROLL_POSITION]);
+            this.requestOnScroll$ = this.requestOnScroll$.pipe(
+                startWith([this.DEFAULT_SCROLL_POSITION, this.DEFAULT_SCROLL_POSITION])
+            );
         }
 
         this.requestOnScrollSubscription = this.requestOnScroll$
-            .exhaustMap(() => {
-                if (this.loader) {
+            .pipe(
+                exhaustMap(() => {
+                    if (this.loader) {
 
-                    if (this.scrolled)
-                        this.scrolled.emit();
+                        if (this.scrolled)
+                            this.scrolled.emit();
 
-                    let $loadObs = this.loader();
+                        let $loadObs = this.loader();
 
-                    return $loadObs ? $loadObs : Observable.empty();
-                }
+                        return $loadObs ? $loadObs : EMPTY;
+                    }
 
-                return Observable.empty();
-            })
-            .subscribe(
+                    return EMPTY;
+                })
+            ).subscribe(
                 (data: ILoadMoreData<any>) => {
                     if (this.updated)
                         this.updated.emit(data);

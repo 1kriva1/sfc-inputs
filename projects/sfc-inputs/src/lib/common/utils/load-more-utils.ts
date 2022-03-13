@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CommonConstants } from '../constants/common-constants';
 import { ILoadMoreData } from '../interfaces/ILoadMoreData';
@@ -37,7 +37,7 @@ export class LoadMoreUtils {
                 HasNext: page < Math.ceil(foundItems.length / pageSize)
             };
 
-        return Observable.of(data)
+        return of(data)
             .pipe(
                 tap((resp: ILoadMoreData<any>) => {
                     if (updater) {

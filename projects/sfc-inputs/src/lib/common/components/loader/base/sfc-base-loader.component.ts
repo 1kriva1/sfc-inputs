@@ -1,10 +1,11 @@
-import { Input, HostBinding, OnInit, Renderer2 } from '@angular/core';
+import { Input, HostBinding, OnInit, Renderer2, Directive } from '@angular/core';
 import { ComponentSizeType, CommonConstants, StyleClass } from '../../../constants/common-constants';
 import ISize from '../../../interfaces/ISize';
 import { LoaderService } from './sfc-loader.service';
 import ILoader from '../../../interfaces/ILoader';
 import { UIUtils } from '../../../utils/ui-utils';
 
+@Directive()
 export default abstract class BaseLoaderComponent implements OnInit {
 
   /**

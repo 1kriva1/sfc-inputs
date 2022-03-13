@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
 import BaseAppInputComponent from 'src/base-app-input.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SfcValidators } from 'sfc-inputs';
 
 @Component({
     selector: 'file-input-app',

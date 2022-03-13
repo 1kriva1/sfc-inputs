@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import BaseAppInputComponent from 'src/base-app-input.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import AutoCompleteService from './autocomplete.service';
-import { map, tap } from 'rxjs/operators';
+import { concatMap, map, tap } from 'rxjs/operators';
 import IAutoCompletePagedModel from './autocomplete-paged.model';
-import SfcValidators from 'projects/sfc-inputs/src/lib/common/validators/sfc-input.validators';
-import { Observable } from 'rxjs';
+import {SfcValidators} from 'sfc-inputs';
+import { Observable, of } from 'rxjs';
+import AutoCompleteService from './autocomplete.service';
 
 @Component({
     selector: 'autocomplete-input-app',
@@ -20,11 +20,11 @@ export class AutoCompleteInputAppComponent extends BaseAppInputComponent {
 
     // loader function for scrolling
 
-    private loader = this.getPagedLoadFunction(this.autoCompleteService);
+    public loader = this.getPagedLoadFunction(this.autoCompleteService);
 
-    private loaderFullData = this.getLoadFunction(this.autoCompleteService);
+    public loaderFullData = this.getLoadFunction(this.autoCompleteService);
 
-    private data: any[] = [
+    public data: any[] = [
         {
             key: 1,
             value: 'andrii 1',
@@ -69,7 +69,8 @@ export class AutoCompleteInputAppComponent extends BaseAppInputComponent {
         }
     ];
 
-    constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute, private autoCompleteService: AutoCompleteService) {
+    constructor(protected formBuilder: FormBuilder, protected router: Router, protected activatedRoute: ActivatedRoute,
+        private autoCompleteService: AutoCompleteService) {
         super(formBuilder, router, activatedRoute);
     }
 
@@ -257,16 +258,19 @@ export class AutoCompleteInputAppComponent extends BaseAppInputComponent {
         );
     }
 
-    private getAutocompleteObservables(controlId: string): Observable<any> {
-        return Observable.of(null)
-            .concatMap(() => {
-                return this.autoCompleteService.getAutoCompletes(this.customInputForm.controls[controlId].value.displayValue).pipe(map(resp => {
-                    return { Items: resp.map((s) => { return { value: s.Value, key: s.Key } }), HasNext: false }
-                }));
-            });
+    public getAutocompleteObservables(controlId: string): Observable<any> {
+        return of(null)
+            .pipe(
+                concatMap(() => {
+                    return this.autoCompleteService.getAutoCompletes(this.customInputForm.controls[controlId].value.displayValue).pipe(
+                        map((resp: any) => {
+                            return { Items: resp.map((s) => { return { value: s.Value, key: s.Key } }), HasNext: false }
+                        }));
+                })
+            );
     }
 
-    private getLoadFunction(service: AutoCompleteService) {
+    public getLoadFunction(service: AutoCompleteService) {
         return (parameters: any) => {
             return service.getAutoCompletes(parameters.value).pipe(
                 map((resp: any) => {
@@ -276,7 +280,7 @@ export class AutoCompleteInputAppComponent extends BaseAppInputComponent {
         };
     }
 
-    private getPagedLoadFunction(service: AutoCompleteService) {
+    public getPagedLoadFunction(service: AutoCompleteService) {
         var page = 1;
 
         return (parameters: any) => {
