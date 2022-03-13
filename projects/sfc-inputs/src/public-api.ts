@@ -24,10 +24,3 @@ export * from './lib/common/components/loader/bounce/sfc-bounce-loader.component
 export * from './lib/common/components/tooltip/sfc-tooltip.component';
 export * from './lib/common/components/loader/base/sfc-loader.service';
 export * from './lib/common/utils/http-utils';
-
-export * from './lib/sfc-tags-input/sfc-chip/sfc-tags-chip.component';
-export * from './lib/common/components/load-more-button/sfc-load-more-button.component';
-export * from './lib/common/directives/infinite-scroll/sfc-infinite-scroll.directive';
-export * from './lib/sfc-star-rating-input/sfc-star/sfc-star.component';
-export * from './lib/common/components/load-more-dropdown/sfc-load-more-dropdown.component';
-export * from './lib/sfc-autocomplete-input/sfc-autocomplete-input.component';
